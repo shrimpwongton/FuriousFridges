@@ -1,4 +1,28 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom';
+import HomePage from './components/HomePage.jsx';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+} from 'react-router-dom';
 
-ReactDOM.render(<h1>Hello World from React</h1>, document.getElementById('root'));
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+
+    return (
+      <Router>
+        <div>
+          <Route exact path="/" component={HomePage}/>
+          <Route path="login" component={HomePage} />
+        </div>
+      </Router>
+    );
+  }
+}
+ReactDOM.render(<App/>, document.getElementById('app'));
