@@ -2,6 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import HomePage from './components/HomePage.jsx';
+import Login from './components/Login.jsx';
 import {
   BrowserRouter as Router,
   Route,
@@ -19,7 +20,7 @@ class App extends React.Component {
       <Router>
         <div>
           <Route exact path="/" component={HomePage}/>
-          <Route path="login" component={HomePage} />
+          <Route path="/login" component={Login} />
         </div>
       </Router>
     );

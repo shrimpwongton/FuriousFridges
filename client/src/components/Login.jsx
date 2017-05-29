@@ -1,5 +1,5 @@
 import React from 'react';
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {
   blueGrey500, grey300, white
@@ -7,9 +7,9 @@ import {
 import {
   Link,
 } from 'react-router-dom';
-import FlatButton from 'material-ui/FlatButton';
+import GoogleButton from 'react-google-button'
 
-class HomePage extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -108,7 +108,10 @@ class HomePage extends React.Component {
       },
       divStyle: {
         overflow: 'hidden',
-      }
+      },
+      googleSignInStyle: {
+        textDecoration: 'none',
+      },
     };
 
     return (
@@ -126,14 +129,6 @@ class HomePage extends React.Component {
                 />
               </Link>
             </ToolbarGroup>
-            <ToolbarGroup style={styles.signInStyle}>
-              <Link to='/login'>
-                <FlatButton
-                  style={styles.whiteTextStyle}
-                  label="LOG IN"
-                />
-              </Link>
-            </ToolbarGroup>
           </Toolbar>
         </MuiThemeProvider>
         <div>
@@ -148,16 +143,16 @@ class HomePage extends React.Component {
         <div
           style={styles.centerStyle}>
           <p
-            style={styles.headerStyle}>
-            Relocate.me
-          </p>
-          <p
             style={styles.subHeaderStyle}>
-            You handle the packing, we'll take of the rest
+            Packing can wait, start here now
           </p>
+          <a href="/auth/google"
+             style = {styles.googleSignInStyle}>
+            <GoogleButton />
+          </a>
         </div>
       </div>);
   }
 }
 
-export default HomePage;
+export default Login;
