@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import HomePage from './components/HomePage.jsx';
 import Login from './components/Login.jsx';
 import Profile from './components/Profile.jsx';
+import Signup from './components/Signup.jsx';
 import {
   BrowserRouter as Router,
   Route,
@@ -23,7 +24,7 @@ class App extends React.Component {
         <div>
           <Route exact path="/" component={HomePage}/>
           <Route path="/login" component={Login} />
-          <Route path="/signup" component={Login} />
+          <Route path="/signup" component={Signup} />
           <Route path="/profile" user={this.props.user} component={Profile} />
         </div>
       </Router>

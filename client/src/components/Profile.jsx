@@ -85,12 +85,11 @@ class Profile extends React.Component {
         </MuiThemeProvider>
         <MuiThemeProvider>
           <Tabs
-            tabItemContainerStyle={{width: '70%'}}
+            tabItemContainerStyle={{width: '400px'}}
             inkBarStyle={{background: amber500, zIndex: 500}}
             contentContainerStyle={{background: grey300}}
             style={{background: blueGrey500}}>
             <Tab
-              icon={<ActionDashboard/>}
               label="DASHBOARD"
               style={styles.tabStyle}>
               <div>
@@ -98,7 +97,6 @@ class Profile extends React.Component {
               </div>
             </Tab>
             <Tab
-              icon={<SocialLocationCity/>}
               label="CITY INFO"
               style={styles.tabStyle}
             >
@@ -107,7 +105,6 @@ class Profile extends React.Component {
               </div>
             </Tab>
             <Tab
-              icon={<ActionList/>}
               label="QUESTIONS"
               style={styles.tabStyle}
             >

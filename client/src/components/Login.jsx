@@ -8,6 +8,7 @@ import {
   Link,
 } from 'react-router-dom';
 import GoogleButton from 'react-google-button';
+import FlatButton from 'material-ui/FlatButton';
 
 class Login extends React.Component {
   constructor(props) {
@@ -84,11 +85,6 @@ class Login extends React.Component {
         color: grey300,
         fontSize: '3em',
       },
-      headerStyle: {
-        fontFamily: "'Roboto-Light', sans-serif",
-        color: 'white',
-        fontSize: '8em',
-      },
       captionStyle: {
         fontFamily: "'Roboto', sans-serif",
         color: 'white',
@@ -102,7 +98,7 @@ class Login extends React.Component {
       },
       imageStyle: {
         width: '100%',
-        height: '95%',
+        height: '94%',
         objectFit: 'cover',
         overflow: 'hidden',
       },
@@ -129,6 +125,14 @@ class Login extends React.Component {
                 />
               </Link>
             </ToolbarGroup>
+            <ToolbarGroup style={styles.signInStyle}>
+              <Link to='/signup'>
+                <FlatButton
+                  style={styles.whiteTextStyle}
+                  label="SIGN UP"
+                />
+              </Link>
+            </ToolbarGroup>
           </Toolbar>
         </MuiThemeProvider>
         <div>
@@ -144,7 +148,7 @@ class Login extends React.Component {
           style={styles.centerStyle}>
           <p
             style={styles.subHeaderStyle}>
-            Packing can wait, start here now
+            It's great to see you back
           </p>
           <a href="/auth/google"
              style = {styles.googleSignInStyle}>
