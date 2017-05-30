@@ -127,6 +127,13 @@ class HomePage extends React.Component {
               </Link>
             </ToolbarGroup>
             <ToolbarGroup style={styles.signInStyle}>
+              <Link to='/signup'>
+                <FlatButton
+                  style={styles.whiteTextStyle}
+                  label="SIGN UP"
+                />
+              </Link>
+              <ToolbarSeparator/>
               <Link to='/login'>
                 <FlatButton
                   style={styles.whiteTextStyle}

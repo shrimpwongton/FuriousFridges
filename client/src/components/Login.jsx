@@ -7,7 +7,7 @@ import {
 import {
   Link,
 } from 'react-router-dom';
-import GoogleButton from 'react-google-button'
+import GoogleButton from 'react-google-button';
 
 class Login extends React.Component {
   constructor(props) {
