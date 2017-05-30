@@ -19,12 +19,18 @@ class Question extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={styles} onClick={this.answerQuestion}>
         {`${this.props.question.id}) ${this.props.question.author}: ${this.props.question.body}`}
-        <button onClick={this.answerQuestion}>Answer</button>
       </div>
     ); 
   }
 }
+
+const styles = {
+  'borderStyle': 'solid',
+  'width': '1000px',
+  'fontSize': '24px',
+  'cursor': 'pointer'
+};
 
 export default Question;

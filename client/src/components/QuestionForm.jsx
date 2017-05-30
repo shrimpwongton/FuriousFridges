@@ -15,7 +15,7 @@ class QuestionForm extends React.Component {
   render() {
     return (
       <div>
-        <h1>Ask a question</h1>
+        <h2>Ask a question</h2>
         <form onSubmit={this.handleSubmit}>
           <div>
             <input placeholder="Name:" ref={name => this._name = name} />
@@ -24,6 +24,7 @@ class QuestionForm extends React.Component {
           </div>
           <button type="submit">Post</button>
         </form>
+        <br /><br />
       </div>
     ); 
   }

@@ -40,6 +40,11 @@ router.route('/profile')
     });*/
   });
 
+router.route('/authenticated')
+  .get(middleware.auth.verify, (req, res) => {
+    res.send({ user: req.user });
+  });
+
 router.route('/logout')
   .get((req, res) => {
     req.logout();
@@ -58,7 +63,9 @@ router.get('/auth/google', middleware.passport.authenticate('google', {
 router.get('/auth/google/callback', middleware.passport.authenticate('google', {
   successRedirect: '/profile',
   failureRedirect: '/login'
-}));
+}), function(req, res) {
+  console.log('***************', req);
+});
 
 router.get('/auth/facebook', middleware.passport.authenticate('facebook', {
   scope: ['public_profile', 'email']

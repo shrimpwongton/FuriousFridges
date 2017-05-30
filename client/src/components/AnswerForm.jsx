@@ -3,35 +3,22 @@ import React from 'react';
 class AnswerForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      answers: []
-    };
-
-    this.answerQuestionInView = this.answerQuestionInView.bind(this);
+    
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const answer = {
-      id: this.state.answers.length + 1,
-      author: this._name.value,
-      body: this._answer.value
-    };
-    this.answerQuestionInView(answer);
+    this.props.answerQuestionInView(this._name.value, this._answer.value, this.props.questionId);
     // this.setState({
     //   answers: this.state.answers.concat([answer])
     // });
   }
 
-  answerQuestionInView(answer) {
-    this.props.answerQuestionInView(answer);
-  }
-
   render() {
     return (
       <div>
-        <h1>Answer a question</h1>
+        <h3>Answer this question</h3>
         <form onSubmit={this.handleSubmit}>
           <div>
             <input placeholder="Name:" ref={name => this._name = name} />
