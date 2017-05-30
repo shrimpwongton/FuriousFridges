@@ -106,6 +106,8 @@ class HomePage extends React.Component {
       },
       divStyle: {
         overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
       },
       flexStyle: {
         display: 'flex',

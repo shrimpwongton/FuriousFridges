@@ -5,8 +5,8 @@ const path = require('path');
 const router = express.Router();
 
 router.route('/')
-  .get(middleware.auth.profileRedirect, (req, res) => {
-    res.sendFile(path.join(__dirname, '../../public/index.html'));
+  .get(middleware.auth.verify, (req, res) => {
+    res.render('index.ejs');
   });
 
 router.route('/login')
@@ -63,6 +63,7 @@ router.get('/auth/google/callback', middleware.passport.authenticate('google', {
 router.get('/auth/facebook', middleware.passport.authenticate('facebook', {
   scope: ['public_profile', 'email']
 }));
+
 
 router.get('/auth/facebook/callback', middleware.passport.authenticate('facebook', {
   successRedirect: '/profile',
