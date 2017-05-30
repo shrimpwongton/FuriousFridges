@@ -5,8 +5,8 @@ const path = require('path');
 const router = express.Router();
 
 router.route('/')
-  .get(middleware.auth.verify, (req, res) => {
-    res.render('index.ejs');
+  .get(middleware.auth.profileRedirect, (req, res) => {
+    res.sendFile(path.join(__dirname, '../../public/index.html'));
   });
 
 router.route('/login')
@@ -46,6 +46,11 @@ router.route('/logout')
     res.redirect('/');
   });
 
+router.route('/settings')
+  .get(middleware.auth.verify, (req, res) => {
+    res.sendFile(path.join(__dirname, '../../public/index.html'));
+  });
+
 router.get('/auth/google', middleware.passport.authenticate('google', {
   scope: ['email', 'profile']
 }));
@@ -71,5 +76,6 @@ router.get('/auth/twitter/callback', middleware.passport.authenticate('twitter',
   successRedirect: '/profile',
   failureRedirect: '/login'
 }));
+
 
 module.exports = router;

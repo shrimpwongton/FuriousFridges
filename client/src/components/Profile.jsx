@@ -2,7 +2,7 @@ import React from 'react';
 import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {
-  blueGrey500, white, amber500, grey300
+  blueGrey500, white, pinkA200, grey300
 } from 'material-ui/styles/colors';
 import {
   Link,
@@ -17,7 +17,6 @@ import IconButton from 'material-ui/IconButton';
 import Dashboard from './Dashboard.jsx';
 import CityInfo from './CityInfo.jsx';
 import QuestionBoard from './QuestionBoard.jsx';
-import Settings from './Settings.jsx';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -72,12 +71,16 @@ class Profile extends React.Component {
               </Link>
             </ToolbarGroup>
             <ToolbarGroup style={styles.signInStyle}>
-              <IconButton
-                tooltip="Settings">
-                <ActionSettings
-                  color = {white}
-                />
-              </IconButton>
+              <Link to='/settings'
+                    style={styles.homeStyle}
+              >
+                <IconButton
+                  tooltip="Settings">
+                  <ActionSettings
+                    color = {white}
+                  />
+                </IconButton>
+              </Link>
               <a href='/logout'>
                 <FlatButton
                   style={styles.whiteTextStyle}
@@ -90,13 +93,14 @@ class Profile extends React.Component {
         <MuiThemeProvider>
           <Tabs
             tabItemContainerStyle={{width: '400px'}}
-            inkBarStyle={{background: amber500, zIndex: 500}}
+            inkBarStyle={{background: pinkA200, zIndex: 500}}
             contentContainerStyle={{background: grey300}}
             style={{background: blueGrey500}}>
             <Tab
               label="DASHBOARD"
               style={styles.tabStyle}>
               <div>
+                <p>{this.props.user}</p>
                 <Dashboard/>
               </div>
             </Tab>
