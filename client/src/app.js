@@ -5,7 +5,6 @@ import HomePage from './components/HomePage.jsx';
 import Login from './components/Login.jsx';
 import Profile from './components/Profile.jsx';
 import Signup from './components/Signup.jsx';
-import Error from './components/Error.jsx';
 import Settings from './components/Settings.jsx';
 import {
   BrowserRouter as Router,
@@ -34,4 +33,4 @@ class App extends React.Component {
   }
 }
 injectTapEventPlugin();
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App/>, document.getElementById('app'));
