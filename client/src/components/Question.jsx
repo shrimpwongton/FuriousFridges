@@ -5,6 +5,11 @@ class Question extends React.Component {
     super(props);
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.answerQuestion = this.answerQuestion.bind(this);
+  }
+
+  answerQuestion() {
+    this.props.answerQuestion(this.props.question.id);
   }
 
   handleSubmit(e) {
@@ -15,8 +20,8 @@ class Question extends React.Component {
   render() {
     return (
       <div>
-        {`${this.props.author}: ${this.props.body}`}
-        <button>Answer</button>
+        {`${this.props.question.id}) ${this.props.question.author}: ${this.props.question.body}`}
+        <button onClick={this.answerQuestion}>Answer</button>
       </div>
     ); 
   }
