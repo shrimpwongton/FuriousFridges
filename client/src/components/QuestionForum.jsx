@@ -1,4 +1,5 @@
 import React from 'react';
+import Question from './Question.jsx';
 import QuestionForm from './QuestionForm.jsx';
 
 class QuestionForum extends React.Component {
@@ -6,10 +7,12 @@ class QuestionForum extends React.Component {
     super(props);
 
     this.state = {
-      questions: []
+      questions: [],
+      view: 'questions'
     };
 
     this.addQuestion = this.addQuestion.bind(this);
+    this.answerQuestion = this.answerQuestion.bind(this);    
   }
 
   addQuestion(author, body) {
@@ -18,10 +21,13 @@ class QuestionForum extends React.Component {
       author: author,
       body: body
     };
-    console.log(question);
     this.setState({
       questions: this.state.questions.concat([question])
     });
+  }
+
+  answerQuestion() {
+
   }
 
   render() {
@@ -30,8 +36,11 @@ class QuestionForum extends React.Component {
         <QuestionForm addQuestion={this.addQuestion} />
         <div>
           {
-            this.state.questions.map(question => 
-            <div>{`${question.author}: ${question.body}`}</div>)           
+          this.state.view = 'questions'
+            ? this.state.questions.map(question => 
+                <Question author={question.author} body={question.body} answerQuestion={this.answerQuestion} />
+              )
+            : null
           }
         </div>
       </div>
