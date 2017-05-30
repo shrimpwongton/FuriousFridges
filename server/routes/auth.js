@@ -1,5 +1,6 @@
 const express = require('express');
 const middleware = require('../middleware');
+const path = require('path');
 
 const router = express.Router();
 
@@ -10,7 +11,8 @@ router.route('/')
 
 router.route('/login')
   .get((req, res) => {
-    res.render('login.ejs', { message: req.flash('loginMessage') });
+    res.sendFile(path.join(__dirname, '../../public/index.html'));
+    //res.render('../../public/index.html', { message: req.flash('loginMessage') });
   })
   .post(middleware.passport.authenticate('local-login', {
     successRedirect: '/profile',
@@ -20,7 +22,7 @@ router.route('/login')
 
 router.route('/signup')
   .get((req, res) => {
-    res.render('signup.ejs', { message: req.flash('signupMessage') });
+    res.sendFile(path.join(__dirname, '../../public/index.html'));
   })
   .post(middleware.passport.authenticate('local-signup', {
     successRedirect: '/profile',
@@ -30,9 +32,12 @@ router.route('/signup')
 
 router.route('/profile')
   .get(middleware.auth.verify, (req, res) => {
-    res.render('profile.ejs', {
-      user: req.user // get the user out of session and pass to template
+    res.sendFile(path.join(__dirname, '../../public/index.html'), {
+      user: req.user
     });
+    /*res.render('profile.ejs', {
+      user: req.user // get the user out of session and pass to template
+    });*/
   });
 
 router.route('/logout')
