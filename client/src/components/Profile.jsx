@@ -14,6 +14,10 @@ import ActionList from 'material-ui/svg-icons/action/list';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
+import Dashboard from './Dashboard.jsx';
+import CityInfo from './CityInfo.jsx';
+import QuestionBoard from './QuestionBoard.jsx';
+import Settings from './Settings.jsx';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -93,7 +97,7 @@ class Profile extends React.Component {
               label="DASHBOARD"
               style={styles.tabStyle}>
               <div>
-                Dashboard React Component Here
+                <Dashboard/>
               </div>
             </Tab>
             <Tab
@@ -101,7 +105,7 @@ class Profile extends React.Component {
               style={styles.tabStyle}
             >
               <div>
-                City React Component Here
+                <CityInfo/>
               </div>
             </Tab>
             <Tab
@@ -109,7 +113,7 @@ class Profile extends React.Component {
               style={styles.tabStyle}
             >
               <div>
-                Question Board Component Here
+                <QuestionBoard/>
               </div>
             </Tab>
           </Tabs>
