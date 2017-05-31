@@ -30,4 +30,4 @@ class App extends React.Component {
   }
 }
 injectTapEventPlugin();
-ReactDOM.render(<App {...(document.getElementById('app').dataset)} />, document.getElementById('app'));
+ReactDOM.render(<App/>, document.getElementById('app'));
