@@ -23,18 +23,29 @@ import Divider from 'material-ui/Divider';
 import TextField from 'material-ui/TextField';
 import Toggle from 'material-ui/Toggle';
 import {List, ListItem} from 'material-ui/List';
+import Snackbar from 'material-ui/Snackbar';
 
 class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       open: false,
+      snackBar: false,
     };
     this.handleToggle = this.handleToggle.bind(this);
+    this.handleClose= this.handleClose.bind(this);
+    this.handleSave = this.handleSave.bind(this);
   }
 
   handleToggle () {
     this.setState({open: !this.state.open});
+  }
+
+  handleSave () {
+    this.setState({snackBar:true, open: false});
+  }
+  handleClose () {
+    this.setState({snackBar: false});
   }
   render () {
 
@@ -189,12 +200,21 @@ class Profile extends React.Component {
             <FlatButton
               label="SAVE"
               style ={styles.saveButtonStyle}
+              onTouchTap = {this.handleSave}
             />
             <FlatButton
               label="CANCEL"
               onTouchTap={this.handleToggle}
             />
           </Drawer>
+        </MuiThemeProvider>
+        <MuiThemeProvider>
+          <Snackbar
+            open={this.state.snackBar}
+            message="Settings were saved"
+            autoHideDuration={2000}
+            onRequestClose={this.handleClose}
+          />
         </MuiThemeProvider>
       </div>);
   }
