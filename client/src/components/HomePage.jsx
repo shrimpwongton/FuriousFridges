@@ -31,7 +31,6 @@ class HomePage extends React.Component {
       '/assets/JiuFen.jpg',
       '/assets/Chicago.jpg',
       '/assets/Uluru.jpg',
-      '/assets/Phuket.jpg',
       '/assets/GuangHuaMen.jpg',
       '/assets/BrandenburgGate.jpg',
       '/assets/StBasilsCathedral.jpg',
@@ -51,7 +50,6 @@ class HomePage extends React.Component {
       'Jiufen, Taiwan · 九分，臺灣',
       'Millennium Park, Chicago',
       'Uluru, Australia',
-      'Phuket, Thailand · ภูเก็ต，ประเทศไทย',
       'Gwanghwamun, South Korea · 광화문，대한민국',
       'Brandenburg Gate, Berlin · Brandenburger Tor, Berlin',
       'St. Basil\'s Cathedral, Moscow · Собор Василия Блаженного, Москва́'
@@ -102,12 +100,14 @@ class HomePage extends React.Component {
       },
       imageStyle: {
         width: '100%',
-        height: '94%',
+        height: '94vh',
         objectFit: 'cover',
         overflow: 'hidden',
       },
       divStyle: {
         overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
       },
       flexStyle: {
         display: 'flex',

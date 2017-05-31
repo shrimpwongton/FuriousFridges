@@ -1,5 +1,5 @@
 import React from 'react';
-import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
+import {Toolbar, ToolbarGroup,ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {
   blueGrey500, grey300, white
@@ -7,10 +7,9 @@ import {
 import {
   Link,
 } from 'react-router-dom';
-import GoogleButton from 'react-google-button';
 import FlatButton from 'material-ui/FlatButton';
 
-class Signup extends React.Component {
+class Error extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,6 +31,7 @@ class Signup extends React.Component {
       '/assets/JiuFen.jpg',
       '/assets/Chicago.jpg',
       '/assets/Uluru.jpg',
+      '/assets/Phuket.jpg',
       '/assets/GuangHuaMen.jpg',
       '/assets/BrandenburgGate.jpg',
       '/assets/StBasilsCathedral.jpg',
@@ -51,12 +51,12 @@ class Signup extends React.Component {
       'Jiufen, Taiwan · 九分，臺灣',
       'Millennium Park, Chicago',
       'Uluru, Australia',
+      'Phuket, Thailand · ภูเก็ต，ประเทศไทย',
       'Gwanghwamun, South Korea · 광화문，대한민국',
       'Brandenburg Gate, Berlin · Brandenburger Tor, Berlin',
       'St. Basil\'s Cathedral, Moscow · Собор Василия Блаженного, Москва́'
     ];
     const randomNumber = Math.floor(Math.random()*images.length);
-
     const styles = {
       homeStyle: {
         textDecoration: 'none',
@@ -83,6 +83,11 @@ class Signup extends React.Component {
         color: grey300,
         fontSize: '3em',
       },
+      headerStyle: {
+        fontFamily: "'Roboto-Light', sans-serif",
+        color: 'white',
+        fontSize: '8em',
+      },
       captionStyle: {
         fontFamily: "'Roboto', sans-serif",
         color: 'white',
@@ -103,11 +108,7 @@ class Signup extends React.Component {
       divStyle: {
         overflow: 'hidden',
       },
-      googleSignInStyle: {
-        textDecoration: 'none',
-      },
     };
-
     return (
       <div style={styles.divStyle}>
         <MuiThemeProvider>
@@ -124,6 +125,13 @@ class Signup extends React.Component {
               </Link>
             </ToolbarGroup>
             <ToolbarGroup style={styles.signInStyle}>
+              <Link to='/signup'>
+                <FlatButton
+                  style={styles.whiteTextStyle}
+                  label="SIGN UP"
+                />
+              </Link>
+              <ToolbarSeparator/>
               <Link to='/login'>
                 <FlatButton
                   style={styles.whiteTextStyle}
@@ -145,18 +153,17 @@ class Signup extends React.Component {
         <div
           style={styles.centerStyle}>
           <p
-            style={styles.subHeaderStyle}>
-            Packing can wait, start here
+            style={styles.headerStyle}>
+            404 Error
           </p>
-          <a href="/auth/google"
-             style = {styles.googleSignInStyle}>
-            <GoogleButton
-              label="Sign up with Google"
-            />
-          </a>
+          <p
+            style={styles.subHeaderStyle}>
+            Oh dear, you've taken a wrong turn.
+          </p>
         </div>
-      </div>);
+      </div>
+    );
   }
 }
 
-export default Signup;
+export default Error;
