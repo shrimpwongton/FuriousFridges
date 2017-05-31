@@ -5,7 +5,6 @@ import HomePage from './components/HomePage.jsx';
 import Login from './components/Login.jsx';
 import Profile from './components/Profile.jsx';
 import Signup from './components/Signup.jsx';
-import Settings from './components/Settings.jsx';
 import {
   BrowserRouter as Router,
   Route,
@@ -26,7 +25,6 @@ class App extends React.Component {
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/profile" user={this.props.user} component={Profile} />
-          <Route exact path="/settings" component={Settings}/>
         </div>
       </Router>
     );
