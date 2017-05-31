@@ -1,6 +1,8 @@
 const express = require('express');
-const middleware = require('../middleware');
 const path = require('path');
+const middleware = require('../middleware');
+const UserController = require('../controllers').Users;
+
 
 const router = express.Router();
 
@@ -41,9 +43,11 @@ router.route('/profile')
   });
 
 router.route('/authenticated')
-  .get(middleware.auth.verify, (req, res) => {
-    res.send({ user: req.user });
-  });
+  .get(middleware.auth.verify, UserController.create);
+  // .get(middleware.auth.verify, (req, res) => {
+  //   console.log(req.user);
+  //   res.send({ user: req.user });
+  // });
 
 router.route('/logout')
   .get((req, res) => {
