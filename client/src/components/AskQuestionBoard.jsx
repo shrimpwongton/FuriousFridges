@@ -6,7 +6,7 @@ import Answer from './Answer.jsx';
 import AnswerForm from './AnswerForm.jsx';
 import $ from 'jquery';
 
-class AskQuestionForum extends React.Component {
+class AskQuestionBoard extends React.Component {
   constructor(props) {
     super(props);
 
@@ -115,4 +115,4 @@ class AskQuestionForum extends React.Component {
   }
 }
 
-export default AskQuestionForum;
+export default AskQuestionBoard;

@@ -1,28 +1,29 @@
 import React from 'react';
-import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {
-  blueGrey500, white, pinkA200,pinkA100, grey300
-} from 'material-ui/styles/colors';
 import {
   Link,
 } from 'react-router-dom';
+import {
+  blueGrey500, white, pinkA200,pinkA100, grey300
+} from 'material-ui/styles/colors';
+import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import ActionDashboard from 'material-ui/svg-icons/action/dashboard';
-import SocialLocationCity from 'material-ui/svg-icons/social/location-city';
 import ActionList from 'material-ui/svg-icons/action/list';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
+import Divider from 'material-ui/Divider';
+import Drawer from 'material-ui/Drawer';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
-import Dashboard from './Dashboard.jsx';
-import CityInfo from './CityInfo.jsx';
-import QuestionBoard from './QuestionBoard.jsx';
-import Drawer from 'material-ui/Drawer';
+import SocialLocationCity from 'material-ui/svg-icons/social/location-city';
 import Subheader from 'material-ui/Subheader';
-import Divider from 'material-ui/Divider';
 import TextField from 'material-ui/TextField';
 import Toggle from 'material-ui/Toggle';
 import {List, ListItem} from 'material-ui/List';
+import AskQuestionBoard from './AskQuestionBoard.jsx';
+import Dashboard from './Dashboard.jsx';
+import CityInfo from './CityInfo.jsx';
+import Settings from './Settings.jsx';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -144,7 +145,7 @@ class Profile extends React.Component {
               style={styles.tabStyle}
             >
               <div>
-                <QuestionBoard/>
+                <AskQuestionBoard/>
               </div>
             </Tab>
           </Tabs>
