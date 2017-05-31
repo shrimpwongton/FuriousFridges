@@ -8,14 +8,11 @@ import {
 import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import ActionDashboard from 'material-ui/svg-icons/action/dashboard';
-import ActionList from 'material-ui/svg-icons/action/list';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
 import Divider from 'material-ui/Divider';
 import Drawer from 'material-ui/Drawer';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
-import SocialLocationCity from 'material-ui/svg-icons/social/location-city';
 import Subheader from 'material-ui/Subheader';
 import TextField from 'material-ui/TextField';
 import Toggle from 'material-ui/Toggle';
@@ -25,6 +22,9 @@ import AskQuestionBoard from './AskQuestionBoard.jsx';
 import Dashboard from './Dashboard.jsx';
 import CityInfo from './CityInfo.jsx';
 import Snackbar from 'material-ui/Snackbar';
+import RaisedButton from 'material-ui/RaisedButton';
+import Dialog from 'material-ui/Dialog';
+import QuestionForm from './QuestionForm.jsx';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -32,10 +32,28 @@ class Profile extends React.Component {
     this.state = {
       open: false,
       snackBar: false,
+      firstName: '',
+      lastName: '',
+      email: '',
+      question: false,
     };
     this.handleToggle = this.handleToggle.bind(this);
     this.handleClose= this.handleClose.bind(this);
     this.handleSave = this.handleSave.bind(this);
+    this.handleNewQuestion = this.handleNewQuestion.bind(this);
+    this.handleQuestionClose = this.handleQuestionClose.bind(this);
+    this.handleQuestionSubmit = this.handleQuestionSubmit.bind(this);
+  }
+
+  componentWillMount() {
+    $.get('/authenticated', (auth) => {
+      this.setState({
+        firstName: auth.first,
+        lastName: auth.last,
+        email: auth.email,
+        id: auth.id,
+      });
+    });
   }
 
   handleToggle () {
@@ -47,6 +65,16 @@ class Profile extends React.Component {
   }
   handleClose () {
     this.setState({snackBar: false});
+  }
+  handleNewQuestion () {
+    this.setState({question: true});
+  }
+  handleQuestionClose () {
+    this.setState({question: false});
+  }
+  handleQuestionSubmit () {
+    this.setState({question: false});
+    // Add question here
   }
   render () {
 
@@ -66,10 +94,12 @@ class Profile extends React.Component {
         bottom: 'auto',
       },
       divStyle: {
-        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
       },
       tabStyle: {
         backgroundColor: blueGrey500,
+        overflow: 'hidden',
       },
       headline: {
         fontSize: 24,
@@ -94,8 +124,36 @@ class Profile extends React.Component {
       },
       saveButtonStyle: {
         color: pinkA200,
-      }
+      },
+      askQuestionButton: {
+        margin: 0,
+        right: 20,
+        top: 20,
+        left: 'auto',
+        position: 'absolute',
+      },
+      tabs: {
+        background: blueGrey500,
+      },
+      tab: {
+        flex: '1',
+      },
     };
+
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleQuestionClose}
+      />,
+      <FlatButton
+        label="Submit"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this.handleQuestionSubmit}
+      />,
+    ];
+
 
     return (
       <div style={styles.divStyle}>
@@ -133,7 +191,7 @@ class Profile extends React.Component {
             tabItemContainerStyle={{width: '400px'}}
             inkBarStyle={{background: pinkA200, zIndex: 500}}
             contentContainerStyle={{background: grey300}}
-            style={{background: blueGrey500}}>
+            style={styles.tabs}>
             <Tab
               label="DASHBOARD"
               style={styles.tabStyle}
@@ -154,7 +212,25 @@ class Profile extends React.Component {
               label="QUESTIONS"
               style={styles.tabStyle}
             >
-              <div>
+              <div
+                style={styles.tab}
+              >
+                <RaisedButton
+                  label='ASK A QUESTION'
+                  backgroundColor={pinkA200}
+                  labelColor={white}
+                  onTouchTap={this.handleNewQuestion}
+                  style={styles.askQuestionButton}
+                />
+                <Dialog
+                  title="Ask a Question"
+                  actions={actions}
+                  modal={false}
+                  open={this.state.question}
+                  onRequestClose={this.handleQuestionClose}
+                >
+                  <QuestionForm/>
+                </Dialog>
                 <AskQuestionBoard/>
               </div>
             </Tab>

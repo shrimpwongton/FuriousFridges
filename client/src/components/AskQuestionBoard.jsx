@@ -19,9 +19,9 @@ class AskQuestionBoard extends React.Component {
     };
 
     this.addQuestion = this.addQuestion.bind(this);
-    this.answerQuestion = this.answerQuestion.bind(this);    
+    this.answerQuestion = this.answerQuestion.bind(this);
     this.answerQuestionInView = this.answerQuestionInView.bind(this);
-    this.backToQuestions = this.backToQuestions.bind(this);   
+    this.backToQuestions = this.backToQuestions.bind(this);
   }
 
   componentDidMount() {
@@ -72,18 +72,20 @@ class AskQuestionBoard extends React.Component {
   }
 
   render() {
+    const styles = {
+    };
     return (
       <div>
         <div>
           {
             this.state.view === 'questions'
-            ? <div>  
-                <QuestionForm addQuestion={this.addQuestion} 
+            ? <div>
+                <QuestionForm addQuestion={this.addQuestion}
                               user={this.state.user} />
                 {
-                  this.state.questions.map(question => 
-                    <Question question={question} 
-                              answerQuestion={this.answerQuestion} 
+                  this.state.questions.map(question =>
+                    <Question question={question}
+                              answerQuestion={this.answerQuestion}
                               key={question.id}/>
                   )
                 }
@@ -93,21 +95,21 @@ class AskQuestionBoard extends React.Component {
           {
             this.state.view === 'answer'
             ?  <div>
-                <QuestionView question={this.state.currentQuestion} 
+                <QuestionView question={this.state.currentQuestion}
                               backToQuestions={this.backToQuestions} />
-                { 
-                  this.state.answers.map(answer => 
-                    <Answer id={answer.id} 
-                            author={answer.author} 
-                            body={answer.body} 
+                {
+                  this.state.answers.map(answer =>
+                    <Answer id={answer.id}
+                            author={answer.author}
+                            body={answer.body}
                             key={answer.id} />
-                  ) 
+                  )
                 }
-                <AnswerForm answerQuestionInView={this.answerQuestionInView} 
+                <AnswerForm answerQuestionInView={this.answerQuestionInView}
                             questionId={this.state.currentQuestion.id}
                             user={this.state.user} />
                </div>
-            : null 
+            : null
           }
         </div>
       </div>
