@@ -40,6 +40,11 @@ router.route('/profile')
     });*/
   });
 
+router.route('/authenticated')
+  .get(middleware.auth.verify, (req, res) => {
+    res.send({ user: req.user });
+  });
+
 router.route('/logout')
   .get((req, res) => {
     req.logout();

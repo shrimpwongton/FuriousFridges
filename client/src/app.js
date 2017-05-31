@@ -1,16 +1,15 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import AskQuestionBoard from './components/AskQuestionBoard.jsx';
 import HomePage from './components/HomePage.jsx';
 import Login from './components/Login.jsx';
 import Profile from './components/Profile.jsx';
 import Signup from './components/Signup.jsx';
 import {
   BrowserRouter as Router,
-  Route,
+  Route
 } from 'react-router-dom';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-
 
 class App extends React.Component {
   constructor(props) {
