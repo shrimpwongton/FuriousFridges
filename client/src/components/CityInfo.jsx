@@ -30,6 +30,7 @@ class CityInfo extends React.Component {
 
  checkForCityInfo() {
   
+  
  }
 
  componentDidMount() {
@@ -60,16 +61,18 @@ class CityInfo extends React.Component {
   render () {
     return (
       <div>
-        <p>{this.state.Summary}</p>
-        <p>Housing: {this.state.Housing}</p>
-        <p>Cost of Living: {this.state.Cost_of_Living}</p>
-        <p>Healthcare: {this.state.Health_Care}</p>
-        <p>Environmental Quality: {this.state.Environmental_Quality}</p>
-        <p>Economy: {this.state.Economy}</p>
-        <p>Leisure and Culture: {this.state.Leisure_and_Culture}</p>
-        <p>Commute: {this.state.Commute}</p>
-        <p>Safety: {this.state.Safety}</p>
-        <p>Education: {this.state.Education}</p>
+        <div>
+          {this.state.Summary}
+        </div>
+        <p>Housing: {Math.round((this.state.Housing + 0.00001) * 100) / 100} /10</p>
+        <p>Cost of Living: {Math.round((this.state.Cost_of_Living + 0.00001) * 100) / 100} /10</p>
+        <p>Healthcare: {Math.round((this.state.Health_Care + 0.00001) * 100) / 100} /10</p>
+        <p>Environmental Quality: {Math.round((this.state.Environmental_Quality + 0.00001) * 100) / 100} /10</p>
+        <p>Economy: {Math.round((this.state.Economy + 0.00001) * 100) / 100} /10</p>
+        <p>Leisure and Culture: {Math.round((this.state.Leisure_and_Culture + 0.00001) * 100) / 100} /10</p>
+        <p>Commute: {Math.round((this.state.Commute+ 0.00001) * 100) / 100} /10</p>
+        <p>Safety: {Math.round((this.state.Safety + 0.00001) * 100) / 100} /10</p>
+        <p>Education: {Math.round((this.state.Education + 0.00001) * 100) / 100} /10</p>
       </div>
     );
   }
