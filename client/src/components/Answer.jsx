@@ -9,6 +9,7 @@ const Answer = (props) => (
       <ListItem
         primaryText={props.body}
         secondaryText={props.author}
+        disabled={true}
         leftAvatar={<Avatar>{props.author[0]}</Avatar>}
       />
     </MuiThemeProvider>

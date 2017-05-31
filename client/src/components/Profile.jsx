@@ -22,9 +22,6 @@ import AskQuestionBoard from './AskQuestionBoard.jsx';
 import Dashboard from './Dashboard.jsx';
 import CityInfo from './CityInfo.jsx';
 import Snackbar from 'material-ui/Snackbar';
-import RaisedButton from 'material-ui/RaisedButton';
-import Dialog from 'material-ui/Dialog';
-import QuestionForm from './QuestionForm.jsx';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -93,10 +90,6 @@ class Profile extends React.Component {
         left: 'auto',
         bottom: 'auto',
       },
-      divStyle: {
-        display: 'flex',
-        flexDirection: 'column',
-      },
       tabStyle: {
         backgroundColor: blueGrey500,
         overflow: 'hidden',
@@ -125,13 +118,6 @@ class Profile extends React.Component {
       saveButtonStyle: {
         color: pinkA200,
       },
-      askQuestionButton: {
-        margin: 0,
-        right: 20,
-        top: 20,
-        left: 'auto',
-        position: 'absolute',
-      },
       tabs: {
         background: blueGrey500,
       },
@@ -140,23 +126,8 @@ class Profile extends React.Component {
       },
     };
 
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onTouchTap={this.handleQuestionClose}
-      />,
-      <FlatButton
-        label="Submit"
-        primary={true}
-        keyboardFocused={true}
-        onTouchTap={this.handleQuestionSubmit}
-      />,
-    ];
-
-
     return (
-      <div style={styles.divStyle}>
+      <div>
         <MuiThemeProvider>
           <Toolbar
             style = {styles.toolbarStyle}>
@@ -215,22 +186,6 @@ class Profile extends React.Component {
               <div
                 style={styles.tab}
               >
-                <RaisedButton
-                  label='ASK A QUESTION'
-                  backgroundColor={pinkA200}
-                  labelColor={white}
-                  onTouchTap={this.handleNewQuestion}
-                  style={styles.askQuestionButton}
-                />
-                <Dialog
-                  title="Ask a Question"
-                  actions={actions}
-                  modal={false}
-                  open={this.state.question}
-                  onRequestClose={this.handleQuestionClose}
-                >
-                  <QuestionForm/>
-                </Dialog>
                 <AskQuestionBoard/>
               </div>
             </Tab>
