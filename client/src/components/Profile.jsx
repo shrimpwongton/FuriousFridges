@@ -24,6 +24,7 @@ import Snackbar from 'material-ui/Snackbar';
 import AskQuestionBoard from './AskQuestionBoard.jsx';
 import Dashboard from './Dashboard.jsx';
 import CityInfo from './CityInfo.jsx';
+import Snackbar from 'material-ui/Snackbar';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -211,9 +212,13 @@ class Profile extends React.Component {
           <Snackbar
             open={this.state.snackBar}
             message="Settings were saved"
+<<<<<<< 6fa2d17daa90a99b5f985fe3e63d0efbac71f924
             autoHideDuration={3000}
             action="DISMISS"
             onActionTouchTap={this.handleClose}
+=======
+            autoHideDuration={2000}
+>>>>>>> (feat) Drawer closes when settings are saved
             onRequestClose={this.handleClose}
           />
         </MuiThemeProvider>

@@ -24,7 +24,10 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="183">
               <caret line="35" column="6" lean-forward="false" selection-start-line="35" selection-start-column="6" selection-end-line="35" selection-end-column="6" />
-              <folding />
+              <folding>
+                <marker date="1496248336000" expanded="true" signature="1334:1380" ph="{...}" />
+                <marker date="1496248336000" expanded="true" signature="1988:2072" ph="{&quot;successRedirect&quot;: '/profile'...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -89,13 +92,17 @@
             <state relative-caret-position="450">
               <caret line="30" column="3" lean-forward="true" selection-start-line="30" selection-start-column="3" selection-end-line="30" selection-end-column="3" />
               <folding>
-                <element signature="e#1#27#0" expanded="true" />
+                <marker date="1496248336000" expanded="true" signature="480:884" ph="{...}" />
+                <marker date="1496248336000" expanded="true" signature="503:526" ph="{...}" />
+                <marker date="1496248336000" expanded="true" signature="538:882" ph="{...}" />
+                <marker date="1496248336000" expanded="true" signature="560:871" ph="&lt;Router/&gt;" />
+                <marker date="1496248336000" expanded="true" signature="577:855" ph="&lt;div/&gt;" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Profile.jsx" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Profile.jsx" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/components/Profile.jsx">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="501">
@@ -121,7 +128,7 @@
         <entry file="file://$PROJECT_DIR$/server/views/index.ejs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="75">
-              <caret line="5" column="21" lean-forward="true" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
+              <caret line="5" column="21" lean-forward="false" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -132,7 +139,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="465">
               <caret line="31" column="186" lean-forward="false" selection-start-line="31" selection-start-column="186" selection-end-line="31" selection-end-column="186" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -141,7 +147,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Logi</find>
       <find>Log</find>
       <find>L</find>
       <find>Login</find>
@@ -171,6 +176,7 @@
       <find>/profile</find>
       <find>Settings</find>
       <find>'/profile'</find>
+      <find>toolbar</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/client/src</dir>
@@ -707,7 +713,11 @@
         <state relative-caret-position="30">
           <caret line="3" column="42" lean-forward="false" selection-start-line="3" selection-start-column="42" selection-end-line="3" selection-end-column="42" />
           <folding>
-            <element signature="e#1#27#0" expanded="true" />
+            <marker date="1496248336000" expanded="true" signature="480:884" ph="{...}" />
+            <marker date="1496248336000" expanded="true" signature="503:526" ph="{...}" />
+            <marker date="1496248336000" expanded="true" signature="538:882" ph="{...}" />
+            <marker date="1496248336000" expanded="true" signature="560:871" ph="&lt;Router/&gt;" />
+            <marker date="1496248336000" expanded="true" signature="577:855" ph="&lt;div/&gt;" />
           </folding>
         </state>
       </provider>
@@ -896,6 +906,7 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/config/default.json" />
     <entry file="file://$PROJECT_DIR$/client/src/components/Error.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-162">
@@ -959,7 +970,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="326">
           <caret line="14389" column="71" lean-forward="false" selection-start-line="14389" selection-start-column="71" selection-end-line="14389" selection-end-column="71" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -983,7 +993,7 @@
     <entry file="file://$PROJECT_DIR$/server/views/index.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
-          <caret line="5" column="21" lean-forward="true" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
+          <caret line="5" column="21" lean-forward="false" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
           <folding />
         </state>
       </provider>
@@ -1008,7 +1018,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="183">
           <caret line="35" column="6" lean-forward="false" selection-start-line="35" selection-start-column="6" selection-end-line="35" selection-end-column="6" />
-          <folding />
+          <folding>
+            <marker date="1496248336000" expanded="true" signature="1334:1380" ph="{...}" />
+            <marker date="1496248336000" expanded="true" signature="1988:2072" ph="{&quot;successRedirect&quot;: '/profile'...}" />
+          </folding>
         </state>
       </provider>
     </entry>
