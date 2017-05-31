@@ -1,4 +1,3 @@
-
 exports.up = function (knex, Promise) {
   return Promise.all([
     knex.schema.createTableIfNotExists('profiles', function (table) {
@@ -17,6 +16,17 @@ exports.up = function (knex, Promise) {
       table.string('password', 100).nullable();
       table.string('salt', 100).nullable();
       table.integer('profile_id').references('profiles.id').onDelete('CASCADE');
+    }),
+    knex.schema.createTableIfNotExists('cityinfo', function(table) {
+      table.increments('id').unsigned().primary();
+      table.integer('cost_of_living', 10).notNullable();
+      table.integer('healthcare', 10).notNullable();
+      table.integer('environmental_quality', 10).notNullable();
+      table.integer('economy', 10).notNullable();
+      table.integer('lesiure_and_culture', 10).notNullable();
+      table.integer('commute', 10).notNullable();
+      table.integer('education', 10).notNullable();
+      table.string('summary', 500).notNullable();
     })
   ]);
 };
@@ -24,7 +34,7 @@ exports.up = function (knex, Promise) {
 exports.down = function (knex, Promise) {
   return Promise.all([
     knex.schema.dropTable('auths'),
-    knex.schema.dropTable('profiles')
+    knex.schema.dropTable('profiles'),
+    knex.schema.dropTable('cityinfo')
   ]);
 };
-
