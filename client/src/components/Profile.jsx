@@ -23,7 +23,6 @@ import {List, ListItem} from 'material-ui/List';
 import AskQuestionBoard from './AskQuestionBoard.jsx';
 import Dashboard from './Dashboard.jsx';
 import CityInfo from './CityInfo.jsx';
-import Settings from './Settings.jsx';
 
 class Profile extends React.Component {
   constructor(props) {
