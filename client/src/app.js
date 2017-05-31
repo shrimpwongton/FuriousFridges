@@ -8,8 +8,7 @@ import Profile from './components/Profile.jsx';
 import Signup from './components/Signup.jsx';
 import {
   BrowserRouter as Router,
-  Route,
-  Link,
+  Route
 } from 'react-router-dom';
 
 class App extends React.Component {
