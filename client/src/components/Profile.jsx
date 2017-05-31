@@ -135,9 +135,9 @@ class Profile extends React.Component {
             style={{background: blueGrey500}}>
             <Tab
               label="DASHBOARD"
-              style={styles.tabStyle}>
+              style={styles.tabStyle}
+            >
               <div>
-                <p>{this.props.user}</p>
                 <Dashboard/>
               </div>
             </Tab>
