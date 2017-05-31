@@ -113,7 +113,6 @@ class Profile extends React.Component {
             </ToolbarGroup>
             <ToolbarGroup style={styles.signInStyle}>
               <IconButton
-                tooltip="Settings"
                 onTouchTap={this.handleToggle}>
                 <ActionSettings
                   color = {white}
@@ -212,7 +211,9 @@ class Profile extends React.Component {
           <Snackbar
             open={this.state.snackBar}
             message="Settings were saved"
-            autoHideDuration={2000}
+            autoHideDuration={3000}
+            action="DISMISS"
+            onActionTouchTap={this.handleClose}
             onRequestClose={this.handleClose}
           />
         </MuiThemeProvider>
