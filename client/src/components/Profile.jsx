@@ -20,6 +20,7 @@ import Subheader from 'material-ui/Subheader';
 import TextField from 'material-ui/TextField';
 import Toggle from 'material-ui/Toggle';
 import {List, ListItem} from 'material-ui/List';
+import Snackbar from 'material-ui/Snackbar';
 import AskQuestionBoard from './AskQuestionBoard.jsx';
 import Dashboard from './Dashboard.jsx';
 import CityInfo from './CityInfo.jsx';
@@ -29,12 +30,22 @@ class Profile extends React.Component {
     super(props);
     this.state = {
       open: false,
+      snackBar: false,
     };
     this.handleToggle = this.handleToggle.bind(this);
+    this.handleClose= this.handleClose.bind(this);
+    this.handleSave = this.handleSave.bind(this);
   }
 
   handleToggle () {
     this.setState({open: !this.state.open});
+  }
+
+  handleSave () {
+    this.setState({snackBar:true, open: false});
+  }
+  handleClose () {
+    this.setState({snackBar: false});
   }
   render () {
 
@@ -102,7 +113,6 @@ class Profile extends React.Component {
             </ToolbarGroup>
             <ToolbarGroup style={styles.signInStyle}>
               <IconButton
-                tooltip="Settings"
                 onTouchTap={this.handleToggle}>
                 <ActionSettings
                   color = {white}
@@ -125,9 +135,9 @@ class Profile extends React.Component {
             style={{background: blueGrey500}}>
             <Tab
               label="DASHBOARD"
-              style={styles.tabStyle}>
+              style={styles.tabStyle}
+            >
               <div>
-                <p>{this.props.user}</p>
                 <Dashboard/>
               </div>
             </Tab>
@@ -189,12 +199,23 @@ class Profile extends React.Component {
             <FlatButton
               label="SAVE"
               style ={styles.saveButtonStyle}
+              onTouchTap = {this.handleSave}
             />
             <FlatButton
               label="CANCEL"
               onTouchTap={this.handleToggle}
             />
           </Drawer>
+        </MuiThemeProvider>
+        <MuiThemeProvider>
+          <Snackbar
+            open={this.state.snackBar}
+            message="Settings were saved"
+            autoHideDuration={3000}
+            action="DISMISS"
+            onActionTouchTap={this.handleClose}
+            onRequestClose={this.handleClose}
+          />
         </MuiThemeProvider>
       </div>);
   }
