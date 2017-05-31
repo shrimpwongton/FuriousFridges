@@ -1,10 +1,7 @@
 const db = require('../');
 
 const Stats = db.Model.extend({
-  tableName: 'cityinfo',
-  stats: function() {
-    return this.hasMany('Stats');
-  }
+  tableName: 'cityinfo'
 });
 
 module.exports = db.model('Stats', Stats);
