@@ -9,7 +9,7 @@ class AnswerForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.answerQuestionInView(this._name.value, this._answer.value, this.props.questionId);
+    this.props.answerQuestionInView(this.props.user, this._answer.value, this.props.questionId);
     // this.setState({
     //   answers: this.state.answers.concat([answer])
     // });
@@ -21,8 +21,6 @@ class AnswerForm extends React.Component {
         <h3>Answer this question</h3>
         <form onSubmit={this.handleSubmit}>
           <div>
-            <input placeholder="Name:" ref={name => this._name = name} />
-            <br />
             <textarea placeholder="Answer:" ref={answer => this._answer = answer} ></textarea>
           </div>
           <button type="submit">Post</button>

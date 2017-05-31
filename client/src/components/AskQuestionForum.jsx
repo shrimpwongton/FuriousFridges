@@ -25,10 +25,10 @@ class AskQuestionForum extends React.Component {
   }
 
   componentDidMount() {
-    $.get('/authenticated', function(auth) {
+    $.get('/authenticated', (auth) => {
       console.log('Logged in user: ', auth);
       this.setState({
-        user: auth.display
+        user: auth.user.display
       });
     });
   }
@@ -78,10 +78,13 @@ class AskQuestionForum extends React.Component {
           {
             this.state.view === 'questions'
             ? <div>  
-                <QuestionForm addQuestion={this.addQuestion} user={this.state.user} />
+                <QuestionForm addQuestion={this.addQuestion} 
+                              user={this.state.user} />
                 {
                   this.state.questions.map(question => 
-                    <Question question={question} answerQuestion={this.answerQuestion} key={question.id}/>
+                    <Question question={question} 
+                              answerQuestion={this.answerQuestion} 
+                              key={question.id}/>
                   )
                 }
               </div>
@@ -90,13 +93,19 @@ class AskQuestionForum extends React.Component {
           {
             this.state.view === 'answer'
             ?  <div>
-                <QuestionView question={this.state.currentQuestion} backToQuestions={this.backToQuestions} />
+                <QuestionView question={this.state.currentQuestion} 
+                              backToQuestions={this.backToQuestions} />
                 { 
                   this.state.answers.map(answer => 
-                    <Answer id={answer.id} author={answer.author} body={answer.body} key={answer.id} />
+                    <Answer id={answer.id} 
+                            author={answer.author} 
+                            body={answer.body} 
+                            key={answer.id} />
                   ) 
                 }
-                <AnswerForm answerQuestionInView={this.answerQuestionInView} questionId={this.state.currentQuestion.id} />
+                <AnswerForm answerQuestionInView={this.answerQuestionInView} 
+                            questionId={this.state.currentQuestion.id}
+                            user={this.state.user} />
                </div>
             : null 
           }
