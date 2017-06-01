@@ -1,13 +1,12 @@
-# Project Name
+# Relocate.me
 
 The project description
 
 ## Team
 
-- teamMember
-- teamMember
-- teamMember
-- teamMember
+- Anthony Wong
+- Kara Marnell
+- Salih Abuelyaman
 
 ## Roadmap
 
@@ -53,6 +52,15 @@ Yarn is a replacement for npm. It's faster and *guarantees* consistency -- as yo
 ```
 yarn global add grunt-cli knex eslint
 ```
+
+## App Configuration
+
+Override settings `config/default.json` in any environment by making a copy of `config/ENV.example.json` and naming it `config/ENV.json` and setting the appropriate variable. 
+
+For environments that require use of environment variables, you can supply variables as defined in `config/custom-environment-variables.json`.
+
+See https://www.npmjs.com/package/config
+And https://github.com/lorenwest/node-config/wiki/Environment-Variables#custom-environment-variables
 
 ## Database Initialization
 
