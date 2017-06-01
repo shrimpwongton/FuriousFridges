@@ -28,21 +28,28 @@ class AskQuestionBoard extends React.Component {
     $.get('/authenticated', (auth) => {
       console.log('Logged in user: ', auth);
       this.setState({
-        user: auth.user.display
+        user: auth
       });
+    });
+    $.get('/questions', (questions) => {
+      console.log(questions);
+      this.setState({ questions });
     });
   }
 
   addQuestion(author, body) {
-    const question = {
-      id: this.state.questions.length + 1,
-      author,
-      body,
-      answers: []
-    };
-    this.setState({
-      questions: this.state.questions.concat([question])
+    $.post('/questions', { question: body, email: this.state.user.email }, (question) => {
+      console.log(question);
+      this.setState({
+        questions: this.state.questions.concat([question])
+      });
     });
+    // const question = {
+    //   id: this.state.questions.length + 1,
+    //   author,
+    //   body,
+    //   answers: []
+    // };
   }
 
   answerQuestion(questionId) {

@@ -31,7 +31,13 @@ exports.up = function (knex, Promise) {
     knex.schema.createTableIfNotExists('questions', function(table) {
       table.increments('id').unsigned().primary();
       table.string('question', 100).nullable();
-      table.integer('id_users').references('users.id');
+      table.integer('id_user').references('users.id');
+    }),
+    knex.schema.createTableIfNotExists('answers', function(table) {
+      table.increments('id').unsigned().primary();
+      table.string('answer', 100).nullable();
+      table.integer('id_user').references('users.id');
+      table.integer('id_question').references('questions.id');
     })
   ]);
 };
@@ -41,7 +47,8 @@ exports.down = function (knex, Promise) {
     knex.schema.dropTable('auths'),
     knex.schema.dropTable('profiles'),
     knex.schema.dropTable('questions'),
-    knex.schema.dropTable('users')
+    knex.schema.dropTable('users'),
+    knex.schema.dropTable('answers')
   ]);
 };
 

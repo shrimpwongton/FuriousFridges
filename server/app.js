@@ -25,5 +25,6 @@ app.use('/api', routes.api);
 app.use('/api/profiles', routes.profiles);
 app.use('/users', routes.users);
 app.use('/questions', routes.questions);
+app.use('/answers', routes.answers);
 
 module.exports = app;
