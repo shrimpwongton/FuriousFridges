@@ -1,5 +1,4 @@
 # Project specific
-config/default.json
 config/development.json
 config/production.json
 config/staging.json
