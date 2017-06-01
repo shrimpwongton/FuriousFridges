@@ -9,7 +9,7 @@ class AnswerForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.answerQuestionInView(this.props.user, this._answer.value, this.props.questionId);
+    this.props.answerQuestionInView(this.props.user, this._answer.value);
     // this.setState({
     //   answers: this.state.answers.concat([answer])
     // });

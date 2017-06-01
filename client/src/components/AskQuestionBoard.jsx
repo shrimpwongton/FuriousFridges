@@ -6,7 +6,7 @@ import $ from 'jquery';
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import {
-  blueGrey500, white, pinkA200,pinkA100, grey300
+  blueGrey500, white, pinkA200, pinkA100, grey300
 } from 'material-ui/styles/colors';
 import FlatButton from 'material-ui/FlatButton';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
@@ -46,8 +46,11 @@ class AskQuestionBoard extends React.Component {
     $.get('/authenticated', (auth) => {
       console.log('Logged in user: ', auth);
       this.setState({
-        user: auth.user.display
+        user: auth
       });
+    });
+    $.get('/questions', (questions) => {
+      this.setState({ questions });
     });
   }
 
@@ -95,35 +98,54 @@ class AskQuestionBoard extends React.Component {
   }
 
   addQuestion(author, body) {
-    const question = {
-      id: this.state.questions.length + 1,
-      author,
-      body,
-      answers: []
-    };
-    this.setState({
-      questions: this.state.questions.concat([question])
+    let email = this.state.user.email;
+    $.post('/questions', { question: body, email }, (question) => {
+      this.setState({
+        questions: this.state.questions.concat([question])
+      });
     });
+    // const question = {
+    //   id: this.state.questions.length + 1,
+    //   author,
+    //   body,
+    //   answers: []
+    // };
   }
 
   answerQuestion(questionId) {
-    this.setState({
-      view: 'answer',
-      currentQuestion: this.state.questions[questionId - 1],
-      answers: this.state.questions[questionId - 1].answers
+    $.get('/answers', { questionId }, (results) => {
+      let currentQuestion = this.state.questions[questionId - 1];
+      let answers = results; 
+      this.setState({
+        view: 'answer',
+        currentQuestion,
+        answers
+      });
     });
   }
 
-  answerQuestionInView(author, body, questionId) {
-    const answer = {
-      id: this.state.answers.length + 1,
-      author,
-      body
-    };
-    this.state.questions[questionId - 1].answers.push(answer);
-    this.setState({
-      answers: this.state.questions[questionId - 1].answers
+  answerQuestionInView(author, body) {
+    // $.ajax({
+    //   url: '/answers',
+    //   data: JSON.stringify({ question_id: questionId, answer: body }),
+    //   contentType: 'application/json',
+    //   success: function(results) {
+    //     console.log(results);
+    //   }
+    // });
+    let currentQuestion = this.state.currentQuestion;
+    let questionId = currentQuestion.id;
+    let email = this.state.user.email;
+    $.post('/answers', { questionId, answer: body, email }, (answer) => {
+      this.setState({
+        answers: this.state.answers.concat([answer])
+      });
     });
+    // const answer = {
+    //   id: this.state.answers.length + 1,
+    //   author,
+    //   body
+    // };
   }
 
   backToQuestions(questionId) {
@@ -141,11 +163,11 @@ class AskQuestionBoard extends React.Component {
         top: 0,
         position: 'absolute',
       },
-      cardStyle:{
+      cardStyle: {
         width: '60vw',
       },
       divStyle: {
-        margin:'20px',
+        margin: '20px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -210,7 +232,7 @@ class AskQuestionBoard extends React.Component {
           }
           {
             this.state.view === 'answer'
-            ?  <div>
+            ? <div>
                 <Card
                   style={styles.cardStyle}>
                   <IconButton
@@ -220,14 +242,14 @@ class AskQuestionBoard extends React.Component {
                   <CardTitle
                     title={this.state.currentQuestion.body}
                     subtitle={this.state.currentQuestion.author} />
-                {
-                  this.state.answers.map(answer =>
-                    <Answer id={answer.id}
-                            author={answer.author}
-                            body={answer.body}
-                            key={answer.id} />
-                  )
-                }
+                  {
+                    this.state.answers.map(answer =>
+                      <Answer id={answer.id}
+                              author={answer.author}
+                              body={answer.body}
+                              key={answer.id} />
+                    )
+                  }
                   <ListItem
                     disabled={true}>
                     <TextField
@@ -240,7 +262,9 @@ class AskQuestionBoard extends React.Component {
                     />
                   </ListItem>
                 </Card>
-               </div>
+                <AnswerForm answerQuestionInView={this.answerQuestionInView} 
+                            user={this.state.user} />
+              </div>
             : null
           }
         </div>
