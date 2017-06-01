@@ -5,19 +5,19 @@ require('highcharts/modules/funnel')(Highcharts);
 
 
 class CityInfo extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			"Housing": 0,
-			"Cost_of_Living": 0,
-			"Health_Care": 0, 
-			"Environmental_Quality": 0,
-			"Economy": 0,
-			"Leisure_and_Culture": 0,
-			"Commute": 0, 
-			"Safety": 0, 
-			"Education": 0,
-			"Summary": ''
+  constructor(props) {
+    super(props);
+    this.state = {
+			'Housing': 0,
+			'Cost_of_Living': 0,
+			'Healthcare': 0, 
+			'Environmental_Quality': 0,
+			'Economy': 0,
+			'Leisure_and_Culture': 0,
+			'Commute': 0, 
+			'Safety': 0, 
+			'Education': 0,
+			'Summary': ''
 		};
 	}
 
@@ -30,7 +30,7 @@ class CityInfo extends React.Component {
 				this.setState({
 					Housing: data.categories[0].score_out_of_10,
 					Cost_Of_Living: data.categories[1].score_out_of_10,
-					Health_Care: data.categories[8].score_out_of_10,
+					Healthcare: data.categories[8].score_out_of_10,
 					Environmental_Quality: data.categories[10].score_out_of_10,
 					Economy: data.categories[11].score_out_of_10,
 					Leisure_and_Culture: data.categories[14].score_out_of_10,
@@ -38,7 +38,7 @@ class CityInfo extends React.Component {
 					Safety: data.categories[7].score_out_of_10,
 					Education: data.categories[9].score_out_of_10,
 					Summary: data.summary
-				})
+				});
 			},
 			error: function() {
 				console.log('error getting data');

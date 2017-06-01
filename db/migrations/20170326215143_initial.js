@@ -1,4 +1,3 @@
-
 exports.up = function (knex, Promise) {
   return Promise.all([
     knex.schema.createTableIfNotExists('profiles', function(table) {
@@ -48,6 +47,7 @@ exports.up = function (knex, Promise) {
       table.integer('lesiure_and_culture', 10).notNullable();
       table.integer('commute', 10).notNullable();
       table.integer('education', 10).notNullable();
+      table.integer('housing', 10).notNullable();
       table.string('summary', 500).notNullable();
     })
   ]);

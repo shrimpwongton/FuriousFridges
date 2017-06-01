@@ -1,4 +1,10 @@
+'use strict';
+const express = require('express');
+const router = express.Router();
+const bodyParser = require('body-parser');
+const request = require('request');
 const models = require('../../db/models');
+
 
 module.exports.create = (req, res) => {
   models.Stats.forge({cost_of_living: req.body, healthcare: req.body, environmental_quality: req.body,
@@ -13,14 +19,21 @@ module.exports.create = (req, res) => {
     });
 };
 
+
 module.exports.getAll = (req, res) => {
   models.Stats.fetchAll()
-    .then( (data)=> {
-
-      if data.length === 0 
-
-        /// make request to api
-
+    .then(data => {
+      if(data.length === 0) {
+      // make request to api
+        .get((req, res) => {
+          request.get(`https://api.teleport.org/api/urban_areas/teleport:9q8yy/scores/`,
+            (error, response, body) => {
+            if (error) {
+              console.error(err);
+            }
+            res.status(200).send(JSON.parse(body));
+        )}; 
+      } 
       else 
         res.status(200).json(data);
     })
