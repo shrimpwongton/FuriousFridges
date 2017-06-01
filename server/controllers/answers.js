@@ -1,7 +1,7 @@
 const models = require('../../db/models');
 
 module.exports.getAll = (req, res) => {
-  models.Answer.where({ id_question: req.query.id_question }).fetchAll({ withRelated: 'user'})
+  models.Answer.where({ question_id: req.query.questionId }).fetchAll({ withRelated: 'user'})
     .then(results => {
       let answers = results.models.map(a => {
         let relationObj = a.relations.user.attributes;
@@ -9,7 +9,7 @@ module.exports.getAll = (req, res) => {
           id: a.attributes.id,
           author: relationObj.firstName + ' ' + relationObj.lastName,
           body: a.attributes.answer,
-          id_question: a.attributes.id_question
+          question_id: a.attributes.question_id
         };
         return answer;
       });
@@ -24,5 +24,27 @@ module.exports.getAll = (req, res) => {
 };
 
 module.exports.create = (req, res) => {
-  console.log(req.body);
+  models.User.where({ email: req.body.email }).fetch()
+    .then(user => user.attributes)
+    .then(attrib => {
+      models.Answer.forge({ user_id: attrib.id, answer: req.body.answer, question_id: req.body.questionId })
+        .save()
+        .then(a => {
+          let answer = {
+            id: a.attributes.id,
+            author: attrib.firstName + ' ' + attrib.lastName,
+            body: a.attributes.answer
+          };
+          res.status(201).send(answer);
+        })    
+        .catch(err => {
+          res.status(500).send(err);
+        });
+    })
+    .error(err => {
+      res.status(500).send(err);
+    })
+    .catch(() => {
+      res.sendStatus(404);
+    });
 };

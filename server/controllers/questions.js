@@ -23,35 +23,23 @@ module.exports.getAll = (req, res) => {
 
 module.exports.create = (req, res) => {
   models.User.where({ email: req.body.email }).fetch()
-    .then(user => {
-      return user.attributes.id;
-    })
-    .then(id => {
-      models.Question.forge({ id_user: id, question: req.body.question })
+    .then(user => user.attributes)
+    .then(attrib => {
+      models.Question.forge({ user_id: attrib.id, question: req.body.question })
         .save()
         .then(q => {
-          models.User.where({ id: q.attributes.id_user }).fetch()
-            .then(name => {
-              let question = {
-                id: q.attributes.id,
-                author: name.attributes.firstName + ' ' + name.attributes.lastName,
-                body: q.attributes.question,
-                answers: []
-              };
-              res.status(201).send(question);
-            })
-            .catch(err => {
-              console.log('last', err);
-              res.status(500).send(err);
-            });    
-        })
+          let question = {
+            id: q.attributes.id,
+            author: attrib.firstName + ' ' + attrib.lastName,
+            body: q.attributes.question
+          };
+          res.status(201).send(question);
+        })    
         .catch(err => {
-          console.log('first', err);
           res.status(500).send(err);
         });
     })
     .error(err => {
-      console.log('second', err);
       res.status(500).send(err);
     })
     .catch(() => {

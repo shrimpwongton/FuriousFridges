@@ -3,7 +3,7 @@ const db = require('../');
 const Question = db.Model.extend({
   tableName: 'questions',
   user: function() {
-    return this.belongsTo('User', 'id_user');
+    return this.belongsTo('User', 'user_id');
   }
 });
 

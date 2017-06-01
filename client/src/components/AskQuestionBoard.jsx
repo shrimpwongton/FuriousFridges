@@ -32,14 +32,13 @@ class AskQuestionBoard extends React.Component {
       });
     });
     $.get('/questions', (questions) => {
-      console.log(questions);
       this.setState({ questions });
     });
   }
 
   addQuestion(author, body) {
-    $.post('/questions', { question: body, email: this.state.user.email }, (question) => {
-      console.log(question);
+    let email = this.state.user.email;
+    $.post('/questions', { question: body, email }, (question) => {
       this.setState({
         questions: this.state.questions.concat([question])
       });
@@ -53,7 +52,7 @@ class AskQuestionBoard extends React.Component {
   }
 
   answerQuestion(questionId) {
-    $.get('/answers', { id_question: questionId }, (results) => {
+    $.get('/answers', { questionId }, (results) => {
       let currentQuestion = this.state.questions[questionId - 1];
       let answers = results; 
       this.setState({
@@ -64,27 +63,28 @@ class AskQuestionBoard extends React.Component {
     });
   }
 
-  answerQuestionInView(author, body, questionId) {
+  answerQuestionInView(author, body) {
     // $.ajax({
     //   url: '/answers',
-    //   data: JSON.stringify({ id_question: questionId, answer: body }),
+    //   data: JSON.stringify({ question_id: questionId, answer: body }),
     //   contentType: 'application/json',
     //   success: function(results) {
     //     console.log(results);
     //   }
     // });
-    $.post('/answers', { id_question: questionId, answer: body }, (results) => {
-      console.log(results);
+    let currentQuestion = this.state.currentQuestion;
+    let questionId = currentQuestion.id;
+    let email = this.state.user.email;
+    $.post('/answers', { questionId, answer: body, email }, (answer) => {
+      this.setState({
+        answers: this.state.answers.concat([answer])
+      });
     });
     // const answer = {
     //   id: this.state.answers.length + 1,
     //   author,
     //   body
     // };
-    // this.state.questions[questionId - 1].answers.push(answer);
-    // this.setState({
-    //   answers: this.state.questions[questionId - 1].answers
-    // });
   }
 
   backToQuestions(questionId) {
@@ -126,7 +126,6 @@ class AskQuestionBoard extends React.Component {
                   ) 
                 }
                 <AnswerForm answerQuestionInView={this.answerQuestionInView} 
-                            questionId={this.state.currentQuestion.id}
                             user={this.state.user} />
                </div>
             : null 
