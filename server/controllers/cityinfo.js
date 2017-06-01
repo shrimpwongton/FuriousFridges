@@ -26,12 +26,13 @@ module.exports.getAll = (req, res) => {
       if(data.length === 0) {
       // make request to api
         .get((req, res) => {
-          request.get(`https://api.teleport.org/api/urban_areas/teleport:9q8yy/scores/`,
+          request.get('https://api.teleport.org/api/urban_areas/teleport:9q8yy/scores/',
             (error, response, body) => {
             if (error) {
               console.error(err);
             }
-            res.status(200).send(JSON.parse(body));
+            models.Stats.create()
+            //res.status(200).send(JSON.parse(body));
         )}; 
       } 
       else 
