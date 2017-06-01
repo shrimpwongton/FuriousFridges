@@ -83,9 +83,9 @@ class HomePage extends React.Component {
         fontSize: '3em',
       },
       headerStyle: {
-        fontFamily: "'Roboto-Light', sans-serif",
+        fontFamily: "'Roboto', sans-serif",
         color: 'white',
-        fontSize: '8em',
+        fontSize: '4em',
       },
       captionStyle: {
         fontFamily: "'Roboto', sans-serif",
