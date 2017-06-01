@@ -1,7 +1,5 @@
 import React from 'react';
 import Question from './Question.jsx';
-import QuestionForm from './QuestionForm.jsx';
-import QuestionView from './QuestionView.jsx';
 import Answer from './Answer.jsx';
 import AnswerForm from './AnswerForm.jsx';
 import $ from 'jquery';
@@ -13,6 +11,9 @@ import {
 import FlatButton from 'material-ui/FlatButton';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
+import IconButton from 'material-ui/IconButton';
+import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
+import {List, ListItem} from 'material-ui/List';
 
 class AskQuestionBoard extends React.Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class AskQuestionBoard extends React.Component {
       user: null,
       questionDialog: false,
       question: '',
+      answer: '',
     };
 
     this.addQuestion = this.addQuestion.bind(this);
@@ -36,6 +38,8 @@ class AskQuestionBoard extends React.Component {
     this.openQuestionDialog = this.openQuestionDialog.bind(this);
     this.handleQuestionDialogSubmit = this.handleQuestionDialogSubmit.bind(this);
     this.handleQuestionChange = this.handleQuestionChange.bind(this);
+    this.handleAnswerChange = this.handleAnswerChange.bind(this);
+    this.handleAnswerSubmit = this.handleAnswerSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -60,13 +64,28 @@ class AskQuestionBoard extends React.Component {
     this.addQuestion(this.state.user, this.state.question);
     this.setState({
       question: '',
-    })
+    });
   }
 
   handleQuestionChange(event) {
     this.setState({
       question: event.target.value,
     });
+  }
+
+  handleAnswerChange(event) {
+    this.setState({
+      answer: event.target.value,
+    });
+  }
+
+  handleAnswerSubmit(event) {
+    if (event.charCode === 13) {
+      this.answerQuestionInView(this.state.user, this.state.answer, this.state.currentQuestion.id);
+      this.setState({
+        answer: '',
+      });
+    }
   }
 
   openQuestionDialog() {
@@ -123,7 +142,7 @@ class AskQuestionBoard extends React.Component {
         position: 'absolute',
       },
       cardStyle:{
-        width: '75vh',
+        width: '60vw',
       },
       divStyle: {
         margin:'20px',
@@ -192,10 +211,15 @@ class AskQuestionBoard extends React.Component {
           {
             this.state.view === 'answer'
             ?  <div>
-                <QuestionView question={this.state.currentQuestion}
-                              backToQuestions={this.backToQuestions} />
                 <Card
                   style={styles.cardStyle}>
+                  <IconButton
+                    onTouchTap={this.backToQuestions}>
+                    <NavigationArrowBack />
+                  </IconButton>
+                  <CardTitle
+                    title={this.state.currentQuestion.body}
+                    subtitle={this.state.currentQuestion.author} />
                 {
                   this.state.answers.map(answer =>
                     <Answer id={answer.id}
@@ -204,10 +228,18 @@ class AskQuestionBoard extends React.Component {
                             key={answer.id} />
                   )
                 }
+                  <ListItem
+                    disabled={true}>
+                    <TextField
+                      floatingLabelText="Reply"
+                      floatingLabelFixed={true}
+                      fullWidth ={true}
+                      value={this.state.answer}
+                      onChange={this.handleAnswerChange}
+                      onKeyPress={this.handleAnswerSubmit}
+                    />
+                  </ListItem>
                 </Card>
-                <AnswerForm answerQuestionInView={this.answerQuestionInView}
-                            questionId={this.state.currentQuestion.id}
-                            user={this.state.user} />
                </div>
             : null
           }
