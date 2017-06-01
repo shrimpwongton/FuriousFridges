@@ -1,4 +1,5 @@
 import React from 'react';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
 class QuestionView extends React.Component {
   constructor(props) {
@@ -14,11 +15,9 @@ class QuestionView extends React.Component {
   render() {
     return (
       <div>
-        <h1>{`${this.props.question.id}) ${this.props.question.author}: ${this.props.question.body}`}</h1>
         <button onClick={this.backToQuestions}>Back to Questions</button>
-        <br /><br />
       </div>
-    ); 
+    );
   }
 }
 

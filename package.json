@@ -25,8 +25,8 @@
     "express-session": "^1.15.1",
     "grunt-cli": "^1.2.0",
     "grunt-pg": "https://github.com/watsoncj/grunt-pg.git",
-    "knex": "^0.12.9",
-    "highcharts": "^5.0.12",
+    "jquery": "^3.2.1",
+    "highcharts": "^5.0.12"
     "knex": "^0.13.0",
     "material-ui": "^0.18.1",
     "morgan": "^1.8.1",

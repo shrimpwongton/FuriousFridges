@@ -1,15 +1,20 @@
 import React from 'react';
+import {List, ListItem} from 'material-ui/List';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Avatar from 'material-ui/Avatar';
 
 const Answer = (props) => (
-  <div style={styles}>
-    {`>>>>>${props.id}) ${props.author}: ${props.body}`}
+  <div>
+    <MuiThemeProvider>
+      <ListItem
+        primaryText={props.body}
+        secondaryText={props.author}
+        disabled={true}
+        leftAvatar={<Avatar>{props.author[0]}</Avatar>}
+      />
+    </MuiThemeProvider>
   </div>
 );
 
-const styles = {
-  'borderStyle': 'solid',
-  'width': '1000px',
-  'fontSize': '24px'
-};
 
 export default Answer;

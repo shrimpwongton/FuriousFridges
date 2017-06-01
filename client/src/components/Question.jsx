@@ -1,4 +1,7 @@
 import React from 'react';
+import {List, ListItem} from 'material-ui/List';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Avatar from 'material-ui/Avatar';
 
 class Question extends React.Component {
   constructor(props) {
@@ -19,18 +22,17 @@ class Question extends React.Component {
 
   render() {
     return (
-      <div style={styles} onClick={this.answerQuestion}>
-        {`${this.props.question.id}) ${this.props.question.author}: ${this.props.question.body}`}
+      <div onClick={this.answerQuestion}>
+        <MuiThemeProvider>
+          <ListItem
+            primaryText={this.props.question.body}
+            secondaryText={this.props.question.author}
+            leftAvatar={<Avatar>{this.props.question.author[0]}</Avatar>}
+          />
+        </MuiThemeProvider>
       </div>
-    ); 
+    );
   }
 }
-
-const styles = {
-  'borderStyle': 'solid',
-  'width': '1000px',
-  'fontSize': '24px',
-  'cursor': 'pointer'
-};
 
 export default Question;
