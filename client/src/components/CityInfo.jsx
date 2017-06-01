@@ -17,9 +17,6 @@ import SocialGroup from 'material-ui/svg-icons/social/group';
 import {
   amber500, green500, lightGreen500, orange500, red500,
 } from 'material-ui/styles/colors';
-var Highcharts = require('highcharts');
-
-require('highcharts/modules/funnel')(Highcharts);
 
 
 class CityInfo extends React.Component {
@@ -100,7 +97,7 @@ class CityInfo extends React.Component {
     });
   }
 
-  render () 
+  render () {
     const styles = {
       cardStyle: {
         margin: '8px',
