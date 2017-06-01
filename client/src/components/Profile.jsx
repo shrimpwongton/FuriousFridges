@@ -3,7 +3,7 @@ import {
   Link,
 } from 'react-router-dom';
 import {
-  blueGrey500, white, pinkA200,pinkA100, grey300
+  blueGrey500, white, pinkA200, pinkA100, grey300
 } from 'material-ui/styles/colors';
 import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -21,7 +21,6 @@ import Snackbar from 'material-ui/Snackbar';
 import AskQuestionBoard from './AskQuestionBoard.jsx';
 import Dashboard from './Dashboard.jsx';
 import CityInfo from './CityInfo.jsx';
-import Snackbar from 'material-ui/Snackbar';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -35,7 +34,7 @@ class Profile extends React.Component {
       question: false,
     };
     this.handleToggle = this.handleToggle.bind(this);
-    this.handleClose= this.handleClose.bind(this);
+    this.handleClose = this.handleClose.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleNewQuestion = this.handleNewQuestion.bind(this);
     this.handleQuestionClose = this.handleQuestionClose.bind(this);
@@ -58,7 +57,7 @@ class Profile extends React.Component {
   }
 
   handleSave () {
-    this.setState({snackBar:true, open: false});
+    this.setState({snackBar: true, open: false});
   }
   handleClose () {
     this.setState({snackBar: false});
