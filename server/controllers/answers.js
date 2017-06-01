@@ -1,12 +1,13 @@
 const models = require('../../db/models');
 
 module.exports.getAll = (req, res) => {
-  models.Answer.where({ id_question: req.query.id_question }).fetchAll()
+  models.Answer.where({ id_question: req.query.id_question }).fetchAll({ withRelated: 'user'})
     .then(results => {
       let answers = results.models.map(a => {
+        let relationObj = a.relations.user.attributes;
         let answer = {
           id: a.attributes.id,
-          author: a.attributes.id_user,
+          author: relationObj.firstName + ' ' + relationObj.lastName,
           body: a.attributes.answer,
           id_question: a.attributes.id_question
         };

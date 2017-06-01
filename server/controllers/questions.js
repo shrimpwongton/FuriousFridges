@@ -1,20 +1,21 @@
 const models = require('../../db/models');
 
 module.exports.getAll = (req, res) => {
-  models.Question.fetchAll()
+  models.Question.fetchAll({ withRelated: 'user'})
     .then(results => {
       let questions = results.models.map(q => {
+        let relationObj = q.relations.user.attributes; 
         let question = {
           id: q.attributes.id,
-          author: q.attributes.id_user,
-          body: q.attributes.question,
-          answers: []
+          author: relationObj.firstName + ' ' + relationObj.lastName,
+          body: q.attributes.question
         };
         return question;
       });
       res.status(200).send(questions);
     })
     .catch(err => {
+      console.log(err);
       // This code indicates an outside service (the database) did not respond in time
       res.status(503).send(err);
     });
