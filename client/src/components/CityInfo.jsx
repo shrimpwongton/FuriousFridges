@@ -97,7 +97,7 @@ class CityInfo extends React.Component {
     });
   }
 
-  render () 
+  render () {
     const styles = {
       cardStyle: {
         margin: '8px',

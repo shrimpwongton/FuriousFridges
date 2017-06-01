@@ -15,8 +15,8 @@ module.exports.getAll = (req, res) => {
           if (error) {
             console.error(err);
           }
-          var stats = JSON.parse(body).categories;
-          models.Stats.forge({ cost_of_living: stats[1].score_out_of_10, healthcare: stats[8].score_out_of_10, housing: stats[0].score_out_of_10, environmental_quality: stats[10].score_out_of_10, economy: stats[11].score_out_of_10, lesiure_and_culture: stats[14].score_out_of_10, commute: stats[5].score_out_of_10, education: stats[9].score_out_of_10, summary: JSON.parse(body).summary })
+          var stats = JSON.parse(body);
+          models.Stats.forge({ city: 'San Francisco', city_stats: stats })
             .save()
             .then(data => {
               res.status(201).send(data);
