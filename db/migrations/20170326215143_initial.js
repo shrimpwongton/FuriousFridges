@@ -40,15 +40,9 @@ exports.up = function (knex, Promise) {
     }),
     knex.schema.createTableIfNotExists('cityinfo', function(table) {
       table.increments('id').unsigned().primary();
-      table.float('cost_of_living', 10).notNullable();
-      table.float('healthcare', 10).notNullable();
-      table.float('environmental_quality', 10).notNullable();
-      table.float('economy', 10).notNullable();
-      table.float('lesiure_and_culture', 10).notNullable();
-      table.float('commute', 10).notNullable();
-      table.float('education', 10).notNullable();
-      table.float('housing', 10).notNullable();
-      table.string('summary', 500).notNullable();
+      table.string('city', 100).notNullable();
+      table.string('city_stats', 10000).notNullable();
+    
     })
   ]);
 };
