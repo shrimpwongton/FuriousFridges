@@ -25,9 +25,9 @@
     "express-session": "^1.15.1",
     "grunt-cli": "^1.2.0",
     "grunt-pg": "https://github.com/watsoncj/grunt-pg.git",
+    "highcharts": "^5.0.12",
     "jquery": "^3.2.1",
-    "highcharts": "^5.0.12"
-    "knex": "^0.13.0",
+    "knex": "^0.12.9",
     "material-ui": "^0.18.1",
     "morgan": "^1.8.1",
     "passport": "^0.3.2",
@@ -42,7 +42,8 @@
     "react-google-button": "^0.3.0-alpha",
     "react-router-dom": "^4.1.1",
     "react-tap-event-plugin": "^2.0.1",
-    "redis": "^2.7.1"
+    "redis": "^2.7.1",
+    "request": "^2.81.0"
   },
   "devDependencies": {
     "babel-loader": "^7.0.0",

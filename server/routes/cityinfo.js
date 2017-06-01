@@ -7,7 +7,7 @@ const CityInfoController = require('../controllers').CityInfo;
 
 router.route('/')
   //check if info exists in the database
-  .get(CityInfoController.getAll) 
+  //.get(CityInfoController.getAll) 
   //if undefined, query the api
 
 
@@ -18,9 +18,9 @@ router.route('/')
         if (error) {
           console.error(err);
         }
-         res.status(200).send(JSON.parse(body));
+        res.status(200).send(JSON.parse(body));
       });
-  })
+  });
  
  
 module.exports = router;
