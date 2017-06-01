@@ -1,4 +1,4 @@
-'use strict';
+// 'use strict';
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -128,7 +128,7 @@ passport.use('facebook', new FacebookStrategy({
   (accessToken, refreshToken, profile, done) => getOrCreateOAuthProfile('facebook', profile, done))
 );
 
-// REQUIRES PERMISSIONS FROM TWITTER TO OBTAIN USER EMAIL ADDRESSES
+//REQUIRES PERMISSIONS FROM TWITTER TO OBTAIN USER EMAIL ADDRESSES
 passport.use('twitter', new TwitterStrategy({
   consumerKey: config.Twitter.consumerKey,
   consumerSecret: config.Twitter.consumerSecret,
