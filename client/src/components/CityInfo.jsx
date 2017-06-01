@@ -23,21 +23,27 @@ require('highcharts/modules/funnel')(Highcharts);
 
 
 class CityInfo extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			"Housing": 0,
-			"Cost_of_Living": 0,
-			"Health_Care": 0,
-			"Environmental_Quality": 0,
-			"Economy": 0,
-			"Leisure_and_Culture": 0,
-			"Commute": 0,
-			"Safety": 0,
-			"Education": 0,
-			"Summary": ''
-		};
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      housing: 0,
+      col: 0,
+      health_care: 0,
+      environmental_quality: 0,
+      economy: 0,
+      leisure: 0,
+      commute: 0,
+      safety: 0,
+      education: 0,
+      summary: '',
+      travel_connectivity: 0,
+      internet_access: 0,
+      tolerance: 0,
+      outdoors: 0,
+    };
+    this.calculateColor = this.calculateColor.bind(this);
+    this.calculateScoreStatus = this.calculateScoreStatus.bind(this);
+  }
   calculateColor (score) {
     if ( score > 8 ) {
       return green500;
@@ -49,6 +55,19 @@ class CityInfo extends React.Component {
       return orange500;
     } else {
       return red500;
+    }
+  }
+  calculateScoreStatus (score) {
+    if ( score > 8 ) {
+      return "Among the best";
+    } else if ( score > 6 ) {
+      return "Above Average";
+    } else if ( score > 4.5 ) {
+      return "Around Average";
+    } else if ( score > 3 ) {
+      return "Below Average";
+    } else {
+      return "Among the worst";
     }
   }
 
