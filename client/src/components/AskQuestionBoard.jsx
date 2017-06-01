@@ -262,8 +262,6 @@ class AskQuestionBoard extends React.Component {
                     />
                   </ListItem>
                 </Card>
-                <AnswerForm answerQuestionInView={this.answerQuestionInView} 
-                            user={this.state.user} />
               </div>
             : null
           }
