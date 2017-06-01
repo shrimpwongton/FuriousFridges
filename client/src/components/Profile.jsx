@@ -158,7 +158,7 @@ class Profile extends React.Component {
         </MuiThemeProvider>
         <MuiThemeProvider>
           <Tabs
-            tabItemContainerStyle={{width: '400px'}}
+            tabItemContainerStyle={{width: '100vw'}}
             inkBarStyle={{background: pinkA200, zIndex: 500}}
             contentContainerStyle={{background: grey300}}
             style={styles.tabs}>
