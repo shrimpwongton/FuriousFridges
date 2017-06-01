@@ -12,7 +12,7 @@ class Question extends React.Component {
   }
 
   answerQuestion() {
-    this.props.answerQuestion(this.props.question.id);
+    this.props.handleQuestionClick(this.props.question.id);
   }
 
   handleSubmit(e) {

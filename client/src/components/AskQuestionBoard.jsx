@@ -31,7 +31,7 @@ class AskQuestionBoard extends React.Component {
     };
 
     this.addQuestion = this.addQuestion.bind(this);
-    this.answerQuestion = this.answerQuestion.bind(this);
+    this.handleQuestionClick = this.handleQuestionClick.bind(this);
     this.answerQuestionInView = this.answerQuestionInView.bind(this);
     this.backToQuestions = this.backToQuestions.bind(this);
     this.handleQuestionDialogClose = this.handleQuestionDialogClose.bind(this);
@@ -104,15 +104,9 @@ class AskQuestionBoard extends React.Component {
         questions: this.state.questions.concat([question])
       });
     });
-    // const question = {
-    //   id: this.state.questions.length + 1,
-    //   author,
-    //   body,
-    //   answers: []
-    // };
   }
 
-  answerQuestion(questionId) {
+  handleQuestionClick(questionId) {
     $.get('/answers', { questionId }, (results) => {
       let currentQuestion = this.state.questions[questionId - 1];
       let answers = results; 
@@ -125,14 +119,6 @@ class AskQuestionBoard extends React.Component {
   }
 
   answerQuestionInView(author, body) {
-    // $.ajax({
-    //   url: '/answers',
-    //   data: JSON.stringify({ question_id: questionId, answer: body }),
-    //   contentType: 'application/json',
-    //   success: function(results) {
-    //     console.log(results);
-    //   }
-    // });
     let currentQuestion = this.state.currentQuestion;
     let questionId = currentQuestion.id;
     let email = this.state.user.email;
@@ -141,11 +127,6 @@ class AskQuestionBoard extends React.Component {
         answers: this.state.answers.concat([answer])
       });
     });
-    // const answer = {
-    //   id: this.state.answers.length + 1,
-    //   author,
-    //   body
-    // };
   }
 
   backToQuestions(questionId) {
@@ -215,7 +196,7 @@ class AskQuestionBoard extends React.Component {
                   {
                     this.state.questions.map(question =>
                       <Question question={question}
-                                answerQuestion={this.answerQuestion}
+                                handleQuestionClick={this.handleQuestionClick}
                                 key={question.id}/>
                     )
                   }
