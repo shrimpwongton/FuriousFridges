@@ -14,6 +14,8 @@ import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
 import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import {List, ListItem} from 'material-ui/List';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 class AskQuestionBoard extends React.Component {
   constructor(props) {
@@ -28,6 +30,7 @@ class AskQuestionBoard extends React.Component {
       questionDialog: false,
       question: '',
       answer: '',
+      errorText: '',
     };
 
     this.addQuestion = this.addQuestion.bind(this);
@@ -57,17 +60,26 @@ class AskQuestionBoard extends React.Component {
   handleQuestionDialogClose() {
     this.setState({
       questionDialog: false,
+      question: '',
+      errorText: '',
     });
   }
 
   handleQuestionDialogSubmit() {
-    this.setState({
-      questionDialog: false,
-    });
-    this.addQuestion(this.state.user, this.state.question);
-    this.setState({
-      question: '',
-    });
+    if ( this.state.question === '' ) {
+      this.setState({
+        errorText: 'Question cannot be empty'
+      });
+    } else {
+      this.setState({
+        questionDialog: false,
+      });
+      this.addQuestion(this.state.user, this.state.question);
+      this.setState({
+        question: '',
+        errorText: '',
+      });
+    }
   }
 
   handleQuestionChange(event) {
@@ -147,9 +159,18 @@ class AskQuestionBoard extends React.Component {
       cardStyle: {
         width: '60vw',
       },
+      fab: {
+        margin: 0,
+        right: 20,
+        left: 'auto',
+        bottom: 20,
+        zIndex: 1000,
+        position: 'absolute',
+      },
       divStyle: {
         margin: '20px',
         display: 'flex',
+        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
       }
@@ -180,8 +201,10 @@ class AskQuestionBoard extends React.Component {
               onChange={this.handleQuestionChange}
               hintText="What is the weather like in San Francisco?"
               floatingLabelText="Question"
+              errorText={this.state.errorText}
               floatingLabelFixed={true}
-              rows={1}
+              rows={2}
+              multiLine={true}
               fullWidth = {true}
             />
           </Dialog>
