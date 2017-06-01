@@ -4,6 +4,8 @@ config/production.json
 config/staging.json
 config/test.json
 
+.idea/workspace.xml
+
 # OS X
 .DS_Store
 
