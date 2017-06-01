@@ -53,23 +53,38 @@ class AskQuestionBoard extends React.Component {
   }
 
   answerQuestion(questionId) {
-    this.setState({
-      view: 'answer',
-      currentQuestion: this.state.questions[questionId - 1],
-      answers: this.state.questions[questionId - 1].answers
+    $.get('/answers', { id_question: questionId }, (results) => {
+      let currentQuestion = this.state.questions[questionId - 1];
+      let answers = results; 
+      this.setState({
+        view: 'answer',
+        currentQuestion,
+        answers
+      });
     });
   }
 
   answerQuestionInView(author, body, questionId) {
-    const answer = {
-      id: this.state.answers.length + 1,
-      author,
-      body
-    };
-    this.state.questions[questionId - 1].answers.push(answer);
-    this.setState({
-      answers: this.state.questions[questionId - 1].answers
+    // $.ajax({
+    //   url: '/answers',
+    //   data: JSON.stringify({ id_question: questionId, answer: body }),
+    //   contentType: 'application/json',
+    //   success: function(results) {
+    //     console.log(results);
+    //   }
+    // });
+    $.post('/answers', { id_question: questionId, answer: body }, (results) => {
+      console.log(results);
     });
+    // const answer = {
+    //   id: this.state.answers.length + 1,
+    //   author,
+    //   body
+    // };
+    // this.state.questions[questionId - 1].answers.push(answer);
+    // this.setState({
+    //   answers: this.state.questions[questionId - 1].answers
+    // });
   }
 
   backToQuestions(questionId) {

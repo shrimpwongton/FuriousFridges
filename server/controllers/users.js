@@ -21,11 +21,9 @@ module.exports.create = (req, res) => {
       res.status(201).send(req.user); //--Sending info from profiles
     })
     .catch(err => {
-      console.log(err);
       if (err.constraint === 'users_email_unique') {
         return res.status(200).send(req.user);  //Sending info from profiles
       }
-
       res.status(500).send(err);
     });
 };

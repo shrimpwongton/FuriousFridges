@@ -5,7 +5,7 @@ const AnswerController = require('../controllers').Answers;
 
 router.route('/')
   .get(AnswerController.getAll)
-  // .post(AnswerController.create)
+  .post(AnswerController.create)
   ;
 
 module.exports = router;
