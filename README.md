@@ -1,13 +1,12 @@
-# Project Name
+# Relocate.me
 
 The project description
 
 ## Team
 
-- teamMember
-- teamMember
-- teamMember
-- teamMember
+- Anthony Wong
+- Kara Marnell
+- Salih Abuelyaman
 
 ## Roadmap
 
