@@ -7,9 +7,7 @@ const UserController = require('../controllers').Users;
 const router = express.Router();
 
 router.route('/')
-  .get(middleware.auth.verify, (req, res) => {
-    res.render('index.ejs');
-  });
+  .get(middleware.auth.verify, UserController.create);
 
 router.route('/login')
   .get((req, res) => {
@@ -41,14 +39,7 @@ router.route('/profile')
       user: req.user // get the user out of session and pass to template
     });*/
   });
-
-router.route('/authenticated')
-  .get(middleware.auth.verify, UserController.create);
-  // .get(middleware.auth.verify, (req, res) => {
-  //   console.log(req.user);
-  //   res.send({ user: req.user });
-  // });
-
+  
 router.route('/logout')
   .get((req, res) => {
     req.logout();
