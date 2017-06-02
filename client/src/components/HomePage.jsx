@@ -112,6 +112,14 @@ class HomePage extends React.Component {
       flexStyle: {
         display: 'flex',
         flexDirection: 'column',
+      },
+      parallax: {
+        height: '30vh',
+        backgroundImage: 'url(/assets/GoldenGate.jpg)',
+        backgroundAttachment: 'fixed',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
       }
     };
 

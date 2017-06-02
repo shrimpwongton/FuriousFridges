@@ -46,7 +46,7 @@ class AskQuestionBoard extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('/authenticated') 
+    axios.get('/authenticated')
       .then(res => {
         console.log('Logged in user: ', res.data);
         this.setState({
@@ -55,7 +55,7 @@ class AskQuestionBoard extends React.Component {
       });
     axios.get('/questions')
       .then(res => {
-        this.setState({ 
+        this.setState({
           questions: res.data });
       });
   }
@@ -115,10 +115,10 @@ class AskQuestionBoard extends React.Component {
   addQuestion(author, body) {
     console.log(this.state.user);
     let email = this.state.user.email;
-    axios.post('/questions', { 
-      question: body, 
-      email 
-    }) 
+    axios.post('/questions', {
+      question: body,
+      email
+    })
       .then(res => {
         this.setState({
           questions: this.state.questions.concat([res.data])
@@ -127,12 +127,12 @@ class AskQuestionBoard extends React.Component {
   }
 
   handleQuestionClick(questionId) {
-    axios.get('/answers', { 
-      params: { questionId } 
-    }) 
+    axios.get('/answers', {
+      params: { questionId }
+    })
       .then(res => {
         let currentQuestion = this.state.questions[questionId - 1];
-        let answers = res.data; 
+        let answers = res.data;
         this.setState({
           view: 'answer',
           currentQuestion,
@@ -145,11 +145,11 @@ class AskQuestionBoard extends React.Component {
     let currentQuestion = this.state.currentQuestion;
     let questionId = currentQuestion.id;
     let email = this.state.user.email;
-    axios.post('/answers', { 
-      answer: body, 
-      questionId, 
-      email 
-    }) 
+    axios.post('/answers', {
+      answer: body,
+      questionId,
+      email
+    })
       .then(res => {
         this.setState({
           answers: this.state.answers.concat([res.data])
