@@ -121,7 +121,7 @@ class AskQuestionBoard extends React.Component {
   handleQuestionClick(questionId) {
     $.get('/answers', { questionId }, (results) => {
       let currentQuestion = this.state.questions[questionId - 1];
-      let answers = results; 
+      let answers = results;
       this.setState({
         view: 'answer',
         currentQuestion,
@@ -157,7 +157,7 @@ class AskQuestionBoard extends React.Component {
         position: 'absolute',
       },
       cardStyle: {
-        width: '60vw',
+        width: '75vw',
       },
       fab: {
         margin: 0,
@@ -261,6 +261,8 @@ class AskQuestionBoard extends React.Component {
                       floatingLabelFixed={true}
                       fullWidth ={true}
                       value={this.state.answer}
+                      rows={2}
+                      multiLine={true}
                       onChange={this.handleAnswerChange}
                       onKeyPress={this.handleAnswerSubmit}
                     />

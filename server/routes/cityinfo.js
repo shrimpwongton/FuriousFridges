@@ -6,9 +6,8 @@ const request = require('request');
 const CityInfoController = require('../controllers').CityInfo;
 
 router.route('/')
-  .get(CityInfoController.getAll) 
-  ;
+  .get(CityInfoController.getAll);
 
-  
+
 module.exports = router;
 

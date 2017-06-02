@@ -15,7 +15,7 @@ module.exports.getAll = (req, res) => {
           if (error) {
             console.error(err);
           }
-          var stats = JSON.parse(body);
+          var stats = JSON.stringify(body);
           models.Stats.forge({ city: 'San Francisco', city_stats: stats })
             .save()
             .then(data => {
