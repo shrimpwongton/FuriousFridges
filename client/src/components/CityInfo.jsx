@@ -1,5 +1,5 @@
 import React from 'react';
-import $ from 'jquery';
+import axios from 'axios';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Avatar from 'material-ui/Avatar';
@@ -56,25 +56,22 @@ class CityInfo extends React.Component {
   }
   calculateScoreStatus (score) {
     if ( score > 8 ) {
-      return "Among the best";
+      return 'Among the best';
     } else if ( score > 6 ) {
-      return "Above Average";
+      return 'Above Average';
     } else if ( score > 4.5 ) {
-      return "Around Average";
+      return 'Around Average';
     } else if ( score > 3 ) {
-      return "Below Average";
+      return 'Below Average';
     } else {
-      return "Among the worst";
+      return 'Among the worst';
     }
   }
 
   componentWillMount() {
-    $.ajax({
-      type: 'GET',
-      url: '/cityinfo',
-      contentType: 'application/json',
-      success: (data) => {
-        data = JSON.parse(data[0].city_stats);
+    axios.get('/cityinfo')
+      .then(res => {
+        var data = JSON.parse(res.data[0].city_stats);
         this.setState({
           housing: data.categories[0].score_out_of_10,
           col: data.categories[1].score_out_of_10,
@@ -91,11 +88,7 @@ class CityInfo extends React.Component {
           education: data.categories[9].score_out_of_10,
           summary: data.summary.replace(/<\/?[^>]+(>|$)/g, ''),
         });
-      },
-      error: function() {
-        console.log('error getting data');
-      }
-    });
+      });
   }
 
   render () {
