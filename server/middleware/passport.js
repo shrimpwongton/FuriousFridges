@@ -1,4 +1,4 @@
-// 'use strict';
+//'use strict';
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -160,7 +160,8 @@ const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
         first: oauthProfile.name.givenName,
         last: oauthProfile.name.familyName,
         display: oauthProfile.displayName || `${oauthProfile.name.givenName} ${oauthProfile.name.familyName}`,
-        email: oauthProfile.emails[0].value
+        email: oauthProfile.emails[0].value,
+        profile_pic: oauthProfile.photos[0].value
       };
 
       if (profile) {

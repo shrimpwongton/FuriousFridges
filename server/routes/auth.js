@@ -42,8 +42,16 @@ router.route('/profile')
     });*/
   });
 
+
 router.route('/createuser')
   .get(middleware.auth.verify, UserController.create);
+
+
+router.route('/authenticated') 
+  .get(middleware.auth.verify, (req, res) => {
+    res.send(req.user);
+  });
+
 
 router.route('/logout')
   .get((req, res) => {

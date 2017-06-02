@@ -20,6 +20,7 @@ import {List, ListItem} from 'material-ui/List';
 import Snackbar from 'material-ui/Snackbar';
 import AskQuestionBoard from './AskQuestionBoard.jsx';
 import Dashboard from './Dashboard.jsx';
+import Avatar from 'material-ui/Avatar';
 import CityInfo from './CityInfo.jsx';
 
 class Profile extends React.Component {
@@ -32,6 +33,7 @@ class Profile extends React.Component {
       lastName: '',
       email: '',
       question: false,
+      profilePic: '',
     };
     this.handleToggle = this.handleToggle.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -48,6 +50,7 @@ class Profile extends React.Component {
         lastName: auth.last,
         email: auth.email,
         id: auth.id,
+        profilePic: auth.profile_pic
       });
     });
   }
@@ -198,6 +201,8 @@ class Profile extends React.Component {
             openSecondary={true}
             onRequestChange={(open) => this.setState({open})} >
             <Subheader>General</Subheader>
+            <ListItem
+              leftAvatar={<Avatar src={this.state.profilePic}></Avatar>} />
             <TextField
               style={styles.textFieldStyle}
               hintText="John"
