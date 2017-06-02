@@ -3,10 +3,10 @@ const db = require('../');
 const User = db.Model.extend({
   tableName: 'users',
   question: function() {
-    return this.hasMany('Question', 'question_id');
+    return this.hasMany('Question', 'user_id');
   },
   answer: function() {
-    return this.hasMany('Answer', 'answer_id');
+    return this.hasMany('Answer', 'user_id');
   }
 });
 

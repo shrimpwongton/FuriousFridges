@@ -4,6 +4,9 @@ const Question = db.Model.extend({
   tableName: 'questions',
   user: function() {
     return this.belongsTo('User', 'user_id');
+  },
+  answer: function() {
+    return this.hasMany('Answer', 'question_id');
   }
 });
 
