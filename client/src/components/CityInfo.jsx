@@ -1,5 +1,5 @@
 import React from 'react';
-import $ from 'jquery';
+import axios from 'axios';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Avatar from 'material-ui/Avatar';
@@ -69,12 +69,9 @@ class CityInfo extends React.Component {
   }
 
   componentWillMount() {
-    $.ajax({
-      type: 'GET',
-      url: '/cityinfo',
-      contentType: 'application/json',
-      success: (data) => {
-        data = JSON.parse(data[0].city_stats);
+    axios.get('/cityinfo')
+      .then(res => {
+        var data = JSON.parse(res.data[0].city_stats);
         this.setState({
           housing: data.categories[0].score_out_of_10,
           col: data.categories[1].score_out_of_10,
@@ -91,11 +88,7 @@ class CityInfo extends React.Component {
           education: data.categories[9].score_out_of_10,
           summary: data.summary.replace(/<\/?[^>]+(>|$)/g, ''),
         });
-      },
-      error: function() {
-        console.log('error getting data');
-      }
-    });
+      });
   }
 
   render () {
