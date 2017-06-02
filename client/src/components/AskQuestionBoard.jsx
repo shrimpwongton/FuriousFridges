@@ -46,7 +46,7 @@ class AskQuestionBoard extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('/authenticated')
+    axios.get('/createuser') 
       .then(res => {
         console.log('Logged in user: ', res.data);
         this.setState({
