@@ -74,6 +74,7 @@ class CityInfo extends React.Component {
       url: '/cityinfo',
       contentType: 'application/json',
       success: (data) => {
+        data = JSON.parse(data[0].city_stats);
         this.setState({
           housing: data.categories[0].score_out_of_10,
           col: data.categories[1].score_out_of_10,
