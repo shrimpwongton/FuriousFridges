@@ -56,15 +56,15 @@ class CityInfo extends React.Component {
   }
   calculateScoreStatus (score) {
     if ( score > 8 ) {
-      return "Among the best";
+      return 'Among the best';
     } else if ( score > 6 ) {
-      return "Above Average";
+      return 'Above Average';
     } else if ( score > 4.5 ) {
-      return "Around Average";
+      return 'Around Average';
     } else if ( score > 3 ) {
-      return "Below Average";
+      return 'Below Average';
     } else {
-      return "Among the worst";
+      return 'Among the worst';
     }
   }
 
