@@ -47,7 +47,7 @@ router.route('/createuser')
   .get(middleware.auth.verify, UserController.create);
 
 
-router.route('/authenticated') 
+router.route('/authenticated')
   .get(middleware.auth.verify, (req, res) => {
     res.send(req.user);
   });
@@ -60,6 +60,11 @@ router.route('/logout')
   });
 
 router.route('/settings')
+  .get(middleware.auth.verify, (req, res) => {
+    res.sendFile(path.join(__dirname, '../../public/index.html'));
+  });
+
+router.route('/form')
   .get(middleware.auth.verify, (req, res) => {
     res.sendFile(path.join(__dirname, '../../public/index.html'));
   });
