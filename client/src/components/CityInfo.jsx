@@ -74,7 +74,6 @@ class CityInfo extends React.Component {
   componentWillMount() {
     axios.get('/cityinfo')
       .then(res => {
-        let data = JSON.parse(res.data[0].city_stats);
         this.setState({
           housing: res.data.categories[0].score_out_of_10,
           col: res.data.categories[1].score_out_of_10,
