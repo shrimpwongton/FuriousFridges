@@ -13,9 +13,10 @@ import MapsDirectionsCar from 'material-ui/svg-icons/maps/directions-car';
 import MapsLocalFlorist from 'material-ui/svg-icons/maps/local-florist';
 import SocialPublic from 'material-ui/svg-icons/social/public';
 import MapsLocalLibrary from 'material-ui/svg-icons/maps/local-library';
+import ActionExplore from 'material-ui/svg-icons/action/explore';
 import SocialGroup from 'material-ui/svg-icons/social/group';
 import {
-  amber500, green500, lightGreen500, orange500, red500,
+  blueGrey500, red500, orange500, amber500, lightGreen500, green500,
 } from 'material-ui/styles/colors';
 
 
@@ -99,223 +100,70 @@ class CityInfo extends React.Component {
       divStyle: {
         margin: '8px',
         display: 'flex',
-        flex: 1,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'flex-start',
+        flexFlow: 'row wrap',
       },
       growStyle: {
         flexGrow: 1,
       },
       emptyStyle: {
         flexGrow: 1000,
-      }
+      },
+      parallax: {
+        height: '50vh',
+        backgroundImage: 'url(/assets/GoldenGate.jpg)',
+        backgroundAttachment: 'fixed',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+      },
     };
+    const cards = [['Housing Affordability', this.state.housing, <ActionHome/>],
+      ['Cost of Living', this.state.col, <EditorAttachMoney/>],
+      ['Health Care', this.state.health_care, <ImageHealing/>],
+      ['Environment Quality', this.state.environmental_quality, <MapsLocalFlorist/>],
+      ['Economy', this.state.economy, <EditorAttachMoney/>],
+      ['Leisure and Culture', this.state.leisure, <MapsLocalBar/>],
+      ['Commute', this.state.commute, <MapsDirectionsCar/>],
+      ['Safety', this.state.safety, <SocialPublic/>],
+      ['Education', this.state.education, <MapsLocalLibrary/>],
+      ['Tolerance', this.state.tolerance, <SocialGroup/>],
+      ['Air and Rail Connectivity', this.state.travel_connectivity, <MapsDirectionsTransit/>],
+      ['Outdoors', this.state.outdoors, <MapsTerrain/>],
+      ['Internet Access', this.state.internet_access, <ActionExplore/>]];
+    const context = this;
     return (
-    <div
-      style={styles.divStyle}>
-      <div
-        style={styles.growStyle}>
-        <MuiThemeProvider>
-          <Card
-            style={styles.cardStyle}>
-            <CardHeader
-              title="Housing Affordability"
-              subtitle={this.calculateScoreStatus(this.state.housing)}
-              avatar={
-                <Avatar
-                  icon={<ActionHome />}
-                  backgroundColor={this.calculateColor(this.state.housing)}
-                />
-              }
-            />
-            <CardTitle title={this.state.housing.toFixed(2) + '/10'} />
-          </Card>
-        </MuiThemeProvider>
+      <div>
+        <div
+          style={styles.parallax}>
+        </div>
+        <div
+          style={styles.divStyle}>
+          {
+            cards.map(card =>
+            <div
+              style={styles.growStyle}>
+              <MuiThemeProvider>
+                <Card
+                  style={styles.cardStyle}>
+                  <CardHeader
+                    title={card[0]}
+                    subtitle={context.calculateScoreStatus(card[1])}
+                    avatar={
+                    <Avatar
+                      icon={card[2]}
+                      backgroundColor={context.calculateColor(card[1])}
+                    />
+                    }
+                  />
+                  <CardTitle title={card[1].toFixed(2) + '/10'} />
+                </Card>
+              </MuiThemeProvider>
+            </div>)
+          }
+          <div style={styles.emptyStyle}/>
+          <p>{this.state.summary}</p>
+        </div>
       </div>
-      <div
-        style={styles.growStyle}>
-        <MuiThemeProvider>
-          <Card
-            style={styles.cardStyle}>
-            <CardHeader
-              title="Health Care"
-              subtitle={this.calculateScoreStatus(this.state.health_care)}
-              avatar={
-                <Avatar icon={<ImageHealing />}
-                        backgroundColor={this.calculateColor(this.state.health_care)}
-                />
-              }
-            />
-            <CardTitle title={this.state.health_care.toFixed(2) + '/10'} />
-          </Card>
-        </MuiThemeProvider>
-      </div>
-      <div
-        style={styles.growStyle}>
-        <MuiThemeProvider>
-          <Card
-            style={styles.cardStyle}>
-            <CardHeader
-              title="Environment Quality"
-              subtitle={this.calculateScoreStatus(this.state.environmental_quality)}
-              avatar={
-                <Avatar icon={<MapsLocalFlorist />}
-                        backgroundColor={this.calculateColor(this.state.environmental_quality)}
-                />
-              }
-            />
-            <CardTitle title={this.state.environmental_quality.toFixed(2) + '/10'} />
-          </Card>
-        </MuiThemeProvider>
-      </div>
-      <div
-        style={styles.growStyle}>
-        <MuiThemeProvider>
-          <Card
-            style={styles.cardStyle}>
-            <CardHeader
-              title="Economy"
-              subtitle={this.calculateScoreStatus(this.state.economy)}
-              avatar={
-                <Avatar icon={<EditorAttachMoney />}
-                        backgroundColor={this.calculateColor(this.state.economy)}
-                />
-              }
-            />
-            <CardTitle title={this.state.economy.toFixed(2) + '/10'} />
-          </Card>
-        </MuiThemeProvider>
-      </div>
-      <div
-        style={styles.growStyle}>
-        <MuiThemeProvider>
-          <Card
-            style={styles.cardStyle}>
-            <CardHeader
-              title="Leisure and Culture"
-              subtitle={this.calculateScoreStatus(this.state.leisure)}
-              avatar={
-                <Avatar icon={<MapsLocalBar />}
-                        backgroundColor={this.calculateColor(this.state.leisure)}
-                />
-              }
-            />
-            <CardTitle title={this.state.leisure.toFixed(2) + '/10'} />
-          </Card>
-        </MuiThemeProvider>
-      </div>
-      <div
-        style={styles.growStyle}>
-        <MuiThemeProvider>
-          <Card
-            style={styles.cardStyle}>
-            <CardHeader
-              title="Commute"
-              subtitle={this.calculateScoreStatus(this.state.commute)}
-              avatar={
-                <Avatar icon={<MapsDirectionsCar />}
-                        backgroundColor={this.calculateColor(this.state.commute)}
-                />
-              }
-            />
-            <CardTitle title={this.state.commute.toFixed(2) + '/10'} />
-          </Card>
-        </MuiThemeProvider>
-      </div>
-      <div
-        style={styles.growStyle}>
-        <MuiThemeProvider>
-          <Card
-            style={styles.cardStyle}>
-            <CardHeader
-              title="Safety"
-              subtitle={this.calculateScoreStatus(this.state.safety)}
-              avatar={
-                <Avatar icon={<SocialPublic />}
-                        backgroundColor={this.calculateColor(this.state.safety)}
-                />
-              }
-            />
-            <CardTitle title={this.state.safety.toFixed(2) + '/10'} />
-          </Card>
-        </MuiThemeProvider>
-      </div>
-      <div
-        style={styles.growStyle}>
-        <MuiThemeProvider>
-          <Card
-            style={styles.cardStyle}>>
-            <CardHeader
-              title="Education"
-              subtitle={this.calculateScoreStatus(this.state.education)}
-              avatar={
-                <Avatar icon={<MapsLocalLibrary />}
-                        backgroundColor={this.calculateColor(this.state.education)}
-                />
-              }
-            />
-            <CardTitle title={this.state.education.toFixed(2) + '/10'} />
-          </Card>
-        </MuiThemeProvider>
-      </div>
-      <div
-        style={styles.growStyle}>
-        <MuiThemeProvider>
-          <Card
-            style={styles.cardStyle}>>
-            <CardHeader
-              title="Tolerance"
-              subtitle={this.calculateScoreStatus(this.state.tolerance)}
-              avatar={
-                <Avatar icon={<SocialGroup />}
-                        backgroundColor={this.calculateColor(this.state.tolerance)}
-                />
-              }
-            />
-            <CardTitle title={this.state.tolerance.toFixed(2) + '/10'} />
-          </Card>
-        </MuiThemeProvider>
-      </div>
-      <div
-        style={styles.growStyle}>
-        <MuiThemeProvider>
-          <Card
-            style={styles.cardStyle}>>
-            <CardHeader
-              title="Air and Rail Connectivity"
-              subtitle={this.calculateScoreStatus(this.state.travel_connectivity)}
-              avatar={
-                <Avatar icon={<MapsDirectionsTransit />}
-                        backgroundColor={this.calculateColor(this.state.travel_connectivity)}
-                />
-              }
-            />
-            <CardTitle title={this.state.travel_connectivity.toFixed(2) + '/10'} />
-          </Card>
-        </MuiThemeProvider>
-      </div>
-      <div
-        style={styles.growStyle}>
-        <MuiThemeProvider>
-          <Card
-            style={styles.cardStyle}>>
-            <CardHeader
-              title="Outdoors"
-              subtitle={this.calculateScoreStatus(this.state.outdoors)}
-              avatar={
-                <Avatar icon={<MapsTerrain />}
-                        backgroundColor={this.calculateColor(this.state.outdoors)}
-                />
-              }
-            />
-            <CardTitle title={this.state.outdoors.toFixed(2) + '/10'} />
-          </Card>
-        </MuiThemeProvider>
-      </div>
-      <div style={styles.emptyStyle}/>
-      <p>{this.state.summary}</p>
-    </div>
     );
   }
 }
