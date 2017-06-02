@@ -74,22 +74,21 @@ class CityInfo extends React.Component {
   componentWillMount() {
     axios.get('/cityinfo')
       .then(res => {
-        let data = JSON.parse(res.data[0].city_stats);
         this.setState({
-          housing: data.categories[0].score_out_of_10,
-          col: data.categories[1].score_out_of_10,
-          health_care: data.categories[8].score_out_of_10,
-          environmental_quality: data.categories[10].score_out_of_10,
-          economy: data.categories[11].score_out_of_10,
-          leisure: data.categories[14].score_out_of_10,
-          travel_connectivity: data.categories[4].score_out_of_10,
-          internet_access: data.categories[13].score_out_of_10,
-          tolerance: data.categories[15].score_out_of_10,
-          outdoors: data.categories[16].score_out_of_10,
-          commute: data.categories[5].score_out_of_10,
-          safety: data.categories[7].score_out_of_10,
-          education: data.categories[9].score_out_of_10,
-          summary: data.summary.replace(/<\/?[^>]+(>|$)/g, ''),
+          housing: res.data.categories[0].score_out_of_10,
+          col: res.data.categories[1].score_out_of_10,
+          health_care: res.data.categories[8].score_out_of_10,
+          environmental_quality: res.data.categories[10].score_out_of_10,
+          economy: res.data.categories[11].score_out_of_10,
+          leisure: res.data.categories[14].score_out_of_10,
+          travel_connectivity: res.data.categories[4].score_out_of_10,
+          internet_access: res.data.categories[13].score_out_of_10,
+          tolerance: res.data.categories[15].score_out_of_10,
+          outdoors: res.data.categories[16].score_out_of_10,
+          commute: res.data.categories[5].score_out_of_10,
+          safety: res.data.categories[7].score_out_of_10,
+          education: res.data.categories[9].score_out_of_10,
+          summary: res.data.summary.replace(/<\/?[^>]+(>|$)/g, ''),
         });
       });
   }
