@@ -1,8 +1,8 @@
 import React from 'react';
+import axios from 'axios';
 import Question from './Question.jsx';
 import Answer from './Answer.jsx';
 import AnswerForm from './AnswerForm.jsx';
-import $ from 'jquery';
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import {
@@ -46,15 +46,18 @@ class AskQuestionBoard extends React.Component {
   }
 
   componentDidMount() {
-    $.get('/authenticated', (auth) => {
-      console.log('Logged in user: ', auth);
-      this.setState({
-        user: auth
+    axios.get('/authenticated') 
+      .then(res => {
+        console.log('Logged in user: ', res.data);
+        this.setState({
+          user: res.data
+        });
       });
-    });
-    $.get('/questions', (questions) => {
-      this.setState({ questions });
-    });
+    axios.get('/questions')
+      .then(res => {
+        this.setState({ 
+          questions: res.data });
+      });
   }
 
   handleQuestionDialogClose() {
@@ -110,35 +113,48 @@ class AskQuestionBoard extends React.Component {
   }
 
   addQuestion(author, body) {
+    console.log(this.state.user);
     let email = this.state.user.email;
-    $.post('/questions', { question: body, email }, (question) => {
-      this.setState({
-        questions: this.state.questions.concat([question])
+    axios.post('/questions', { 
+      question: body, 
+      email 
+    }) 
+      .then(res => {
+        this.setState({
+          questions: this.state.questions.concat([res.data])
+        });
       });
-    });
   }
 
   handleQuestionClick(questionId) {
-    $.get('/answers', { questionId }, (results) => {
-      let currentQuestion = this.state.questions[questionId - 1];
-      let answers = results; 
-      this.setState({
-        view: 'answer',
-        currentQuestion,
-        answers
+    axios.get('/answers', { 
+      params: { questionId } 
+    }) 
+      .then(res => {
+        let currentQuestion = this.state.questions[questionId - 1];
+        let answers = res.data; 
+        this.setState({
+          view: 'answer',
+          currentQuestion,
+          answers
+        });
       });
-    });
   }
 
   answerQuestionInView(author, body) {
     let currentQuestion = this.state.currentQuestion;
     let questionId = currentQuestion.id;
     let email = this.state.user.email;
-    $.post('/answers', { questionId, answer: body, email }, (answer) => {
-      this.setState({
-        answers: this.state.answers.concat([answer])
+    axios.post('/answers', { 
+      answer: body, 
+      questionId, 
+      email 
+    }) 
+      .then(res => {
+        this.setState({
+          answers: this.state.answers.concat([res.data])
+        });
       });
-    });
   }
 
   backToQuestions(questionId) {
