@@ -15,6 +15,8 @@ import SocialPublic from 'material-ui/svg-icons/social/public';
 import MapsLocalLibrary from 'material-ui/svg-icons/maps/local-library';
 import ActionExplore from 'material-ui/svg-icons/action/explore';
 import SocialGroup from 'material-ui/svg-icons/social/group';
+import ActionTrendingUp from 'material-ui/svg-icons/action/trending-up';
+import ActionTrendingDown from 'material-ui/svg-icons/action/trending-down';
 import {
   blueGrey500, red500, orange500, amber500, lightGreen500, green500,
 } from 'material-ui/styles/colors';
@@ -72,7 +74,7 @@ class CityInfo extends React.Component {
   componentWillMount() {
     axios.get('/cityinfo')
       .then(res => {
-        var data = JSON.parse(res.data[0].city_stats);
+        let data = JSON.parse(res.data[0].city_stats);
         this.setState({
           housing: data.categories[0].score_out_of_10,
           col: data.categories[1].score_out_of_10,
@@ -97,19 +99,26 @@ class CityInfo extends React.Component {
       cardStyle: {
         margin: '8px',
       },
-      divStyle: {
+      flexStyle: {
         margin: '8px',
         display: 'flex',
         flexFlow: 'row wrap',
+        justifyContent: 'center',
       },
       growStyle: {
         flexGrow: 1,
+      },
+      centerStyle: {
+        width: '80%',
+        display: 'flex',
+        flexFlow: 'row wrap',
+        justifyContent: 'center',
       },
       emptyStyle: {
         flexGrow: 1000,
       },
       parallax: {
-        height: '50vh',
+        height: '30vh',
         backgroundImage: 'url(/assets/GoldenGate.jpg)',
         backgroundAttachment: 'fixed',
         backgroundPosition: 'center',
@@ -121,7 +130,7 @@ class CityInfo extends React.Component {
       ['Cost of Living', this.state.col, <EditorAttachMoney/>],
       ['Health Care', this.state.health_care, <ImageHealing/>],
       ['Environment Quality', this.state.environmental_quality, <MapsLocalFlorist/>],
-      ['Economy', this.state.economy, <EditorAttachMoney/>],
+      ['Economy', this.state.economy, this.state.economy > 5 ? <ActionTrendingUp/> : <ActionTrendingDown/>],
       ['Leisure and Culture', this.state.leisure, <MapsLocalBar/>],
       ['Commute', this.state.commute, <MapsDirectionsCar/>],
       ['Safety', this.state.safety, <SocialPublic/>],
@@ -137,31 +146,38 @@ class CityInfo extends React.Component {
           style={styles.parallax}>
         </div>
         <div
-          style={styles.divStyle}>
-          {
-            cards.map(card =>
-            <div
-              style={styles.growStyle}>
-              <MuiThemeProvider>
-                <Card
-                  style={styles.cardStyle}>
-                  <CardHeader
-                    title={card[0]}
-                    subtitle={context.calculateScoreStatus(card[1])}
-                    avatar={
-                    <Avatar
-                      icon={card[2]}
-                      backgroundColor={context.calculateColor(card[1])}
+          style={styles.flexStyle}>
+          <div
+            style={styles.centerStyle}>
+            {
+              cards.map(card =>
+              <div
+                style={styles.growStyle}>
+                <MuiThemeProvider>
+                  <Card
+                    style={styles.cardStyle}>
+                    <CardHeader
+                      title={card[0]}
+                      subtitle={context.calculateScoreStatus(card[1])}
+                      avatar={
+                      <Avatar
+                        icon={card[2]}
+                        backgroundColor={context.calculateColor(card[1])}
+                      />
+                      }
                     />
-                    }
-                  />
-                  <CardTitle title={card[1].toFixed(2) + '/10'} />
-                </Card>
-              </MuiThemeProvider>
-            </div>)
-          }
-          <div style={styles.emptyStyle}/>
-          <p>{this.state.summary}</p>
+                    <CardText>
+                      <div
+                        style={{width: card[1] * 10 + '%', height: '2px', background: context.calculateColor(card[1])}}>
+                      </div>
+                    </CardText>>
+                  </Card>
+                </MuiThemeProvider>
+              </div>)
+            }
+            <div style={styles.emptyStyle}/>
+            <p>{this.state.summary}</p>
+          </div>
         </div>
       </div>
     );
