@@ -313,7 +313,7 @@ const mapDispatchToProps = (dispatch) => {
     dispatchCurrentUser: (currentUser) => {
       dispatch(setCurrentUser(currentUser));
     }
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(AskQuestionBoard);

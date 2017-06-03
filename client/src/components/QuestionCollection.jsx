@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch) => {
     dispatchQuestions: (questions) => {
       dispatch(setQuestions(questions));
     }
-  }
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionCollection);
