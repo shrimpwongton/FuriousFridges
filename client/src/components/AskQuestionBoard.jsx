@@ -208,6 +208,7 @@ class AskQuestionBoard extends React.Component {
               errorText={this.props.errorText}
               floatingLabelFixed={true}
               rows={2}
+              keyboardFocused={true}
               multiLine={true}
               fullWidth = {true}
               underlineFocusStyle={styles.underlineStyle}
