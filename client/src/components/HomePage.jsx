@@ -25,6 +25,9 @@ import ActionExplore from 'material-ui/svg-icons/action/explore';
 import SocialGroup from 'material-ui/svg-icons/social/group';
 import ActionTrendingUp from 'material-ui/svg-icons/action/trending-up';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import HardwareDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
+import {List, ListItem} from 'material-ui/List';
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -32,6 +35,7 @@ class HomePage extends React.Component {
     this.state = {
     };
     this.calculateScoreStatus = this.calculateScoreStatus.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
   }
   calculateScoreStatus (score) {
     if ( score > 8 ) {
@@ -45,6 +49,12 @@ class HomePage extends React.Component {
     } else {
       return 'Among the worst';
     }
+  }
+
+  handleScroll() {
+    $('html, body').animate({
+      scrollTop: $('#firstSection').offset().top - $('#toolbar').height()
+    }, 750);
   }
   render () {
     const images = [
@@ -95,7 +105,7 @@ class HomePage extends React.Component {
       cityNames.push(city);
     });
     let set = new Set();
-    while ( set.size < 10 ) {
+    while ( set.size < 20 ) {
       set.add(cityNames[Math.floor(Math.random() * cityNames.length)]);
     }
     set = Array.from(set);
@@ -119,7 +129,6 @@ class HomePage extends React.Component {
       cardSet.add(cards[Math.floor(Math.random() * cards.length)]);
     }
     cardSet = Array.from(cardSet);
-    console.log('cardSet', cardSet);
 
     const styles = {
       homeStyle: {
@@ -163,13 +172,18 @@ class HomePage extends React.Component {
         left: '20px',
         bottom: '0px',
       },
+      fab: {
+        right: '20px',
+        position: 'absolute',
+        bottom: '20px',
+      },
       divStyle: {
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
       },
       parallaxFirst: {
-        height: '60vh',
+        flexGrow: 1,
         position: 'relative',
         backgroundImage: 'url(' + images[pictureSet[0]] +')',
         backgroundAttachment: 'fixed',
@@ -178,7 +192,7 @@ class HomePage extends React.Component {
         backgroundSize: 'cover',
       },
       parallaxSecond: {
-        height: '60vh',
+        flexGrow: 1,
         position: 'relative',
         backgroundImage: 'url(' + images[pictureSet[1]] +')',
         backgroundAttachment: 'fixed',
@@ -187,7 +201,7 @@ class HomePage extends React.Component {
         backgroundSize: 'cover',
       },
       parallaxThird: {
-        height: '60vh',
+        flexGrow: 1,
         position: 'relative',
         backgroundImage: 'url(' + images[pictureSet[2]] +')',
         backgroundAttachment: 'fixed',
@@ -196,7 +210,7 @@ class HomePage extends React.Component {
         backgroundSize: 'cover',
       },
       parallaxFourth: {
-        height: '60vh',
+        flexGrow: 1,
         position: 'relative',
         backgroundImage: 'url(' + images[pictureSet[3]] +')',
         backgroundAttachment: 'fixed',
@@ -207,12 +221,25 @@ class HomePage extends React.Component {
       chip: {
         margin: 4,
       },
+      flexStyle: {
+        height: '100%',
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
+      },
+      partialFlexStyle: {
+        height: '40%',
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
+      }
     };
 
     return (
       <div style={styles.divStyle}>
         <MuiThemeProvider>
           <Toolbar
+            id='toolbar'
             style = {styles.toolbarStyle}>
             <ToolbarGroup firstChild={true} style={styles.titleStyle}>
               <Link to='/'
@@ -242,13 +269,27 @@ class HomePage extends React.Component {
           </Toolbar>
         </MuiThemeProvider>
         <div
-          style={styles.parallaxFirst}>
-          <p
-            style={styles.captionStyle}>
-            {captions[pictureSet[0]]}
-          </p>
+          style={styles.flexStyle}>
+          <div
+            style={styles.parallaxFirst}>
+            <p
+              style={styles.captionStyle}>
+              {captions[pictureSet[0]]}
+            </p>
+            <MuiThemeProvider>
+              <FloatingActionButton
+                style={styles.fab}
+                backgroundColor={pinkA200}
+                onTouchTap={this.handleScroll}
+                keyboardFocused={true}
+              >
+                <HardwareDown />
+              </FloatingActionButton>
+            </MuiThemeProvider>
+          </div>
         </div>
         <div
+          id='firstSection'
           style={{padding: '20px', backgroundColor: blueGrey400}}>
           <span
             style={styles.subHeaderStyle}>
@@ -280,15 +321,19 @@ class HomePage extends React.Component {
           </div>
         </div>
         <div
-          style={styles.parallaxSecond}>
-          <p
-            style={styles.captionStyle}>
-            {captions[pictureSet[1]]}
-          </p>
+          style={styles.partialFlexStyle}>
+          <div
+            style={styles.parallaxSecond}>
+            <p
+              style={styles.captionStyle}>
+              {captions[pictureSet[1]]}
+            </p>
+          </div>
         </div>
         <div
-          style={{padding: '20px', backgroundColor: blueGrey300}}>
+          style={{padding: '20px', backgroundColor: blueGrey400}}>
           <span
+            id='secondSection'
             style={styles.subHeaderStyle}>
             Hundreds of cities all over the world to lookup
           </span>
@@ -313,25 +358,50 @@ class HomePage extends React.Component {
           </div>
         </div>
         <div
-          style={styles.parallaxThird}>
-          <p
-            style={styles.captionStyle}>
-            {captions[pictureSet[2]]}
-          </p>
+          style={styles.partialFlexStyle}>
+          <div
+            style={styles.parallaxThird}>
+            <p
+              style={styles.captionStyle}>
+              {captions[pictureSet[2]]}
+            </p>
+          </div>
         </div>
         <div
-          style={{padding: '20px', backgroundColor: blueGrey200}}>
+          style={{padding: '20px', backgroundColor: blueGrey400}}>
           <span
             style={styles.subHeaderStyle}>
             Have questions?  Ask the locals for the best pint, or nearby park.
           </span>
+          {/*<MuiThemeProvider>
+            <Card>
+              <CardTitle
+                title='What is the weather like in San Francisco?'
+                subtitle='Kevin Smith' />
+              <ListItem
+                primaryText='The weather is pretty mild year round.'
+                secondaryText='Jane Phillips'
+                leftAvatar={<Avatar src={this.props.photoUrl} />}
+                disabled={true}
+              />
+              <ListItem
+                primaryText='Foggy in the morning, but it clears up by mid-day'
+                secondaryText='Frank Stevens'
+                leftAvatar={<Avatar src={this.props.photoUrl} />}
+                disabled={true}
+              />
+            </Card>
+          </MuiThemeProvider>*/}
         </div>
         <div
-          style={styles.parallaxFourth}>
-          <p
-            style={styles.captionStyle}>
-            {captions[pictureSet[3]]}
-          </p>
+          style={styles.partialFlexStyle}>
+          <div
+            style={styles.parallaxFourth}>
+            <p
+              style={styles.captionStyle}>
+              {captions[pictureSet[3]]}
+            </p>
+          </div>
         </div>
       </div>);
   }
