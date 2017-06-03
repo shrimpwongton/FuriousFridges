@@ -38,8 +38,8 @@ class NewUserForm extends React.Component {
       loading: false,
       finished: false,
       stepIndex: 0,
-      originValue: 0,
-      destinationValue: 0,
+      originValue: 'Aarhus',
+      destinationValue: 'Adelaide',
       describeValue: 'single',
       visibility: false,
     };
@@ -57,6 +57,7 @@ class NewUserForm extends React.Component {
 
   saveData() {
     // Save the form to the database
+    // Convert destination and origin from their key value to the "value" value in CityData
     // (string) destination is at this.state.destinationValue
     // (string) origin is at this.state.originValue
     // (string) describe is at this.state.describeValue
@@ -129,7 +130,7 @@ class NewUserForm extends React.Component {
             <DropDownMenu value={this.state.originValue} onChange={this.handleOriginChange}>
               {
                 Object.keys(CityData).map((city, index) =>
-                  <MenuItem value={index} primaryText={city} />
+                  <MenuItem value={city} primaryText={city} />
                 )
               }
             </DropDownMenu>
@@ -140,7 +141,7 @@ class NewUserForm extends React.Component {
             <DropDownMenu value={this.state.destinationValue} onChange={this.handleDestinationChange}>
               {
                 Object.keys(CityData).map((city, index) =>
-                  <MenuItem value={index} primaryText={city} />
+                  <MenuItem value={city} primaryText={city} />
                 )
               }
             </DropDownMenu>
