@@ -27,7 +27,7 @@ class Question extends React.Component {
           <ListItem
             primaryText={this.props.question.body}
             secondaryText={this.props.question.author}
-            leftAvatar={<Avatar>{this.props.question.author[0]}</Avatar>}
+            leftAvatar={<Avatar src={this.props.photoUrl} />}
           />
         </MuiThemeProvider>
       </div>

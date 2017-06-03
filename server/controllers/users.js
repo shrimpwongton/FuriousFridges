@@ -15,6 +15,7 @@ module.exports.create = (req, res) => {
   models.User.forge({ firstName: req.user.first, 
                       lastName: req.user.last,
                       email: req.user.email,
+                      photoUrl: req.user.profile_pic,
                       visible: true })
     .save()
     .then(result => {

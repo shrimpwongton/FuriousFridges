@@ -9,7 +9,8 @@ module.exports.getAll = (req, res) => {
           id: a.attributes.id,
           author: relationObj.firstName + ' ' + relationObj.lastName,
           body: a.attributes.answer,
-          question_id: a.attributes.question_id
+          question_id: a.attributes.question_id,
+          photoUrl: relationObj.photoUrl
         };
         return answer;
       });
