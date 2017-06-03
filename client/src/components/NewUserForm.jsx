@@ -18,6 +18,7 @@ import {
 import ExpandTransition from 'material-ui/internal/ExpandTransition';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import {Redirect} from 'react-router';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import Avatar from 'material-ui/Avatar';
 import $ from 'jquery';
@@ -40,6 +41,7 @@ class NewUserForm extends React.Component {
       originValue: 0,
       destinationValue: 0,
       describeValue: 'single',
+      visibility: false,
     };
     this.async = this.async.bind(this);
     this.handleOriginChange = this.handleOriginChange.bind(this);
@@ -49,6 +51,27 @@ class NewUserForm extends React.Component {
     this.handlePrev = this.handlePrev.bind(this);
     this.getStepContent = this.getStepContent.bind(this);
     this.renderContent = this.renderContent.bind(this);
+    this.saveData = this.saveData.bind(this);
+    this.handleVisibilityToggle = this.handleVisibilityToggle.bind(this);
+  }
+
+  saveData() {
+    // Save the form to the database
+    // (string) destination is at this.state.destinationValue
+    // (string) origin is at this.state.originValue
+    // (string) describe is at this.state.describeValue
+    // (boolean) visibility is at this.state.visibility
+    // (int) user id is at this.state.id
+    // (string) firstName is at this.state.firstName
+    // (string) lastName is at this.state.lastName
+    // (string) email is at this.state.email
+    // (string) photo is at this.state.profilePic
+  }
+
+  handleVisibilityToggle (event, input) {
+    this.setState({
+      visibility: input,
+    });
   }
 
   async (cb) {
@@ -127,7 +150,7 @@ class NewUserForm extends React.Component {
       case 1:
         return (
           <div>
-            <Subheader>Is there a name you would like us to call you?</Subheader>
+            {/*<Subheader>Is there a name you would like us to call you?</Subheader>
             <TextField
               hintText="John"
               floatingLabelText="First Name"
@@ -145,7 +168,7 @@ class NewUserForm extends React.Component {
               style={{width: '100%', marginLeft: '18px'}}
               underlineFocusStyle={{borderColor: pinkA200}}
               floatingLabelFocusStyle={{color: pinkA200}}
-            />
+            />*/}
             <Subheader>What would you describe yourself as?</Subheader>
             <MuiThemeProvider>
               <DropDownMenu value={this.state.describeValue} onChange={this.handleDescribeChange}>
@@ -171,6 +194,7 @@ class NewUserForm extends React.Component {
                             trackSwitchedStyle={{
                               backgroundColor: pinkA100,
                             }}
+                            onToggle={this.handleVisibilityToggle}
                           />}
               />
             </MuiThemeProvider>
@@ -216,6 +240,7 @@ class NewUserForm extends React.Component {
     axios.get('/authenticated')
       .then(res => {
         this.setState({
+          id: res.data.id,
           firstName: res.data.first,
           lastName: res.data.last,
           email: res.data.email,
@@ -257,7 +282,7 @@ class NewUserForm extends React.Component {
         shadowColor: fullBlack,
       },
     });
-    const {loading, stepIndex} = this.state;
+    const {finished, loading, stepIndex} = this.state;
     return (
 
       <div>
@@ -318,23 +343,28 @@ class NewUserForm extends React.Component {
                 </Stepper>
               </CardText>
               <CardText>
-                <ExpandTransition loading={loading} open={true}>
-                  {this.renderContent()}
-                </ExpandTransition>
-                <div style={{marginTop: 24, marginBottom: 12}}>
-                  <FlatButton
-                    label="Back"
-                    disabled={stepIndex === 0}
-                    onTouchTap={this.handlePrev}
-                    style={{marginRight: 12}}
-                  />
-                  <RaisedButton
-                    label={stepIndex === 2 ? 'Done' : 'Next'}
-                    labelColor={white}
-                    backgroundColor={pinkA200}
-                    onTouchTap={this.handleNext}
-                  />
-                </div>
+                {finished ? ( this.saveData() ||
+                <Redirect push to="/profile" />) : (
+                  <div>
+                    <ExpandTransition loading={loading} open={true}>
+                      {this.renderContent()}
+                    </ExpandTransition>
+                    <div style={{marginTop: 24, marginBottom: 12}}>
+                      <FlatButton
+                      label="Back"
+                      disabled={stepIndex === 0}
+                      onTouchTap={this.handlePrev}
+                      style={{marginRight: 12}}
+                      />
+                      <RaisedButton
+                      label={stepIndex === 2 ? 'Done' : 'Next'}
+                      labelColor={white}
+                      backgroundColor={pinkA200}
+                      onTouchTap={this.handleNext}
+                      />
+                    </div>
+                  </div>
+                )}
               </CardText>
             </Card>
           </MuiThemeProvider>
