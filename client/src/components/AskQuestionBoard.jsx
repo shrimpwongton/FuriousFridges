@@ -46,7 +46,7 @@ class AskQuestionBoard extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('/createuser') 
+    axios.get('/createuser')
       .then(res => {
         console.log('Logged in user: ', res.data);
         this.setState({
@@ -189,7 +189,13 @@ class AskQuestionBoard extends React.Component {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-      }
+      },
+      underlineStyle: {
+        borderColor: pinkA200,
+      },
+      floatingLabelStyle: {
+        color: pinkA200,
+      },
     };
     const actions = [
       <FlatButton
@@ -222,6 +228,8 @@ class AskQuestionBoard extends React.Component {
               rows={2}
               multiLine={true}
               fullWidth = {true}
+              underlineFocusStyle={styles.underlineStyle}
+              floatingLabelFocusStyle={styles.floatingLabelStyle}
             />
           </Dialog>
         </div>
@@ -283,6 +291,8 @@ class AskQuestionBoard extends React.Component {
                       multiLine={true}
                       onChange={this.handleAnswerChange}
                       onKeyPress={this.handleAnswerSubmit}
+                      underlineFocusStyle={styles.underlineStyle}
+                      floatingLabelFocusStyle={styles.floatingLabelStyle}
                     />
                   </ListItem>
                 </Card>
