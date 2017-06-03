@@ -85,19 +85,11 @@ class HomePage extends React.Component {
       'Brandenburg Gate, Berlin · Brandenburger Tor, Berlin',
       'St. Basil\'s Cathedral, Moscow · Собор Василия Блаженного, Москва́'
     ];
-    const randomNumber = Math.floor(Math.random()*images.length);
-    let randomNumber2 = Math.floor(Math.random()*images.length);
-    let randomNumber3 = Math.floor(Math.random()*images.length);
-    let randomNumber4 = Math.floor(Math.random()*images.length);
-    while ( randomNumber2 === randomNumber ){
-      randomNumber2 = Math.floor(Math.random()*images.length);
+    let pictureSet = new Set();
+    while ( pictureSet.size < 4) {
+      pictureSet.add(Math.floor(Math.random() * images.length));
     }
-    while ( randomNumber3 === randomNumber && randomNumber3 === randomNumber2 ) {
-      randomNumber3 = Math.floor(Math.random()*images.length);
-    }
-    while ( randomNumber4 === randomNumber && randomNumber4 === randomNumber2 && randomNumber4 === randomNumber3 ) {
-      randomNumber4 = Math.floor(Math.random()*images.length);
-    }
+    pictureSet = Array.from(pictureSet);
     let cityNames = [];
     Object.keys(CityData).map((city) => {
       cityNames.push(city);
@@ -179,7 +171,7 @@ class HomePage extends React.Component {
       parallaxFirst: {
         height: '60vh',
         position: 'relative',
-        backgroundImage: 'url(' + images[randomNumber] +')',
+        backgroundImage: 'url(' + images[pictureSet[0]] +')',
         backgroundAttachment: 'fixed',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -188,7 +180,7 @@ class HomePage extends React.Component {
       parallaxSecond: {
         height: '60vh',
         position: 'relative',
-        backgroundImage: 'url(' + images[randomNumber2] +')',
+        backgroundImage: 'url(' + images[pictureSet[1]] +')',
         backgroundAttachment: 'fixed',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -197,7 +189,7 @@ class HomePage extends React.Component {
       parallaxThird: {
         height: '60vh',
         position: 'relative',
-        backgroundImage: 'url(' + images[randomNumber3] +')',
+        backgroundImage: 'url(' + images[pictureSet[2]] +')',
         backgroundAttachment: 'fixed',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -206,7 +198,7 @@ class HomePage extends React.Component {
       parallaxFourth: {
         height: '60vh',
         position: 'relative',
-        backgroundImage: 'url(' + images[randomNumber4] +')',
+        backgroundImage: 'url(' + images[pictureSet[3]] +')',
         backgroundAttachment: 'fixed',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -253,44 +245,11 @@ class HomePage extends React.Component {
           style={styles.parallaxFirst}>
           <p
             style={styles.captionStyle}>
-            {captions[randomNumber]}
+            {captions[pictureSet[0]]}
           </p>
         </div>
         <div
           style={{padding: '20px', backgroundColor: blueGrey400}}>
-          <span
-            style={styles.subHeaderStyle}>
-            Hundreds of cities to lookup
-          </span>
-          <div
-            style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
-          {
-            set.map((city) => {
-              return (
-                <MuiThemeProvider>
-                  <Chip
-                    style={styles.chip}>
-                    <Avatar size={32}
-                            backgroundColor={pinkA200}
-                    >
-                      {city[0]}
-                    </Avatar>
-                    {city}
-                  </Chip>
-                </MuiThemeProvider>);
-            })
-          }
-          </div>
-        </div>
-        <div
-          style={styles.parallaxSecond}>
-          <p
-            style={styles.captionStyle}>
-            {captions[randomNumber2]}
-          </p>
-        </div>
-        <div
-          style={{padding: '20px', backgroundColor: blueGrey300}}>
           <span
             style={styles.subHeaderStyle}>
             Determine the best qualities of cities
@@ -321,10 +280,43 @@ class HomePage extends React.Component {
           </div>
         </div>
         <div
+          style={styles.parallaxSecond}>
+          <p
+            style={styles.captionStyle}>
+            {captions[pictureSet[1]]}
+          </p>
+        </div>
+        <div
+          style={{padding: '20px', backgroundColor: blueGrey300}}>
+          <span
+            style={styles.subHeaderStyle}>
+            Hundreds of cities to lookup
+          </span>
+          <div
+            style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+            {
+              set.map((city) => {
+                return (
+                  <MuiThemeProvider>
+                    <Chip
+                      style={styles.chip}>
+                      <Avatar size={32}
+                              backgroundColor={pinkA200}
+                      >
+                        {city[0]}
+                      </Avatar>
+                      {city}
+                    </Chip>
+                  </MuiThemeProvider>);
+              })
+            }
+          </div>
+        </div>
+        <div
           style={styles.parallaxThird}>
           <p
             style={styles.captionStyle}>
-            {captions[randomNumber3]}
+            {captions[pictureSet[2]]}
           </p>
         </div>
         <div
@@ -338,7 +330,7 @@ class HomePage extends React.Component {
           style={styles.parallaxFourth}>
           <p
             style={styles.captionStyle}>
-            {captions[randomNumber4]}
+            {captions[pictureSet[3]]}
           </p>
         </div>
       </div>);
