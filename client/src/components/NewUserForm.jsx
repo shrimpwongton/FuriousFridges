@@ -40,8 +40,8 @@ class NewUserForm extends React.Component {
       loading: false,
       finished: false,
       stepIndex: 0,
-      originValue: 'Aarhus',
-      destinationValue: 'Adelaide',
+      originValue: 'aarhus',
+      destinationValue: 'adelaide',
       describeValue: 'single',
       visibility: false,
     };
@@ -149,7 +149,7 @@ class NewUserForm extends React.Component {
             <DropDownMenu value={this.state.originValue} onChange={this.handleOriginChange}>
               {
                 Object.keys(CityData).map((city, index) =>
-                  <MenuItem value={city} primaryText={city} />
+                  <MenuItem value={CityData[city]} primaryText={city} />
                 )
               }
             </DropDownMenu>
@@ -160,7 +160,7 @@ class NewUserForm extends React.Component {
             <DropDownMenu value={this.state.destinationValue} onChange={this.handleDestinationChange}>
               {
                 Object.keys(CityData).map((city, index) =>
-                  <MenuItem value={city} primaryText={city} />
+                  <MenuItem value={CityData[city]} primaryText={city} />
                 )
               }
             </DropDownMenu>
@@ -394,7 +394,7 @@ class NewUserForm extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({ 
+const mapStateToProps = (state) => ({
   currentUser: state.currentUser
 });
 
