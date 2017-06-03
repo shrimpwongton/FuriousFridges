@@ -23,6 +23,9 @@ import Dashboard from './Dashboard.jsx';
 import Avatar from 'material-ui/Avatar';
 import CityInfo from './CityInfo.jsx';
 import $ from 'jquery';
+import CityData from '../CityOptions.json';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -35,6 +38,10 @@ class Profile extends React.Component {
       email: '',
       question: false,
       profilePic: '',
+      originValue: 'aarhus',
+      destinationValue: 'adelaide',
+      describeValue: 'single',
+
     };
     this.handleToggle = this.handleToggle.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -42,6 +49,9 @@ class Profile extends React.Component {
     this.handleNewQuestion = this.handleNewQuestion.bind(this);
     this.handleQuestionClose = this.handleQuestionClose.bind(this);
     this.handleQuestionSubmit = this.handleQuestionSubmit.bind(this);
+    this.handleOriginChange = this.handleOriginChange.bind(this);
+    this.handleDestinationChange = this.handleDestinationChange.bind(this);
+    this.handleDescribeChange = this.handleDescribeChange.bind(this);
   }
 
   componentWillMount() {
@@ -77,6 +87,23 @@ class Profile extends React.Component {
     this.setState({question: false});
     // Add question here
   }
+  handleOriginChange (event, index, value) {
+    this.setState({
+      originValue: value,
+    });
+  }
+
+  handleDestinationChange (event, index, value) {
+    this.setState({
+      destinationValue: value,
+    });
+  }
+  handleDescribeChange (event, index, value) {
+    this.setState({
+      describeValue: value,
+    });
+  }
+
   render () {
 
     const styles = {
@@ -206,29 +233,53 @@ class Profile extends React.Component {
               leftAvatar={<Avatar src={this.state.profilePic}/>}
               primaryText={this.state.firstName + ' ' + this.state.lastName}
               secondaryText={this.state.email}
+              disabled={true}
             />
-            <Subheader>General</Subheader>
-            <TextField
-              style={styles.textFieldStyle}
-              hintText="John"
-              floatingLabelText="First Name"
-              floatingLabelFixed={true}
-              underlineFocusStyle={styles.underlineStyle}
-              floatingLabelFocusStyle={styles.floatingLabelStyle}
-            />
-            <br/>
-            <TextField
-              style={styles.textFieldStyle}
-              hintText="Smith"
-              floatingLabelText="Last Name"
-              floatingLabelFixed={true}
-              underlineFocusStyle={styles.underlineStyle}
-              floatingLabelFocusStyle={styles.floatingLabelStyle}
-            />
+            <Subheader
+              style={{color: blueGrey500}}>
+              Origin
+            </Subheader>
+            <MuiThemeProvider>
+              <DropDownMenu value={this.state.originValue} onChange={this.handleOriginChange}>
+                {
+                  Object.keys(CityData).map((city, index) =>
+                    <MenuItem value={CityData[city]} primaryText={city} />
+                  )
+                }
+              </DropDownMenu>
+            </MuiThemeProvider>
             <Divider/>
-            <Subheader>Location</Subheader>
+            <Subheader
+              style={{color: blueGrey500}}>
+              Destination
+            </Subheader>
+            <MuiThemeProvider>
+              <DropDownMenu value={this.state.destinationValue} onChange={this.handleDestinationChange}>
+                {
+                  Object.keys(CityData).map((city, index) =>
+                    <MenuItem value={CityData[city]} primaryText={city} />
+                  )
+                }
+              </DropDownMenu>
+            </MuiThemeProvider>
             <Divider/>
-            <Subheader>Privacy</Subheader>
+            <Subheader
+              style={{color: blueGrey500}}>
+              Description
+            </Subheader>
+            <MuiThemeProvider>
+              <DropDownMenu value={this.state.describeValue} onChange={this.handleDescribeChange}>
+                <MenuItem value={'single'} primaryText={'Single'} />
+                <MenuItem value={'couple'} primaryText={'Couple'} />
+                <MenuItem value={'married'} primaryText={'Married'} />
+                <MenuItem value={'parent'} primaryText={'Parent'} />
+              </DropDownMenu>
+            </MuiThemeProvider>
+            <Divider/>
+            <Subheader
+              style={{color: blueGrey500}}>
+              Privacy
+            </Subheader>
             <ListItem primaryText="Visibility"
                       secondaryText="Profile visible to other users"
                       rightToggle={

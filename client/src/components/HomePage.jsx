@@ -252,7 +252,7 @@ class HomePage extends React.Component {
           style={{padding: '20px', backgroundColor: blueGrey400}}>
           <span
             style={styles.subHeaderStyle}>
-            Determine the best qualities of cities
+            Determine the best qualities of cities, and how they compare to others
           </span>
           <div
             style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
@@ -290,7 +290,7 @@ class HomePage extends React.Component {
           style={{padding: '20px', backgroundColor: blueGrey300}}>
           <span
             style={styles.subHeaderStyle}>
-            Hundreds of cities to lookup
+            Hundreds of cities all over the world to lookup
           </span>
           <div
             style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
