@@ -7,7 +7,7 @@ import {
 } from 'material-ui/styles/colors';
 import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {Tabs, Tab} from 'material-ui/Tabs';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
 import Divider from 'material-ui/Divider';
 import Drawer from 'material-ui/Drawer';
@@ -22,6 +22,7 @@ import AskQuestionBoard from './AskQuestionBoard.jsx';
 import Dashboard from './Dashboard.jsx';
 import Avatar from 'material-ui/Avatar';
 import CityInfo from './CityInfo.jsx';
+import $ from 'jquery';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -50,7 +51,8 @@ class Profile extends React.Component {
         lastName: auth.last,
         email: auth.email,
         id: auth.id,
-        profilePic: auth.profile_pic
+        profilePic: auth.profile_pic,
+        width: $(window).width(),
       });
     });
   }
@@ -121,7 +123,7 @@ class Profile extends React.Component {
         color: pinkA200,
       },
       tabs: {
-        background: blueGrey500,
+        color: blueGrey500,
       },
       tab: {
         flex: '1',
@@ -197,12 +199,15 @@ class Profile extends React.Component {
           <Drawer
             docked={false}
             open={this.state.open}
-            width={400}
+            width={this.state.width > 400 ? 400 : '100%'}
             openSecondary={true}
             onRequestChange={(open) => this.setState({open})} >
-            <Subheader>General</Subheader>
             <ListItem
-              leftAvatar={<Avatar src={this.state.profilePic}></Avatar>} />
+              leftAvatar={<Avatar src={this.state.profilePic}/>}
+              primaryText={this.state.firstName + ' ' + this.state.lastName}
+              secondaryText={this.state.email}
+            />
+            <Subheader>General</Subheader>
             <TextField
               style={styles.textFieldStyle}
               hintText="John"
