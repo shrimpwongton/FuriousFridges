@@ -33,13 +33,6 @@ class AskQuestionBoard extends React.Component {
   constructor(props) {
     super(props);
 
-    this.props = {
-      questionDialog: false,
-      question: '',
-      answer: '',
-      errorText: '',
-    };
-
     this.addQuestion = this.addQuestion.bind(this);
     this.handleQuestionClick = this.handleQuestionClick.bind(this);
     this.answerQuestionInView = this.answerQuestionInView.bind(this);
