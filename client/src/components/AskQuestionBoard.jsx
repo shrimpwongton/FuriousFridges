@@ -56,7 +56,8 @@ class AskQuestionBoard extends React.Component {
     axios.get('/questions')
       .then(res => {
         this.setState({
-          questions: res.data });
+          questions: res.data
+        });
       });
   }
 
@@ -205,6 +206,7 @@ class AskQuestionBoard extends React.Component {
       <FlatButton
         label="Submit"
         keyboardFocused={true}
+        labelStyle={{color: pinkA200}}
         onTouchTap={this.handleQuestionDialogSubmit}
       />,
     ];
@@ -212,6 +214,7 @@ class AskQuestionBoard extends React.Component {
       <div>
         <div>
           <Dialog
+            ref="questionField"
             title="Ask a Question"
             modal={false}
             actions={actions}

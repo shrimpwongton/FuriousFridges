@@ -125,19 +125,19 @@ class CityInfo extends React.Component {
         backgroundSize: 'cover',
       },
     };
-    const cards = [['Housing Affordability', this.state.housing, <ActionHome/>],
+    let cards = [['Housing Affordability', this.state.housing, <ActionHome/>],
       ['Cost of Living', this.state.col, <EditorAttachMoney/>],
+      ['Economy', this.state.economy, this.state.economy > 5 ? <ActionTrendingUp/> : <ActionTrendingDown/>],
       ['Health Care', this.state.health_care, <ImageHealing/>],
       ['Environment Quality', this.state.environmental_quality, <MapsLocalFlorist/>],
-      ['Economy', this.state.economy, this.state.economy > 5 ? <ActionTrendingUp/> : <ActionTrendingDown/>],
       ['Leisure and Culture', this.state.leisure, <MapsLocalBar/>],
-      ['Commute', this.state.commute, <MapsDirectionsCar/>],
       ['Safety', this.state.safety, <SocialPublic/>],
+      ['Outdoors', this.state.outdoors, <MapsTerrain/>],
       ['Education', this.state.education, <MapsLocalLibrary/>],
       ['Tolerance', this.state.tolerance, <SocialGroup/>],
+      ['Commute', this.state.commute, <MapsDirectionsCar/>],
       ['Air and Rail Connectivity', this.state.travel_connectivity, <MapsDirectionsTransit/>],
-      ['Outdoors', this.state.outdoors, <MapsTerrain/>],
-      ['Internet Access', this.state.internet_access, <ActionExplore/>]];
+      ['Internet Access', this.state.internet_access, <ActionExplore/>]].sort((a, b) => {return b[1] - a[1]; });
     const context = this;
     return (
       <div>
