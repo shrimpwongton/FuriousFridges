@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import Question from './Question.jsx';
 import Answer from './Answer.jsx';
 import AnswerForm from './AnswerForm.jsx';
@@ -22,7 +23,6 @@ class AskQuestionBoard extends React.Component {
     super(props);
 
     this.state = {
-      currentQuestion: {},
       questions: [],
       answers: [],
       view: 'questions',
@@ -99,7 +99,7 @@ class AskQuestionBoard extends React.Component {
 
   handleAnswerSubmit(event) {
     if (event.charCode === 13) {
-      this.answerQuestionInView(this.state.user, this.state.answer, this.state.currentQuestion.id);
+      this.answerQuestionInView(this.state.user, this.state.answer, this.props.currentQuestion.id);
       this.setState({
         answer: '',
       });
@@ -141,7 +141,7 @@ class AskQuestionBoard extends React.Component {
   }
 
   answerQuestionInView(author, body) {
-    let currentQuestion = this.state.currentQuestion;
+    let currentQuestion = this.props.currentQuestion;
     let questionId = currentQuestion.id;
     let email = this.state.user.email;
     axios.post('/answers', {
@@ -268,8 +268,8 @@ class AskQuestionBoard extends React.Component {
                     <NavigationArrowBack />
                   </IconButton>
                   <CardTitle
-                    title={this.state.currentQuestion.body}
-                    subtitle={this.state.currentQuestion.author} />
+                    title={this.props.currentQuestion.body}
+                    subtitle={this.props.currentQuestion.author} />
                   {
                     this.state.answers.map(answer =>
                       <Answer id={answer.id}
@@ -304,4 +304,6 @@ class AskQuestionBoard extends React.Component {
   }
 }
 
-export default AskQuestionBoard;
+const mapStateToProps = (state) => ({ currentQuestion: state.currentQuestion });
+
+export default connect(mapStateToProps)(AskQuestionBoard);
