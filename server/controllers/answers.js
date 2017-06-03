@@ -34,7 +34,8 @@ module.exports.create = (req, res) => {
           let answer = {
             id: a.attributes.id,
             author: attrib.firstName + ' ' + attrib.lastName,
-            body: a.attributes.answer
+            body: a.attributes.answer,
+            photoUrl: attrib.photoUrl
           };
           res.status(201).send(answer);
         })    
