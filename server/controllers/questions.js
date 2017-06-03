@@ -32,7 +32,8 @@ module.exports.create = (req, res) => {
           let question = {
             id: q.attributes.id,
             author: attrib.firstName + ' ' + attrib.lastName,
-            body: q.attributes.question
+            body: q.attributes.question,
+            photoUrl: attrib.photoUrl
           };
           res.status(201).send(question);
         })    

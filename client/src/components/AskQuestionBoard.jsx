@@ -114,7 +114,6 @@ class AskQuestionBoard extends React.Component {
   }
 
   addQuestion(author, body) {
-    console.log(this.state.user);
     let email = this.state.user.email;
     axios.post('/questions', {
       question: body,
