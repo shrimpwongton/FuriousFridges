@@ -1,8 +1,10 @@
 import React from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import Question from './Question.jsx';
 import Answer from './Answer.jsx';
-import AnswerForm from './AnswerForm.jsx';
+import QuestionCollection from './QuestionCollection.jsx';
+import AnswerCollection from './AnswerCollection.jsx';
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import {
@@ -16,17 +18,22 @@ import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import {List, ListItem} from 'material-ui/List';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import { setQuestion,
+         setAnswer,
+         setQuestions,
+         setAnswers,
+         setQuestionDialog,
+         setErrorText,
+         setCurrentQuestion,
+         setCurrentView,
+         setCurrentUser } from './actionCreators';
+
 
 class AskQuestionBoard extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      currentQuestion: {},
-      questions: [],
-      answers: [],
-      view: 'questions',
-      user: null,
+    this.props = {
       questionDialog: false,
       question: '',
       answer: '',
@@ -49,118 +56,91 @@ class AskQuestionBoard extends React.Component {
     axios.get('/createuser')
       .then(res => {
         console.log('Logged in user: ', res.data);
-        this.setState({
-          user: res.data
-        });
+        this.props.dispatchCurrentUser(res.data);
       });
     axios.get('/questions')
       .then(res => {
-        this.setState({
-          questions: res.data
-        });
+        //this.props.dispatchCurrentView('questions');
+        this.props.dispatchQuestions(res.data);
       });
   }
 
   handleQuestionDialogClose() {
-    this.setState({
-      questionDialog: false,
-      question: '',
-      errorText: '',
-    });
+    this.props.dispatchQuestionDialog(false);
+    this.props.dispatchQuestion('');
+    this.props.dispatchErrorText('');
   }
 
   handleQuestionDialogSubmit() {
-    if ( this.state.question === '' ) {
-      this.setState({
-        errorText: 'Question cannot be empty'
-      });
+    if ( this.props.question === '' ) {
+      this.props.dispatchErrorText('Question cannot be empty');
     } else {
-      this.setState({
-        questionDialog: false,
-      });
-      this.addQuestion(this.state.user, this.state.question);
-      this.setState({
-        question: '',
-        errorText: '',
-      });
+      this.props.dispatchQuestionDialog(false);
+      this.addQuestion(this.props.currentUser, this.props.question);
+      this.props.dispatchQuestion('');
+      this.props.dispatchErrorText('');
     }
   }
 
   handleQuestionChange(event) {
-    this.setState({
-      question: event.target.value,
-    });
+    this.props.dispatchQuestion(event.target.value);
   }
 
   handleAnswerChange(event) {
-    this.setState({
-      answer: event.target.value,
-    });
+    this.props.dispatchAnswer(event.target.value);
   }
 
   handleAnswerSubmit(event) {
     if (event.charCode === 13) {
-      this.answerQuestionInView(this.state.user, this.state.answer, this.state.currentQuestion.id);
-      this.setState({
-        answer: '',
-      });
+      this.answerQuestionInView(this.props.currentUser, this.props.answer, this.props.currentQuestion.id);
+      this.props.dispatchAnswer('');
     }
   }
 
   openQuestionDialog() {
-    this.setState({
-      questionDialog: true,
-    });
+    this.props.dispatchQuestionDialog(true);
   }
 
   addQuestion(author, body) {
-    let email = this.state.user.email;
+    let email = this.props.currentUser.email;
     axios.post('/questions', {
       question: body,
       email
     })
       .then(res => {
-        this.setState({
-          questions: this.state.questions.concat([res.data])
-        });
+        this.props.dispatchQuestions(this.props.questions.concat([res.data]));
       });
   }
 
   handleQuestionClick(questionId) {
+    let currentQuestion = this.props.questions[questionId - 1];   
     axios.get('/answers', {
       params: { questionId }
     })
       .then(res => {
-        let currentQuestion = this.state.questions[questionId - 1];
         let answers = res.data;
-        this.setState({
-          view: 'answer',
-          currentQuestion,
-          answers
-        });
+        this.props.dispatchCurrentView('answers');
+        this.props.dispatchCurrentQuestion(currentQuestion);
+        this.props.dispatchAnswers(answers);
       });
   }
 
   answerQuestionInView(author, body) {
-    let currentQuestion = this.state.currentQuestion;
+    let currentQuestion = this.props.currentQuestion;
     let questionId = currentQuestion.id;
-    let email = this.state.user.email;
+    let email = this.props.currentUser.email;
     axios.post('/answers', {
       answer: body,
       questionId,
       email
     })
       .then(res => {
-        this.setState({
-          answers: this.state.answers.concat([res.data])
-        });
+        this.props.dispatchAnswers(this.props.answers.concat([res.data]));
       });
   }
 
   backToQuestions(questionId) {
-    this.setState({
-      view: 'questions'
-    });
+    this.props.dispatchCurrentView('questions');
   }
 
   render() {
@@ -217,15 +197,15 @@ class AskQuestionBoard extends React.Component {
             title="Ask a Question"
             modal={false}
             actions={actions}
-            open={this.state.questionDialog}
+            open={this.props.questionDialog}
             onRequestClose={this.handleQuestionDialogClose}
           >
             <TextField
-              value={this.state.question}
+              value={this.props.question}
               onChange={this.handleQuestionChange}
               hintText="What is the weather like in San Francisco?"
               floatingLabelText="Question"
-              errorText={this.state.errorText}
+              errorText={this.props.errorText}
               floatingLabelFixed={true}
               rows={2}
               multiLine={true}
@@ -238,18 +218,11 @@ class AskQuestionBoard extends React.Component {
         <div
           style={styles.divStyle}>
           {
-            this.state.view === 'questions'
+            this.props.currentView === 'questions'
             ? <div>
                 <Card
                   style={styles.cardStyle}>
-                  {
-                    this.state.questions.map(question =>
-                      <Question question={question}
-                                handleQuestionClick={this.handleQuestionClick}
-                                key={question.id}
-                                photoUrl={question.photoUrl} />
-                    )
-                  }
+                  <QuestionCollection handleQuestionClick={this.handleQuestionClick} />
                 </Card>
                 <RaisedButton
                   label='ASK A QUESTION'
@@ -262,7 +235,7 @@ class AskQuestionBoard extends React.Component {
             : null
           }
           {
-            this.state.view === 'answer'
+            this.props.currentView === 'answers'
             ? <div>
                 <Card
                   style={styles.cardStyle}>
@@ -271,24 +244,16 @@ class AskQuestionBoard extends React.Component {
                     <NavigationArrowBack />
                   </IconButton>
                   <CardTitle
-                    title={this.state.currentQuestion.body}
-                    subtitle={this.state.currentQuestion.author} />
-                  {
-                    this.state.answers.map(answer =>
-                      <Answer id={answer.id}
-                              author={answer.author}
-                              body={answer.body}
-                              key={answer.id}
-                              photoUrl={answer.photoUrl} />
-                    )
-                  }
+                    title={this.props.currentQuestion.body}
+                    subtitle={this.props.currentQuestion.author} />
+                  <AnswerCollection />
                   <ListItem
                     disabled={true}>
                     <TextField
                       floatingLabelText="Reply"
                       floatingLabelFixed={true}
                       fullWidth ={true}
-                      value={this.state.answer}
+                      value={this.props.answer}
                       rows={2}
                       multiLine={true}
                       onChange={this.handleAnswerChange}
@@ -307,4 +272,48 @@ class AskQuestionBoard extends React.Component {
   }
 }
 
-export default AskQuestionBoard;
+const mapStateToProps = (state) => ({ 
+  question: state.question,
+  answer: state.answer,
+  questions: state.questions,
+  answers: state.answers,
+  questionDialog: state.questionDialog,
+  errorText: state.errorText,
+  currentQuestion: state.currentQuestion, 
+  currentView: state.currentView,
+  currentUser: state.currentUser
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatchQuestion: (question) => {
+      dispatch(setQuestion(question));
+    },
+    dispatchAnswer: (answer) => {
+      dispatch(setAnswer(answer));
+    },
+    dispatchQuestions: (questions) => {
+      dispatch(setQuestions(questions));
+    },
+    dispatchAnswers: (answers) => {
+      dispatch(setAnswers(answers));
+    },
+    dispatchQuestionDialog: (questionDialog) => {
+      dispatch(setQuestionDialog(questionDialog));
+    },
+    dispatchErrorText: (errorText) => {
+      dispatch(setErrorText(errorText));
+    },
+    dispatchCurrentQuestion: (currentQuestion) => {
+      dispatch(setCurrentQuestion(currentQuestion));
+    },
+    dispatchCurrentView: (currentView) => {
+      dispatch(setCurrentView(currentView));
+    },
+    dispatchCurrentUser: (currentUser) => {
+      dispatch(setCurrentUser(currentUser));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AskQuestionBoard);
