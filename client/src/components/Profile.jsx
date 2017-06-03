@@ -200,9 +200,12 @@ class Profile extends React.Component {
             width={400}
             openSecondary={true}
             onRequestChange={(open) => this.setState({open})} >
-            <Subheader>General</Subheader>
             <ListItem
-              leftAvatar={<Avatar src={this.state.profilePic}></Avatar>} />
+              leftAvatar={<Avatar src={this.state.profilePic}/>}
+              primaryText={this.state.firstName + ' ' + this.state.lastName}
+              secondaryText={this.state.email}
+            />
+            <Subheader>General</Subheader>
             <TextField
               style={styles.textFieldStyle}
               hintText="John"
