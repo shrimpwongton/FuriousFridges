@@ -72,8 +72,8 @@ class NewUserForm extends React.Component {
   saveData() {
     axios.get('/createuser')
       .then(res => {
-        this.props.dispatchCurrentUser(res.data)
-      });
+        this.props.dispatchCurrentUser(res.data);
+      })
       .then(() => {
         axios.put('/users', {
           origin: this.state.originValue,
