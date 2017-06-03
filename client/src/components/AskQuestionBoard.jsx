@@ -236,7 +236,8 @@ class AskQuestionBoard extends React.Component {
                     this.state.questions.map(question =>
                       <Question question={question}
                                 handleQuestionClick={this.handleQuestionClick}
-                                key={question.id}/>
+                                key={question.id}
+                                photoUrl={question.photoUrl} />
                     )
                   }
                 </Card>
@@ -267,7 +268,8 @@ class AskQuestionBoard extends React.Component {
                       <Answer id={answer.id}
                               author={answer.author}
                               body={answer.body}
-                              key={answer.id} />
+                              key={answer.id}
+                              photoUrl={answer.photoUrl} />
                     )
                   }
                   <ListItem

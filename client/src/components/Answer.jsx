@@ -10,7 +10,7 @@ const Answer = (props) => (
         primaryText={props.body}
         secondaryText={props.author}
         disabled={true}
-        leftAvatar={<Avatar>{props.author[0]}</Avatar>}
+        leftAvatar={<Avatar src={props.photoUrl} />}
       />
     </MuiThemeProvider>
   </div>

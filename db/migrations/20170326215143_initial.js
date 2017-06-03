@@ -27,6 +27,7 @@ exports.up = function (knex, Promise) {
       table.boolean('visible', 5).notNullable();
       table.string('origin', 100).nullable();
       table.string('destination', 100).nullable();
+      table.string('photoUrl', 100).nullable();
     }),
     knex.schema.createTableIfNotExists('questions', function(table) {
       table.increments('id').unsigned().primary();
