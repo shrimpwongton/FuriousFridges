@@ -4,7 +4,7 @@ import {
   Link,
 } from 'react-router-dom';
 import {
-  blueGrey500, white, pinkA200, pinkA100, grey300
+  blueGrey500, white, pinkA200, pinkA100, grey300, grey400, darkBlack, blueGrey700, grey100, grey500, fullBlack
 } from 'material-ui/styles/colors';
 import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -28,6 +28,7 @@ import Divider from 'material-ui/Divider';
 import Subheader from 'material-ui/Subheader';
 import {List, ListItem} from 'material-ui/List';
 import Toggle from 'material-ui/Toggle';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 class NewUserForm extends React.Component {
   constructor(props) {
@@ -219,6 +220,7 @@ class NewUserForm extends React.Component {
           lastName: res.data.last,
           email: res.data.email,
           width: width,
+          profilePic: res.data.profile_pic,
         });
       });
   }
@@ -239,11 +241,27 @@ class NewUserForm extends React.Component {
         bottom: 'auto',
       },
     };
+    const muiTheme = getMuiTheme({
+      palette: {
+        primary1Color: pinkA200,
+        primary2Color: blueGrey700,
+        primary3Color: grey400,
+        accent1Color: pinkA200,
+        accent2Color: grey100,
+        accent3Color: grey500,
+        textColor: darkBlack,
+        alternateTextColor: white,
+        canvasColor: white,
+        borderColor: grey300,
+        pickerHeaderColor: blueGrey500,
+        shadowColor: fullBlack,
+      },
+    });
     const {loading, stepIndex} = this.state;
     return (
 
       <div>
-        <MuiThemeProvider>
+        <MuiThemeProvider muiTheme={muiTheme}>
           <Toolbar
             style = {styles.toolbarStyle}>
             <ToolbarGroup firstChild={true} style={styles.titleStyle}>
@@ -267,11 +285,16 @@ class NewUserForm extends React.Component {
           </Toolbar>
         </MuiThemeProvider>
         <div style={{width: '100%', maxWidth: '800px', marginTop: '20px', marginLeft: 'auto', marginRight:'auto'}}>
-          <MuiThemeProvider>
+          <MuiThemeProvider muiTheme={muiTheme}>
             <Card>
-              <CardTitle
+              <CardHeader
+                title={this.state.firstName + ' ' + this.state.lastName}
+                subtitle={this.state.email}
+                avatar={this.state.profilePic}
+              />
+              {/*<CardTitle
                 title={'Welcome ' + this.state.firstName + ' ' + this.state.lastName}
-                subtitle={this.state.email} />
+                subtitle={this.state.email} />*/}
               <CardText>
                 <Stepper
                   activeStep={stepIndex}

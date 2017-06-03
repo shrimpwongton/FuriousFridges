@@ -2,18 +2,49 @@ import React from 'react';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {
-  blueGrey500, grey300, white
+  blueGrey500, blueGrey400, blueGrey300, blueGrey200, grey300, white, pinkA200
 } from 'material-ui/styles/colors';
 import {
   Link,
 } from 'react-router-dom';
 import FlatButton from 'material-ui/FlatButton';
+import CityData from '../CityOptions.json';
+import Chip from 'material-ui/Chip';
+import Avatar from 'material-ui/Avatar';
+import ActionHome from 'material-ui/svg-icons/action/home';
+import ImageHealing from 'material-ui/svg-icons/image/healing';
+import MapsTerrain from 'material-ui/svg-icons/maps/terrain';
+import EditorAttachMoney from 'material-ui/svg-icons/editor/attach-money';
+import MapsLocalBar from 'material-ui/svg-icons/maps/local-bar';
+import MapsDirectionsTransit from 'material-ui/svg-icons/maps/directions-transit';
+import MapsDirectionsCar from 'material-ui/svg-icons/maps/directions-car';
+import MapsLocalFlorist from 'material-ui/svg-icons/maps/local-florist';
+import SocialPublic from 'material-ui/svg-icons/social/public';
+import MapsLocalLibrary from 'material-ui/svg-icons/maps/local-library';
+import ActionExplore from 'material-ui/svg-icons/action/explore';
+import SocialGroup from 'material-ui/svg-icons/social/group';
+import ActionTrendingUp from 'material-ui/svg-icons/action/trending-up';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
     };
+    this.calculateScoreStatus = this.calculateScoreStatus.bind(this);
+  }
+  calculateScoreStatus (score) {
+    if ( score > 8 ) {
+      return 'Among the best';
+    } else if ( score > 6 ) {
+      return 'Above Average';
+    } else if ( score > 4.5 ) {
+      return 'Around Average';
+    } else if ( score > 3 ) {
+      return 'Below Average';
+    } else {
+      return 'Among the worst';
+    }
   }
   render () {
     const images = [
@@ -54,7 +85,41 @@ class HomePage extends React.Component {
       'Brandenburg Gate, Berlin · Brandenburger Tor, Berlin',
       'St. Basil\'s Cathedral, Moscow · Собор Василия Блаженного, Москва́'
     ];
-    const randomNumber = Math.floor(Math.random()*images.length);
+    let pictureSet = new Set();
+    while ( pictureSet.size < 4) {
+      pictureSet.add(Math.floor(Math.random() * images.length));
+    }
+    pictureSet = Array.from(pictureSet);
+    let cityNames = [];
+    Object.keys(CityData).map((city) => {
+      cityNames.push(city);
+    });
+    let set = new Set();
+    while ( set.size < 10 ) {
+      set.add(cityNames[Math.floor(Math.random() * cityNames.length)]);
+    }
+    set = Array.from(set);
+
+    const cards = [['Housing Affordability', <ActionHome/>],
+      ['Cost of Living', <EditorAttachMoney/>],
+      ['Economy', <ActionTrendingUp/>],
+      ['Health Care', <ImageHealing/>],
+      ['Environment Quality', <MapsLocalFlorist/>],
+      ['Leisure and Culture', <MapsLocalBar/>],
+      ['Safety', <SocialPublic/>],
+      ['Outdoors', <MapsTerrain/>],
+      ['Education', <MapsLocalLibrary/>],
+      ['Tolerance',  <SocialGroup/>],
+      ['Commute', <MapsDirectionsCar/>],
+      ['Air and Rail Connectivity', <MapsDirectionsTransit/>],
+      ['Internet Access', <ActionExplore/>]];
+
+    let cardSet = new Set();
+    while ( cardSet.size < 5 ) {
+      cardSet.add(cards[Math.floor(Math.random() * cards.length)]);
+    }
+    cardSet = Array.from(cardSet);
+    console.log('cardSet', cardSet);
 
     const styles = {
       homeStyle: {
@@ -62,6 +127,9 @@ class HomePage extends React.Component {
       },
       toolbarStyle: {
         backgroundColor: blueGrey500,
+        position: 'fixed',
+        zIndex: 10000,
+        width: '100%',
       },
       whiteTextStyle: {
         color: 'white',
@@ -80,7 +148,7 @@ class HomePage extends React.Component {
       subHeaderStyle: {
         fontFamily: "'Roboto', sans-serif",
         color: grey300,
-        fontSize: '3em',
+        fontSize: '2em',
       },
       headerStyle: {
         fontFamily: "'Roboto', sans-serif",
@@ -91,36 +159,54 @@ class HomePage extends React.Component {
         fontFamily: "'Roboto', sans-serif",
         color: 'white',
         fontSize: '1em',
-        margin: 0,
-        top: 'auto',
-        right: 'auto',
-        bottom: 20,
-        left: '20',
-        position: 'fixed',
-      },
-      imageStyle: {
-        width: '100%',
-        height: '94vh',
-        objectFit: 'cover',
-        overflow: 'hidden',
+        position: 'absolute',
+        left: '20px',
+        bottom: '0px',
       },
       divStyle: {
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
       },
-      flexStyle: {
-        display: 'flex',
-        flexDirection: 'column',
-      },
-      parallax: {
-        height: '30vh',
-        backgroundImage: 'url(/assets/GoldenGate.jpg)',
+      parallaxFirst: {
+        height: '60vh',
+        position: 'relative',
+        backgroundImage: 'url(' + images[pictureSet[0]] +')',
         backgroundAttachment: 'fixed',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
-      }
+      },
+      parallaxSecond: {
+        height: '60vh',
+        position: 'relative',
+        backgroundImage: 'url(' + images[pictureSet[1]] +')',
+        backgroundAttachment: 'fixed',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+      },
+      parallaxThird: {
+        height: '60vh',
+        position: 'relative',
+        backgroundImage: 'url(' + images[pictureSet[2]] +')',
+        backgroundAttachment: 'fixed',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+      },
+      parallaxFourth: {
+        height: '60vh',
+        position: 'relative',
+        backgroundImage: 'url(' + images[pictureSet[3]] +')',
+        backgroundAttachment: 'fixed',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+      },
+      chip: {
+        margin: 4,
+      },
     };
 
     return (
@@ -155,24 +241,96 @@ class HomePage extends React.Component {
             </ToolbarGroup>
           </Toolbar>
         </MuiThemeProvider>
-        <div>
-          <img
-            src={images[randomNumber]}
-            style={styles.imageStyle}/>
+        <div
+          style={styles.parallaxFirst}>
           <p
             style={styles.captionStyle}>
-            {captions[randomNumber]}
+            {captions[pictureSet[0]]}
           </p>
         </div>
         <div
-          style={styles.centerStyle}>
-          <p
-            style={styles.headerStyle}>
-            Where to?
-          </p>
-          <p
+          style={{padding: '20px', backgroundColor: blueGrey400}}>
+          <span
             style={styles.subHeaderStyle}>
-            You handle the packing, we'll take of the rest
+            Determine the best qualities of cities
+          </span>
+          <div
+            style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+            {
+              cardSet.map((card) => {
+                return (
+                  <MuiThemeProvider>
+                    <Card
+                      style={{margin: '4px'}}>
+                      <CardHeader
+                        title={card[0]}
+                        subtitle={this.calculateScoreStatus(Math.random() * 10)}
+                        avatar={
+                          <Avatar
+                            icon={card[1]}
+                            backgroundColor={pinkA200}
+                          />
+                        }
+                      />
+                    </Card>
+                  </MuiThemeProvider>
+                );
+              })
+            }
+          </div>
+        </div>
+        <div
+          style={styles.parallaxSecond}>
+          <p
+            style={styles.captionStyle}>
+            {captions[pictureSet[1]]}
+          </p>
+        </div>
+        <div
+          style={{padding: '20px', backgroundColor: blueGrey300}}>
+          <span
+            style={styles.subHeaderStyle}>
+            Hundreds of cities to lookup
+          </span>
+          <div
+            style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+            {
+              set.map((city) => {
+                return (
+                  <MuiThemeProvider>
+                    <Chip
+                      style={styles.chip}>
+                      <Avatar size={32}
+                              backgroundColor={pinkA200}
+                      >
+                        {city[0]}
+                      </Avatar>
+                      {city}
+                    </Chip>
+                  </MuiThemeProvider>);
+              })
+            }
+          </div>
+        </div>
+        <div
+          style={styles.parallaxThird}>
+          <p
+            style={styles.captionStyle}>
+            {captions[pictureSet[2]]}
+          </p>
+        </div>
+        <div
+          style={{padding: '20px', backgroundColor: blueGrey200}}>
+          <span
+            style={styles.subHeaderStyle}>
+            Have questions?  Ask the locals for the best pint, or nearby park.
+          </span>
+        </div>
+        <div
+          style={styles.parallaxFourth}>
+          <p
+            style={styles.captionStyle}>
+            {captions[pictureSet[3]]}
           </p>
         </div>
       </div>);
