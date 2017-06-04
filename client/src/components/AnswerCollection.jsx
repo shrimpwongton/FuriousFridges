@@ -9,8 +9,8 @@ const AnswerCollection = (props) => (
         <Answer id={answer.id}
                 author={answer.author}
                 body={answer.body}
-                key={answer.id}
-                photoUrl={answer.photoUrl} />
+                photoUrl={answer.photoUrl}
+                key={answer.id} />
       )
     }
   </div>

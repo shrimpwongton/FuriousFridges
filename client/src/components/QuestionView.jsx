@@ -1,24 +1,37 @@
 import React from 'react';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import { connect } from 'react-redux';
+import QuestionCollection from './QuestionCollection.jsx';
+import RaisedButton from 'material-ui/RaisedButton';
+import { Card } from 'material-ui/Card';
+import { white, pinkA200 } from 'material-ui/styles/colors';
 
-class QuestionView extends React.Component {
-  constructor(props) {
-    super(props);
+const QuestionView = (props) => (
+  <div>
+    <Card
+      style={styles.cardStyle}>
+      <QuestionCollection handleQuestionClick={props.handleQuestionClick} />
+    </Card>
+    <RaisedButton
+      label='ASK A QUESTION'
+      backgroundColor={pinkA200}
+      labelColor={white}
+      style={styles.askQuestionButton}
+      onTouchTap={props.openQuestionDialog}
+    />
+  </div>
+);
 
-    this.backToQuestions = this.backToQuestions.bind(this);
+const styles = {
+  cardStyle: {
+    width: '75vw',
+  },
+  askQuestionButton: {
+    margin: 0,
+    right: 20,
+    left: 'auto',
+    top: 0,
+    position: 'absolute',
   }
-
-  backToQuestions() {
-    this.props.backToQuestions(this.props.question.id);
-  }
-
-  render() {
-    return (
-      <div>
-        <button onClick={this.backToQuestions}>Back to Questions</button>
-      </div>
-    );
-  }
-}
+};
 
 export default QuestionView;
