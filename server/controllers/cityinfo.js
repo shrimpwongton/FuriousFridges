@@ -8,6 +8,7 @@ const models = require('../../db/models');
 module.exports.getAll = (req, res) => {
   models.User.where({ email: req.user.email}).fetch()
     .then((result) => {
+      
       models.Stats.where({city: result.attributes.destination}).fetchAll()
       .then(data => {
         if (data.length === 0) {
