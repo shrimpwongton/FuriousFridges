@@ -8,8 +8,8 @@ const QuestionCollection = (props) => (
       props.questions.map(question =>
         <Question question={question}
                   handleQuestionClick={props.handleQuestionClick}
-                  key={question.id}
-                  photoUrl={question.photoUrl} />
+                  photoUrl={question.photoUrl}
+                  key={question.id} />
       )
     }
   </div>

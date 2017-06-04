@@ -3,21 +3,12 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import Question from './Question.jsx';
 import Answer from './Answer.jsx';
-import QuestionCollection from './QuestionCollection.jsx';
-import AnswerCollection from './AnswerCollection.jsx';
-import RaisedButton from 'material-ui/RaisedButton';
+import QuestionView from './QuestionView.jsx';
+import AnswerView from './AnswerView.jsx';
 import Dialog from 'material-ui/Dialog';
-import {
-  blueGrey500, white, pinkA200, pinkA100, grey300
-} from 'material-ui/styles/colors';
+import { pinkA200 } from 'material-ui/styles/colors';
 import FlatButton from 'material-ui/FlatButton';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
-import IconButton from 'material-ui/IconButton';
-import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
-import {List, ListItem} from 'material-ui/List';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 import { setQuestion,
          setAnswer,
          setQuestions,
@@ -138,16 +129,6 @@ class AskQuestionBoard extends React.Component {
 
   render() {
     const styles = {
-      askQuestionButton: {
-        margin: 0,
-        right: 20,
-        left: 'auto',
-        top: 0,
-        position: 'absolute',
-      },
-      cardStyle: {
-        width: '75vw',
-      },
       fab: {
         margin: 0,
         right: 20,
@@ -182,6 +163,17 @@ class AskQuestionBoard extends React.Component {
         onTouchTap={this.handleQuestionDialogSubmit}
       />,
     ];
+    let questionView = <QuestionView handleQuestionClick={this.handleQuestionClick}
+                                     openQuestionDialog={this.openQuestionDialog} />;
+    let answerView = <AnswerView backToQuestions={this.backToQuestions}
+                                 handleAnswerChange={this.handleAnswerChange}
+                                 handleAnswerSubmit={this.handleAnswerSubmit} />;
+    let view;
+    if (this.props.currentView === 'questions') {
+      view = questionView;
+    } else if (this.props.currentView === 'answers') {
+      view = answerView;
+    }
     return (
       <div>
         <div>
@@ -209,57 +201,8 @@ class AskQuestionBoard extends React.Component {
             />
           </Dialog>
         </div>
-        <div
-          style={styles.divStyle}>
-          {
-            this.props.currentView === 'questions'
-            ? <div>
-                <Card
-                  style={styles.cardStyle}>
-                  <QuestionCollection handleQuestionClick={this.handleQuestionClick} />
-                </Card>
-                <RaisedButton
-                  label='ASK A QUESTION'
-                  backgroundColor={pinkA200}
-                  labelColor={white}
-                  style={styles.askQuestionButton}
-                  onTouchTap={this.openQuestionDialog}
-                />
-              </div>
-            : null
-          }
-          {
-            this.props.currentView === 'answers'
-            ? <div>
-                <Card
-                  style={styles.cardStyle}>
-                  <IconButton
-                    onTouchTap={this.backToQuestions}>
-                    <NavigationArrowBack />
-                  </IconButton>
-                  <CardTitle
-                    title={this.props.currentQuestion.body}
-                    subtitle={this.props.currentQuestion.author} />
-                  <AnswerCollection />
-                  <ListItem
-                    disabled={true}>
-                    <TextField
-                      floatingLabelText="Reply"
-                      floatingLabelFixed={true}
-                      fullWidth ={true}
-                      value={this.props.answer}
-                      rows={2}
-                      multiLine={true}
-                      onChange={this.handleAnswerChange}
-                      onKeyPress={this.handleAnswerSubmit}
-                      underlineFocusStyle={styles.underlineStyle}
-                      floatingLabelFocusStyle={styles.floatingLabelStyle}
-                    />
-                  </ListItem>
-                </Card>
-              </div>
-            : null
-          }
+        <div style={styles.divStyle}>
+          {view}
         </div>
       </div>
     );
