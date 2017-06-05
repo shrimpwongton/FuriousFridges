@@ -22,39 +22,66 @@ import { combineReducers } from 'redux';
 // };
 
 const setQuestion = (state = '', action) => {
-  return Object.assign({}, state, { question: action.payload });
+  if (action.type === 'SET_QUESTION') {
+    return Object.assign({}, state, { question: action.payload });
+  }
+  return state;
 };
 
 const setAnswer = (state = '', action) => {
-  return Object.assign({}, state, { answer: action.payload });
+  if (action.type === 'SET_ANSWER') {
+    return Object.assign({}, state, { answer: action.payload });;
+  }
+  return state;
 };
 
 const setQuestions = (state = [], action) => {
-  return Object.assign({}, state, { questions: action.payload });
+  if (action.type === 'SET_QUESTIONS') {
+    return Object.assign({}, state, { questions: action.payload });;
+  }
+  return state;
 };
 
 const setAnswers = (state = [], action) => {
-  return Object.assign({}, state, { answers: action.payload });
+  if (action.type === 'SET_ANSWERS') {
+    return Object.assign({}, state, { answers: action.payload });;
+  }
+  return state;
 };
 
 const setQuestionDialog = (state = false, action) => {
-  return Object.assign({}, state, { questionDialog: action.payload });
+  if (action.type === 'SET_QUESTION_DIALOG') {
+    return Object.assign({}, state, { questionDialog: action.payload });;
+  }
+  return state;
 };
 
 const setErrorText = (state = '', action) => {
-  return Object.assign({}, state, { errorText: action. errorText});
+  if (action.type === 'SET_ERROR_TEXT') {
+    return Object.assign({}, state, { errorText: action.payload });;
+  }
+  return state;
 };
 
 const setCurrentQuestion = (state = {}, action) => {
-  return Object.assign({}, state, { currentQuestion: action.payload });
+  if (action.type === 'SET_CURRENT_QUESTION') {
+    return Object.assign({}, state, { setCurrentQuestion: action.payload });;
+  }
+  return state;
 };
 
 const setCurrentView = (state = 'questions', action) => {
-  return Object.assign({}, state, { currentView: action.payload });
+  if (action.type === 'SET_CURRENT_VIEW') {
+    return Object.assign({}, state, { setCurrentView: action.payload });;
+  }
+  return state;
 };
 
 const setCurrentUser = (state = {}, action) => {
-  return Object.assign({}, state, { currentUser: action.payload });
+  if (action.type === 'SET_CURRENT_USER') {
+    return Object.assign({}, state, { currentUser: action.payload });;
+  }
+  return state;
 };
 
 // const rootReducer = (state = DEFAULT_STATE, action) => {
@@ -95,66 +122,3 @@ const rootReducer = combineReducers({
 });
 
 export default rootReducer;
-
-// const setQuestion = (state = '', action) => {
-//   if (action.type === SET_QUESTION) {
-//     return action.payload;
-//   }
-//   return state;
-// };
-
-// const setAnswer = (state = '', action) => {
-//   if (action.type === SET_ANSWER) {
-//     return action.payload;
-//   }
-//   return state;
-// };
-
-// const setQuestions = (state = [], action) => {
-//   if (action.type === SET_QUESTIONS) {
-//     return action.payload;
-//   }
-//   return state;
-// };
-
-// const setAnswers = (state = [], action) => {
-//   if (action.type === SET_ANSWERS) {
-//     return action.payload;
-//   }
-//   return state;
-// };
-
-// const setQuestionDialog = (state = false, action) => {
-//   if (action.type === SET_QUESTION_DIALOG) {
-//     return action.payload;
-//   }
-//   return state;
-// };
-
-// const setErrorText = (state = '', action) => {
-//   if (action.type === SET_ERROR_TEXT) {
-//     return action.payload;
-//   }
-//   return state;
-// };
-
-// const setCurrentQuestion = (state = {}, action) => {
-//   if (action.type === SET_CURRENT_QUESTION) {
-//     return action.payload;
-//   }
-//   return state;
-// };
-
-// const setCurrentView = (state = 'questions', action) => {
-//   if (action.type === SET_CURRENT_VIEW) {
-//     return action.payload;
-//   }
-//   return state;
-// };
-
-// const setCurrentUser = (state = {}, action) => {
-//   if (action.type === SET_CURRENT_USER) {
-//     return action.payload;
-//   }
-//   return state;
-// };
