@@ -19,14 +19,13 @@ module.exports.getAll = (req, res) => {
             models.Stats.forge({ city: 'San Francisco', city_stats: stats })
               .save()
               .then(data => {
-                res.status(201).send(data.models[0].attributes.city_stats);
+                res.status(201).send(data.attributes.city_stats);
               })
               .catch(err => {
                 res.status(500).send(err);
               });
           })
           .on('error', (err) => {
-            console.log(err);
             res.status(500).send(err);
           });
     } else {

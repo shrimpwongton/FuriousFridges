@@ -7,6 +7,7 @@ const config = {
     path: path.join(__dirname, 'public/dist'),
     filename: 'bundle.js'
   },
+  devtool: 'cheap-module-source-map',
   module: {
     rules: [
       { test: /\.(js|jsx)$/,
