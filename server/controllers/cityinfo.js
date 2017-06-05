@@ -21,7 +21,7 @@ module.exports.getAll = (req, res) => {
                 models.Stats.forge({ city: result.attributes.destination, city_stats: stats })
                   .save()
                   .then(data => {
-                    res.status(201).send(data.models[0].attributes.city_stats);
+                    res.status(201).send(data.attributes.city_stats);
                   })
                   .catch(err => {
                     res.status(500).send(err);
@@ -32,7 +32,7 @@ module.exports.getAll = (req, res) => {
                 res.status(500).send(err);
               });
         } else {
-          res.status(200).send(data.models[0].attributes.city_stats);
+          res.status(200).send(data.attributes.city_stats);
         }
 
       })
