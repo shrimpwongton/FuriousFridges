@@ -4,12 +4,12 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const request = require('request');
 const models = require('../../db/models');
-const EVENTBRITE_KEY = process.env.EVENTBRITE_KEY || require('../../config/config.js').EVENTBRITE_KEY;
+const config = require('config')['Evenbrite'];
 
 
 module.exports.getAll = (req, res) => {
   var location = req.query.location;
-  request.get(`https://www.eventbriteapi.com/v3/events/search/?token=${EVENTBRITE_KEY}&sort_by=distance&location.address=sanfrancisco&categories=109%2C133%2C110&location.within=10mi&start_date.keyword=this_week`, 
+  request.get(`https://www.eventbriteapi.com/v3/events/search/?token=${config.clientID}&sort_by=distance&location.address=sanfrancisco&categories=109%2C133%2C110&location.within=10mi&start_date.keyword=this_week`, 
     (error, response, body) => {
       if (error) {
         console.error(error);
