@@ -19,6 +19,6 @@
     }
   },
   "Eventbrite": {
-    "clientID": "UHLKIOWHWZNIOUNFTLKN"
+    "clientID": "EVENTBRITE_CLIENT_ID"
   }
 }
