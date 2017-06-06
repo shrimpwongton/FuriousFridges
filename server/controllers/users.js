@@ -24,7 +24,7 @@ module.exports.create = (req, res) => {
     .catch(err => {
       if (err.constraint === 'users_email_unique') {
         models.User.where({ email: req.user.email }).fetch()
-          .then(result => res.status(200).send(req.user))
+          .then(result => res.status(200).send(result.attributes))
           .catch(err => {
             res.status(409).send(err);
           });
