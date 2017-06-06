@@ -47,6 +47,7 @@ class Profile extends React.Component {
 
     };
     this.handleToggle = this.handleToggle.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
     this.handleVisibility = this.handleVisibility.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleSave = this.handleSave.bind(this);
@@ -71,6 +72,7 @@ class Profile extends React.Component {
           destinationUser: res.data.destination,
           describeUser: res.data.type,
           visibilityUser: res.data.visible,
+          firstName: res.data.firstName,
           lastName: res.data.lastName,
           email: res.data.email,
           id: res.data.id,
@@ -81,6 +83,12 @@ class Profile extends React.Component {
   }
 
   handleToggle () {
+    this.setState({
+      open: !this.state.open,
+    });
+  }
+
+  handleCancel () {
     this.setState({
       open: !this.state.open,
       originValue: this.state.originUser,
@@ -95,7 +103,6 @@ class Profile extends React.Component {
   }
 
   handleSave () {
-    this.setState({snackBar: true, open: false});
     axios.put('/users', {
       origin: this.state.originValue,
       destination: this.state.destinationValue,
@@ -104,8 +111,13 @@ class Profile extends React.Component {
       email: this.state.email
     })
       .then(res => {
+        this.setState({
+          originValue: this.state.originValue,
+          destinationValue: this.state.destinationValue,
+        }, function() {console.log('destination', this.state.destinationValue);});
         console.log('user preferences saved');
       });
+    this.setState({snackBar: true, open: false});
   }
   handleClose () {
     this.setState({snackBar: false});
@@ -127,6 +139,7 @@ class Profile extends React.Component {
   }
 
   handleDestinationChange (event, index, value) {
+    console.log('old destination', this.state.destinationValue);
     this.setState({
       destinationValue: value,
     });
@@ -330,7 +343,7 @@ class Profile extends React.Component {
             />
             <FlatButton
               label="CANCEL"
-              onTouchTap={this.handleToggle}
+              onTouchTap={this.handleCancel}
             />
           </Drawer>
         </MuiThemeProvider>
