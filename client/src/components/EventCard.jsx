@@ -34,7 +34,7 @@ class EventCard extends React.Component {
         }
         this.setState({events: sample});
       }); 
-    }
+  }
  
 
   render() {
