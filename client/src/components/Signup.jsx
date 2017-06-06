@@ -63,6 +63,9 @@ class Signup extends React.Component {
       },
       toolbarStyle: {
         backgroundColor: blueGrey500,
+        position: 'fixed',
+        zIndex: 10000,
+        width: '100%',
       },
       whiteTextStyle: {
         color: 'white',
@@ -95,16 +98,28 @@ class Signup extends React.Component {
         position: 'fixed',
       },
       imageStyle: {
-        width: '100%',
-        height: '94vh',
-        objectFit: 'cover',
-        overflow: 'hidden',
+        flexGrow: 1
       },
       divStyle: {
         overflow: 'hidden',
       },
       googleSignInStyle: {
         textDecoration: 'none',
+      },
+      flexStyle: {
+        height: '100%',
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
+      },
+      parallaxFirst: {
+        flexGrow: 1,
+        position: 'relative',
+        backgroundImage: 'url(' + images[randomNumber] +')',
+        backgroundAttachment: 'fixed',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
       },
     };
 
@@ -133,14 +148,15 @@ class Signup extends React.Component {
             </ToolbarGroup>
           </Toolbar>
         </MuiThemeProvider>
-        <div>
-          <img
-            src={images[randomNumber]}
-            style={styles.imageStyle}/>
-          <p
-            style={styles.captionStyle}>
-            {captions[randomNumber]}
-          </p>
+        <div
+          style={styles.flexStyle}>
+          <div
+            style={styles.parallaxFirst}>
+            <p
+              style={styles.captionStyle}>
+              {captions[randomNumber]}
+            </p>
+          </div>
         </div>
         <div
           style={styles.centerStyle}>

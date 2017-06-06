@@ -18,7 +18,7 @@ import SocialGroup from 'material-ui/svg-icons/social/group';
 import ActionTrendingUp from 'material-ui/svg-icons/action/trending-up';
 import ActionTrendingDown from 'material-ui/svg-icons/action/trending-down';
 import {
-  blueGrey500, red500, orange500, amber500, lightGreen500, green500,
+  blueGrey500, red500, orange500, amber500, lightGreen500, green500, grey500,
 } from 'material-ui/styles/colors';
 
 
@@ -53,8 +53,10 @@ class CityInfo extends React.Component {
       return amber500;
     } else if ( score > 3 ) {
       return orange500;
-    } else {
+    } else if ( score > 0 ) {
       return red500;
+    } else {
+      return grey500;
     }
   }
   calculateScoreStatus (score) {
@@ -66,8 +68,10 @@ class CityInfo extends React.Component {
       return 'Around Average';
     } else if ( score > 3 ) {
       return 'Below Average';
-    } else {
+    } else if ( score > 0 ) {
       return 'Among the worst';
+    } else {
+      return 'Not Available';
     }
   }
 
