@@ -43,9 +43,12 @@ class Profile extends React.Component {
       originValue: 'aarhus',
       destinationValue: 'adelaide',
       describeValue: 'single',
+      visibilityValue: false,
 
     };
     this.handleToggle = this.handleToggle.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
+    this.handleVisibility = this.handleVisibility.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleNewQuestion = this.handleNewQuestion.bind(this);
@@ -59,9 +62,16 @@ class Profile extends React.Component {
   componentDidMount() {
     axios.get('/createuser')
       .then(res => {
-        console.log('Logged in user: ', res.data);
         this.props.dispatchCurrentUser(res.data);
         this.setState({
+          originValue: res.data.origin,
+          destinationValue: res.data.destination,
+          describeValue: res.data.type,
+          visibilityValue: res.data.visible,
+          originUser: res.data.origin,
+          destinationUser: res.data.destination,
+          describeUser: res.data.type,
+          visibilityUser: res.data.visible,
           firstName: res.data.firstName,
           lastName: res.data.lastName,
           email: res.data.email,
@@ -73,10 +83,40 @@ class Profile extends React.Component {
   }
 
   handleToggle () {
-    this.setState({open: !this.state.open});
+    this.setState({
+      open: !this.state.open,
+    });
+  }
+
+  handleCancel () {
+    this.setState({
+      open: !this.state.open,
+      originValue: this.state.originUser,
+      destinationValue: this.state.destinationUser,
+      describeValue: this.state.describeUser,
+      visibilityValue: this.state.visibilityUser,
+    });
+  }
+
+  handleVisibility () {
+    this.setState({visibilityValue: !this.state.visibilityValue});
   }
 
   handleSave () {
+    axios.put('/users', {
+      origin: this.state.originValue,
+      destination: this.state.destinationValue,
+      type: this.state.describeValue,
+      visible: this.state.visibilityValue,
+      email: this.state.email
+    })
+      .then(res => {
+        this.setState({
+          originValue: this.state.originValue,
+          destinationValue: this.state.destinationValue,
+        }, function() {console.log('destination', this.state.destinationValue);});
+        console.log('user preferences saved');
+      });
     this.setState({snackBar: true, open: false});
   }
   handleClose () {
@@ -99,6 +139,7 @@ class Profile extends React.Component {
   }
 
   handleDestinationChange (event, index, value) {
+    console.log('old destination', this.state.destinationValue);
     this.setState({
       destinationValue: value,
     });
@@ -291,6 +332,8 @@ class Profile extends React.Component {
                         <Toggle
                           thumbSwitchedStyle={styles.switchStyle}
                           trackSwitchedStyle={styles.trackStyle}
+                          toggled={this.state.visibilityValue}
+                          onToggle={this.handleVisibility}
                         />}
             />
             <FlatButton
@@ -300,7 +343,7 @@ class Profile extends React.Component {
             />
             <FlatButton
               label="CANCEL"
-              onTouchTap={this.handleToggle}
+              onTouchTap={this.handleCancel}
             />
           </Drawer>
         </MuiThemeProvider>

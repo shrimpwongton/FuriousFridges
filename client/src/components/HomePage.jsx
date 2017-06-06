@@ -107,7 +107,7 @@ class HomePage extends React.Component {
       cityNames.push(city);
     });
     let set = new Set();
-    while ( set.size < 20 ) {
+    while ( set.size < 10 ) {
       set.add(cityNames[Math.floor(Math.random() * cityNames.length)]);
     }
     set = Array.from(set);
