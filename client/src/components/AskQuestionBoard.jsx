@@ -37,11 +37,6 @@ class AskQuestionBoard extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('/createuser')
-      .then(res => {
-        console.log('Logged in user: ', res.data);
-        this.props.dispatchCurrentUser(res.data);
-      });
     axios.get('/questions')
       .then(res => {
         //this.props.dispatchCurrentView('questions');

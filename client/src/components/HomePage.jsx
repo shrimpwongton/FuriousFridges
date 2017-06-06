@@ -37,6 +37,7 @@ class HomePage extends React.Component {
     this.calculateScoreStatus = this.calculateScoreStatus.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
   }
+
   calculateScoreStatus (score) {
     if ( score > 8 ) {
       return 'Among the best';
@@ -56,6 +57,7 @@ class HomePage extends React.Component {
       scrollTop: $('#firstSection').offset().top - $('#toolbar').height()
     }, 750);
   }
+  
   render () {
     const images = [
       '/assets/LibertySquare.jpg',
