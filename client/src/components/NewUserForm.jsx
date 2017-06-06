@@ -41,7 +41,7 @@ class NewUserForm extends React.Component {
       originValue: 'aarhus',
       destinationValue: 'adelaide',
       describeValue: 'single',
-      visibility: false,
+      visibility: true,
     };
     this.async = this.async.bind(this);
     this.handleOriginChange = this.handleOriginChange.bind(this);
@@ -208,6 +208,7 @@ class NewUserForm extends React.Component {
                               backgroundColor: pinkA100,
                             }}
                             onToggle={this.handleVisibilityToggle}
+                            defaultToggled={true}
                           />}
               />
             </MuiThemeProvider>

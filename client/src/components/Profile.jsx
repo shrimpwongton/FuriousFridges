@@ -43,9 +43,11 @@ class Profile extends React.Component {
       originValue: 'aarhus',
       destinationValue: 'adelaide',
       describeValue: 'single',
+      visibilityValue: false,
 
     };
     this.handleToggle = this.handleToggle.bind(this);
+    this.handleVisibility = this.handleVisibility.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleNewQuestion = this.handleNewQuestion.bind(this);
@@ -59,10 +61,16 @@ class Profile extends React.Component {
   componentDidMount() {
     axios.get('/createuser')
       .then(res => {
-        console.log('Logged in user: ', res.data);
         this.props.dispatchCurrentUser(res.data);
         this.setState({
-          firstName: res.data.firstName,
+          originValue: res.data.origin,
+          destinationValue: res.data.destination,
+          describeValue: res.data.type,
+          visibilityValue: res.data.visible,
+          originUser: res.data.origin,
+          destinationUser: res.data.destination,
+          describeUser: res.data.type,
+          visibilityUser: res.data.visible,
           lastName: res.data.lastName,
           email: res.data.email,
           id: res.data.id,
@@ -73,11 +81,31 @@ class Profile extends React.Component {
   }
 
   handleToggle () {
-    this.setState({open: !this.state.open});
+    this.setState({
+      open: !this.state.open,
+      originValue: this.state.originUser,
+      destinationValue: this.state.destinationUser,
+      describeValue: this.state.describeUser,
+      visibilityValue: this.state.visibilityUser,
+    });
+  }
+
+  handleVisibility () {
+    this.setState({visibilityValue: !this.state.visibilityValue});
   }
 
   handleSave () {
     this.setState({snackBar: true, open: false});
+    axios.put('/users', {
+      origin: this.state.originValue,
+      destination: this.state.destinationValue,
+      type: this.state.describeValue,
+      visible: this.state.visibilityValue,
+      email: this.state.email
+    })
+      .then(res => {
+        console.log('user preferences saved');
+      });
   }
   handleClose () {
     this.setState({snackBar: false});
@@ -291,6 +319,8 @@ class Profile extends React.Component {
                         <Toggle
                           thumbSwitchedStyle={styles.switchStyle}
                           trackSwitchedStyle={styles.trackStyle}
+                          toggled={this.state.visibilityValue}
+                          onToggle={this.handleVisibility}
                         />}
             />
             <FlatButton
