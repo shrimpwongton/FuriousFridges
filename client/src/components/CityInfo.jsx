@@ -95,6 +95,12 @@ class CityInfo extends React.Component {
           summary: res.data.summary.replace(/<\/?[^>]+(>|$)/g, ''),
         });
       });
+    axios.get('/cityphoto')
+      .then(res => {
+        this.setState({
+          photoURL: res.data.photos[0].image.web,
+        });
+      });
   }
 
   render () {
@@ -120,13 +126,11 @@ class CityInfo extends React.Component {
       emptyStyle: {
         flexGrow: 1000,
       },
-      parallax: {
+      image: {
         height: '30vh',
-        backgroundImage: 'url(/assets/GoldenGate.jpg)',
-        backgroundAttachment: 'fixed',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
+        width: '100%',
+        objectFit: 'cover',
+        overflow: 'hidden',
       },
     };
     let cards = [['Housing Affordability', this.state.housing, <ActionHome/>],
@@ -145,8 +149,8 @@ class CityInfo extends React.Component {
     const context = this;
     return (
       <div>
-        <div
-          style={styles.parallax}>
+        <div>
+          <img src={this.state.photoURL} style={styles.image}/>
         </div>
         <div
           style={styles.flexStyle}>

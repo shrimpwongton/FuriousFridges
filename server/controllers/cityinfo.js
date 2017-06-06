@@ -7,7 +7,7 @@ const models = require('../../db/models');
 
 module.exports.getAll = (req, res) => {
   models.User.where({ email: req.user.email }).fetch()
-    .then((result) => {      
+    .then((result) => {
       models.Stats.where({ city: result.attributes.destination }).fetch()
         .then(data => {
           if (!data) {
@@ -36,7 +36,7 @@ module.exports.getAll = (req, res) => {
         .catch(err => {
           console.log(1, err);
           res.status(503).send(err);
-        }); 
+        });
     })
     .catch(err => {
       console.log(2, err);

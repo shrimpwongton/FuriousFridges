@@ -24,6 +24,7 @@ app.use('/', routes.auth);
 app.use('/api', routes.api);
 app.use('/api/profiles', routes.profiles);
 app.use('/cityinfo', routes.cityinfo);
+app.use('/cityphoto', routes.cityphoto);
 app.use('/users', routes.users);
 app.use('/questions', routes.questions);
 app.use('/answers', routes.answers);
