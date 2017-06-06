@@ -1,7 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import { connect } from 'react-redux';
-import { setCurrentUser } from './actionCreators';
 import {
   Link,
 } from 'react-router-dom';
@@ -70,21 +68,16 @@ class NewUserForm extends React.Component {
     // (string) email is at this.state.email
     // (string) photo is at this.state.profilePic
   saveData() {
-    axios.get('/createuser')
+    axios.put('/users', {
+      origin: this.state.originValue,
+      destination: this.state.destinationValue,
+      type: this.state.describeValue,
+      visible: this.state.visibility,
+      email: this.state.email
+    })
       .then(res => {
-        this.props.dispatchCurrentUser(res.data);
-      })
-      .then(() => {
-        axios.put('/users', {
-          origin: this.state.originValue,
-          destination: this.state.destinationValue,
-          type: this.state.describeValue,
-          visible: this.state.visibility,
-          email: this.state.email
-        })
-        .then(res => {
-          console.log('FORM SAVED');
-        });
+        console.log('FORM SAVED');
+        this.props.userFilledOutForm();
       });
   }
 
@@ -329,7 +322,7 @@ class NewUserForm extends React.Component {
             </ToolbarGroup>
           </Toolbar>
         </MuiThemeProvider>
-        <div style={{width: '100%', maxWidth: '800px', marginTop: '20px', marginLeft: 'auto', marginRight:'auto'}}>
+        <div style={{width: '100%', maxWidth: '800px', marginTop: '20px', marginLeft: 'auto', marginRight: 'auto'}}>
           <MuiThemeProvider muiTheme={muiTheme}>
             <Card>
               <CardHeader
@@ -394,18 +387,5 @@ class NewUserForm extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  currentUser: state.currentUser
-});
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    dispatchCurrentUser: (currentUser) => {
-      dispatch(setCurrentUser(currentUser));
-    }
-  };
-};
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(NewUserForm);
+export default NewUserForm;
 

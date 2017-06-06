@@ -19,13 +19,18 @@ module.exports.create = (req, res) => {
                       visible: true })
     .save()
     .then(result => {
-      res.status(201).send(req.user); //--Sending info from profiles
+      res.status(201).send(result.attributes); //--Sending info from profiles
     })
     .catch(err => {
       if (err.constraint === 'users_email_unique') {
-        return res.status(200).send(req.user);  //Sending info from profiles
+        models.User.where({ email: req.user.email }).fetch()
+          .then(result => res.status(200).send(req.user))
+          .catch(err => {
+            res.status(409).send(err);
+          });
+      } else {
+        res.status(500).send(err);
       }
-      res.status(500).send(err);
     });
 };
 

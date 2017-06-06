@@ -2,6 +2,9 @@ import React from 'react';
 import {
   Link,
 } from 'react-router-dom';
+import { connect } from 'react-redux';
+import axios from 'axios';
+import { setCurrentUser } from './actionCreators';
 import {
   blueGrey500, white, pinkA200, pinkA100, grey300
 } from 'material-ui/styles/colors';
@@ -22,7 +25,6 @@ import AskQuestionBoard from './AskQuestionBoard.jsx';
 import Dashboard from './Dashboard.jsx';
 import Avatar from 'material-ui/Avatar';
 import CityInfo from './CityInfo.jsx';
-import $ from 'jquery';
 import CityData from '../CityOptions.json';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -54,17 +56,20 @@ class Profile extends React.Component {
     this.handleDescribeChange = this.handleDescribeChange.bind(this);
   }
 
-  componentWillMount() {
-    $.get('/authenticated', (auth) => {
-      this.setState({
-        firstName: auth.first,
-        lastName: auth.last,
-        email: auth.email,
-        id: auth.id,
-        profilePic: auth.profile_pic,
-        width: $(window).width(),
+  componentDidMount() {
+    axios.get('/createuser')
+      .then(res => {
+        console.log('Logged in user: ', res.data);
+        this.props.dispatchCurrentUser(res.data);
+        this.setState({
+          firstName: res.data.first,
+          lastName: res.data.last,
+          email: res.data.email,
+          id: res.data.id,
+          profilePic: res.data.profile_pic,
+          width: $(window).width(),
+        });
       });
-    });
   }
 
   handleToggle () {
@@ -207,7 +212,7 @@ class Profile extends React.Component {
               style={styles.tabStyle}
             >
               <div>
-                <CityInfo/>
+                <CityInfo formToggle={this.props.formToggle} />
               </div>
             </Tab>
             <Tab
@@ -313,4 +318,17 @@ class Profile extends React.Component {
   }
 }
 
-export default Profile;
+const mapStateToProps = (state) => ({
+  currentUser: state.currentUser
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatchCurrentUser: (currentUser) => {
+      dispatch(setCurrentUser(currentUser));
+    }
+  };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

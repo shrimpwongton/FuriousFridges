@@ -71,7 +71,7 @@ class CityInfo extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentWillReceiveProps() {
     axios.get('/cityinfo')
       .then(res => {
         this.setState({
@@ -137,7 +137,7 @@ class CityInfo extends React.Component {
       ['Tolerance', this.state.tolerance, <SocialGroup/>],
       ['Commute', this.state.commute, <MapsDirectionsCar/>],
       ['Air and Rail Connectivity', this.state.travel_connectivity, <MapsDirectionsTransit/>],
-      ['Internet Access', this.state.internet_access, <ActionExplore/>]].sort((a, b) => {return b[1] - a[1]; });
+      ['Internet Access', this.state.internet_access, <ActionExplore/>]].sort((a, b) => { return b[1] - a[1]; });
     const context = this;
     return (
       <div>
