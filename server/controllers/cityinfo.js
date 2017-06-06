@@ -6,9 +6,9 @@ const request = require('request');
 const models = require('../../db/models');
 
 module.exports.getAll = (req, res) => {
-  models.User.where({ email: req.user.email}).fetch()
+  models.User.where({ email: req.user.email }).fetch()
     .then((result) => {      
-      models.Stats.where({city: result.attributes.destination}).fetch()
+      models.Stats.where({ city: result.attributes.destination }).fetch()
         .then(data => {
           if (!data) {
             request
