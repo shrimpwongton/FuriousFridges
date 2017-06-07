@@ -5,7 +5,7 @@ import Avatar from 'material-ui/Avatar';
 
 const Question = (props) => {
   const answerQuestion = () => {
-    props.handleQuestionClick(props.question.id);    
+    props.handleQuestionClick(props.question);    
   };
   return (
     <div onClick={answerQuestion}>
