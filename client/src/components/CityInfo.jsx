@@ -87,16 +87,7 @@ class CityInfo extends React.Component {
     }
   }
 
-  componentWillMount() {
-    this.setState({
-      width: $(window).width(),
-    })
-  }
-
   componentWillReceiveProps() {
-    this.setState({
-      city: this.objectKeyByValue(CityOptions, this.props.destinationCity)[0],
-    });
     axios.get('/cityinfo')
       .then(res => {
         this.setState({
@@ -122,6 +113,9 @@ class CityInfo extends React.Component {
           photoURL: res.data.photos[0].image.web,
         });
       });
+    this.setState({
+      city: this.objectKeyByValue(CityOptions, this.props.destinationCity)[0],
+    });
   }
 
   render () {
@@ -167,13 +161,27 @@ class CityInfo extends React.Component {
         backgroundSize: 'cover',
         backgroundImage: 'url(' + this.state.photoURL + ')',
       },
+      text: {
+        position: 'absolute',
+        left: '0px',
+        bottom: '0px',
+        right: '0px',
+        background: 'rgba(0, 0, 0, 0.4)'
+      },
+      textMargin: {
+        marginLeft: '5vw',
+        marginRight: '5vw',
+        marginBottom: '20px',
+      },
       city: {
-        fontFamily: "'Roboto', sans-serif",
+        fontFamily: "'Roboto Medium', sans-serif",
         color: 'white',
         fontSize: '3em',
-        position: 'absolute',
-        bottom: 0,
-        left: '12.5vw',
+      },
+      summary: {
+        fontFamily: "'Roboto', sans-serif",
+        color: 'white',
+        fontSize: '1em',
       }
     };
     let cards = [['Housing Affordability', this.state.housing, <ActionHome/>],
@@ -196,7 +204,13 @@ class CityInfo extends React.Component {
           <MuiThemeProvider>
             <Paper style={styles.image} zDepth={1}>
               <div style={styles.divImage}>
-                <p style={styles.city}>{this.state.city}</p>
+                  <div style={styles.text}>
+                    <div style={styles.textMargin}>
+                      <span style={styles.city}>{this.state.city}</span>
+                      <br/>
+                      <span style={styles.summary}>{this.state.summary}</span>
+                    </div>
+                  </div>
               </div>
             </Paper>
           </MuiThemeProvider>
@@ -262,7 +276,6 @@ class CityInfo extends React.Component {
               </div>
             </div>
         }
-        <p>{this.state.summary}</p>
       </div>
     );
   }
