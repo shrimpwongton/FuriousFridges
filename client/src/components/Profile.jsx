@@ -263,9 +263,12 @@ class Profile extends React.Component {
               style={styles.tabStyle}
             >
               <div>
-                <ExpandTransition loading={this.state.loading} open={true}>
-                  <CityInfo formToggle={this.props.formToggle} destinationCity={this.state.destinationValue} width={this.state.width}/>
-                </ExpandTransition>
+              <ExpandTransition loading={this.state.loading} open={true}>
+                <CityInfo formToggle={this.props.formToggle}
+                          destinationCity={this.state.destinationValue}
+                          width={this.state.width}
+                          history={this.props.history} />
+              </ExpandTransition>
               </div>
             </Tab>
             <Tab
