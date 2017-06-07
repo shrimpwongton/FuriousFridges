@@ -90,8 +90,8 @@ class AskQuestionBoard extends React.Component {
       });
   }
 
-  handleQuestionClick(questionId) {
-    let currentQuestion = this.props.questions[questionId - 1];   
+  handleQuestionClick(currentQuestion) {
+    let questionId = currentQuestion.id;
     axios.get('/answers', {
       params: { questionId }
     })

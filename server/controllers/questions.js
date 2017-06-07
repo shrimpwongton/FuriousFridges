@@ -23,7 +23,6 @@ module.exports.getAll = (req, res) => {
 };
 
 module.exports.create = (req, res) => {
-  console.log(req.body.email);
   models.User.where({ email: req.body.email }).fetch()
     .then(user => {
       models.Question.forge({ user_id: user.attributes.id, question: req.body.question })
