@@ -114,8 +114,7 @@ class Profile extends React.Component {
         this.setState({
           originValue: this.state.originValue,
           destinationValue: this.state.destinationValue,
-        }, function() {console.log('destination', this.state.destinationValue);});
-        console.log('user preferences saved');
+        });
       });
     this.setState({snackBar: true, open: false});
   }
@@ -139,7 +138,6 @@ class Profile extends React.Component {
   }
 
   handleDestinationChange (event, index, value) {
-    console.log('old destination', this.state.destinationValue);
     this.setState({
       destinationValue: value,
     });
