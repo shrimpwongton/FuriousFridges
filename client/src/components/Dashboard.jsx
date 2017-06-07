@@ -6,8 +6,38 @@ class Dashboard extends React.Component {
     super(props);
   }
   render () {
+    const styles = {
+      flexStyle: {
+        margin: '8px',
+        display: 'flex',
+        flexFlow: 'row wrap',
+        justifyContent: 'center',
+      },
+      growStyle: {
+        flexGrow: 1,
+      },
+      centerStyle: {
+        width: '90%',
+        display: 'flex',
+        flexFlow: 'row wrap',
+        justifyContent: 'center',
+      },
+      emptyStyle: {
+        flewGrow: 1000,
+      }
+    };
     return (
-      <EventCard />
+      <div
+        style={styles.flexStyle}>
+        <div
+          style={styles.centerStyle}>
+          <div
+            style={styles.growStyle}>
+            <EventCard/>
+            <div style={styles.emptyStyle}/>
+          </div>
+        </div>
+      </div>
     );
   }
 }
