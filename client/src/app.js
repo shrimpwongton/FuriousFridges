@@ -36,7 +36,7 @@ class App extends React.Component {
             <Route exact path="/" component={HomePage} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
-            <Route exact path="/profile" component={() => <Profile formToggle={this.state.formToggle} />} />
+            <Route exact path="/profile" component={(props) => <Profile formToggle={this.state.formToggle} {...props} />} />
             <Route exact path="/form" component={() => <NewUserForm userFilledOutForm={this.userFilledOutForm} />} />
           </div>
         </Provider>
