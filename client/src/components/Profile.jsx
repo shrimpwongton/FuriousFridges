@@ -28,6 +28,7 @@ import CityInfo from './CityInfo.jsx';
 import CityData from '../CityOptions.json';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import ExpandTransition from 'material-ui/internal/ExpandTransition';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -54,6 +55,7 @@ class Profile extends React.Component {
     this.handleOriginChange = this.handleOriginChange.bind(this);
     this.handleDestinationChange = this.handleDestinationChange.bind(this);
     this.handleDescribeChange = this.handleDescribeChange.bind(this);
+    this.async = this.async.bind(this);
   }
 
   componentWillMount() {
@@ -61,6 +63,7 @@ class Profile extends React.Component {
       .then(res => {
         this.props.dispatchCurrentUser(res.data);
         this.setState({
+          loading: false,
           originValue: res.data.origin,
           destinationValue: res.data.destination,
           describeValue: res.data.type,
@@ -77,6 +80,12 @@ class Profile extends React.Component {
           width: $(window).width(),
         }, this.forceUpdate);
       });
+  }
+
+  async (cb) {
+    this.setState({loading: true}, () => {
+      this.asyncTimer = setTimeout(cb,400);
+    });
   }
 
   handleToggle () {
@@ -108,10 +117,16 @@ class Profile extends React.Component {
       email: this.state.email
     })
       .then(res => {
+
         this.setState({
           originValue: this.state.originValue,
           destinationValue: this.state.destinationValue,
         });
+        if (!this.state.loading && this.state.destinationValue !== this.state.destinationUser) {
+          this.async(() => this.setState({
+            loading: false,
+          }));
+        }
       });
     this.setState({snackBar: true, open: false});
   }
@@ -248,10 +263,12 @@ class Profile extends React.Component {
               style={styles.tabStyle}
             >
               <div>
-                <CityInfo formToggle={this.props.formToggle} 
-                          destinationCity={this.state.destinationValue} 
+              <ExpandTransition loading={this.state.loading} open={true}>
+                <CityInfo formToggle={this.props.formToggle}
+                          destinationCity={this.state.destinationValue}
                           width={this.state.width}
                           history={this.props.history} />
+              </ExpandTransition>
               </div>
             </Tab>
             <Tab
@@ -349,7 +366,7 @@ class Profile extends React.Component {
           <Snackbar
             open={this.state.snackBar}
             message="Settings were saved"
-            autoHideDuration={2000}
+            autoHideDuration={3000}
             action="DISMISS"
             onActionTouchTap={this.handleClose}
             onRequestClose={this.handleClose}
