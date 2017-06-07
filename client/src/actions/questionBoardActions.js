@@ -1,13 +1,3 @@
-// import { SET_QUESTION,
-//          SET_ANSWER,
-//          SET_QUESTIONS,
-//          SET_ANSWERS,
-//          SET_QUESTION_DIALOG,
-//          SET_ERROR_TEXT,
-//          SET_CURRENT_QUESTION,
-//          SET_CURRENT_VIEW,
-//          SET_CURRENT_USER } from './actions';
-
 export const setQuestion = (question) => {
   return { type: 'SET_QUESTION', payload: question };
 };

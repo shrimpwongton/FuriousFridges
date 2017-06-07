@@ -54,8 +54,8 @@ const styles = {
 };
 
 const mapStateToProps = (state) => ({ 
-  answer: state.answer,
-  currentQuestion: state.currentQuestion,
+  answer: state.questionBoard.answer,
+  currentQuestion: state.questionBoard.currentQuestion,
 });
 
 export default connect(mapStateToProps)(AnswerView);

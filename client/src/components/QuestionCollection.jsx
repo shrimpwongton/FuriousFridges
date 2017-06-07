@@ -16,7 +16,7 @@ const QuestionCollection = (props) => (
 );
 
 const mapStateToProps = (state) => ({ 
-  questions: state.questions
+  questions: state.questionBoard.questions
 });
 
 const mapDispatchToProps = (dispatch) => {

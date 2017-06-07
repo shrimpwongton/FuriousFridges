@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import reducer from './reducers';
 import AskQuestionBoard from './components/AskQuestionBoard.jsx';
 import HomePage from './components/HomePage.jsx';
 import Login from './components/Login.jsx';
 import Profile from './components/Profile.jsx';
 import Signup from './components/Signup.jsx';
 import NewUserForm from './components/NewUserForm.jsx';
-import store from './components/store';
 import {
   BrowserRouter as Router,
   Route
@@ -19,7 +20,7 @@ class App extends React.Component {
     super(props);
   }
   render() {
-
+    const store = createStore(reducer);
     return (
       <Router>
         <Provider store={store}>  

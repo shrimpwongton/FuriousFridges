@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { setCurrentUser } from './actionCreators';
+import { setCurrentUser } from '../actions';
 import {
   Link,
 } from 'react-router-dom';
@@ -395,7 +395,7 @@ class NewUserForm extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  currentUser: state.currentUser
+  currentUser: state.questionBoard.currentUser
 });
 
 const mapDispatchToProps = (dispatch) => {
