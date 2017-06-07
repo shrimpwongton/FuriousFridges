@@ -1,5 +1,6 @@
 import React from 'react';
 import EventCard from './EventCard.jsx';
+import MeetUp from './MeetUp.jsx';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -35,6 +36,7 @@ class Dashboard extends React.Component {
             style={styles.growStyle}>
             <EventCard/>
             <div style={styles.emptyStyle}/>
+            <MeetUp />
           </div>
         </div>
       </div>
