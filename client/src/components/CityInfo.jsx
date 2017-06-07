@@ -94,6 +94,12 @@ class CityInfo extends React.Component {
           education: res.data.categories[9].score_out_of_10,
           summary: res.data.summary.replace(/<\/?[^>]+(>|$)/g, ''),
         });
+      })
+      .catch(err => {
+        if (err.message.includes('404')) {
+          console.log('USER HAS NOT REGISTERED DESTINATION CITY');
+          this.props.history.push('/form'); 
+        }
       });
     axios.get('/cityphoto')
       .then(res => {

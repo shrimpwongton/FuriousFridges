@@ -251,7 +251,7 @@ class Profile extends React.Component {
               style={styles.tabStyle}
             >
               <div>
-                <CityInfo formToggle={this.props.formToggle} />
+                <CityInfo formToggle={this.props.formToggle} history={this.props.history} />
               </div>
             </Tab>
             <Tab
