@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {GridList, GridTile} from 'material-ui/GridList';
 import Divider from 'material-ui/Divider';
 import {
@@ -35,7 +34,6 @@ class EventCard extends React.Component {
 
     const styles = {
       card: {
-        width: '25%',
         height: 400,
       },
       gridList: {
@@ -43,9 +41,6 @@ class EventCard extends React.Component {
         height: '80%',
         overflowY: 'auto',
       },
-      avatar: {
-        backgroundColor: green500,
-      }
     };
 
     return (
