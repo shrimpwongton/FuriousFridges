@@ -17,6 +17,10 @@ import ActionExplore from 'material-ui/svg-icons/action/explore';
 import SocialGroup from 'material-ui/svg-icons/social/group';
 import ActionTrendingUp from 'material-ui/svg-icons/action/trending-up';
 import ActionTrendingDown from 'material-ui/svg-icons/action/trending-down';
+import MapsLocalAtm from 'material-ui/svg-icons/maps/local-atm';
+import SocialDomain from 'material-ui/svg-icons/social/domain';
+import HardwareLaptop from 'material-ui/svg-icons/hardware/laptop';
+import SocialPerson from 'material-ui/svg-icons/social/person';
 import CityOptions from '../CityOptions.json';
 import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
@@ -43,6 +47,10 @@ class CityInfo extends React.Component {
       internet_access: 0,
       tolerance: 0,
       outdoors: 0,
+      taxation: 0,
+      business_freedom: 0,
+      startups: 0,
+      venture_capital: 0,
     };
     this.calculateColor = this.calculateColor.bind(this);
     this.calculateScoreStatus = this.calculateScoreStatus.bind(this);
@@ -104,13 +112,17 @@ class CityInfo extends React.Component {
           commute: res.data.categories[5].score_out_of_10,
           safety: res.data.categories[7].score_out_of_10,
           education: res.data.categories[9].score_out_of_10,
+          taxation: res.data.categories[12].score_out_of_10,
+          business_freedom: res.data.categories[6].score_out_of_10,
+          startups: res.data.categories[2].score_out_of_10,
+          venture_capital: res.data.categories[3].score_out_of_10,
           summary: res.data.summary.replace(/<\/?[^>]+(>|$)/g, ''),
         });
       })
       .catch(err => {
         if (err.message.includes('404')) {
           console.log('USER HAS NOT REGISTERED DESTINATION CITY');
-          this.props.history.push('/form'); 
+          this.props.history.push('/form');
         }
       });
     axios.get('/cityphoto')
@@ -202,6 +214,10 @@ class CityInfo extends React.Component {
       ['Tolerance', this.state.tolerance, <SocialGroup/>],
       ['Commute', this.state.commute, <MapsDirectionsCar/>],
       ['Air and Rail Connectivity', this.state.travel_connectivity, <MapsDirectionsTransit/>],
+      ['Taxation', this.state.taxation, <MapsLocalAtm/>],
+      ['Business Freedom', this.state.business_freedom, <SocialDomain/>],
+      ['Startup Culture', this.state.startups, <HardwareLaptop/>],
+      ['Venture Capital', this.state.venture_capital, <SocialPerson/>],
       ['Internet Access', this.state.internet_access, <ActionExplore/>]].sort((a, b) => { return b[1] - a[1]; });
     const context = this;
     return (
@@ -213,8 +229,14 @@ class CityInfo extends React.Component {
                   <div style={styles.text}>
                     <div style={styles.textMargin}>
                       <span style={styles.city}>{this.state.city}</span>
-                      <br/>
-                      <span style={styles.summary}>{this.state.summary}</span>
+                      { this.props.width > 600 ?
+                        <div>
+                          <br/>
+                          <span style={styles.summary}>{this.state.summary}</span>
+                        </div>
+                        :
+                        <div/>
+                      }
                     </div>
                   </div>
               </div>
