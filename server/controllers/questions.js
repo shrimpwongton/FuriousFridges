@@ -23,17 +23,17 @@ module.exports.getAll = (req, res) => {
 };
 
 module.exports.create = (req, res) => {
+  console.log(req.body.email);
   models.User.where({ email: req.body.email }).fetch()
-    .then(user => user.attributes)
-    .then(attrib => {
-      models.Question.forge({ user_id: attrib.id, question: req.body.question })
+    .then(user => {
+      models.Question.forge({ user_id: user.attributes.id, question: req.body.question })
         .save()
         .then(q => {
           let question = {
             id: q.attributes.id,
-            author: attrib.firstName + ' ' + attrib.lastName,
+            author: user.attributes.firstName + ' ' + user.attributes.lastName,
             body: q.attributes.question,
-            photoUrl: attrib.photoUrl
+            photoUrl: user.attributes.photoUrl
           };
           res.status(201).send(question);
         })    
@@ -44,7 +44,8 @@ module.exports.create = (req, res) => {
     .error(err => {
       res.status(500).send(err);
     })
-    .catch(() => {
+    .catch((err) => {
+      console.log(err);
       res.sendStatus(404);
     });
 };

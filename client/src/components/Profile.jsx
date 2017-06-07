@@ -2,6 +2,9 @@ import React from 'react';
 import {
   Link,
 } from 'react-router-dom';
+import { connect } from 'react-redux';
+import axios from 'axios';
+import { setCurrentUser } from './actionCreators';
 import {
   blueGrey500, white, pinkA200, pinkA100, grey300
 } from 'material-ui/styles/colors';
@@ -22,7 +25,6 @@ import AskQuestionBoard from './AskQuestionBoard.jsx';
 import Dashboard from './Dashboard.jsx';
 import Avatar from 'material-ui/Avatar';
 import CityInfo from './CityInfo.jsx';
-import $ from 'jquery';
 import CityData from '../CityOptions.json';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -41,9 +43,12 @@ class Profile extends React.Component {
       originValue: 'aarhus',
       destinationValue: 'adelaide',
       describeValue: 'single',
+      visibilityValue: false,
 
     };
     this.handleToggle = this.handleToggle.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
+    this.handleVisibility = this.handleVisibility.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleNewQuestion = this.handleNewQuestion.bind(this);
@@ -54,24 +59,63 @@ class Profile extends React.Component {
     this.handleDescribeChange = this.handleDescribeChange.bind(this);
   }
 
-  componentWillMount() {
-    $.get('/authenticated', (auth) => {
-      this.setState({
-        firstName: auth.first,
-        lastName: auth.last,
-        email: auth.email,
-        id: auth.id,
-        profilePic: auth.profile_pic,
-        width: $(window).width(),
+  componentDidMount() {
+    axios.get('/createuser')
+      .then(res => {
+        this.props.dispatchCurrentUser(res.data);
+        this.setState({
+          originValue: res.data.origin,
+          destinationValue: res.data.destination,
+          describeValue: res.data.type,
+          visibilityValue: res.data.visible,
+          originUser: res.data.origin,
+          destinationUser: res.data.destination,
+          describeUser: res.data.type,
+          visibilityUser: res.data.visible,
+          firstName: res.data.firstName,
+          lastName: res.data.lastName,
+          email: res.data.email,
+          id: res.data.id,
+          profilePic: res.data.photoUrl,
+          width: $(window).width(),
+        });
       });
-    });
   }
 
   handleToggle () {
-    this.setState({open: !this.state.open});
+    this.setState({
+      open: !this.state.open,
+    });
+  }
+
+  handleCancel () {
+    this.setState({
+      open: !this.state.open,
+      originValue: this.state.originUser,
+      destinationValue: this.state.destinationUser,
+      describeValue: this.state.describeUser,
+      visibilityValue: this.state.visibilityUser,
+    });
+  }
+
+  handleVisibility () {
+    this.setState({visibilityValue: !this.state.visibilityValue});
   }
 
   handleSave () {
+    axios.put('/users', {
+      origin: this.state.originValue,
+      destination: this.state.destinationValue,
+      type: this.state.describeValue,
+      visible: this.state.visibilityValue,
+      email: this.state.email
+    })
+      .then(res => {
+        this.setState({
+          originValue: this.state.originValue,
+          destinationValue: this.state.destinationValue,
+        });
+      });
     this.setState({snackBar: true, open: false});
   }
   handleClose () {
@@ -207,7 +251,7 @@ class Profile extends React.Component {
               style={styles.tabStyle}
             >
               <div>
-                <CityInfo/>
+                <CityInfo formToggle={this.props.formToggle} />
               </div>
             </Tab>
             <Tab
@@ -286,6 +330,8 @@ class Profile extends React.Component {
                         <Toggle
                           thumbSwitchedStyle={styles.switchStyle}
                           trackSwitchedStyle={styles.trackStyle}
+                          toggled={this.state.visibilityValue}
+                          onToggle={this.handleVisibility}
                         />}
             />
             <FlatButton
@@ -295,7 +341,7 @@ class Profile extends React.Component {
             />
             <FlatButton
               label="CANCEL"
-              onTouchTap={this.handleToggle}
+              onTouchTap={this.handleCancel}
             />
           </Drawer>
         </MuiThemeProvider>
@@ -313,4 +359,17 @@ class Profile extends React.Component {
   }
 }
 
-export default Profile;
+const mapStateToProps = (state) => ({
+  currentUser: state.currentUser
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatchCurrentUser: (currentUser) => {
+      dispatch(setCurrentUser(currentUser));
+    }
+  };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

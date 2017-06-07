@@ -17,5 +17,8 @@
       "consumerSecret": "TWITTER_CLIENT_SECRET",
       "callbackURL": "TWITTER_CALLBACK_URL"
     }
+  },
+  "Eventbrite": {
+    "clientID": "EVENTBRITE_CLIENT_ID"
   }
 }

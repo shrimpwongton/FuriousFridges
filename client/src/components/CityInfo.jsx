@@ -18,7 +18,7 @@ import SocialGroup from 'material-ui/svg-icons/social/group';
 import ActionTrendingUp from 'material-ui/svg-icons/action/trending-up';
 import ActionTrendingDown from 'material-ui/svg-icons/action/trending-down';
 import {
-  blueGrey500, red500, orange500, amber500, lightGreen500, green500,
+  blueGrey500, red500, orange500, amber500, lightGreen500, green500, grey500,
 } from 'material-ui/styles/colors';
 
 
@@ -53,8 +53,10 @@ class CityInfo extends React.Component {
       return amber500;
     } else if ( score > 3 ) {
       return orange500;
-    } else {
+    } else if ( score > 0 ) {
       return red500;
+    } else {
+      return grey500;
     }
   }
   calculateScoreStatus (score) {
@@ -66,12 +68,14 @@ class CityInfo extends React.Component {
       return 'Around Average';
     } else if ( score > 3 ) {
       return 'Below Average';
-    } else {
+    } else if ( score > 0 ) {
       return 'Among the worst';
+    } else {
+      return 'Not Available';
     }
   }
 
-  componentWillMount() {
+  componentWillReceiveProps() {
     axios.get('/cityinfo')
       .then(res => {
         this.setState({
@@ -89,6 +93,12 @@ class CityInfo extends React.Component {
           safety: res.data.categories[7].score_out_of_10,
           education: res.data.categories[9].score_out_of_10,
           summary: res.data.summary.replace(/<\/?[^>]+(>|$)/g, ''),
+        });
+      });
+    axios.get('/cityphoto')
+      .then(res => {
+        this.setState({
+          photoURL: res.data.photos[0].image.web,
         });
       });
   }
@@ -116,13 +126,11 @@ class CityInfo extends React.Component {
       emptyStyle: {
         flexGrow: 1000,
       },
-      parallax: {
+      image: {
         height: '30vh',
-        backgroundImage: 'url(/assets/GoldenGate.jpg)',
-        backgroundAttachment: 'fixed',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
+        width: '100%',
+        objectFit: 'cover',
+        overflow: 'hidden',
       },
     };
     let cards = [['Housing Affordability', this.state.housing, <ActionHome/>],
@@ -137,12 +145,12 @@ class CityInfo extends React.Component {
       ['Tolerance', this.state.tolerance, <SocialGroup/>],
       ['Commute', this.state.commute, <MapsDirectionsCar/>],
       ['Air and Rail Connectivity', this.state.travel_connectivity, <MapsDirectionsTransit/>],
-      ['Internet Access', this.state.internet_access, <ActionExplore/>]].sort((a, b) => {return b[1] - a[1]; });
+      ['Internet Access', this.state.internet_access, <ActionExplore/>]].sort((a, b) => { return b[1] - a[1]; });
     const context = this;
     return (
       <div>
-        <div
-          style={styles.parallax}>
+        <div>
+          <img src={this.state.photoURL} style={styles.image}/>
         </div>
         <div
           style={styles.flexStyle}>

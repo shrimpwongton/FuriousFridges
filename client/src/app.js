@@ -18,6 +18,14 @@ import {
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      formToggle: false
+    };
+
+    this.userFilledOutForm = this.userFilledOutForm.bind(this);
+  }
+  userFilledOutForm() {
+    this.setState({ formToggle: !this.state.formToggle });
   }
   render() {
     const store = createStore(reducer);
@@ -28,8 +36,8 @@ class App extends React.Component {
             <Route exact path="/" component={HomePage}/>
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
-            <Route exact path="/profile" user={this.props.user} component={Profile} />
-            <Route exact path="/form" component={NewUserForm} />
+            <Route exact path="/profile" component={() => <Profile formToggle={this.state.formToggle} />} />
+            <Route exact path="/form" component={() => <NewUserForm userFilledOutForm={this.userFilledOutForm} />} />
           </div>
         </Provider>
       </Router>

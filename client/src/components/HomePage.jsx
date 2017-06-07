@@ -37,6 +37,7 @@ class HomePage extends React.Component {
     this.calculateScoreStatus = this.calculateScoreStatus.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
   }
+
   calculateScoreStatus (score) {
     if ( score > 8 ) {
       return 'Among the best';
@@ -56,6 +57,7 @@ class HomePage extends React.Component {
       scrollTop: $('#firstSection').offset().top - $('#toolbar').height()
     }, 750);
   }
+  
   render () {
     const images = [
       '/assets/LibertySquare.jpg',
@@ -105,7 +107,7 @@ class HomePage extends React.Component {
       cityNames.push(city);
     });
     let set = new Set();
-    while ( set.size < 20 ) {
+    while ( set.size < 10 ) {
       set.add(cityNames[Math.floor(Math.random() * cityNames.length)]);
     }
     set = Array.from(set);
@@ -119,7 +121,7 @@ class HomePage extends React.Component {
       ['Safety', <SocialPublic/>],
       ['Outdoors', <MapsTerrain/>],
       ['Education', <MapsLocalLibrary/>],
-      ['Tolerance',  <SocialGroup/>],
+      ['Tolerance', <SocialGroup/>],
       ['Commute', <MapsDirectionsCar/>],
       ['Air and Rail Connectivity', <MapsDirectionsTransit/>],
       ['Internet Access', <ActionExplore/>]];
@@ -185,7 +187,7 @@ class HomePage extends React.Component {
       parallaxFirst: {
         flexGrow: 1,
         position: 'relative',
-        backgroundImage: 'url(' + images[pictureSet[0]] +')',
+        backgroundImage: 'url(' + images[pictureSet[0]] + ')',
         backgroundAttachment: 'fixed',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -194,7 +196,7 @@ class HomePage extends React.Component {
       parallaxSecond: {
         flexGrow: 1,
         position: 'relative',
-        backgroundImage: 'url(' + images[pictureSet[1]] +')',
+        backgroundImage: 'url(' + images[pictureSet[1]] + ')',
         backgroundAttachment: 'fixed',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -203,7 +205,7 @@ class HomePage extends React.Component {
       parallaxThird: {
         flexGrow: 1,
         position: 'relative',
-        backgroundImage: 'url(' + images[pictureSet[2]] +')',
+        backgroundImage: 'url(' + images[pictureSet[2]] + ')',
         backgroundAttachment: 'fixed',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -212,7 +214,7 @@ class HomePage extends React.Component {
       parallaxFourth: {
         flexGrow: 1,
         position: 'relative',
-        backgroundImage: 'url(' + images[pictureSet[3]] +')',
+        backgroundImage: 'url(' + images[pictureSet[3]] + ')',
         backgroundAttachment: 'fixed',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
