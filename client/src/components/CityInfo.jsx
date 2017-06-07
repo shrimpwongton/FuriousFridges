@@ -17,6 +17,8 @@ import ActionExplore from 'material-ui/svg-icons/action/explore';
 import SocialGroup from 'material-ui/svg-icons/social/group';
 import ActionTrendingUp from 'material-ui/svg-icons/action/trending-up';
 import ActionTrendingDown from 'material-ui/svg-icons/action/trending-down';
+import CityOptions from '../CityOptions.json';
+import Paper from 'material-ui/Paper';
 import {
   blueGrey500, red500, orange500, amber500, lightGreen500, green500, grey500,
 } from 'material-ui/styles/colors';
@@ -43,7 +45,16 @@ class CityInfo extends React.Component {
     };
     this.calculateColor = this.calculateColor.bind(this);
     this.calculateScoreStatus = this.calculateScoreStatus.bind(this);
+    this.objectKeyByValue = this.objectKeyByValue.bind(this);
   }
+
+  objectKeyByValue (obj, val) {
+    if ( typeof val === 'undefined' ) {
+      return [''];
+    }
+    return Object.entries(obj).find(i => i[1] === val);
+  }
+
   calculateColor (score) {
     if ( score > 8 ) {
       return green500;
@@ -76,6 +87,9 @@ class CityInfo extends React.Component {
   }
 
   componentWillReceiveProps() {
+    this.setState({
+      city: this.objectKeyByValue(CityOptions, this.props.destinationCity)[0],
+    });
     axios.get('/cityinfo')
       .then(res => {
         this.setState({
@@ -127,7 +141,7 @@ class CityInfo extends React.Component {
         flexGrow: 1000,
       },
       image: {
-        height: '30vh',
+        height: '35vh',
         width: '100%',
         objectFit: 'cover',
         overflow: 'hidden',
@@ -150,7 +164,11 @@ class CityInfo extends React.Component {
     return (
       <div>
         <div>
-          <img src={this.state.photoURL} style={styles.image}/>
+          <MuiThemeProvider>
+            <Paper style={styles.image} zDepth={1}>
+              <img src={this.state.photoURL} style={styles.image}/>
+            </Paper>
+          </MuiThemeProvider>
         </div>
         <div
           style={styles.flexStyle}>

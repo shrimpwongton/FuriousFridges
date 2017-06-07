@@ -40,9 +40,6 @@ class Profile extends React.Component {
       email: '',
       question: false,
       profilePic: '',
-      originValue: 'aarhus',
-      destinationValue: 'adelaide',
-      describeValue: 'single',
       visibilityValue: false,
 
     };
@@ -59,7 +56,7 @@ class Profile extends React.Component {
     this.handleDescribeChange = this.handleDescribeChange.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     axios.get('/createuser')
       .then(res => {
         this.props.dispatchCurrentUser(res.data);
@@ -78,7 +75,7 @@ class Profile extends React.Component {
           id: res.data.id,
           profilePic: res.data.photoUrl,
           width: $(window).width(),
-        });
+        }, this.forceUpdate);
       });
   }
 
@@ -251,7 +248,7 @@ class Profile extends React.Component {
               style={styles.tabStyle}
             >
               <div>
-                <CityInfo formToggle={this.props.formToggle} />
+                <CityInfo formToggle={this.props.formToggle} destinationCity={this.state.destinationValue} />
               </div>
             </Tab>
             <Tab
@@ -349,7 +346,7 @@ class Profile extends React.Component {
           <Snackbar
             open={this.state.snackBar}
             message="Settings were saved"
-            autoHideDuration={3000}
+            autoHideDuration={2000}
             action="DISMISS"
             onActionTouchTap={this.handleClose}
             onRequestClose={this.handleClose}
