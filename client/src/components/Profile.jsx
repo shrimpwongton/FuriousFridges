@@ -4,7 +4,7 @@ import {
 } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { setCurrentUser } from './actionCreators';
+import { setCurrentUser } from '../actions';
 import {
   blueGrey500, white, pinkA200, pinkA100, grey300
 } from 'material-ui/styles/colors';
@@ -360,7 +360,7 @@ class Profile extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  currentUser: state.currentUser
+  currentUser: state.questionBoard.currentUser
 });
 
 const mapDispatchToProps = (dispatch) => {

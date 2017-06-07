@@ -33,7 +33,7 @@ class App extends React.Component {
       <Router>
         <Provider store={store}>  
           <div>
-            <Route exact path="/" component={HomePage}/>
+            <Route exact path="/" component={HomePage} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/profile" component={() => <Profile formToggle={this.state.formToggle} />} />
