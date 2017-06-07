@@ -229,7 +229,7 @@ class CityInfo extends React.Component {
                   <div style={styles.text}>
                     <div style={styles.textMargin}>
                       <span style={styles.city}>{this.state.city}</span>
-                      { this.props.width > 600 ?
+                      { this.props.width > 750 ?
                         <div>
                           <br/>
                           <span style={styles.summary}>{this.state.summary}</span>
