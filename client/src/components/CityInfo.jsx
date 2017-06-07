@@ -139,7 +139,7 @@ class CityInfo extends React.Component {
   render () {
     const styles = {
       cardStyle: {
-        margin: '8px',
+        margin: '4px',
       },
       flexStyle: {
         margin: '8px',
@@ -244,7 +244,7 @@ class CityInfo extends React.Component {
           </MuiThemeProvider>
         </div>
         {
-          this.props.width > 600 ?
+          this.props.width > 750 ?
             <div
               style={styles.flexStyle}>
               <div
@@ -298,6 +298,9 @@ class CityInfo extends React.Component {
                       }
                     />
                   </MuiThemeProvider>
+                  <div
+                    style={{width: card[1] * 10 + '%', height: '2px', background: context.calculateColor(card[1])}}>
+                  </div>
                   <div style={styles.emptyStyle}/>
                 </div>)
                 }
