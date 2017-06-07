@@ -17,6 +17,9 @@ import ActionExplore from 'material-ui/svg-icons/action/explore';
 import SocialGroup from 'material-ui/svg-icons/social/group';
 import ActionTrendingUp from 'material-ui/svg-icons/action/trending-up';
 import ActionTrendingDown from 'material-ui/svg-icons/action/trending-down';
+import CityOptions from '../CityOptions.json';
+import Paper from 'material-ui/Paper';
+import {List, ListItem} from 'material-ui/List';
 import {
   blueGrey500, red500, orange500, amber500, lightGreen500, green500, grey500,
 } from 'material-ui/styles/colors';
@@ -43,7 +46,16 @@ class CityInfo extends React.Component {
     };
     this.calculateColor = this.calculateColor.bind(this);
     this.calculateScoreStatus = this.calculateScoreStatus.bind(this);
+    this.objectKeyByValue = this.objectKeyByValue.bind(this);
   }
+
+  objectKeyByValue (obj, val) {
+    if ( typeof val === 'undefined' ) {
+      return [''];
+    }
+    return Object.entries(obj).find(i => i[1] === val);
+  }
+
   calculateColor (score) {
     if ( score > 8 ) {
       return green500;
@@ -107,6 +119,9 @@ class CityInfo extends React.Component {
           photoURL: res.data.photos[0].image.web,
         });
       });
+    this.setState({
+      city: this.objectKeyByValue(CityOptions, this.props.destinationCity)[0],
+    });
   }
 
   render () {
@@ -124,7 +139,13 @@ class CityInfo extends React.Component {
         flexGrow: 1,
       },
       centerStyle: {
-        width: '80%',
+        width: '90%',
+        display: 'flex',
+        flexFlow: 'row wrap',
+        justifyContent: 'center',
+      },
+      mobileCenterStyle: {
+        width: '100%',
         display: 'flex',
         flexFlow: 'row wrap',
         justifyContent: 'center',
@@ -133,11 +154,41 @@ class CityInfo extends React.Component {
         flexGrow: 1000,
       },
       image: {
-        height: '30vh',
+        height: '35vh',
         width: '100%',
+      },
+      divImage: {
+        height: '100%',
+        width: '100%',
+        position: 'relative',
         objectFit: 'cover',
         overflow: 'hidden',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundImage: 'url(' + this.state.photoURL + ')',
       },
+      text: {
+        position: 'absolute',
+        left: '0px',
+        bottom: '0px',
+        right: '0px',
+        background: 'rgba(0, 0, 0, 0.4)'
+      },
+      textMargin: {
+        marginLeft: '5vw',
+        marginRight: '5vw',
+        marginBottom: '20px',
+      },
+      city: {
+        fontFamily: "'Roboto Medium', sans-serif",
+        color: 'white',
+        fontSize: '3em',
+      },
+      summary: {
+        fontFamily: "'Roboto', sans-serif",
+        color: 'white',
+        fontSize: '1em',
+      }
     };
     let cards = [['Housing Affordability', this.state.housing, <ActionHome/>],
       ['Cost of Living', this.state.col, <EditorAttachMoney/>],
@@ -156,42 +207,81 @@ class CityInfo extends React.Component {
     return (
       <div>
         <div>
-          <img src={this.state.photoURL} style={styles.image}/>
+          <MuiThemeProvider>
+            <Paper style={styles.image} zDepth={1}>
+              <div style={styles.divImage}>
+                  <div style={styles.text}>
+                    <div style={styles.textMargin}>
+                      <span style={styles.city}>{this.state.city}</span>
+                      <br/>
+                      <span style={styles.summary}>{this.state.summary}</span>
+                    </div>
+                  </div>
+              </div>
+            </Paper>
+          </MuiThemeProvider>
         </div>
-        <div
-          style={styles.flexStyle}>
-          <div
-            style={styles.centerStyle}>
-            {
-              cards.map(card =>
+        {
+          this.props.width > 600 ?
+            <div
+              style={styles.flexStyle}>
               <div
-                style={styles.growStyle}>
-                <MuiThemeProvider>
-                  <Card
-                    style={styles.cardStyle}>
-                    <CardHeader
-                      title={card[0]}
-                      subtitle={context.calculateScoreStatus(card[1])}
-                      avatar={
-                      <Avatar
-                        icon={card[2]}
-                        backgroundColor={context.calculateColor(card[1])}
+                style={styles.centerStyle}>
+                { cards.map(card =>
+                <div
+                  style={styles.growStyle}>
+                  <MuiThemeProvider>
+                    <Card
+                      style={styles.cardStyle}>
+                      <CardHeader
+                        title={card[0]}
+                        subtitle={context.calculateScoreStatus(card[1])}
+                        avatar={
+                          <Avatar
+                            icon={card[2]}
+                            backgroundColor={context.calculateColor(card[1])}
+                          />
+                        }
                       />
+                      <CardText>
+                        <div
+                          style={{width: card[1] * 10 + '%', height: '2px', background: context.calculateColor(card[1])}}>
+                        </div>
+                      </CardText>>
+                    </Card>
+                  </MuiThemeProvider>
+                </div>)}
+                <div style={styles.emptyStyle}/>
+              </div>
+            </div>
+          :
+            <div
+              style={styles.flexStyle}>
+              <div
+                style={styles.mobileCenterStyle}>
+                { cards.map(card =>
+                <div
+                  style={styles.growStyle}>
+                  <MuiThemeProvider>
+                    <ListItem
+                      style={{width: '100%'}}
+                      primaryText={card[0]}
+                      secondaryText={context.calculateScoreStatus(card[1])}
+                      disabled={true}
+                      leftAvatar={
+                        <Avatar
+                          icon={card[2]}
+                          backgroundColor={context.calculateColor(card[1])}
+                        />
                       }
                     />
-                    <CardText>
-                      <div
-                        style={{width: card[1] * 10 + '%', height: '2px', background: context.calculateColor(card[1])}}>
-                      </div>
-                    </CardText>>
-                  </Card>
-                </MuiThemeProvider>
-              </div>)
-            }
-            <div style={styles.emptyStyle}/>
-            <p>{this.state.summary}</p>
-          </div>
-        </div>
+                  </MuiThemeProvider>
+                  <div style={styles.emptyStyle}/>
+                </div>)
+                }
+              </div>
+            </div>
+        }
       </div>
     );
   }
