@@ -17,7 +17,7 @@ import { setQuestion,
          setErrorText,
          setCurrentQuestion,
          setCurrentView,
-         setCurrentUser } from './actionCreators';
+         setCurrentUser } from '../actions';
 
 
 class AskQuestionBoard extends React.Component {
@@ -37,10 +37,10 @@ class AskQuestionBoard extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('/questions')
+    axios.get('/createuser')
       .then(res => {
-        //this.props.dispatchCurrentView('questions');
-        this.props.dispatchQuestions(res.data);
+        console.log('Logged in user: ', res.data);
+        this.props.dispatchCurrentUser(res.data);
       });
   }
 
@@ -205,15 +205,15 @@ class AskQuestionBoard extends React.Component {
 }
 
 const mapStateToProps = (state) => ({ 
-  question: state.question,
-  answer: state.answer,
-  questions: state.questions,
-  answers: state.answers,
-  questionDialog: state.questionDialog,
-  errorText: state.errorText,
-  currentQuestion: state.currentQuestion, 
-  currentView: state.currentView,
-  currentUser: state.currentUser
+  question: state.questionBoard.question,
+  answer: state.questionBoard.answer,
+  questions: state.questionBoard.questions,
+  answers: state.questionBoard.answers,
+  questionDialog: state.questionBoard.questionDialog,
+  errorText: state.questionBoard.errorText,
+  currentQuestion: state.questionBoard.currentQuestion, 
+  currentView: state.questionBoard.currentView,
+  currentUser: state.questionBoard.currentUser
 });
 
 const mapDispatchToProps = (dispatch) => {

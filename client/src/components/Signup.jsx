@@ -55,7 +55,7 @@ class Signup extends React.Component {
       'Brandenburg Gate, Berlin · Brandenburger Tor, Berlin',
       'St. Basil\'s Cathedral, Moscow · Собор Василия Блаженного, Москва́'
     ];
-    const randomNumber = Math.floor(Math.random()*images.length);
+    const randomNumber = Math.floor(Math.random() * images.length);
 
     const styles = {
       homeStyle: {
@@ -115,7 +115,7 @@ class Signup extends React.Component {
       parallaxFirst: {
         flexGrow: 1,
         position: 'relative',
-        backgroundImage: 'url(' + images[randomNumber] +')',
+        backgroundImage: 'url(' + images[randomNumber] + ')',
         backgroundAttachment: 'fixed',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',

@@ -17,7 +17,7 @@ const AnswerCollection = (props) => (
 );
 
 const mapStateToProps = (state) => ({ 
-  answers: state.answers
+  answers: state.questionBoard.answers
 });
 
 const mapDispatchToProps = (dispatch) => {
