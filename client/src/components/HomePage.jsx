@@ -24,6 +24,12 @@ import MapsLocalLibrary from 'material-ui/svg-icons/maps/local-library';
 import ActionExplore from 'material-ui/svg-icons/action/explore';
 import SocialGroup from 'material-ui/svg-icons/social/group';
 import ActionTrendingUp from 'material-ui/svg-icons/action/trending-up';
+import ActionTrendingDown from 'material-ui/svg-icons/action/trending-down';
+import MapsLocalAtm from 'material-ui/svg-icons/maps/local-atm';
+import SocialDomain from 'material-ui/svg-icons/social/domain';
+import HardwareLaptop from 'material-ui/svg-icons/hardware/laptop';
+import SocialPerson from 'material-ui/svg-icons/social/person';
+import CityOptions from '../CityOptions.json';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import HardwareDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
@@ -57,7 +63,7 @@ class HomePage extends React.Component {
       scrollTop: $('#firstSection').offset().top - $('#toolbar').height()
     }, 750);
   }
-  
+
   render () {
     const images = [
       '/assets/LibertySquare.jpg',
@@ -107,7 +113,7 @@ class HomePage extends React.Component {
       cityNames.push(city);
     });
     let set = new Set();
-    while ( set.size < 10 ) {
+    while ( set.size < 20 ) {
       set.add(cityNames[Math.floor(Math.random() * cityNames.length)]);
     }
     set = Array.from(set);
@@ -124,10 +130,14 @@ class HomePage extends React.Component {
       ['Tolerance', <SocialGroup/>],
       ['Commute', <MapsDirectionsCar/>],
       ['Air and Rail Connectivity', <MapsDirectionsTransit/>],
-      ['Internet Access', <ActionExplore/>]];
+      ['Internet Access', <ActionExplore/>],
+      ['Taxation', <MapsLocalAtm/>],
+      ['Business Freedom', <SocialDomain/>],
+      ['Startup Culture', <HardwareLaptop/>],
+      ['Venture Capital', <SocialPerson/>]];
 
     let cardSet = new Set();
-    while ( cardSet.size < 5 ) {
+    while ( cardSet.size < 10 ) {
       cardSet.add(cards[Math.floor(Math.random() * cards.length)]);
     }
     cardSet = Array.from(cardSet);
@@ -304,7 +314,7 @@ class HomePage extends React.Component {
                 return (
                   <MuiThemeProvider>
                     <Card
-                      style={{margin: '4px'}}>
+                      style={{flexGrow: 1, margin: '4px'}}>
                       <CardHeader
                         title={card[0]}
                         subtitle={this.calculateScoreStatus(Math.random() * 10)}
@@ -322,7 +332,7 @@ class HomePage extends React.Component {
             }
           </div>
         </div>
-        <div
+        {/*<div
           style={styles.partialFlexStyle}>
           <div
             style={styles.parallaxSecond}>
@@ -331,7 +341,7 @@ class HomePage extends React.Component {
               {captions[pictureSet[1]]}
             </p>
           </div>
-        </div>
+        </div>*/}
         <div
           style={{padding: '20px', backgroundColor: blueGrey400}}>
           <span
@@ -359,7 +369,7 @@ class HomePage extends React.Component {
             }
           </div>
         </div>
-        <div
+        {/*<div
           style={styles.partialFlexStyle}>
           <div
             style={styles.parallaxThird}>
@@ -368,7 +378,7 @@ class HomePage extends React.Component {
               {captions[pictureSet[2]]}
             </p>
           </div>
-        </div>
+        </div>*/}
         <div
           style={{padding: '20px', backgroundColor: blueGrey400}}>
           <span
@@ -395,7 +405,7 @@ class HomePage extends React.Component {
             </Card>
           </MuiThemeProvider>*/}
         </div>
-        <div
+        {/*<div
           style={styles.partialFlexStyle}>
           <div
             style={styles.parallaxFourth}>
@@ -404,7 +414,7 @@ class HomePage extends React.Component {
               {captions[pictureSet[3]]}
             </p>
           </div>
-        </div>
+        </div>*/}
       </div>);
   }
 }
