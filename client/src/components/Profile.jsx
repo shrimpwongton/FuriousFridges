@@ -29,6 +29,8 @@ import CityData from '../CityOptions.json';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import ExpandTransition from 'material-ui/internal/ExpandTransition';
+import CircularProgress from 'material-ui/CircularProgress';
+
 
 class Profile extends React.Component {
   constructor(props) {
@@ -42,7 +44,7 @@ class Profile extends React.Component {
       question: false,
       profilePic: '',
       visibilityValue: false,
-
+      loading: true
     };
     this.handleToggle = this.handleToggle.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
@@ -58,7 +60,25 @@ class Profile extends React.Component {
     this.async = this.async.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    setTimeout(() => {
+      this.getCurrentUserInfo();
+      this.setState({
+        loading: false
+      });
+    }, 2000);
+    axios.get('/cityinfo')
+      .catch(err => {
+        if (err.message.includes('404')) {
+          console.log('USER HAS NOT REGISTERED DESTINATION CITY');
+          setTimeout(() => {
+            this.props.history.push('/form');
+          }, 1000);
+        }
+      });
+  }
+
+  getCurrentUserInfo() {
     axios.get('/createuser')
       .then(res => {
         this.props.dispatchCurrentUser(res.data);
@@ -161,7 +181,6 @@ class Profile extends React.Component {
   }
 
   render () {
-
     const styles = {
       homeStyle: {
         textDecoration: 'none',
@@ -213,166 +232,176 @@ class Profile extends React.Component {
       },
     };
 
-    return (
-      <div>
-        <MuiThemeProvider>
-          <Toolbar
-            style = {styles.toolbarStyle}>
-            <ToolbarGroup firstChild={true} style={styles.titleStyle}>
-              <Link to='/'
-                    style={styles.homeStyle}
+    if(this.state.loading) {
+      return (
+        <div>
+          <MuiThemeProvider>  
+            <CircularProgress size={120} thickness={8} style={{'margin-left': '50%', 'left': '-65px', 'margin-top': '100px'}} />
+          </MuiThemeProvider>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <MuiThemeProvider>
+            <Toolbar
+              style = {styles.toolbarStyle}>
+              <ToolbarGroup firstChild={true} style={styles.titleStyle}>
+                <Link to='/'
+                      style={styles.homeStyle}
+                >
+                  <ToolbarTitle
+                    text="Relocate.me"
+                    style={styles.whiteTextStyle}
+                  />
+                </Link>
+              </ToolbarGroup>
+              <ToolbarGroup style={styles.signInStyle}>
+                <IconButton
+                  onTouchTap={this.handleToggle}>
+                  <ActionSettings
+                    color = {white}
+                  />
+                </IconButton>
+                <a href='/logout'>
+                  <FlatButton
+                    style={styles.whiteTextStyle}
+                    label="LOG OUT"
+                  />
+                </a>
+              </ToolbarGroup>
+            </Toolbar>
+          </MuiThemeProvider>
+          <MuiThemeProvider>
+            <Tabs
+              tabItemContainerStyle={{width: '100vw'}}
+              inkBarStyle={{background: pinkA200, zIndex: 500}}
+              contentContainerStyle={{background: grey300}}
+              style={styles.tabs}>
+              <Tab
+                label="DASHBOARD"
+                style={styles.tabStyle}
               >
-                <ToolbarTitle
-                  text="Relocate.me"
-                  style={styles.whiteTextStyle}
-                />
-              </Link>
-            </ToolbarGroup>
-            <ToolbarGroup style={styles.signInStyle}>
-              <IconButton
-                onTouchTap={this.handleToggle}>
-                <ActionSettings
-                  color = {white}
-                />
-              </IconButton>
-              <a href='/logout'>
-                <FlatButton
-                  style={styles.whiteTextStyle}
-                  label="LOG OUT"
-                />
-              </a>
-            </ToolbarGroup>
-          </Toolbar>
-        </MuiThemeProvider>
-        <MuiThemeProvider>
-          <Tabs
-            tabItemContainerStyle={{width: '100vw'}}
-            inkBarStyle={{background: pinkA200, zIndex: 500}}
-            contentContainerStyle={{background: grey300}}
-            style={styles.tabs}>
-            <Tab
-              label="DASHBOARD"
-              style={styles.tabStyle}
-            >
-              <div>
-                <Dashboard/>
-              </div>
-            </Tab>
-            <Tab
-              label="CITY INFO"
-              style={styles.tabStyle}
-            >
-              <div>
-              <ExpandTransition loading={this.state.loading} open={true}>
-                <CityInfo formToggle={this.props.formToggle}
-                          destinationCity={this.state.destinationValue}
-                          width={this.state.width}
-                          history={this.props.history} />
-              </ExpandTransition>
-              </div>
-            </Tab>
-            <Tab
-              label="QUESTIONS"
-              style={styles.tabStyle}
-            >
-              <div
-                style={styles.tab}
+                <div>
+                  <Dashboard/>
+                </div>
+              </Tab>
+              <Tab
+                label="CITY INFO"
+                style={styles.tabStyle}
               >
-                <AskQuestionBoard/>
-              </div>
-            </Tab>
-          </Tabs>
-        </MuiThemeProvider>
-        <MuiThemeProvider>
-          <Drawer
-            docked={false}
-            open={this.state.open}
-            width={this.state.width > 400 ? 400 : '100%'}
-            openSecondary={true}
-            onRequestChange={(open) => this.setState({open})} >
-            <ListItem
-              leftAvatar={<Avatar src={this.state.profilePic}/>}
-              primaryText={this.state.firstName + ' ' + this.state.lastName}
-              secondaryText={this.state.email}
-              disabled={true}
+                <div>
+                <ExpandTransition loading={this.state.loading} open={true}>
+                  <CityInfo formToggle={this.props.formToggle}
+                            destinationCity={this.state.destinationValue}
+                            width={this.state.width}
+                            history={this.props.history} />
+                </ExpandTransition>
+                </div>
+              </Tab>
+              <Tab
+                label="QUESTIONS"
+                style={styles.tabStyle}
+              >
+                <div
+                  style={styles.tab}
+                >
+                  <AskQuestionBoard/>
+                </div>
+              </Tab>
+            </Tabs>
+          </MuiThemeProvider>
+          <MuiThemeProvider>
+            <Drawer
+              docked={false}
+              open={this.state.open}
+              width={this.state.width > 400 ? 400 : '100%'}
+              openSecondary={true}
+              onRequestChange={(open) => this.setState({open})} >
+              <ListItem
+                leftAvatar={<Avatar src={this.state.profilePic}/>}
+                primaryText={this.state.firstName + ' ' + this.state.lastName}
+                secondaryText={this.state.email}
+                disabled={true}
+              />
+              <Subheader
+                style={{color: blueGrey500}}>
+                Origin
+              </Subheader>
+              <MuiThemeProvider>
+                <DropDownMenu value={this.state.originValue} onChange={this.handleOriginChange}>
+                  {
+                    Object.keys(CityData).map((city, index) =>
+                      <MenuItem value={CityData[city]} primaryText={city} />
+                    )
+                  }
+                </DropDownMenu>
+              </MuiThemeProvider>
+              <Divider/>
+              <Subheader
+                style={{color: blueGrey500}}>
+                Destination
+              </Subheader>
+              <MuiThemeProvider>
+                <DropDownMenu value={this.state.destinationValue} onChange={this.handleDestinationChange}>
+                  {
+                    Object.keys(CityData).map((city, index) =>
+                      <MenuItem value={CityData[city]} primaryText={city} />
+                    )
+                  }
+                </DropDownMenu>
+              </MuiThemeProvider>
+              <Divider/>
+              <Subheader
+                style={{color: blueGrey500}}>
+                Description
+              </Subheader>
+              <MuiThemeProvider>
+                <DropDownMenu value={this.state.describeValue} onChange={this.handleDescribeChange}>
+                  <MenuItem value={'single'} primaryText={'Single'} />
+                  <MenuItem value={'couple'} primaryText={'Couple'} />
+                  <MenuItem value={'married'} primaryText={'Married'} />
+                  <MenuItem value={'parent'} primaryText={'Parent'} />
+                </DropDownMenu>
+              </MuiThemeProvider>
+              <Divider/>
+              <Subheader
+                style={{color: blueGrey500}}>
+                Privacy
+              </Subheader>
+              <ListItem primaryText="Visibility"
+                        secondaryText="Profile visible to other users"
+                        rightToggle={
+                          <Toggle
+                            thumbSwitchedStyle={styles.switchStyle}
+                            trackSwitchedStyle={styles.trackStyle}
+                            toggled={this.state.visibilityValue}
+                            onToggle={this.handleVisibility}
+                          />}
+              />
+              <FlatButton
+                label="SAVE"
+                style ={styles.saveButtonStyle}
+                onTouchTap = {this.handleSave}
+              />
+              <FlatButton
+                label="CANCEL"
+                onTouchTap={this.handleCancel}
+              />
+            </Drawer>
+          </MuiThemeProvider>
+          <MuiThemeProvider>
+            <Snackbar
+              open={this.state.snackBar}
+              message="Settings were saved"
+              autoHideDuration={3000}
+              action="DISMISS"
+              onActionTouchTap={this.handleClose}
+              onRequestClose={this.handleClose}
             />
-            <Subheader
-              style={{color: blueGrey500}}>
-              Origin
-            </Subheader>
-            <MuiThemeProvider>
-              <DropDownMenu value={this.state.originValue} onChange={this.handleOriginChange}>
-                {
-                  Object.keys(CityData).map((city, index) =>
-                    <MenuItem value={CityData[city]} primaryText={city} />
-                  )
-                }
-              </DropDownMenu>
-            </MuiThemeProvider>
-            <Divider/>
-            <Subheader
-              style={{color: blueGrey500}}>
-              Destination
-            </Subheader>
-            <MuiThemeProvider>
-              <DropDownMenu value={this.state.destinationValue} onChange={this.handleDestinationChange}>
-                {
-                  Object.keys(CityData).map((city, index) =>
-                    <MenuItem value={CityData[city]} primaryText={city} />
-                  )
-                }
-              </DropDownMenu>
-            </MuiThemeProvider>
-            <Divider/>
-            <Subheader
-              style={{color: blueGrey500}}>
-              Description
-            </Subheader>
-            <MuiThemeProvider>
-              <DropDownMenu value={this.state.describeValue} onChange={this.handleDescribeChange}>
-                <MenuItem value={'single'} primaryText={'Single'} />
-                <MenuItem value={'couple'} primaryText={'Couple'} />
-                <MenuItem value={'married'} primaryText={'Married'} />
-                <MenuItem value={'parent'} primaryText={'Parent'} />
-              </DropDownMenu>
-            </MuiThemeProvider>
-            <Divider/>
-            <Subheader
-              style={{color: blueGrey500}}>
-              Privacy
-            </Subheader>
-            <ListItem primaryText="Visibility"
-                      secondaryText="Profile visible to other users"
-                      rightToggle={
-                        <Toggle
-                          thumbSwitchedStyle={styles.switchStyle}
-                          trackSwitchedStyle={styles.trackStyle}
-                          toggled={this.state.visibilityValue}
-                          onToggle={this.handleVisibility}
-                        />}
-            />
-            <FlatButton
-              label="SAVE"
-              style ={styles.saveButtonStyle}
-              onTouchTap = {this.handleSave}
-            />
-            <FlatButton
-              label="CANCEL"
-              onTouchTap={this.handleCancel}
-            />
-          </Drawer>
-        </MuiThemeProvider>
-        <MuiThemeProvider>
-          <Snackbar
-            open={this.state.snackBar}
-            message="Settings were saved"
-            autoHideDuration={3000}
-            action="DISMISS"
-            onActionTouchTap={this.handleClose}
-            onRequestClose={this.handleClose}
-          />
-        </MuiThemeProvider>
-      </div>);
+          </MuiThemeProvider>
+        </div>);
+    }
   }
 }
 
