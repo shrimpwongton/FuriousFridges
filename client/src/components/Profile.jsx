@@ -259,7 +259,7 @@ class Profile extends React.Component {
               </div>
             </Tab>
             <Tab
-              label="CITY INFO"
+              label="DESTINATION INFO"
               style={styles.tabStyle}
             >
               <div>
