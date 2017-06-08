@@ -2,6 +2,7 @@ const db = require('../');
 
 const Question = db.Model.extend({
   tableName: 'questions',
+  hasTimestamps: true,
   user: function() {
     return this.belongsTo('User', 'user_id');
   },

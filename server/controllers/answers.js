@@ -19,8 +19,6 @@ module.exports.getAll = (req, res) => {
       res.status(200).send(answers);
     })
     .catch(err => {
-      console.log(err);
-      // This code indicates an outside service (the database) did not respond in time
       res.status(503).send(err);
     });
     
@@ -29,8 +27,11 @@ module.exports.getAll = (req, res) => {
 module.exports.create = (req, res) => {
   models.User.where({ email: req.body.email }).fetch()
     .then(user => {
-      models.Answer.forge({ user_id: user.attributes.id, answer: req.body.answer, question_id: req.body.questionId })
-        .save()
+      models.Answer.forge({ 
+        user_id: user.attributes.id, 
+        answer: req.body.answer, 
+        question_id: req.body.questionId 
+      }).save()
         .then(a => {
           let answer = {
             id: a.attributes.id,
