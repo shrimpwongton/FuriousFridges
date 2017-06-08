@@ -9,6 +9,7 @@ module.exports.getAll = (req, res) => {
           id: q.attributes.id,
           author: relationObj.firstName + ' ' + relationObj.lastName,
           body: q.attributes.question,
+          createdAt: q.attributes.created_at,
           photoUrl: relationObj.photoUrl
         };
         return question;
@@ -32,6 +33,7 @@ module.exports.create = (req, res) => {
             id: q.attributes.id,
             author: user.attributes.firstName + ' ' + user.attributes.lastName,
             body: q.attributes.question,
+            createdAt: q.attributes.created_at,
             photoUrl: user.attributes.photoUrl
           };
           res.status(201).send(question);

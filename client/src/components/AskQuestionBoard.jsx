@@ -42,7 +42,8 @@ class AskQuestionBoard extends React.Component {
   componentDidMount() {
     axios.get('/questions')
       .then(res => {
-        this.props.dispatchQuestions(res.data);
+        let questions = _.orderBy(res.data, ['createdAt'], ['desc']);
+        this.props.dispatchQuestions(questions);
       });
   }
 
@@ -89,7 +90,9 @@ class AskQuestionBoard extends React.Component {
       email
     })
       .then(res => {
-        this.props.dispatchQuestions(this.props.questions.concat([res.data]));
+        let questions = this.props.questions.concat([res.data]);
+        questions = _.orderBy(questions, ['createdAt'], ['desc']);
+        this.props.dispatchQuestions(questions);
       });
   }
 
@@ -121,7 +124,7 @@ class AskQuestionBoard extends React.Component {
       params: { questionId }
     })
       .then(res => {
-        let answers = res.data;
+        let answers = _.orderBy(res.data, ['createdAt'], ['desc']);
         this.props.dispatchCurrentView('answers');
         this.props.dispatchCurrentQuestion(currentQuestion);
         this.props.dispatchAnswers(answers);
@@ -138,7 +141,9 @@ class AskQuestionBoard extends React.Component {
       email
     })
       .then(res => {
-        this.props.dispatchAnswers(this.props.answers.concat([res.data]));
+        let answers = this.props.answers.concat([res.data]);
+        answers = _.orderBy(answers, ['createdAt'], ['desc']);
+        this.props.dispatchAnswers(answers);
       });
   }
 
