@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import Question from './Question.jsx';
 import Answer from './Answer.jsx';
 import QuestionView from './QuestionView.jsx';
@@ -25,6 +26,8 @@ class AskQuestionBoard extends React.Component {
     super(props);
 
     this.addQuestion = this.addQuestion.bind(this);
+    this.deleteQuestion = this.deleteQuestion.bind(this);
+    this.deleteAnswer = this.deleteAnswer.bind(this);
     this.handleQuestionClick = this.handleQuestionClick.bind(this);
     this.answerQuestionInView = this.answerQuestionInView.bind(this);
     this.backToQuestions = this.backToQuestions.bind(this);
@@ -90,8 +93,30 @@ class AskQuestionBoard extends React.Component {
       });
   }
 
-  handleQuestionClick(questionId) {
-    let currentQuestion = this.props.questions[questionId - 1];
+  deleteQuestion(questionId) {
+    let questions = this.props.questions;
+    axios.delete('/questions', {
+      params: { questionId }
+    })
+      .then(res => {
+        questions = _.reject(questions, (question) => question.id === questionId);
+        this.props.dispatchQuestions(questions);
+      });
+  }
+
+  deleteAnswer(answerId) {
+    let answers = this.props.answers;
+    axios.delete('/answers', {
+      params: { answerId }
+    })
+      .then(res => {
+        answers = _.reject(answers, (answer) => answer.id === answerId);
+        this.props.dispatchAnswers(answers);
+      });
+  }
+
+  handleQuestionClick(currentQuestion) {
+    let questionId = currentQuestion.id;
     axios.get('/answers', {
       params: { questionId }
     })
@@ -157,14 +182,18 @@ class AskQuestionBoard extends React.Component {
         onTouchTap={this.handleQuestionDialogSubmit}
       />,
     ];
-    let questionView = <QuestionView
+    let questionView = <QuestionView 
       handleQuestionClick={this.handleQuestionClick}
       openQuestionDialog={this.openQuestionDialog}
-      width={this.props.width}/>;
-    let answerView = <AnswerView
+      width={this.props.width}
+      deleteQuestion={this.deleteQuestion} 
+    />;
+    let answerView = <AnswerView 
       backToQuestions={this.backToQuestions}
       handleAnswerChange={this.handleAnswerChange}
-      handleAnswerSubmit={this.handleAnswerSubmit} />;
+      handleAnswerSubmit={this.handleAnswerSubmit}
+      deleteAnswer={this.deleteAnswer} 
+    />;
     let view;
     if (this.props.currentView === 'questions') {
       view = questionView;

@@ -23,7 +23,6 @@ module.exports.getAll = (req, res) => {
 };
 
 module.exports.create = (req, res) => {
-  console.log(req.body.email);
   models.User.where({ email: req.body.email }).fetch()
     .then(user => {
       models.Question.forge({ user_id: user.attributes.id, question: req.body.question })
@@ -47,5 +46,15 @@ module.exports.create = (req, res) => {
     .catch((err) => {
       console.log(err);
       res.sendStatus(404);
+    });
+};
+
+module.exports.delete = (req, res) => {
+  models.Question.where({ id: req.query.questionId }).destroy()
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch(err => {
+      res.status(500).send(err);
     });
 };

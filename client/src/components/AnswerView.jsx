@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import IconButton from 'material-ui/IconButton';
 import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
-import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import { Card, CardTitle } from 'material-ui/Card';
 import { ListItem } from 'material-ui/List';
@@ -21,7 +20,7 @@ const AnswerView = (props) => (
       <CardTitle
         title={props.currentQuestion.body}
         subtitle={props.currentQuestion.author} />
-      <AnswerCollection />
+      <AnswerCollection deleteAnswer={props.deleteAnswer} />
       <ListItem
         disabled={true}>
         <TextField

@@ -9,7 +9,7 @@ import IconButton from 'material-ui/IconButton';
 
 const Question = (props) => {
   const answerQuestion = () => {
-    props.handleQuestionClick(props.question.id);
+    props.handleQuestionClick(props.question);    
   };
   return (
     <MuiThemeProvider>
@@ -26,7 +26,7 @@ const Question = (props) => {
           >
             <MenuItem
               primaryText="Delete"
-              onTouchTap={answerQuestion/*Change to delete function, make sure it's the user's question*/}
+              onTouchTap={() => { props.deleteQuestion(props.question.id); }}
             />
           </IconMenu>
         }

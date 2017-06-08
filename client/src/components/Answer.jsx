@@ -22,7 +22,8 @@ const Answer = (props) => (
             targetOrigin={{horizontal: 'right', vertical: 'top'}}
           >
             <MenuItem
-            primaryText="Delete"
+              primaryText="Delete"
+              onTouchTap={() => { props.deleteAnswer(props.id); }}
             />
           </IconMenu>
         }

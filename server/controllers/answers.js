@@ -50,3 +50,13 @@ module.exports.create = (req, res) => {
       res.sendStatus(404);
     });
 };
+
+module.exports.delete = (req, res) => {
+  models.Answer.where({ id: req.query.answerId }).destroy()
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch(err => {
+      res.status(500).send(err);
+    });
+};
