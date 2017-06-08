@@ -60,16 +60,3 @@ module.exports.delete = (req, res) => {
       res.status(500).send(err);
     });
 };
-
-// module.exports.delete = (req, res) => {
-//   let id = req.query.answerId;
-//   let question_id = req.query.questionId;
-//   models.Answer.where({ id }).destroy()
-//     .then(answer => {
-//       console.log('>>>>>>>>destroyed>>>>>>>>>', answer); 
-//       models.Answer.where({ question_id }).fetchAll()
-//         .then(answers => {
-//           res.status(200).send(answers);
-//         })
-//     })
-// }
