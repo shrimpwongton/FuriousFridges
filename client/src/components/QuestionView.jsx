@@ -4,6 +4,8 @@ import QuestionCollection from './QuestionCollection.jsx';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Card } from 'material-ui/Card';
 import { white, pinkA200 } from 'material-ui/styles/colors';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 const QuestionView = (props) => (
   <div>
@@ -13,13 +15,13 @@ const QuestionView = (props) => (
                           deleteQuestion={props.deleteQuestion}
       />
     </Card>
-    <RaisedButton
-      label='ASK A QUESTION'
-      backgroundColor={pinkA200}
-      labelColor={white}
+    <FloatingActionButton
+      mini={props.width <= 750}
       style={styles.askQuestionButton}
       onTouchTap={props.openQuestionDialog}
-    />
+      backgroundColor={pinkA200}>
+      <ContentAdd />
+    </FloatingActionButton>
   </div>
 );
 

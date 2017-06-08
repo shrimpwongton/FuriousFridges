@@ -184,6 +184,7 @@ class AskQuestionBoard extends React.Component {
     ];
     let questionView = <QuestionView handleQuestionClick={this.handleQuestionClick}
                                      openQuestionDialog={this.openQuestionDialog}
+                                     width={this.props.width}
                                      deleteQuestion={this.deleteQuestion} 
                         />;
     let answerView = <AnswerView backToQuestions={this.backToQuestions}
@@ -232,14 +233,14 @@ class AskQuestionBoard extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({ 
+const mapStateToProps = (state) => ({
   question: state.questionBoard.question,
   answer: state.questionBoard.answer,
   questions: state.questionBoard.questions,
   answers: state.questionBoard.answers,
   questionDialog: state.questionBoard.questionDialog,
   errorText: state.questionBoard.errorText,
-  currentQuestion: state.questionBoard.currentQuestion, 
+  currentQuestion: state.questionBoard.currentQuestion,
   currentView: state.questionBoard.currentView,
   currentUser: state.questionBoard.currentUser
 });
