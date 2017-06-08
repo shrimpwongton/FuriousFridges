@@ -9,7 +9,7 @@ import IconButton from 'material-ui/IconButton';
 
 const Question = (props) => {
   const answerQuestion = () => {
-    props.handleQuestionClick(props.question);    
+    props.handleQuestionClick(props.question);
   };
   return (
     <MuiThemeProvider>

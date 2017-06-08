@@ -40,9 +40,12 @@ class AskQuestionBoard extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('/questions')
+    axios.get('/questions', { 
+      params: { orderBy: '-created_at' }
+    })
       .then(res => {
-        this.props.dispatchQuestions(res.data);
+        let questions = res.data;
+        this.props.dispatchQuestions(questions);
       });
   }
 
@@ -73,7 +76,7 @@ class AskQuestionBoard extends React.Component {
 
   handleAnswerSubmit(event) {
     if (event.charCode === 13) {
-      this.answerQuestionInView(this.props.currentUser, this.props.answer, this.props.currentQuestion.id);
+      this.answerQuestionInView(this.props.currentUser, this.props.answer);
       this.props.dispatchAnswer('');
     }
   }
@@ -89,13 +92,13 @@ class AskQuestionBoard extends React.Component {
       email
     })
       .then(res => {
-        this.props.dispatchQuestions(this.props.questions.concat([res.data]));
+        let questions = [res.data].concat(this.props.questions);
+        this.props.dispatchQuestions(questions);
       });
   }
 
   deleteQuestion(questionId) {
     let questions = this.props.questions;
-    console.log(questionId);
     axios.delete('/questions', {
       params: { questionId }
     })
@@ -139,7 +142,8 @@ class AskQuestionBoard extends React.Component {
       email
     })
       .then(res => {
-        this.props.dispatchAnswers(this.props.answers.concat([res.data]));
+        let answers = this.props.answers.concat([res.data]);
+        this.props.dispatchAnswers(answers);
       });
   }
 
@@ -183,15 +187,19 @@ class AskQuestionBoard extends React.Component {
         onTouchTap={this.handleQuestionDialogSubmit}
       />,
     ];
-    let questionView = <QuestionView handleQuestionClick={this.handleQuestionClick}
-                                     openQuestionDialog={this.openQuestionDialog}
-                                     deleteQuestion={this.deleteQuestion} 
-                        />;
-    let answerView = <AnswerView backToQuestions={this.backToQuestions}
-                                 handleAnswerChange={this.handleAnswerChange}
-                                 handleAnswerSubmit={this.handleAnswerSubmit}
-                                 deleteAnswer={this.deleteAnswer} 
-                      />;
+    let questionView = <QuestionView
+      handleQuestionClick={this.handleQuestionClick}
+      openQuestionDialog={this.openQuestionDialog}
+      width={this.props.width}
+      deleteQuestion={this.deleteQuestion}
+      destinationCity={this.props.destinationCity}
+    />;
+    let answerView = <AnswerView
+      backToQuestions={this.backToQuestions}
+      handleAnswerChange={this.handleAnswerChange}
+      handleAnswerSubmit={this.handleAnswerSubmit}
+      deleteAnswer={this.deleteAnswer}
+    />;
     let view;
     if (this.props.currentView === 'questions') {
       view = questionView;
@@ -233,14 +241,14 @@ class AskQuestionBoard extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({ 
+const mapStateToProps = (state) => ({
   question: state.questionBoard.question,
   answer: state.questionBoard.answer,
   questions: state.questionBoard.questions,
   answers: state.questionBoard.answers,
   questionDialog: state.questionBoard.questionDialog,
   errorText: state.questionBoard.errorText,
-  currentQuestion: state.questionBoard.currentQuestion, 
+  currentQuestion: state.questionBoard.currentQuestion,
   currentView: state.questionBoard.currentView,
   currentUser: state.questionBoard.currentUser
 });

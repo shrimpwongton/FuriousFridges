@@ -1,7 +1,8 @@
 const models = require('../../db/models');
 
 module.exports.getAll = (req, res) => {
-  models.Answer.where({ question_id: req.query.questionId }).fetchAll({ withRelated: 'user'})
+  let sortOrder = req.query.orderBy || '';
+  models.Answer.where({ question_id: req.query.questionId }).orderBy(sortOrder).fetchAll({ withRelated: 'user'})
     .then(results => {
       let answers = results.models.map(a => {
         let relationObj = a.relations.user.attributes;
@@ -10,6 +11,7 @@ module.exports.getAll = (req, res) => {
           author: relationObj.firstName + ' ' + relationObj.lastName,
           body: a.attributes.answer,
           question_id: a.attributes.question_id,
+          createdAt: a.attributes.created_at,
           photoUrl: relationObj.photoUrl
         };
         return answer;
@@ -17,8 +19,6 @@ module.exports.getAll = (req, res) => {
       res.status(200).send(answers);
     })
     .catch(err => {
-      console.log(err);
-      // This code indicates an outside service (the database) did not respond in time
       res.status(503).send(err);
     });
     
@@ -26,16 +26,19 @@ module.exports.getAll = (req, res) => {
 
 module.exports.create = (req, res) => {
   models.User.where({ email: req.body.email }).fetch()
-    .then(user => user.attributes)
-    .then(attrib => {
-      models.Answer.forge({ user_id: attrib.id, answer: req.body.answer, question_id: req.body.questionId })
-        .save()
+    .then(user => {
+      models.Answer.forge({ 
+        user_id: user.attributes.id, 
+        answer: req.body.answer, 
+        question_id: req.body.questionId 
+      }).save()
         .then(a => {
           let answer = {
             id: a.attributes.id,
-            author: attrib.firstName + ' ' + attrib.lastName,
+            author: user.attributes.firstName + ' ' + user.attributes.lastName,
             body: a.attributes.answer,
-            photoUrl: attrib.photoUrl
+            createdAt: a.attributes.created_at,
+            photoUrl: user.attributes.photoUrl
           };
           res.status(201).send(answer);
         })    
@@ -60,16 +63,3 @@ module.exports.delete = (req, res) => {
       res.status(500).send(err);
     });
 };
-
-// module.exports.delete = (req, res) => {
-//   let id = req.query.answerId;
-//   let question_id = req.query.questionId;
-//   models.Answer.where({ id }).destroy()
-//     .then(answer => {
-//       console.log('>>>>>>>>destroyed>>>>>>>>>', answer); 
-//       models.Answer.where({ question_id }).fetchAll()
-//         .then(answers => {
-//           res.status(200).send(answers);
-//         })
-//     })
-// }
