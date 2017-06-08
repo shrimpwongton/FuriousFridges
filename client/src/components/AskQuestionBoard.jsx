@@ -40,9 +40,12 @@ class AskQuestionBoard extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('/questions')
+    axios.get('/questions', { 
+      params: { orderBy: '-created_at' }
+    })
       .then(res => {
-        this.props.dispatchQuestions(res.data);
+        let questions = res.data;
+        this.props.dispatchQuestions(questions);
       });
   }
 
@@ -73,7 +76,7 @@ class AskQuestionBoard extends React.Component {
 
   handleAnswerSubmit(event) {
     if (event.charCode === 13) {
-      this.answerQuestionInView(this.props.currentUser, this.props.answer, this.props.currentQuestion.id);
+      this.answerQuestionInView(this.props.currentUser, this.props.answer);
       this.props.dispatchAnswer('');
     }
   }
@@ -89,7 +92,8 @@ class AskQuestionBoard extends React.Component {
       email
     })
       .then(res => {
-        this.props.dispatchQuestions(this.props.questions.concat([res.data]));
+        let questions = [res.data].concat(this.props.questions);
+        this.props.dispatchQuestions(questions);
       });
   }
 
@@ -138,7 +142,8 @@ class AskQuestionBoard extends React.Component {
       email
     })
       .then(res => {
-        this.props.dispatchAnswers(this.props.answers.concat([res.data]));
+        let answers = this.props.answers.concat([res.data]);
+        this.props.dispatchAnswers(answers);
       });
   }
 
