@@ -49,7 +49,6 @@
     "react-toolbox": "^2.0.0-beta.12",
     "redis": "^2.7.1",
     "redux": "^3.6.0",
-    "redux-connect": "^5.1.0",
     "request": "^2.81.0"
   },
   "devDependencies": {
