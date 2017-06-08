@@ -182,17 +182,18 @@ class AskQuestionBoard extends React.Component {
         onTouchTap={this.handleQuestionDialogSubmit}
       />,
     ];
-    let questionView = <QuestionView 
+    let questionView = <QuestionView
       handleQuestionClick={this.handleQuestionClick}
       openQuestionDialog={this.openQuestionDialog}
       width={this.props.width}
-      deleteQuestion={this.deleteQuestion} 
+      deleteQuestion={this.deleteQuestion}
+      destinationCity={this.props.destinationCity}
     />;
-    let answerView = <AnswerView 
+    let answerView = <AnswerView
       backToQuestions={this.backToQuestions}
       handleAnswerChange={this.handleAnswerChange}
       handleAnswerSubmit={this.handleAnswerSubmit}
-      deleteAnswer={this.deleteAnswer} 
+      deleteAnswer={this.deleteAnswer}
     />;
     let view;
     if (this.props.currentView === 'questions') {
