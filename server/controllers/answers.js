@@ -1,7 +1,8 @@
 const models = require('../../db/models');
 
 module.exports.getAll = (req, res) => {
-  models.Answer.where({ question_id: req.query.questionId }).fetchAll({ withRelated: 'user'})
+  let sortOrder = req.query.orderBy || '';
+  models.Answer.where({ question_id: req.query.questionId }).orderBy(sortOrder).fetchAll({ withRelated: 'user'})
     .then(results => {
       let answers = results.models.map(a => {
         let relationObj = a.relations.user.attributes;

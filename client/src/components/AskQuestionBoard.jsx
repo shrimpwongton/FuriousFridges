@@ -40,9 +40,11 @@ class AskQuestionBoard extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('/questions')
+    axios.get('/questions', { 
+      params: { orderBy: '-created_at' }
+    })
       .then(res => {
-        let questions = _.orderBy(res.data, ['createdAt'], ['desc']);
+        let questions = res.data;
         this.props.dispatchQuestions(questions);
       });
   }
@@ -74,7 +76,7 @@ class AskQuestionBoard extends React.Component {
 
   handleAnswerSubmit(event) {
     if (event.charCode === 13) {
-      this.answerQuestionInView(this.props.currentUser, this.props.answer, this.props.currentQuestion.id);
+      this.answerQuestionInView(this.props.currentUser, this.props.answer);
       this.props.dispatchAnswer('');
     }
   }
@@ -90,8 +92,7 @@ class AskQuestionBoard extends React.Component {
       email
     })
       .then(res => {
-        let questions = this.props.questions.concat([res.data]);
-        questions = _.orderBy(questions, ['createdAt'], ['desc']);
+        let questions = [res.data].concat(this.props.questions);
         this.props.dispatchQuestions(questions);
       });
   }
@@ -124,7 +125,7 @@ class AskQuestionBoard extends React.Component {
       params: { questionId }
     })
       .then(res => {
-        let answers = _.orderBy(res.data, ['createdAt'], ['desc']);
+        let answers = res.data;
         this.props.dispatchCurrentView('answers');
         this.props.dispatchCurrentQuestion(currentQuestion);
         this.props.dispatchAnswers(answers);
@@ -142,7 +143,6 @@ class AskQuestionBoard extends React.Component {
     })
       .then(res => {
         let answers = this.props.answers.concat([res.data]);
-        answers = _.orderBy(answers, ['createdAt'], ['desc']);
         this.props.dispatchAnswers(answers);
       });
   }
@@ -187,18 +187,17 @@ class AskQuestionBoard extends React.Component {
         onTouchTap={this.handleQuestionDialogSubmit}
       />,
     ];
-    let questionView = <QuestionView
+    let questionView = <QuestionView 
       handleQuestionClick={this.handleQuestionClick}
       openQuestionDialog={this.openQuestionDialog}
       width={this.props.width}
-      deleteQuestion={this.deleteQuestion}
-      destinationCity={this.props.destinationCity}
+      deleteQuestion={this.deleteQuestion} 
     />;
-    let answerView = <AnswerView
+    let answerView = <AnswerView 
       backToQuestions={this.backToQuestions}
       handleAnswerChange={this.handleAnswerChange}
       handleAnswerSubmit={this.handleAnswerSubmit}
-      deleteAnswer={this.deleteAnswer}
+      deleteAnswer={this.deleteAnswer} 
     />;
     let view;
     if (this.props.currentView === 'questions') {

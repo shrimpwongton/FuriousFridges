@@ -1,7 +1,8 @@
 const models = require('../../db/models');
 
 module.exports.getAll = (req, res) => {
-  models.Question.fetchAll({ withRelated: 'user'})
+  let sortOrder = req.query.orderBy || '';
+  models.Question.where({}).orderBy(sortOrder ).fetchAll({ withRelated: 'user'})
     .then(results => {
       let questions = results.models.map(q => {
         let relationObj = q.relations.user.attributes; 
@@ -36,6 +37,7 @@ module.exports.create = (req, res) => {
             createdAt: q.attributes.created_at,
             photoUrl: user.attributes.photoUrl
           };
+          console.log(question);
           res.status(201).send(question);
         })    
         .catch(err => {
