@@ -25,7 +25,7 @@ import CityOptions from '../CityOptions.json';
 import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
 import {
-  blueGrey500, red500, orange500, amber500, lightGreen500, green500, grey500,
+  blueGrey500, red500, orange500, amber500, lightGreen500, green500, grey500, pinkA200
 } from 'material-ui/styles/colors';
 
 
@@ -51,6 +51,7 @@ class CityInfo extends React.Component {
       business_freedom: 0,
       startups: 0,
       venture_capital: 0,
+      score: 0,
     };
     this.calculateColor = this.calculateColor.bind(this);
     this.calculateScoreStatus = this.calculateScoreStatus.bind(this);
@@ -117,6 +118,7 @@ class CityInfo extends React.Component {
           startups: res.data.categories[2].score_out_of_10,
           venture_capital: res.data.categories[3].score_out_of_10,
           summary: res.data.summary.replace(/<\/?[^>]+(>|$)/g, ''),
+          score: res.data.teleport_city_score,
         });
       })
       .catch(err => {
@@ -202,7 +204,9 @@ class CityInfo extends React.Component {
         fontSize: '1em',
       }
     };
-    let cards = [['Housing Affordability', this.state.housing, <ActionHome/>],
+    let teleportScore = ['Teleport Score', this.state.score, <ActionHome/>];
+    let cards = [
+      ['Housing Affordability', this.state.housing, <ActionHome/>],
       ['Cost of Living', this.state.col, <EditorAttachMoney/>],
       ['Economy', this.state.economy, this.state.economy > 5 ? <ActionTrendingUp/> : <ActionTrendingDown/>],
       ['Health Care', this.state.health_care, <ImageHealing/>],
@@ -249,6 +253,32 @@ class CityInfo extends React.Component {
               style={styles.flexStyle}>
               <div
                 style={styles.centerStyle}>
+                <div
+                  style={styles.growStyle}>
+                  <MuiThemeProvider>
+                    <Card
+                      style={styles.cardStyle}>
+                      <CardHeader
+                        title={teleportScore[0]}
+                        subtitle={context.calculateScoreStatus(teleportScore[1]/10)}
+                        avatar={
+                          <Avatar
+                            icon={teleportScore[2]}
+                            backgroundColor={pinkA200}
+                          />
+                        }
+                      >
+                        <div
+                          style={{
+                            marginTop: '8px',
+                            width: teleportScore[1] + '%',
+                            height: '2px',
+                            background: context.calculateColor(teleportScore[1] / 10)}}>
+                        </div>
+                      </CardHeader>
+                    </Card>
+                  </MuiThemeProvider>
+                </div>
                 { cards.map(card =>
                 <div
                   style={styles.growStyle}>
@@ -285,6 +315,26 @@ class CityInfo extends React.Component {
               style={styles.flexStyle}>
               <div
                 style={styles.mobileCenterStyle}>
+                <div
+                  style={styles.growStyle}>
+                  <MuiThemeProvider>
+                    <ListItem
+                      style={{width: '100%'}}
+                      primaryText={teleportScore[0]}
+                      secondaryText={context.calculateScoreStatus(teleportScore[1] / 10)}
+                      disabled={true}
+                      leftAvatar={
+                        <Avatar
+                          icon={teleportScore[2]}
+                          backgroundColor={pinkA200}
+                        />
+                      }
+                    />
+                  </MuiThemeProvider>
+                  <div
+                    style={{width: teleportScore[1] + '%', height: '2px', background: context.calculateColor(teleportScore[1] / 10)}}>
+                  </div>
+                </div>
                 { cards.map(card =>
                 <div
                   style={styles.growStyle}>
