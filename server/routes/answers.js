@@ -6,6 +6,7 @@ const AnswerController = require('../controllers').Answers;
 router.route('/')
   .get(AnswerController.getAll)
   .post(AnswerController.create)
+  .delete(AnswerController.delete)
   ;
 
 module.exports = router;

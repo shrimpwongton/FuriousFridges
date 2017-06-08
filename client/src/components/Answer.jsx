@@ -28,6 +28,12 @@ const Answer = (props) => (
         }
       />
     </MuiThemeProvider>
+    <RaisedButton
+        label='Delete Answer'
+        backgroundColor={pinkA200}
+        labelColor={white}
+        onTouchTap={() => { props.deleteAnswer(props.id); }}
+    />
   </div>
 );
 

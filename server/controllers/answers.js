@@ -50,3 +50,26 @@ module.exports.create = (req, res) => {
       res.sendStatus(404);
     });
 };
+
+module.exports.delete = (req, res) => {
+  models.Answer.where({ id: req.query.answerId }).destroy()
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch(err => {
+      res.status(500).send(err);
+    });
+};
+
+// module.exports.delete = (req, res) => {
+//   let id = req.query.answerId;
+//   let question_id = req.query.questionId;
+//   models.Answer.where({ id }).destroy()
+//     .then(answer => {
+//       console.log('>>>>>>>>destroyed>>>>>>>>>', answer); 
+//       models.Answer.where({ question_id }).fetchAll()
+//         .then(answers => {
+//           res.status(200).send(answers);
+//         })
+//     })
+// }
