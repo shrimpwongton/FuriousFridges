@@ -11,8 +11,9 @@ const QuestionView = (props) => (
   <div>
     <Card
       style={styles.cardStyle}>
-      <QuestionCollection handleQuestionClick={props.handleQuestionClick} 
+      <QuestionCollection handleQuestionClick={props.handleQuestionClick}
                           deleteQuestion={props.deleteQuestion}
+                          destinationCity={props.destinationCity}
       />
     </Card>
     <FloatingActionButton
