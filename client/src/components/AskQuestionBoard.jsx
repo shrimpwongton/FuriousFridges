@@ -95,7 +95,6 @@ class AskQuestionBoard extends React.Component {
 
   deleteQuestion(questionId) {
     let questions = this.props.questions;
-    console.log(questionId);
     axios.delete('/questions', {
       params: { questionId }
     })
