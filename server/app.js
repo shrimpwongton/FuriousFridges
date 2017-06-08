@@ -29,5 +29,6 @@ app.use('/users', routes.users);
 app.use('/questions', routes.questions);
 app.use('/answers', routes.answers);
 app.use('/events', routes.events);
+app.use('/meetup', routes.meetup);
 
 module.exports = app;
