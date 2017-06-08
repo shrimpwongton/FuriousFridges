@@ -26,6 +26,7 @@ class AskQuestionBoard extends React.Component {
     super(props);
 
     this.addQuestion = this.addQuestion.bind(this);
+    this.deleteQuestion = this.deleteQuestion.bind(this);
     this.deleteAnswer = this.deleteAnswer.bind(this);
     this.handleQuestionClick = this.handleQuestionClick.bind(this);
     this.answerQuestionInView = this.answerQuestionInView.bind(this);
@@ -89,6 +90,18 @@ class AskQuestionBoard extends React.Component {
     })
       .then(res => {
         this.props.dispatchQuestions(this.props.questions.concat([res.data]));
+      });
+  }
+
+  deleteQuestion(questionId) {
+    let questions = this.props.questions;
+    console.log(questionId);
+    axios.delete('/questions', {
+      params: { questionId }
+    })
+      .then(res => {
+        questions = _.reject(questions, (question) => question.id === questionId);
+        this.props.dispatchQuestions(questions);
       });
   }
 
@@ -171,11 +184,14 @@ class AskQuestionBoard extends React.Component {
       />,
     ];
     let questionView = <QuestionView handleQuestionClick={this.handleQuestionClick}
-                                     openQuestionDialog={this.openQuestionDialog} />;
+                                     openQuestionDialog={this.openQuestionDialog}
+                                     deleteQuestion={this.deleteQuestion} 
+                        />;
     let answerView = <AnswerView backToQuestions={this.backToQuestions}
                                  handleAnswerChange={this.handleAnswerChange}
                                  handleAnswerSubmit={this.handleAnswerSubmit}
-                                 deleteAnswer={this.deleteAnswer} />;
+                                 deleteAnswer={this.deleteAnswer} 
+                      />;
     let view;
     if (this.props.currentView === 'questions') {
       view = questionView;

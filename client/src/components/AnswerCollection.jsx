@@ -10,7 +10,9 @@ const AnswerCollection = (props) => (
                 author={answer.author}
                 body={answer.body}
                 photoUrl={answer.photoUrl}
-                key={answer.id} />
+                key={answer.id} 
+                deleteAnswer={props.deleteAnswer}
+        />
       )
     }
   </div>

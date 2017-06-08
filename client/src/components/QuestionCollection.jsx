@@ -9,7 +9,9 @@ const QuestionCollection = (props) => (
         <Question question={question}
                   handleQuestionClick={props.handleQuestionClick}
                   photoUrl={question.photoUrl}
-                  key={question.id} />
+                  key={question.id} 
+                  deleteQuestion={props.deleteQuestion}
+        />
       )
     }
   </div>

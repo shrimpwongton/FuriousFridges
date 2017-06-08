@@ -23,17 +23,12 @@ const Answer = (props) => (
           >
             <MenuItem
               primaryText="Delete"
+              onTouchTap={() => { props.deleteAnswer(props.id); }}
             />
           </IconMenu>
         }
       />
     </MuiThemeProvider>
-    <RaisedButton
-        label='Delete Answer'
-        backgroundColor={pinkA200}
-        labelColor={white}
-        onTouchTap={() => { props.deleteAnswer(props.id); }}
-    />
   </div>
 );
 
