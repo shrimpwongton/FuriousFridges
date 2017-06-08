@@ -30,5 +30,6 @@ app.use('/questions', routes.questions);
 app.use('/answers', routes.answers);
 app.use('/events', routes.events);
 app.use('/meetup', routes.meetup);
+app.use('/pointsofinterest', routes.pointsofinterest);
 
 module.exports = app;
