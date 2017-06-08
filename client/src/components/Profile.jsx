@@ -278,7 +278,10 @@ class Profile extends React.Component {
               <div
                 style={styles.tab}
               >
-                <AskQuestionBoard width={this.state.width}/>
+                <AskQuestionBoard
+                  width={this.state.width}
+                  destinationCity={this.state.destinationValue}
+                />
               </div>
             </Tab>
           </Tabs>
