@@ -122,7 +122,7 @@ class Profile extends React.Component {
           originValue: this.state.originValue,
           destinationValue: this.state.destinationValue,
         });
-        if (!this.state.loading && this.state.destinationValue !== this.state.destinationUser) {
+        if (!this.state.loading) {
           this.async(() => this.setState({
             loading: false,
           }));
