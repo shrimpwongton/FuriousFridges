@@ -27,7 +27,7 @@ import {List, ListItem} from 'material-ui/List';
 import {
   blueGrey500, red500, orange500, amber500, lightGreen500, green500, grey500, pinkA200
 } from 'material-ui/styles/colors';
-
+import Divider from 'material-ui/Divider';
 
 class CityInfo extends React.Component {
   constructor(props) {
@@ -144,7 +144,7 @@ class CityInfo extends React.Component {
         margin: '8px',
       },
       flexStyle: {
-        margin: '8px',
+        margin: '16px',
         display: 'flex',
         flexFlow: 'row wrap',
         justifyContent: 'center',
@@ -192,6 +192,7 @@ class CityInfo extends React.Component {
         marginLeft: '5vw',
         marginRight: '5vw',
         marginBottom: '20px',
+        float: 'left',
       },
       city: {
         fontFamily: "'Roboto Medium', sans-serif",
@@ -235,7 +236,6 @@ class CityInfo extends React.Component {
                       <span style={styles.city}>{this.state.city}</span>
                       { this.props.width > 750 ?
                         <div>
-                          <br/>
                           <span style={styles.summary}>{this.state.summary}</span>
                         </div>
                         :
@@ -315,49 +315,54 @@ class CityInfo extends React.Component {
               style={styles.flexStyle}>
               <div
                 style={styles.mobileCenterStyle}>
-                <div
-                  style={styles.growStyle}>
-                  <MuiThemeProvider>
-                    <ListItem
-                      style={{width: '100%'}}
-                      primaryText={teleportScore[0]}
-                      secondaryText={context.calculateScoreStatus(teleportScore[1] / 10)}
-                      disabled={true}
-                      leftAvatar={
-                        <Avatar
-                          icon={teleportScore[2]}
-                          backgroundColor={pinkA200}
-                        />
-                      }
-                    />
-                  </MuiThemeProvider>
+                <Paper
+                  style={{flexGrow: 1, padding: '8px'}}>
                   <div
-                    style={{width: teleportScore[1] + '%', height: '2px', background: context.calculateColor(teleportScore[1] / 10)}}>
+                    style={styles.growStyle}>
+                    <MuiThemeProvider>
+                      <ListItem
+                        style={{width: '100%'}}
+                        primaryText={teleportScore[0]}
+                        secondaryText={context.calculateScoreStatus(teleportScore[1] / 10)}
+                        disabled={true}
+                        leftAvatar={
+                          <Avatar
+                            icon={teleportScore[2]}
+                            backgroundColor={pinkA200}
+                          />
+                        }
+                      />
+                    </MuiThemeProvider>
+                    <div
+                      style={{width: teleportScore[1] + '%', height: '2px', background: context.calculateColor(teleportScore[1] / 10)}}>
+                    </div>
+                    <Divider />
                   </div>
-                </div>
-                { cards.map(card =>
-                <div
-                  style={styles.growStyle}>
-                  <MuiThemeProvider>
-                    <ListItem
-                      style={{width: '100%'}}
-                      primaryText={card[0]}
-                      secondaryText={context.calculateScoreStatus(card[1])}
-                      disabled={true}
-                      leftAvatar={
-                        <Avatar
-                          icon={card[2]}
-                          backgroundColor={context.calculateColor(card[1])}
-                        />
-                      }
-                    />
-                  </MuiThemeProvider>
+                  { cards.map(card =>
                   <div
-                    style={{width: card[1] * 10 + '%', height: '2px', background: context.calculateColor(card[1])}}>
-                  </div>
-                  <div style={styles.emptyStyle}/>
-                </div>)
-                }
+                    style={styles.growStyle}>
+                    <MuiThemeProvider>
+                      <ListItem
+                        style={{width: '100%'}}
+                        primaryText={card[0]}
+                        secondaryText={context.calculateScoreStatus(card[1])}
+                        disabled={true}
+                        leftAvatar={
+                          <Avatar
+                            icon={card[2]}
+                            backgroundColor={context.calculateColor(card[1])}
+                          />
+                        }
+                      />
+                    </MuiThemeProvider>
+                    <div
+                      style={{width: card[1] * 10 + '%', height: '2px', background: context.calculateColor(card[1])}}>
+                    </div>
+                    <Divider />
+                    <div style={styles.emptyStyle}/>
+                  </div>)
+                  }
+                </Paper>
               </div>
             </div>
         }
