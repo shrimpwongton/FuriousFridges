@@ -98,7 +98,7 @@ class CityInfo extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     axios.get('/cityinfo')
       .then(res => {
         this.props.dispatchHousing(res.data.categories[0].score_out_of_10);
@@ -133,6 +133,12 @@ class CityInfo extends React.Component {
         this.props.dispatchPhotoURL(res.data.photos[0].image.web);
       });
     this.props.dispatchCity(this.objectKeyByValue(CityOptions, this.props.destinationCity)[0]);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.summary !== this.props.summary) {
+      this.forceUpdate();
+     }
   }
 
 
