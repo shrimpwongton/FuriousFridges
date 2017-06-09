@@ -144,7 +144,7 @@ class CityInfo extends React.Component {
         margin: '8px',
       },
       flexStyle: {
-        margin: '8px',
+        margin: '16px',
         display: 'flex',
         flexFlow: 'row wrap',
         justifyContent: 'center',
@@ -353,7 +353,7 @@ class CityInfo extends React.Component {
                             backgroundColor={context.calculateColor(card[1])}
                           />
                         }
-                      ></ListItem>
+                      />
                     </MuiThemeProvider>
                     <div
                       style={{width: card[1] * 10 + '%', height: '2px', background: context.calculateColor(card[1])}}>
