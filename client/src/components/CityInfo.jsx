@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Avatar from 'material-ui/Avatar';
@@ -27,32 +28,33 @@ import {List, ListItem} from 'material-ui/List';
 import {
   blueGrey500, red500, orange500, amber500, lightGreen500, green500, grey500, pinkA200
 } from 'material-ui/styles/colors';
+import { setHousing,
+         setCol,
+         setHealthcare,
+         setEnvironmentalQuality,
+         setEconomy,
+         setLeisure,
+         setCommute,
+         setSafety,
+         setEducation,
+         setSummary,
+         setTravelConnectivity,
+         setInternetAccess,
+         setTolerance,
+         setOutdoors,
+         setTaxation,
+         setBusinessFreedom,
+         setStartUps,
+         setVentureCapital,
+         setPhotoURL,
+         setCity,
+         setScore } from '../actions';
 
 
 class CityInfo extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      housing: 0,
-      col: 0,
-      health_care: 0,
-      environmental_quality: 0,
-      economy: 0,
-      leisure: 0,
-      commute: 0,
-      safety: 0,
-      education: 0,
-      summary: '',
-      travel_connectivity: 0,
-      internet_access: 0,
-      tolerance: 0,
-      outdoors: 0,
-      taxation: 0,
-      business_freedom: 0,
-      startups: 0,
-      venture_capital: 0,
-      score: 0,
-    };
+
     this.calculateColor = this.calculateColor.bind(this);
     this.calculateScoreStatus = this.calculateScoreStatus.bind(this);
     this.objectKeyByValue = this.objectKeyByValue.bind(this);
@@ -96,30 +98,29 @@ class CityInfo extends React.Component {
     }
   }
 
-  componentWillReceiveProps() {
+  componentWillMount() {
     axios.get('/cityinfo')
       .then(res => {
-        this.setState({
-          housing: res.data.categories[0].score_out_of_10,
-          col: res.data.categories[1].score_out_of_10,
-          health_care: res.data.categories[8].score_out_of_10,
-          environmental_quality: res.data.categories[10].score_out_of_10,
-          economy: res.data.categories[11].score_out_of_10,
-          leisure: res.data.categories[14].score_out_of_10,
-          travel_connectivity: res.data.categories[4].score_out_of_10,
-          internet_access: res.data.categories[13].score_out_of_10,
-          tolerance: res.data.categories[15].score_out_of_10,
-          outdoors: res.data.categories[16].score_out_of_10,
-          commute: res.data.categories[5].score_out_of_10,
-          safety: res.data.categories[7].score_out_of_10,
-          education: res.data.categories[9].score_out_of_10,
-          taxation: res.data.categories[12].score_out_of_10,
-          business_freedom: res.data.categories[6].score_out_of_10,
-          startups: res.data.categories[2].score_out_of_10,
-          venture_capital: res.data.categories[3].score_out_of_10,
-          summary: res.data.summary.replace(/<\/?[^>]+(>|$)/g, ''),
-          score: res.data.teleport_city_score,
-        });
+        this.props.dispatchHousing(res.data.categories[0].score_out_of_10);
+        this.props.dispatchCol(res.data.categories[1].score_out_of_10);
+        this.props.dispatchHealthcare(res.data.categories[8].score_out_of_10);
+        this.props.dispatchEnvironmentalQuality(res.data.categories[10].score_out_of_10);
+        this.props.dispatchEconomy(res.data.categories[11].score_out_of_10);
+        this.props.dispatchLeisure(res.data.categories[14].score_out_of_10);
+        this.props.dispatchCommute(res.data.categories[5].score_out_of_10);
+        this.props.dispatchSafety(res.data.categories[7].score_out_of_10);
+        this.props.dispatchEducation(res.data.categories[9].score_out_of_10);
+        this.props.dispatchSummary(res.data.summary.replace(/<\/?[^>]+(>|$)/g, ''));
+        this.props.dispatchTravelConnectivity(res.data.categories[4].score_out_of_10);
+        this.props.dispatchInternetAccess(res.data.categories[13].score_out_of_10);
+        this.props.dispatchTolerance(res.data.categories[15].score_out_of_10);
+        this.props.dispatchSafety(res.data.categories[7].score_out_of_10);
+        this.props.dispatchOutdoors(res.data.categories[16].score_out_of_10);
+        this.props.dispatchTaxation(res.data.categories[12].score_out_of_10);
+        this.props.dispatchBusinessFreedom(res.data.categories[6].score_out_of_10);
+        this.props.dispatchStartUps(res.data.categories[2].score_out_of_10);
+        this.props.dispatchVentureCapital(res.data.categories[3].score_out_of_10);
+        this.props.dispatchScore(res.data.teleport_city_score);
       })
       .catch(err => {
         if (err.message.includes('404')) {
@@ -129,14 +130,11 @@ class CityInfo extends React.Component {
       });
     axios.get('/cityphoto')
       .then(res => {
-        this.setState({
-          photoURL: res.data.photos[0].image.web,
-        });
+        this.props.dispatchPhotoURL(res.data.photos[0].image.web);
       });
-    this.setState({
-      city: this.objectKeyByValue(CityOptions, this.props.destinationCity)[0],
-    });
+    this.props.dispatchCity(this.objectKeyByValue(CityOptions, this.props.destinationCity)[0]);
   }
+
 
   render () {
     const styles = {
@@ -179,7 +177,7 @@ class CityInfo extends React.Component {
         overflow: 'hidden',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
-        backgroundImage: 'url(' + this.state.photoURL + ')',
+        backgroundImage: 'url(' + this.props.photoURL + ')',
       },
       text: {
         position: 'absolute',
@@ -204,25 +202,24 @@ class CityInfo extends React.Component {
         fontSize: '1em',
       }
     };
-    let teleportScore = ['Teleport Score', this.state.score, <ActionHome/>];
-    let cards = [
-      ['Housing Affordability', this.state.housing, <ActionHome/>],
-      ['Cost of Living', this.state.col, <EditorAttachMoney/>],
-      ['Economy', this.state.economy, this.state.economy > 5 ? <ActionTrendingUp/> : <ActionTrendingDown/>],
-      ['Health Care', this.state.health_care, <ImageHealing/>],
-      ['Environment Quality', this.state.environmental_quality, <MapsLocalFlorist/>],
-      ['Leisure and Culture', this.state.leisure, <MapsLocalBar/>],
-      ['Safety', this.state.safety, <SocialPublic/>],
-      ['Outdoors', this.state.outdoors, <MapsTerrain/>],
-      ['Education', this.state.education, <MapsLocalLibrary/>],
-      ['Tolerance', this.state.tolerance, <SocialGroup/>],
-      ['Commute', this.state.commute, <MapsDirectionsCar/>],
-      ['Air and Rail Connectivity', this.state.travel_connectivity, <MapsDirectionsTransit/>],
-      ['Taxation', this.state.taxation, <MapsLocalAtm/>],
-      ['Business Freedom', this.state.business_freedom, <SocialDomain/>],
-      ['Startup Culture', this.state.startups, <HardwareLaptop/>],
-      ['Venture Capital', this.state.venture_capital, <SocialPerson/>],
-      ['Internet Access', this.state.internet_access, <ActionExplore/>]].sort((a, b) => { return b[1] - a[1]; });
+    let teleportScore = ['Teleport Score', this.props.score, <ActionHome/>];
+    let cards = [['Housing Affordability', this.props.housing, <ActionHome/>],
+      ['Cost of Living', this.props.col, <EditorAttachMoney/>],
+      ['Economy', this.props.economy, this.props.economy > 5 ? <ActionTrendingUp/> : <ActionTrendingDown/>],
+      ['Health Care', this.props.health_care, <ImageHealing/>],
+      ['Environment Quality', this.props.environmental_quality, <MapsLocalFlorist/>],
+      ['Leisure and Culture', this.props.leisure, <MapsLocalBar/>],
+      ['Safety', this.props.safety, <SocialPublic/>],
+      ['Outdoors', this.props.outdoors, <MapsTerrain/>],
+      ['Education', this.props.education, <MapsLocalLibrary/>],
+      ['Tolerance', this.props.tolerance, <SocialGroup/>],
+      ['Commute', this.props.commute, <MapsDirectionsCar/>],
+      ['Air and Rail Connectivity', this.props.travel_connectivity, <MapsDirectionsTransit/>],
+      ['Taxation', this.props.taxation, <MapsLocalAtm/>],
+      ['Business Freedom', this.props.business_freedom, <SocialDomain/>],
+      ['Startup Culture', this.props.startups, <HardwareLaptop/>],
+      ['Venture Capital', this.props.venture_capital, <SocialPerson/>],
+      ['Internet Access', this.props.internet_access, <ActionExplore/>]].sort((a, b) => { return b[1] - a[1]; });
     const context = this;
     return (
       <div>
@@ -232,11 +229,11 @@ class CityInfo extends React.Component {
               <div style={styles.divImage}>
                   <div style={styles.text}>
                     <div style={styles.textMargin}>
-                      <span style={styles.city}>{this.state.city}</span>
+                      <span style={styles.city}>{this.props.city}</span>
                       { this.props.width > 750 ?
                         <div>
                           <br/>
-                          <span style={styles.summary}>{this.state.summary}</span>
+                          <span style={styles.summary}>{this.props.summary}</span>
                         </div>
                         :
                         <div/>
@@ -366,4 +363,97 @@ class CityInfo extends React.Component {
   }
 }
 
-export default CityInfo;
+const mapStateToProps = (state) => ({ 
+  housing: state.cityInfo.housing,
+  col: state.cityInfo.col,
+  health_care: state.cityInfo.health_care,
+  environmental_quality: state.cityInfo.environmental_quality,
+  economy: state.cityInfo.economy,
+  leisure: state.cityInfo.leisure,
+  commute: state.cityInfo.commute, 
+  safety: state.cityInfo.safety,
+  education: state.cityInfo.education,
+  summary: state.cityInfo.summary,
+  travel_connectivity: state.cityInfo.travel_connectivity,
+  internet_access: state.cityInfo.internet_access,
+  tolerance: state.cityInfo.tolerance,
+  outdoors: state.cityInfo.outdoors,
+  taxation: state.cityInfo.taxation, 
+  business_freedom: state.cityInfo.business_freedom,
+  startups: state.cityInfo.startups,
+  venture_capital: state.cityInfo.venture_capital,
+  photoURL: state.cityInfo.photoURL,
+  city: state.cityInfo.city,
+  score: state.cityInfo.score
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatchHousing: (housing) => {
+      dispatch(setHousing(housing));
+    },
+    dispatchCol: (col) => {
+      dispatch(setCol(col));
+    },
+    dispatchHealthcare: (health_care) => {
+      dispatch(setHealthcare(health_care));
+    },
+    dispatchEnvironmentalQuality: (environmental_quality) => {
+      dispatch(setEnvironmentalQuality(environmental_quality));
+    },
+    dispatchEconomy: (economy) => {
+      dispatch(setEconomy(economy));
+    },
+    dispatchLeisure: (leisure) => {
+      dispatch(setLeisure(leisure));
+    },
+    dispatchCommute: (commute) => {
+      dispatch(setCommute(commute));
+    },
+    dispatchSafety: (safety) => {
+      dispatch(setSafety(safety));
+    },
+    dispatchEducation: (education) => {
+      dispatch(setEducation(education));
+    },
+    dispatchSummary: (summary) => {
+      dispatch(setSummary(summary));
+    },
+    dispatchTravelConnectivity: (travel_connectivity) => {
+      dispatch(setTravelConnectivity(travel_connectivity));
+    },
+    dispatchInternetAccess: (internet_access) => {
+      dispatch(setInternetAccess(internet_access));
+    },
+    dispatchTolerance: (tolerance) => {
+      dispatch(setTolerance(tolerance));
+    },
+    dispatchOutdoors: (outdoors) => {
+      dispatch(setOutdoors(outdoors));
+    },
+    dispatchTaxation: (taxation) => {
+      dispatch(setTaxation(taxation));
+    },
+    dispatchBusinessFreedom: (business_freedom) => {
+      dispatch(setBusinessFreedom(business_freedom));
+    },
+    dispatchStartUps: (startups) => {
+      dispatch(setStartUps(startups));
+    },
+    dispatchVentureCapital: (venture_capital) => {
+      dispatch(setVentureCapital(venture_capital));
+    },
+    dispatchPhotoURL: (photoURL) => {
+      dispatch(setPhotoURL(photoURL));
+    },
+    dispatchCity: (city) => {
+      dispatch(setCity(city));
+    },
+    dispatchScore: (score) => {
+      dispatch(setCity(score));
+    }
+  };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(CityInfo);
