@@ -24,8 +24,9 @@ import SocialPerson from 'material-ui/svg-icons/social/person';
 import CityOptions from '../CityOptions.json';
 import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
+import Chip from 'material-ui/Chip';
 import {
-  blueGrey500, red500, orange500, amber500, lightGreen500, green500, grey500, pinkA200, grey50
+  blueGrey500, blueGrey300, red500, orange500, amber500, lightGreen500, green500, grey500, pinkA200, grey50
 } from 'material-ui/styles/colors';
 import Divider from 'material-ui/Divider';
 
@@ -214,6 +215,28 @@ class CityInfo extends React.Component {
         color: grey50,
         fontSize: '2em',
       },
+      chip: {
+        margin: 4,
+      },
+      paper: {
+        height: 80,
+        width: 80,
+        margin: 8,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: blueGrey300,
+      },
+      chipGrow: {
+        width: 'auto',
+        minWidth: 100,
+        flexGrow: 1,
+      },
+      priceStyle: {
+        fontFamily: "'Roboto', sans-serif",
+        color: grey50,
+        fontSize: '1em',
+      }
     };
     let teleportScore = ['Teleport Score', this.state.score, <ActionHome/>];
     let cards = [
@@ -387,25 +410,44 @@ class CityInfo extends React.Component {
           style={styles.flexStyle}>
           <div
             style={styles.centerStyle}>
+            <Paper
+              style={{flexGrow: 1, padding: '8px'}}>
               {
               context.state.colArray.map(colData =>
-                <div
-                  style={styles.growStyle}>
+                <div>
                   <MuiThemeProvider>
-                    <Card
-                      style={styles.cardStyle}>
-                      <CardHeader
-                        title={colData.label}>
-                      </CardHeader>
-                      <CardText>
-                        {'$' + colData.currency_dollar_value.toFixed(2)}
-                      </CardText>
-                    </Card>
+                    <ListItem
+                      style={{width: '100%'}}
+                      primaryText={colData.label}
+                      disabled={true}
+                      rightAvatar={
+                        <Avatar
+                          backgroundColor={pinkA200}
+                        >{'$' + Math.floor(colData.currency_dollar_value)}</Avatar>
+                      }
+                    />
                   </MuiThemeProvider>
+                  <Divider/>
                 </div>
+                /*<MuiThemeProvider>
+                  <Chip
+                    backgroundColor={grey50}
+                    style={styles.chip}>
+                    {colData.label}
+                  </Chip>
+                </MuiThemeProvider>
+                <MuiThemeProvider>
+                  <Paper style={styles.paper} zDepth={1} circle={true} >
+                    <span
+                      style={styles.priceStyle}>
+                      {'$' + colData.currency_dollar_value.toFixed(2)}
+                    </span>
+                  </Paper>
+                </MuiThemeProvider>*/
               )
             }
             <div style={styles.emptyStyle}/>
+            </Paper>
           </div>
         </div>
       </div>
