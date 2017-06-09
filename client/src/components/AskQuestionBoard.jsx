@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import Question from './Question.jsx';
 import Answer from './Answer.jsx';
-import CityOptions from '../CityOptions.json'
+import CityOptions from '../CityOptions.json';
 import QuestionView from './QuestionView.jsx';
 import AnswerView from './AnswerView.jsx';
 import Dialog from 'material-ui/Dialog';
