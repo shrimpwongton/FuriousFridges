@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import Question from './Question.jsx';
 import Answer from './Answer.jsx';
+import CityOptions from '../CityOptions.json';
 import QuestionView from './QuestionView.jsx';
 import AnswerView from './AnswerView.jsx';
 import Dialog from 'material-ui/Dialog';
@@ -24,7 +25,7 @@ import { setQuestion,
 class AskQuestionBoard extends React.Component {
   constructor(props) {
     super(props);
-
+    this.objectKeyByValue = this.objectKeyByValue.bind(this);
     this.addQuestion = this.addQuestion.bind(this);
     this.deleteQuestion = this.deleteQuestion.bind(this);
     this.deleteAnswer = this.deleteAnswer.bind(this);
@@ -39,8 +40,15 @@ class AskQuestionBoard extends React.Component {
     this.handleAnswerSubmit = this.handleAnswerSubmit.bind(this);
   }
 
+  objectKeyByValue (obj, val) {
+    if ( typeof val === 'undefined' ) {
+      return [''];
+    }
+    return Object.entries(obj).find(i => i[1] === val);
+  }
+
   componentDidMount() {
-    axios.get('/questions', { 
+    axios.get('/questions', {
       params: { orderBy: '-created_at' }
     })
       .then(res => {
@@ -200,6 +208,7 @@ class AskQuestionBoard extends React.Component {
       handleAnswerSubmit={this.handleAnswerSubmit}
       deleteAnswer={this.deleteAnswer}
     />;
+    const hintText=['What is there to do in ', 'What is the climate like in ', 'How safe is it in '];
     let view;
     if (this.props.currentView === 'questions') {
       view = questionView;
@@ -220,7 +229,7 @@ class AskQuestionBoard extends React.Component {
             <TextField
               value={this.props.question}
               onChange={this.handleQuestionChange}
-              hintText="What is the weather like in San Francisco?"
+              hintText={hintText[Math.floor(Math.random() * hintText.length)] + this.objectKeyByValue(CityOptions, this.props.destinationCity)[0] + '?' }
               floatingLabelText="Question"
               errorText={this.props.errorText}
               floatingLabelFixed={true}
