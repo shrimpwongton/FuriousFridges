@@ -125,8 +125,8 @@ class Profile extends React.Component {
 
 
   getCityInfo() {
-  axios.get('/cityinfo')
-   .then(res => {
+    axios.get('/cityinfo')
+      .then(res => {
         this.props.dispatchHousing(res.data.categories[0].score_out_of_10);
         this.props.dispatchCol(res.data.categories[1].score_out_of_10);
         this.props.dispatchHealthcare(res.data.categories[8].score_out_of_10);
@@ -225,14 +225,14 @@ class Profile extends React.Component {
     // Add question here
   }
   handleOriginChange (event, index, value) {
-    console.log("The origin changed");
+    console.log('The origin changed');
     this.setState({
       originValue: value,
     });
   }
 
   handleDestinationChange (event, index, value) {
-    console.log("The destination changed");
+    console.log('The destination changed');
     this.setState({
       destinationValue: value,
     });
@@ -302,7 +302,7 @@ class Profile extends React.Component {
       return (
         <div>
           <MuiThemeProvider>  
-            <CircularProgress size={120} thickness={8} style={{'margin-left': '50%', 'left': '-65px', 'margin-top': '100px'}} />
+            <CircularProgress size={120} thickness={8} style={{'marginLeft': '50%', 'left': '-65px', 'marginTop': '100px'}} />
           </MuiThemeProvider>
         </div>
       );
