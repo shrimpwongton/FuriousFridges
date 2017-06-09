@@ -30,26 +30,6 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import ExpandTransition from 'material-ui/internal/ExpandTransition';
 import CircularProgress from 'material-ui/CircularProgress';
-import { setHousing,
-         setCol,
-         setHealthcare,
-         setEnvironmentalQuality,
-         setEconomy,
-         setLeisure,
-         setCommute,
-         setSafety,
-         setEducation,
-         setSummary,
-         setTravelConnectivity,
-         setInternetAccess,
-         setTolerance,
-         setOutdoors,
-         setTaxation,
-         setBusinessFreedom,
-         setStartUps,
-         setVentureCapital,
-         setPhotoURL,
-         setCity } from '../actions';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -87,42 +67,7 @@ class Profile extends React.Component {
         spinner: false
       });
       this.forceUpdate();
-    }, 1000);
-    
-  }
-
-  getCityInfo() {
-    axios.get('/cityinfo')
-      // .then(res => {
-      //   this.props.dispatchHousing(res.data.categories[0].score_out_of_10);
-      //   this.props.dispatchCol(res.data.categories[1].score_out_of_10);
-      //   this.props.dispatchHealthcare(res.data.categories[8].score_out_of_10);
-      //   this.props.dispatchEnvironmentalQuality(res.data.categories[10].score_out_of_10);
-      //   this.props.dispatchEconomy(res.data.categories[11].score_out_of_10);
-      //   this.props.dispatchLeisure(res.data.categories[14].score_out_of_10);
-      //   this.props.dispatchTravelConnectivity(res.data.categories[4].score_out_of_10);
-      //   this.props.dispatchInternetAccess(res.data.categories[13].score_out_of_10);
-      //   this.props.dispatchTolerance(res.data.categories[15].score_out_of_10);
-      //   this.props.dispatchOutdoors(res.data.categories[16].score_out_of_10);
-      //   this.props.dispatchCommute(res.data.categories[5].score_out_of_10);
-      //   this.props.dispatchSafety(res.data.categories[7].score_out_of_10);
-      //   this.props.dispatchEducation(res.data.categories[9].score_out_of_10);
-      //   this.props.dispatchTaxation(res.data.categories[12].score_out_of_10);
-      //   this.props.dispatchBusinessFreedom(res.data.categories[6].score_out_of_10);
-      //   this.props.dispatchStartUps(res.data.categories[2].score_out_of_10);
-      //   this.props.dispatchVentureCapital(res.data.categories[3].score_out_of_10);
-      //   this.props.dispatchPhotoURL(res.data.summary.replace(/<\/?[^>]+(>|$)/g, ''));
-      //   this.props.dispatchSummary(res.data.categories[16].score_out_of_10);
-      //   this.props.dispatchCity(res.data.teleport_city_score);
-      // })
-      .catch(err => {
-        if (err.message.includes('404')) {
-          console.log('USER HAS NOT REGISTERED DESTINATION CITY');
-          setTimeout(() => {
-            this.props.history.push('/form');
-          }, 1000);
-        }
-      }); 
+    }, 1000);   
   }
 
   getCurrentUserInfo() {
@@ -149,6 +94,19 @@ class Profile extends React.Component {
         this.getCityInfo();
       });
   }
+
+  getCityInfo() {
+    axios.get('/cityinfo')
+      .catch(err => {
+        if (err.message.includes('404')) {
+          console.log('USER HAS NOT REGISTERED DESTINATION CITY');
+          setTimeout(() => {
+            this.props.history.push('/form');
+          }, 1000);
+        }
+      }); 
+  }
+
 
   async (cb) {
     this.setState({loading: true}, () => {
@@ -457,97 +415,16 @@ class Profile extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  currentUser: state.questionBoard.currentUser,
-  housing: state.cityInfo.housing,
-  col: state.cityInfo.col,
-  healthcare: state.cityInfo.healthcare,
-  environmentalQuality: state.cityInfo.environmentalQuality,
-  economy: state.cityInfo.economy,
-  leisure: state.cityInfo.leisure,
-  commute: state.cityInfo.commute,
-  safety: state.cityInfo.safety,
-  education: state.cityInfo.education,
-  summary: state.cityInfo.summary,
-  travelConnectivity: state.cityInfo.travelConnectivity,
-  internetAccess: state.cityInfo.internetAccess,
-  tolerance: state.cityInfo.tolerance,
-  outdoors: state.cityInfo.outdoors,
-  taxation: state.cityInfo.taxation,
-  businessFreedom: state.cityInfo.businessFreedom,
-  startUps: state.cityInfo.startUps,
-  ventureCapital: state.cityInfo.ventureCapital,
-  photoURL: state.cityInfo.photoURL,
-  city: state.cityInfo.city
+  currentUser: state.questionBoard.currentUser
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
     dispatchCurrentUser: (currentUser) => {
       dispatch(setCurrentUser(currentUser));
-    },
-    dispatchHousing: (housing) => {
-      dispatch(setHousing(housing));
-    },
-    dispatchCol: (col) => {
-      dispatch(setCol(col));
-    },
-    dispatchHealthcare: (healthcare) => {
-      dispatch(setHealthcare(healthcare));
-    },
-    dispatchEnvironmentalQuality: (environmentalQuality) => {
-      dispatch(setEnvironmentalQuality(environmentalQuality));
-    },
-    dispatchEconomy: (economy) => {
-      dispatch(setEconomy(economy));
-    },
-    dispatchLeisure: (leisure) => {
-      dispatch(setLeisure(leisure));
-    },
-    dispatchCommute: (commute) => {
-      dispatch(setCommute(commute));
-    },
-    dispatchSafety: (safety) => {
-      dispatch(setSafety(safety));
-    },
-    dispatchEducation: (education) => {
-      dispatch(setEducation(education));
-    },
-    dispatchSummary: (summary) => {
-      dispatch(setSummary(summary));
-    },
-    dispatchTravelConnectivity: (travelConnectivity) => {
-      dispatch(setTravelConnectivity(travelConnectivity));
-    },
-    dispatchInternetAccess: (internetAccess) => {
-      dispatch(setInternetAccess(internetAccess));
-    },
-    dispatchTolerance: (tolerance) => {
-      dispatch(setTolerance(tolerance));
-    },
-    dispatchOutdoors: (outdoors) => {
-      dispatch(setOutdoors(outdoors));
-    },
-    dispatchTaxation: (taxation) => {
-      dispatch(setTaxation(taxation));
-    },
-    dispatchBusinessFreedom: (businessFreedom) => {
-      dispatch(setBusinessFreedom(businessFreedom));
-    },
-    dispatchStartUps: (startUps) => {
-      dispatch(setStartUps(startUps));
-    },
-    dispatchVentureCapital: (ventureCapital) => {
-      dispatch(setVentureCapital(ventureCapital));
-    },
-    dispatchPhotoURL: (photoURL) => {
-      dispatch(setPhotoURL(photoURL));
-    },
-    dispatchCity: (city) => {
-      dispatch(setCity(city));
     }
   };
 };
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
-
