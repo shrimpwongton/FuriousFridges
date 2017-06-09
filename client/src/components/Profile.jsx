@@ -184,10 +184,6 @@ class Profile extends React.Component {
     });
   }
 
-  handleVisibility () {
-    this.setState({visibilityValue: !this.state.visibilityValue});
-  }
-
   handleSave () {
     axios.put('/users', {
       origin: this.state.originValue,
@@ -197,13 +193,17 @@ class Profile extends React.Component {
       email: this.state.email
     })
       .then(res => {
-
         this.setState({
           originValue: this.state.originValue,
           destinationValue: this.state.destinationValue,
+          originUser: this.state.originValue,
+          destinationUser: this.state.destinationValue,
+          describeValue: this.state.describeValue,
+          describeUser: this.state.describeUser,
+          visibilityValue: this.state.visibilityValue,
+          visibilityUser: this.state.visibilityValue,
         });
-        this.getCityInfo();
-        if (!this.state.loading && this.state.destinationValue !== this.state.destinationUser) {
+        if (!this.state.loading) {
           this.async(() => this.setState({
             loading: false,
           }));
@@ -225,12 +225,14 @@ class Profile extends React.Component {
     // Add question here
   }
   handleOriginChange (event, index, value) {
+    console.log("The origin changed");
     this.setState({
       originValue: value,
     });
   }
 
   handleDestinationChange (event, index, value) {
+    console.log("The destination changed");
     this.setState({
       destinationValue: value,
     });
@@ -239,6 +241,9 @@ class Profile extends React.Component {
     this.setState({
       describeValue: value,
     });
+  }
+  handleVisibility () {
+    this.setState({visibilityValue: !this.state.visibilityValue});
   }
 
   render () {
@@ -354,7 +359,7 @@ class Profile extends React.Component {
               <div>
               <ExpandTransition loading={this.state.loading} open={true}>
                 <CityInfo formToggle={this.props.formToggle}
-                          destinationCity={this.state.destinationValue}
+                          destinationCity={this.state.destinationUser}
                           width={this.state.width}
                           history={this.props.history} />
               </ExpandTransition>
@@ -369,7 +374,7 @@ class Profile extends React.Component {
               >
                 <AskQuestionBoard
                   width={this.state.width}
-                  destinationCity={this.state.destinationValue}
+                  destinationCity={this.state.destinationUser}
                 />
               </div>
             </Tab>
@@ -377,7 +382,6 @@ class Profile extends React.Component {
         </MuiThemeProvider>
         <MuiThemeProvider>
           <Drawer
-            docked={false}
             open={this.state.open}
             width={this.state.width > 400 ? 400 : '100%'}
             openSecondary={true}
