@@ -54,6 +54,7 @@ class CityInfo extends React.Component {
       venture_capital: 0,
       score: 0,
       colArray: [],
+      climate: [],
     };
     this.calculateColor = this.calculateColor.bind(this);
     this.calculateScoreStatus = this.calculateScoreStatus.bind(this);
@@ -125,6 +126,8 @@ class CityInfo extends React.Component {
           summary: cityInfo.summary.replace(/<\/?[^>]+(>|$)/g, ''),
           score: cityInfo.teleport_city_score,
           colArray: cityDetails.categories[3].data.slice(1,cityDetails.categories[3].data.length),
+          climate: cityDetails.categories[2].data
+
         });
       })
       .catch(err => {
@@ -214,6 +217,8 @@ class CityInfo extends React.Component {
         fontFamily: "'Roboto', sans-serif",
         color: grey50,
         fontSize: '2em',
+        marginLeft: '5vw',
+        marginRight: '5vw',
       },
       chip: {
         margin: 4,
@@ -257,6 +262,18 @@ class CityInfo extends React.Component {
       ['Startup Culture', this.state.startups, <HardwareLaptop/>],
       ['Venture Capital', this.state.venture_capital, <SocialPerson/>],
       ['Internet Access', this.state.internet_access, <ActionExplore/>]].sort((a, b) => { return b[1] - a[1]; });
+
+    let costOfLiving = [
+      ['Apples', '1kg'],
+      ['Bread', 'One Loaf'],
+      ['Cappuccino', 'One Cup'],
+      ['Movie Ticket', 'One Admission'],
+      ['Gym Membership', 'One Month'],
+      ['Beer', 'One Bottle'],
+      ['Public Transportation', 'Monthly Pass'],
+      ['Lunch', 'One Entree'],
+      ['Taxi Ride', '5km'],
+      ['Dinner at Restaurant', '2 Entrees, Appetizer, Drinks']];
     const context = this;
     return (
       <div>
@@ -413,12 +430,13 @@ class CityInfo extends React.Component {
             <Paper
               style={{flexGrow: 1, padding: '8px'}}>
               {
-              context.state.colArray.map(colData =>
+              context.state.colArray.map((colData,index) =>
                 <div>
                   <MuiThemeProvider>
                     <ListItem
                       style={{width: '100%'}}
-                      primaryText={colData.label}
+                      primaryText={costOfLiving[index][0]}
+                      secondaryText={costOfLiving[index][1]}
                       disabled={true}
                       rightAvatar={
                         <Avatar
