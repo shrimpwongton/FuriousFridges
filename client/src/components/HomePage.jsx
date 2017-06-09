@@ -178,7 +178,7 @@ class HomePage extends React.Component {
       },
       captionStyle: {
         fontFamily: "'Roboto', sans-serif",
-        color: gre650,
+        color: grey50,
         fontSize: '1em',
         position: 'absolute',
         left: '20px',
