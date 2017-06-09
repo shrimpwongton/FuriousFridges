@@ -29,6 +29,7 @@ import CityData from '../CityOptions.json';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import ExpandTransition from 'material-ui/internal/ExpandTransition';
+import CircularProgress from 'material-ui/CircularProgress';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -42,7 +43,8 @@ class Profile extends React.Component {
       question: false,
       profilePic: '',
       visibilityValue: false,
-
+      loading: false,
+      spinner: true
     };
     this.handleToggle = this.handleToggle.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
@@ -58,7 +60,17 @@ class Profile extends React.Component {
     this.async = this.async.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    this.getCurrentUserInfo();
+    setTimeout(() => {
+      this.setState({
+        spinner: false
+      });
+      this.forceUpdate();
+    }, 1000);   
+  }
+
+  getCurrentUserInfo() {
     axios.get('/createuser')
       .then(res => {
         this.props.dispatchCurrentUser(res.data);
@@ -77,14 +89,28 @@ class Profile extends React.Component {
           email: res.data.email,
           id: res.data.id,
           profilePic: res.data.photoUrl,
-          width: $(window).width(),
-        }, this.forceUpdate);
+          width: $(window).width()
+        });
+        this.getCityInfo();
       });
   }
 
+  getCityInfo() {
+    axios.get('/cityinfo')
+      .catch(err => {
+        if (err.message.includes('404')) {
+          console.log('USER HAS NOT REGISTERED DESTINATION CITY');
+          setTimeout(() => {
+            this.props.history.push('/form');
+          }, 1000);
+        }
+      }); 
+  }
+
+
   async (cb) {
     this.setState({loading: true}, () => {
-      this.asyncTimer = setTimeout(cb,400);
+      this.asyncTimer = setTimeout(cb, 400);
     });
   }
 
@@ -161,7 +187,6 @@ class Profile extends React.Component {
   }
 
   render () {
-
     const styles = {
       homeStyle: {
         textDecoration: 'none',
@@ -213,8 +238,17 @@ class Profile extends React.Component {
       },
     };
 
-    return (
-      <div>
+    if (this.state.spinner) {
+      return (
+        <div>
+          <MuiThemeProvider>  
+            <CircularProgress size={120} thickness={8} style={{'margin-left': '50%', 'left': '-65px', 'margin-top': '100px'}} />
+          </MuiThemeProvider>
+        </div>
+      );
+    } else {
+      return (
+        <div>
         <MuiThemeProvider>
           <Toolbar
             style = {styles.toolbarStyle}>
@@ -376,6 +410,7 @@ class Profile extends React.Component {
           />
         </MuiThemeProvider>
       </div>);
+    }
   }
 }
 
