@@ -99,26 +99,28 @@ class CityInfo extends React.Component {
   componentWillReceiveProps() {
     axios.get('/cityinfo')
       .then(res => {
+        let cityInfo = JSON.parse(res.data.city_info);
+        let cityDetails = JSON.parse(res.data.city_details);
         this.setState({
-          housing: res.data.categories[0].score_out_of_10,
-          col: res.data.categories[1].score_out_of_10,
-          health_care: res.data.categories[8].score_out_of_10,
-          environmental_quality: res.data.categories[10].score_out_of_10,
-          economy: res.data.categories[11].score_out_of_10,
-          leisure: res.data.categories[14].score_out_of_10,
-          travel_connectivity: res.data.categories[4].score_out_of_10,
-          internet_access: res.data.categories[13].score_out_of_10,
-          tolerance: res.data.categories[15].score_out_of_10,
-          outdoors: res.data.categories[16].score_out_of_10,
-          commute: res.data.categories[5].score_out_of_10,
-          safety: res.data.categories[7].score_out_of_10,
-          education: res.data.categories[9].score_out_of_10,
-          taxation: res.data.categories[12].score_out_of_10,
-          business_freedom: res.data.categories[6].score_out_of_10,
-          startups: res.data.categories[2].score_out_of_10,
-          venture_capital: res.data.categories[3].score_out_of_10,
-          summary: res.data.summary.replace(/<\/?[^>]+(>|$)/g, ''),
-          score: res.data.teleport_city_score,
+          housing: cityInfo.categories[0].score_out_of_10,
+          col: cityInfo.categories[1].score_out_of_10,
+          health_care: cityInfo.categories[8].score_out_of_10,
+          environmental_quality: cityInfo.categories[10].score_out_of_10,
+          economy: cityInfo.categories[11].score_out_of_10,
+          leisure: cityInfo.categories[14].score_out_of_10,
+          travel_connectivity: cityInfo.categories[4].score_out_of_10,
+          internet_access: cityInfo.categories[13].score_out_of_10,
+          tolerance: cityInfo.categories[15].score_out_of_10,
+          outdoors: cityInfo.categories[16].score_out_of_10,
+          commute: cityInfo.categories[5].score_out_of_10,
+          safety: cityInfo.categories[7].score_out_of_10,
+          education: cityInfo.categories[9].score_out_of_10,
+          taxation: cityInfo.categories[12].score_out_of_10,
+          business_freedom: cityInfo.categories[6].score_out_of_10,
+          startups: cityInfo.categories[2].score_out_of_10,
+          venture_capital: cityInfo.categories[3].score_out_of_10,
+          summary: cityInfo.summary.replace(/<\/?[^>]+(>|$)/g, ''),
+          score: cityInfo.teleport_city_score,
         });
       })
       .catch(err => {
