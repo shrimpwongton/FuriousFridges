@@ -2,7 +2,7 @@ import React from 'react';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {
-  blueGrey500, blueGrey400, blueGrey300, blueGrey200, grey300, white, pinkA200
+  blueGrey500, blueGrey400, blueGrey300, blueGrey200, grey300, white, pinkA200, grey50
 } from 'material-ui/styles/colors';
 import {
   Link,
@@ -173,12 +173,12 @@ class HomePage extends React.Component {
       },
       headerStyle: {
         fontFamily: "'Roboto', sans-serif",
-        color: 'white',
+        color: grey50,
         fontSize: '4em',
       },
       captionStyle: {
         fontFamily: "'Roboto', sans-serif",
-        color: 'white',
+        color: gre650,
         fontSize: '1em',
         position: 'absolute',
         left: '20px',

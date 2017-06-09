@@ -25,7 +25,7 @@ import CityOptions from '../CityOptions.json';
 import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
 import {
-  blueGrey500, red500, orange500, amber500, lightGreen500, green500, grey500, pinkA200
+  blueGrey500, red500, orange500, amber500, lightGreen500, green500, grey500, pinkA200, grey50
 } from 'material-ui/styles/colors';
 import Divider from 'material-ui/Divider';
 
@@ -52,6 +52,7 @@ class CityInfo extends React.Component {
       startups: 0,
       venture_capital: 0,
       score: 0,
+      colArray: [],
     };
     this.calculateColor = this.calculateColor.bind(this);
     this.calculateScoreStatus = this.calculateScoreStatus.bind(this);
@@ -101,6 +102,7 @@ class CityInfo extends React.Component {
       .then(res => {
         let cityInfo = JSON.parse(res.data.city_info);
         let cityDetails = JSON.parse(res.data.city_details);
+        console.log('cityDetails', cityDetails);
         this.setState({
           housing: cityInfo.categories[0].score_out_of_10,
           col: cityInfo.categories[1].score_out_of_10,
@@ -121,6 +123,7 @@ class CityInfo extends React.Component {
           venture_capital: cityInfo.categories[3].score_out_of_10,
           summary: cityInfo.summary.replace(/<\/?[^>]+(>|$)/g, ''),
           score: cityInfo.teleport_city_score,
+          colArray: cityDetails.categories[3].data.slice(1,cityDetails.categories[3].data.length),
         });
       })
       .catch(err => {
@@ -198,14 +201,19 @@ class CityInfo extends React.Component {
       },
       city: {
         fontFamily: "'Roboto Medium', sans-serif",
-        color: 'white',
+        color: grey50,
         fontSize: '3em',
       },
       summary: {
         fontFamily: "'Roboto', sans-serif",
-        color: 'white',
+        color: grey50,
         fontSize: '1em',
-      }
+      },
+      subHeaderStyle: {
+        fontFamily: "'Roboto', sans-serif",
+        color: grey50,
+        fontSize: '2em',
+      },
     };
     let teleportScore = ['Teleport Score', this.state.score, <ActionHome/>];
     let cards = [
@@ -368,6 +376,38 @@ class CityInfo extends React.Component {
               </div>
             </div>
         }
+        <div
+          style={{padding: '20px', backgroundColor: blueGrey500}}>
+          <span
+            style={styles.subHeaderStyle}>
+            Cost of Living
+          </span>
+        </div>
+        <div
+          style={styles.flexStyle}>
+          <div
+            style={styles.centerStyle}>
+              {
+              context.state.colArray.map(colData =>
+                <div
+                  style={styles.growStyle}>
+                  <MuiThemeProvider>
+                    <Card
+                      style={styles.cardStyle}>
+                      <CardHeader
+                        title={colData.label}>
+                      </CardHeader>
+                      <CardText>
+                        {'$' + colData.currency_dollar_value.toFixed(2)}
+                      </CardText>
+                    </Card>
+                  </MuiThemeProvider>
+                </div>
+              )
+            }
+            <div style={styles.emptyStyle}/>
+          </div>
+        </div>
       </div>
     );
   }
