@@ -126,7 +126,7 @@ class CityInfo extends React.Component {
           summary: cityInfo.summary.replace(/<\/?[^>]+(>|$)/g, ''),
           score: cityInfo.teleport_city_score,
           colArray: cityDetails.categories[3].data.slice(1,cityDetails.categories[3].data.length),
-          climate: cityDetails.categories[2].data
+          climate: cityDetails.categories[2].data,
 
         });
       })
@@ -427,46 +427,37 @@ class CityInfo extends React.Component {
           style={styles.flexStyle}>
           <div
             style={styles.centerStyle}>
-            <Paper
-              style={{flexGrow: 1, padding: '8px'}}>
               {
               context.state.colArray.map((colData,index) =>
-                <div>
+                <div
+                  style={styles.growStyle}>
                   <MuiThemeProvider>
-                    <ListItem
-                      style={{width: '100%'}}
-                      primaryText={costOfLiving[index][0]}
-                      secondaryText={costOfLiving[index][1]}
-                      disabled={true}
-                      rightAvatar={
-                        <Avatar
-                          backgroundColor={pinkA200}
-                        >{'$' + Math.floor(colData.currency_dollar_value)}</Avatar>
-                      }
-                    />
+                    <Card
+                      style={styles.cardStyle}>
+                        <ListItem
+                          primaryText={costOfLiving[index][0]}
+                          secondaryText={costOfLiving[index][1]}
+                          disabled={true}
+                          rightAvatar={
+                            <Avatar
+                              backgroundColor={pinkA200}
+                            >{'$' + Math.floor(colData.currency_dollar_value)}</Avatar>
+                          }
+                        />
+                    </Card>
                   </MuiThemeProvider>
-                  <Divider/>
                 </div>
-                /*<MuiThemeProvider>
-                  <Chip
-                    backgroundColor={grey50}
-                    style={styles.chip}>
-                    {colData.label}
-                  </Chip>
-                </MuiThemeProvider>
-                <MuiThemeProvider>
-                  <Paper style={styles.paper} zDepth={1} circle={true} >
-                    <span
-                      style={styles.priceStyle}>
-                      {'$' + colData.currency_dollar_value.toFixed(2)}
-                    </span>
-                  </Paper>
-                </MuiThemeProvider>*/
               )
             }
             <div style={styles.emptyStyle}/>
-            </Paper>
           </div>
+        </div>
+        <div
+          style={{padding: '20px', backgroundColor: blueGrey500}}>
+          <span
+            style={styles.subHeaderStyle}>
+            Climate
+          </span>
         </div>
       </div>
     );
