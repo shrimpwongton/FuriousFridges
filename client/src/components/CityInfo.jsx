@@ -503,9 +503,15 @@ class CityInfo extends React.Component {
                         disabled={true}
                         style={{backgroundColor: grey50}}
                         leftAvatar={
+                          !climateData.label.includes('temperature') ?
                           <Avatar
                             backgroundColor={grey50}
-                            src={icons[climateData.label]} />}
+                            src={icons[climateData.label]}
+                          /> :
+                          <Avatar
+                            backgroundColor={climateLabels[climateData.label][2]}
+                            icon={icons[climateData.label]}
+                          />}
                       />
                       <CardText
                         style={{minWidth: 200, height: this.props.width > 750 ? 150 : 100, position: 'relative', backgroundColor: climateLabels[climateData.label][2]}}>
