@@ -180,14 +180,12 @@ class Profile extends React.Component {
     // Add question here
   }
   handleOriginChange (event, index, value) {
-    console.log("The origin changed");
     this.setState({
       originValue: value,
     });
   }
 
   handleDestinationChange (event, index, value) {
-    console.log("The destination changed");
     this.setState({
       destinationValue: value,
     });
@@ -261,7 +259,7 @@ class Profile extends React.Component {
     const loadingPhrases = [
       'Rebooting the Internet',
       'Building SkyNet',
-      'Meddling into elections',
+      'Meddling in elections',
       'Overthrowing governments',
       'Taking over the world',
       'Dropping databases',

@@ -151,6 +151,15 @@ class CityInfo extends React.Component {
           photoURL: res.data.photos[0].image.web,
         });
       });
+    axios.get('/origininfo')
+      .catch(err => {
+        if (err.message.includes('404')) {
+          console.log('USER HAS NOT REGISTERED ORIGIN CITY');
+          setTimeout(() => {
+            this.props.history.push('/form');
+          }, 1000);
+        }
+      });
     this.setState({
       city: this.objectKeyByValue(CityOptions, this.props.destinationCity)[0],
     });
