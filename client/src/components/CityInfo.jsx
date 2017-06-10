@@ -59,7 +59,7 @@ class CityInfo extends React.Component {
     this.calculateColor = this.calculateColor.bind(this);
     this.calculateScoreStatus = this.calculateScoreStatus.bind(this);
     this.objectKeyByValue = this.objectKeyByValue.bind(this);
-    this.convertFormat = this.convertFormat.bind(this);
+    //this.convertFormat = this.convertFormat.bind(this);
   }
 
   objectKeyByValue (obj, val) {
@@ -291,7 +291,7 @@ class CityInfo extends React.Component {
       'Average annual percent chance of clear skies': ['% of Clear Skies', 'Yearly', cyan500],
       'Average high temperature (Celsius)': ['High Temperature', 'Fahrenheit', red500],
       'Average low temperature (Celsius)': ['Low Temperature', 'Fahrenheit', indigo500],
-    }
+    };
     const context = this;
     return (
       <div>
@@ -502,7 +502,7 @@ class CityInfo extends React.Component {
                         style={{minWidth: 200, height: 200, position: 'relative', backgroundColor: climateLabels[climateData.label][2]}}>
                         <span
                           style={{right: -12, bottom: -40, position: 'absolute', fontFamily: "'Roboto Light', sans-serif", color: grey50, fontSize: '5em'}}>
-                          {context.convertFormat(climateData.label,climateData[climateData.type+'_value'])}
+                          {climateData[climateData.type+'_value']}
                         </span>
                       </CardText>
                     </Card>
