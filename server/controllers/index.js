@@ -6,3 +6,4 @@ module.exports.CityInfo = require('./cityinfo');
 module.exports.CityPhoto = require('./cityphoto');
 module.exports.Events = require('./events');
 module.exports.MeetUp = require('./meetup');
+module.exports.Teleport = require('./teleport');
