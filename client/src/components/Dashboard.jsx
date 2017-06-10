@@ -32,9 +32,8 @@ class Dashboard extends React.Component {
       <div style={styles.flexStyle}>
         <div style={styles.centerStyle}>
           <div style={styles.growStyle}>
-            <EventCard />
+            <MeetUp />
             <div style={styles.emptyStyle}/>
-              <MeetUp />
             <div style={styles.emptyStyle}/>
               <Restaurants />
           </div>

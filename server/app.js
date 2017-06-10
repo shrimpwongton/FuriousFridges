@@ -31,5 +31,7 @@ app.use('/answers', routes.answers);
 app.use('/events', routes.events);
 app.use('/meetup', routes.meetup);
 app.use('/restaurants', routes.restaurants);
+app.use('/teleport', routes.teleport);
+
 
 module.exports = app;
