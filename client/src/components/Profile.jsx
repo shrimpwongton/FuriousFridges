@@ -252,13 +252,16 @@ class Profile extends React.Component {
     const loadingPhrases = [
       'Rebooting the Internet',
       'Building SkyNet',
-      'Hacking into elections',
+      'Meddling into elections',
       'Overthrowing governments',
       'Taking over the world',
       'Dropping databases',
       'Performing XSS attacks',
       'Imposing martial law',
-      ''
+      'Reticulating Splines',
+      'Hacking into private email servers',
+      'Covfefe',
+      'Crushing dissent',
     ];
 
     if (this.state.spinner) {
@@ -274,7 +277,7 @@ class Profile extends React.Component {
           <MuiThemeProvider>
             <CircularProgress style={{margin: 20}}color={pinkA200} size={60} thickness={3.5} />
           </MuiThemeProvider>
-          <span style={styles.loading}>{loadingPhrases[Math.floor(Math.random() * loadingPhrases.length)]}</span>
+          <span style={styles.loading}>{loadingPhrases[Math.floor(Math.random() * loadingPhrases.length)] + '.  We thank you for your patience.'}</span>
         </div>
       );
     } else {
