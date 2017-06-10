@@ -275,7 +275,7 @@ class Profile extends React.Component {
       'Meddling in elections',
       'Overthrowing governments',
       'Taking over the world',
-      'Dropping databases',
+      'Erasing databases',
       'Performing XSS attacks',
       'Imposing martial law',
       'Reticulating Splines',
@@ -284,6 +284,11 @@ class Profile extends React.Component {
       'Crushing dissent',
       'Exploiting security holes',
       'Eroding public confidence',
+      'Figuring out what \'this\' is',
+      'Replacing JavaScript with TypeScript',
+      'Leaking sensitive data',
+      'Replacing humans with robots',
+      'Dropping tables',
     ];
 
     if (this.state.spinner) {

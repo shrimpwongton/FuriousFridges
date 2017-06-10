@@ -67,6 +67,8 @@ class COLComparisonCard extends React.Component {
   calculateChangeInCOL () {
     let originTotal = 0;
     let destinationTotal = 0;
+    console.log(originTotal);
+    console.log(destinationTotal);
     for ( let value of this.state.originArray ) {
       originTotal += value.currency_dollar_value;
     }
@@ -78,9 +80,9 @@ class COLComparisonCard extends React.Component {
       return 'N/A';
     }
     if (ratio > 1) {
-      return '↓' + Math.floor((ratio - 1) * 100) + '%';
+      return '↓' + Math.floor((originTotal - destinationTotal)/originTotal*100) + '%';
     } else {
-      return '↑' + Math.floor((1 - ratio) * 100) + '%';
+      return '↑' + Math.floor((destinationTotal - originTotal)/originTotal*100) + '%';
     }
   }
 
@@ -110,8 +112,7 @@ class COLComparisonCard extends React.Component {
       }
     };
     return (
-      <div
-        style={styles.growStyle}>
+      <div>
         <MuiThemeProvider>
           <Card
             style={styles.card}>
@@ -123,6 +124,7 @@ class COLComparisonCard extends React.Component {
               leftAvatar={
                 <Avatar
                 icon={<EditorAttachMoney/>}
+                backgroundColor={this.calculateColor()}
                 />
               }
             />
