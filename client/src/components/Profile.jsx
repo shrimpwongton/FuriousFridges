@@ -67,7 +67,7 @@ class Profile extends React.Component {
         spinner: false
       });
       this.forceUpdate();
-    }, 1000);   
+    }, 2000);
   }
 
   getCurrentUserInfo() {
@@ -104,7 +104,7 @@ class Profile extends React.Component {
             this.props.history.push('/form');
           }, 1000);
         }
-      }); 
+      });
   }
 
 
@@ -242,14 +242,39 @@ class Profile extends React.Component {
       tab: {
         flex: '1',
       },
+      loading: {
+        fontFamily: "'Roboto', sans-serif",
+        color: blueGrey500,
+        fontSize: '1em',
+      },
     };
+
+    const loadingPhrases = [
+      'Rebooting the Internet',
+      'Building SkyNet',
+      'Hacking into elections',
+      'Overthrowing governments',
+      'Taking over the world',
+      'Dropping databases',
+      'Performing XSS attacks',
+      'Imposing martial law',
+      ''
+    ];
 
     if (this.state.spinner) {
       return (
-        <div>
-          <MuiThemeProvider>  
-            <CircularProgress size={120} thickness={8} style={{'marginLeft': '50%', 'left': '-65px', 'marginTop': '100px'}} />
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100vh',
+            flexWrap: 'wrap',
+            flexDirection: 'row'}}>
+          <MuiThemeProvider>
+            <CircularProgress style={{margin: 20}}color={pinkA200} size={60} thickness={3.5} />
           </MuiThemeProvider>
+          <span style={styles.loading}>{loadingPhrases[Math.floor(Math.random() * loadingPhrases.length)]}</span>
         </div>
       );
     } else {
