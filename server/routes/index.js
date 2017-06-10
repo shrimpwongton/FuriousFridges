@@ -8,4 +8,6 @@ module.exports.questions = require('./questions');
 module.exports.answers = require('./answers');
 module.exports.events = require('./events');
 module.exports.meetup = require('./meetup');
+module.exports.restaurants = require('./restaurants');
 module.exports.teleport = require('./teleport');
+

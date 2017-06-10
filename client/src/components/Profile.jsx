@@ -248,7 +248,7 @@ class Profile extends React.Component {
       return (
         <div>
           <MuiThemeProvider>  
-            <CircularProgress size={120} thickness={8} style={{'margin-left': '50%', 'left': '-65px', 'margin-top': '100px'}} />
+            <CircularProgress size={120} thickness={8} style={{'marginLeft': '50%', 'left': '-65px', 'marginTop': '100px'}} />
           </MuiThemeProvider>
         </div>
       );

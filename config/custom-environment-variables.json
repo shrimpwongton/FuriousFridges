@@ -20,5 +20,14 @@
   },
   "Eventbrite": {
     "clientID": "EVENTBRITE_CLIENT_ID"
+  },
+  "Meetups": {
+    "clientID": "MEETUP_CLIENT_ID"
+  },
+  "Google_Places": {
+    "clientID": "GOOGLE_PLACES_ID"
+  },
+  "Google_Coords": {
+    "clientID": "GOOGLE_COORDS_ID"
   }
 }

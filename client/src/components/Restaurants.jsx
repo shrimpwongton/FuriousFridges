@@ -16,30 +16,28 @@ import {
 } from 'material-ui/styles/colors';
 
 
-class MeetUp extends React.Component {
+class Restaurants extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      meetups: [],
+      restaurants: []
     };
   }
 
-
   componentWillReceiveProps() {
-    axios.get('/meetup')
+    axios.get('/restaurants')
       .then(res => {
         var sample = [];
         for (var key in res.data) {
           sample.push(res.data[key]);
         }
-        this.setState({meetups: sample});
-      }); 
+        this.setState({restaurants: sample});
+      });
   }
 
-
   render() {
-    let meetups = Object.entries(this.state.meetups);
+    let restaurants = Object.entries(this.state.restaurants);
     
     const styles = {
       card: {
@@ -67,22 +65,23 @@ class MeetUp extends React.Component {
         <Card
           style={styles.card}>
           <CardHeader
-            title='Meet New People!'
-            subtitle={'Find people with mutual interests'}
+            title='Find Great Eats!'
+            subtitle={'Explore the best restaurants'}
           />
           <Divider/>
           <GridList
             cellHeight={100}
             style={styles.gridList}
           >
-            {meetups.map((meetup) => (
+            {restaurants.map((restaurant) => (
               <GridTile
-                title={meetup[1].name}
+                title={restaurant[1].name}
+                subtitle={restaurant[1].rating}
                 cols = {2}
                 rows = {2} 
               >
-                <a target="_blank" href={meetup[1].url}>
-                  <img src = {meetup[1].image} />
+               <a target="_blank">
+                  <img src = {restaurant[1].image} />
                 </a>
               </GridTile>
             ))}
@@ -93,4 +92,4 @@ class MeetUp extends React.Component {
   }
 }
 
-export default MeetUp;
+export default Restaurants;

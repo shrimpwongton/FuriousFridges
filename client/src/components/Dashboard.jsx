@@ -1,6 +1,7 @@
 import React from 'react';
 import EventCard from './EventCard.jsx';
 import MeetUp from './MeetUp.jsx';
+import Restaurants from './Restaurants.jsx';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -28,17 +29,13 @@ class Dashboard extends React.Component {
       }
     };
     return (
-      <div
-        style={styles.flexStyle}>
-        <div
-          style={styles.centerStyle}>
-          <div
-            style={styles.growStyle}>
-
+      <div style={styles.flexStyle}>
+        <div style={styles.centerStyle}>
+          <div style={styles.growStyle}>
+            <MeetUp />
             <div style={styles.emptyStyle}/>
-  
             <div style={styles.emptyStyle}/>
-            
+              <Restaurants />
           </div>
         </div>
       </div>

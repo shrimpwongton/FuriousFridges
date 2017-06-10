@@ -27,5 +27,8 @@
     "Twitter": {}
   },
 
-  "Eventbrite": {}
+  "Eventbrite": {},
+  "Meetups": {},
+  "Google_Places": {},
+  "Google_Coords": {}
 }
