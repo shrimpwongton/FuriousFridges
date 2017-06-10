@@ -4,6 +4,7 @@ import {
 } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import geolocator from 'geolocator';
 import { setCurrentUser } from '../actions';
 import {
   blueGrey500, white, pinkA200, pinkA100, grey300
@@ -30,6 +31,7 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import ExpandTransition from 'material-ui/internal/ExpandTransition';
 import CircularProgress from 'material-ui/CircularProgress';
+import { Google } from '../../../config/custom-environment-variables.json';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -46,6 +48,7 @@ class Profile extends React.Component {
       loading: false,
       spinner: true
     };
+    
     this.handleToggle = this.handleToggle.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleVisibility = this.handleVisibility.bind(this);
@@ -71,6 +74,53 @@ class Profile extends React.Component {
     }, 2000);
   }
 
+  setUserCurrentLocation() {
+    geolocator.config({
+      language: 'en',
+      google: {
+        version: '3',
+        key: Google.APIKey
+      }
+    });
+    var options = {
+      enableHighAccuracy: false,
+      timeout: 5000,
+      maximumWait: 10000,     // max wait time for desired accuracy 
+      maximumAge: 0,          // disable cache 
+      desiredAccuracy: 30,    // meters 
+      fallbackToIP: true,     // fallback to IP if Geolocation fails or rejected 
+      addressLookup: true,    // requires Google API key if true 
+      timezone: false,         // requires Google API key if true 
+      staticMap: false        // map image URL (boolean or options object) 
+    };
+    geolocator.locate(options, (err, location) => {
+      if (err) { return console.log(err); }
+      let city = location.address.city || null;
+      let state = location.address.state || null;
+      let country = location.address.country || null;
+      let cityStateCountry;
+
+      if (country === 'United States') {
+        country = 'US';
+      }
+      if (city !== null && state !== null && country !== null) {
+        cityStateCountry = `${city}, ${state}, ${country}`;
+      } else if (city !== null && state === null && country !== null) {
+        cityStateCountry = `${city}, ${country}`;
+      } else {
+        cityStateCountry = 'No location data';
+      }
+      
+      axios.put('/users', {
+        'current-location': cityStateCountry,
+        email: this.props.currentUser.email
+      })
+        .then(res => {
+          console.log('Successfully updated the user current location!');
+        });
+    });
+  }
+
   getCurrentUserInfo() {
     axios.get('/createuser')
       .then(res => {
@@ -92,6 +142,7 @@ class Profile extends React.Component {
           profilePic: res.data.photoUrl,
           width: $(window).width()
         });
+        this.setUserCurrentLocation();
         this.getCityInfo();
       });
   }

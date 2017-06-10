@@ -18,9 +18,11 @@
       "callbackURL": "TWITTER_CALLBACK_URL"
     }
   },
+
   "Eventbrite": {
     "clientID": "EVENTBRITE_CLIENT_ID"
   },
+
   "Meetups": {
     "clientID": "MEETUP_CLIENT_ID"
   },
@@ -29,5 +31,9 @@
   },
   "Google_Coords": {
     "clientID": "GOOGLE_COORDS_ID"
+  },
+
+  "Google": {
+    "APIKey": "AIzaSyBKFaJPcOfAzv5LksI7c3F7OW6OXd-J4H0"
   }
 }

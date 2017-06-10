@@ -7,7 +7,8 @@ import CityOptions from '../CityOptions.json';
 
 const QuestionCollection = (props) => (
   <div>
-    <CardTitle title={objectKeyByValue(CityOptions, props.destinationCity)[0] + ' Q&A'} />
+    {/*<CardTitle title={objectKeyByValue(CityOptions, props.destinationCity)[0] + ' Q&A'} />*/}
+    <CardTitle title='Have a question? Ask location verified users!' />
     {
       props.questions.map(question =>
         <Question question={question}

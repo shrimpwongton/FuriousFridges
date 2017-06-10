@@ -1,4 +1,5 @@
 const models = require('../../db/models');
+const _ = require('lodash');
 
 module.exports.getAll = (req, res) => {
   models.User.fetchAll()
@@ -6,18 +7,18 @@ module.exports.getAll = (req, res) => {
       res.status(200).send(users);
     })
     .catch(err => {
-      // This code indicates an outside service (the database) did not respond in time
       res.status(503).send(err);
     });
 };
 
 module.exports.create = (req, res) => {
-  models.User.forge({ firstName: req.user.first, 
-                      lastName: req.user.last,
-                      email: req.user.email,
-                      photoUrl: req.user.profile_pic,
-                      visible: true })
-    .save()
+  models.User.forge({ 
+    firstName: req.user.first, 
+    lastName: req.user.last,
+    email: req.user.email,
+    photoUrl: req.user.profile_pic,
+    visible: true 
+  }).save()
     .then(result => {
       res.status(201).send(result.attributes); //--Sending info from profiles
     })
@@ -36,9 +37,10 @@ module.exports.create = (req, res) => {
 
 
 module.exports.update = (req, res) => {
-  models.User.where({ email: req.body.email}).fetch()
+  models.User.where({ email: req.body.email }).fetch()
     .then(user => {
-      return user.save({destination: req.body.destination, origin: req.body.origin, type: req.body.type, visible: req.body.visible}, {method: 'update'});
+      let updateValues = _.pickBy(req.body, (value, key) => key !== 'email');
+      return user.save(updateValues, { method: 'update' });
     })
     .then((user) => {
       res.sendStatus(201);
@@ -50,8 +52,3 @@ module.exports.update = (req, res) => {
       res.sendStatus(404);
     });
 };
-
-
-
-
-

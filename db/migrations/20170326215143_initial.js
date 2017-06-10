@@ -26,19 +26,23 @@ exports.up = function (knex, Promise) {
       table.string('type', 20).nullable();
       table.boolean('visible', 5).notNullable();
       table.string('origin', 100).nullable();
+      table.string('current-location', 100).nullable();
       table.string('destination', 100).nullable();
+      
       table.timestamps(true, true);
       table.string('photoUrl', 100).nullable();
     }),
     knex.schema.createTableIfNotExists('questions', function(table) {
       table.increments('id').unsigned().primary();
       table.string('question', 100).nullable();
+      table.string('location', 100).nullable();
       table.integer('user_id').references('users.id');
       table.timestamps(true, true);
     }),
     knex.schema.createTableIfNotExists('answers', function(table) {
       table.increments('id').unsigned().primary();
       table.string('answer', 100).nullable();
+      table.string('location', 100).nullable();
       table.integer('user_id').references('users.id');
       table.integer('question_id').references('questions.id').onDelete('CASCADE');
       table.timestamps(true, true);

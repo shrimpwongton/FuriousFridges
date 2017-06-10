@@ -10,6 +10,7 @@ module.exports.getAll = (req, res) => {
           id: q.attributes.id,
           author: relationObj.firstName + ' ' + relationObj.lastName,
           body: q.attributes.question,
+          location: q.attributes.location,
           createdAt: q.attributes.created_at,
           photoUrl: relationObj.photoUrl
         };
@@ -25,12 +26,17 @@ module.exports.getAll = (req, res) => {
 module.exports.create = (req, res) => {
   models.User.where({ email: req.body.email }).fetch()
     .then(user => {
-      models.Question.forge({ user_id: user.attributes.id, question: req.body.question }).save()
+      models.Question.forge({ 
+        user_id: user.attributes.id, 
+        question: req.body.question,
+        location: user.attributes['current-location'] 
+      }).save()
         .then(q => {
           let question = {
             id: q.attributes.id,
             author: user.attributes.firstName + ' ' + user.attributes.lastName,
             body: q.attributes.question,
+            location: q.attributes.location,
             createdAt: q.attributes.created_at,
             photoUrl: user.attributes.photoUrl
           };
