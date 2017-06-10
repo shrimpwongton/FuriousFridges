@@ -59,7 +59,16 @@ class CityInfo extends React.Component {
     this.calculateColor = this.calculateColor.bind(this);
     this.calculateScoreStatus = this.calculateScoreStatus.bind(this);
     this.objectKeyByValue = this.objectKeyByValue.bind(this);
-    //this.convertFormat = this.convertFormat.bind(this);
+    this.convertFormat = this.convertFormat.bind(this);
+  }
+
+  convertFormat (label, data) {
+    if ( label === 'Average annual percent chance of sunshine' || label === 'Average annual percent chance of clear skies') {
+      return Math.floor(data * 100) + '%';
+    } else if ( label === 'Average high temperature (Celsius)' || label === 'Average low temperature (Celsius)') {
+      return Math.floor(data * 1.8 + 32) + '°';
+    }
+    return data;
   }
 
   objectKeyByValue (obj, val) {
@@ -492,17 +501,17 @@ class CityInfo extends React.Component {
                         primaryText={climateLabels[climateData.label][0]}
                         secondaryText={climateLabels[climateData.label][1]}
                         disabled={true}
-                        style={{backgroundColor: blueGrey500}}
+                        style={{backgroundColor: grey50}}
                         leftAvatar={
                           <Avatar
-                            backgroundColor={blueGrey500}
+                            backgroundColor={grey50}
                             src={icons[climateData.label]} />}
                       />
                       <CardText
-                        style={{minWidth: 200, height: 200, position: 'relative', backgroundColor: climateLabels[climateData.label][2]}}>
+                        style={{minWidth: 200, height: this.props.width > 750 ? 150 : 100, position: 'relative', backgroundColor: climateLabels[climateData.label][2]}}>
                         <span
                           style={{right: -12, bottom: -40, position: 'absolute', fontFamily: "'Roboto Light', sans-serif", color: grey50, fontSize: '5em'}}>
-                          {climateData[climateData.type+'_value']}
+                          {context.convertFormat(climateData.label, climateData[climateData.type+'_value'])}
                         </span>
                       </CardText>
                     </Card>
