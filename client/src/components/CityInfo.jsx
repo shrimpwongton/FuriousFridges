@@ -24,8 +24,9 @@ import SocialPerson from 'material-ui/svg-icons/social/person';
 import CityOptions from '../CityOptions.json';
 import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
+import Chip from 'material-ui/Chip';
 import {
-  blueGrey500, red500, orange500, amber500, lightGreen500, green500, grey500, pinkA200
+  blueGrey500, blueGrey700, blueGrey300, red500, orange500, amber500, lightGreen500, green500, grey500, pinkA200, grey50, blue500, cyan500, indigo500,
 } from 'material-ui/styles/colors';
 import Divider from 'material-ui/Divider';
 
@@ -52,10 +53,22 @@ class CityInfo extends React.Component {
       startups: 0,
       venture_capital: 0,
       score: 0,
+      colArray: [],
+      climate: [],
     };
     this.calculateColor = this.calculateColor.bind(this);
     this.calculateScoreStatus = this.calculateScoreStatus.bind(this);
     this.objectKeyByValue = this.objectKeyByValue.bind(this);
+    this.convertFormat = this.convertFormat.bind(this);
+  }
+
+  convertFormat (label, data) {
+    if ( label === 'Average annual percent chance of sunshine' || label === 'Average annual percent chance of clear skies') {
+      return Math.floor(data * 100) + '%';
+    } else if ( label === 'Average high temperature (Celsius)' || label === 'Average low temperature (Celsius)') {
+      return Math.floor(data * 1.8 + 32) + '°';
+    }
+    return data;
   }
 
   objectKeyByValue (obj, val) {
@@ -99,26 +112,31 @@ class CityInfo extends React.Component {
   componentWillReceiveProps() {
     axios.get('/cityinfo')
       .then(res => {
+        let cityInfo = JSON.parse(res.data.city_info);
+        let cityDetails = JSON.parse(res.data.city_details);
+        console.log('cityDetails', cityDetails);
         this.setState({
-          housing: res.data.categories[0].score_out_of_10,
-          col: res.data.categories[1].score_out_of_10,
-          health_care: res.data.categories[8].score_out_of_10,
-          environmental_quality: res.data.categories[10].score_out_of_10,
-          economy: res.data.categories[11].score_out_of_10,
-          leisure: res.data.categories[14].score_out_of_10,
-          travel_connectivity: res.data.categories[4].score_out_of_10,
-          internet_access: res.data.categories[13].score_out_of_10,
-          tolerance: res.data.categories[15].score_out_of_10,
-          outdoors: res.data.categories[16].score_out_of_10,
-          commute: res.data.categories[5].score_out_of_10,
-          safety: res.data.categories[7].score_out_of_10,
-          education: res.data.categories[9].score_out_of_10,
-          taxation: res.data.categories[12].score_out_of_10,
-          business_freedom: res.data.categories[6].score_out_of_10,
-          startups: res.data.categories[2].score_out_of_10,
-          venture_capital: res.data.categories[3].score_out_of_10,
-          summary: res.data.summary.replace(/<\/?[^>]+(>|$)/g, ''),
-          score: res.data.teleport_city_score,
+          housing: cityInfo.categories[0].score_out_of_10,
+          col: cityInfo.categories[1].score_out_of_10,
+          health_care: cityInfo.categories[8].score_out_of_10,
+          environmental_quality: cityInfo.categories[10].score_out_of_10,
+          economy: cityInfo.categories[11].score_out_of_10,
+          leisure: cityInfo.categories[14].score_out_of_10,
+          travel_connectivity: cityInfo.categories[4].score_out_of_10,
+          internet_access: cityInfo.categories[13].score_out_of_10,
+          tolerance: cityInfo.categories[15].score_out_of_10,
+          outdoors: cityInfo.categories[16].score_out_of_10,
+          commute: cityInfo.categories[5].score_out_of_10,
+          safety: cityInfo.categories[7].score_out_of_10,
+          education: cityInfo.categories[9].score_out_of_10,
+          taxation: cityInfo.categories[12].score_out_of_10,
+          business_freedom: cityInfo.categories[6].score_out_of_10,
+          startups: cityInfo.categories[2].score_out_of_10,
+          venture_capital: cityInfo.categories[3].score_out_of_10,
+          summary: cityInfo.summary.replace(/<\/?[^>]+(>|$)/g, ''),
+          score: cityInfo.teleport_city_score,
+          colArray: cityDetails.categories[3].data.slice(1,cityDetails.categories[3].data.length),
+          climate: cityDetails.categories[2].data.slice(0,cityDetails.categories[2].data.length-2),
         });
       })
       .catch(err => {
@@ -196,14 +214,43 @@ class CityInfo extends React.Component {
       },
       city: {
         fontFamily: "'Roboto Medium', sans-serif",
-        color: 'white',
+        color: grey50,
         fontSize: '3em',
       },
       summary: {
         fontFamily: "'Roboto', sans-serif",
-        color: 'white',
+        color: grey50,
         fontSize: '1em',
-      }
+      },
+      subHeaderStyle: {
+        fontFamily: "'Roboto', sans-serif",
+        color: grey50,
+        fontSize: '2em',
+        marginLeft: '5vw',
+        marginRight: '5vw',
+      },
+      chip: {
+        margin: 4,
+      },
+      paper: {
+        height: 80,
+        width: 80,
+        margin: 8,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: blueGrey300,
+      },
+      chipGrow: {
+        width: 'auto',
+        minWidth: 100,
+        flexGrow: 1,
+      },
+      priceStyle: {
+        fontFamily: "'Roboto', sans-serif",
+        color: grey50,
+        fontSize: '1em',
+      },
     };
     let teleportScore = ['Teleport Score', this.state.score, <ActionHome/>];
     let cards = [
@@ -224,6 +271,36 @@ class CityInfo extends React.Component {
       ['Startup Culture', this.state.startups, <HardwareLaptop/>],
       ['Venture Capital', this.state.venture_capital, <SocialPerson/>],
       ['Internet Access', this.state.internet_access, <ActionExplore/>]].sort((a, b) => { return b[1] - a[1]; });
+
+    const costOfLiving = [
+      ['Apples', '1kg'],
+      ['Bread', 'One Loaf'],
+      ['Cappuccino', 'One Cup'],
+      ['Movie Ticket', 'One Admission'],
+      ['Gym Membership', 'One Month'],
+      ['Beer', 'One Bottle'],
+      ['Public Transportation', 'Monthly Pass'],
+      ['Lunch', 'One Entree'],
+      ['Taxi Ride', '5km'],
+      ['Dinner at Restaurant', '2 Entrees, Appetizer, Drinks']];
+    const icons = {
+      'Average day length (hours)': '/assets/default.png',
+      'Average number of rainy days per year': '/assets/sleet.png',
+      'Average number of clear days per year': '/assets/clear-night.png',
+      'Average annual percent chance of sunshine': '/assets/clear-day.png',
+      'Average annual percent chance of clear skies': '/assets/clear-night.png',
+      'Average high temperature (Celsius)': <ActionTrendingUp/>,
+      'Average low temperature (Celsius)': <ActionTrendingDown/>,
+    };
+    const climateLabels = {
+      'Average day length (hours)': ['Day Length', 'Hours', amber500],
+      'Average number of rainy days per year': ['# of Rainy Days', 'Yearly', blue500],
+      'Average number of clear days per year': ['# of Clear Days', 'Yearly', cyan500],
+      'Average annual percent chance of sunshine': ['% of Sunshine', 'Yearly', amber500, ],
+      'Average annual percent chance of clear skies': ['% of Clear Skies', 'Yearly', cyan500],
+      'Average high temperature (Celsius)': ['High Temperature', 'Fahrenheit', red500],
+      'Average low temperature (Celsius)': ['Low Temperature', 'Fahrenheit', indigo500],
+    };
     const context = this;
     return (
       <div>
@@ -366,6 +443,91 @@ class CityInfo extends React.Component {
               </div>
             </div>
         }
+        <div
+          style={{padding: '20px', backgroundColor: blueGrey500}}>
+          <span
+            style={styles.subHeaderStyle}>
+            Cost of Living
+          </span>
+        </div>
+        <div
+          style={styles.flexStyle}>
+          <div
+            style={styles.centerStyle}>
+              {
+              context.state.colArray.map((colData,index) =>
+                <div
+                  style={styles.growStyle}>
+                  <MuiThemeProvider>
+                    <Card
+                      style={styles.cardStyle}>
+                        <ListItem
+                          primaryText={costOfLiving[index][0]}
+                          secondaryText={costOfLiving[index][1]}
+                          disabled={true}
+                          rightAvatar={
+                            <Avatar
+                              backgroundColor={pinkA200}
+                            >{'$' + Math.floor(colData.currency_dollar_value)}</Avatar>
+                          }
+                        />
+                    </Card>
+                  </MuiThemeProvider>
+                </div>
+              )
+            }
+            <div style={styles.emptyStyle}/>
+          </div>
+        </div>
+        <div
+          style={{padding: '20px', backgroundColor: blueGrey500}}>
+          <span
+            style={styles.subHeaderStyle}>
+            Climate
+          </span>
+        </div>
+        <div
+          style={styles.flexStyle}>
+          <div
+            style={styles.centerStyle}>
+            {
+              context.state.climate.map((climateData,index) =>
+                <div
+                  style={styles.growStyle}>
+                  <MuiThemeProvider>
+                    <Card
+                      style={{margin: 8, backgroundColor: climateLabels[climateData.label][2], overflow: 'hidden'}}>
+                      <ListItem
+                        primaryText={climateLabels[climateData.label][0]}
+                        secondaryText={climateLabels[climateData.label][1]}
+                        disabled={true}
+                        style={{backgroundColor: grey50}}
+                        leftAvatar={
+                          !climateData.label.includes('temperature') ?
+                          <Avatar
+                            backgroundColor={grey50}
+                            src={icons[climateData.label]}
+                          /> :
+                          <Avatar
+                            backgroundColor={climateLabels[climateData.label][2]}
+                            icon={icons[climateData.label]}
+                          />}
+                      />
+                      <CardText
+                        style={{minWidth: 200, height: this.props.width > 750 ? 150 : 100, position: 'relative', backgroundColor: climateLabels[climateData.label][2]}}>
+                        <span
+                          style={{right: -12, bottom: -40, position: 'absolute', fontFamily: "'Roboto Light', sans-serif", color: grey50, fontSize: '5em'}}>
+                          {context.convertFormat(climateData.label, climateData[climateData.type+'_value'])}
+                        </span>
+                      </CardText>
+                    </Card>
+                  </MuiThemeProvider>
+                </div>
+              )
+            }
+            <div style={styles.emptyStyle}/>
+          </div>
+        </div>
       </div>
     );
   }
