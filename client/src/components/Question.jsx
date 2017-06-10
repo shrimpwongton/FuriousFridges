@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import {List, ListItem} from 'material-ui/List';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Avatar from 'material-ui/Avatar';
@@ -15,7 +14,7 @@ const Question = (props) => {
   return (
     <MuiThemeProvider>
       <ListItem
-        primaryText={<span style={{'font-size': '20px'}}>{props.question.body}<br /></span>}
+        primaryText={<span style={{'font-size': '24px'}}>{props.question.body}<br /></span>}
         secondaryText={`${props.question.author} · ${props.question.location} · 4 minutes ago`}
         leftAvatar={<Avatar src={props.photoUrl} />}
         onTouchTap={answerQuestion}

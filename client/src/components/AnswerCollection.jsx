@@ -6,10 +6,7 @@ const AnswerCollection = (props) => (
   <div>
     {
       props.answers.map(answer =>
-        <Answer id={answer.id}
-                author={answer.author}
-                body={answer.body}
-                photoUrl={answer.photoUrl}
+        <Answer answer={answer}
                 key={answer.id} 
                 deleteAnswer={props.deleteAnswer}
         />

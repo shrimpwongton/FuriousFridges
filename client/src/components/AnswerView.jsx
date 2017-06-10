@@ -19,7 +19,7 @@ const AnswerView = (props) => (
       </IconButton>
       <CardTitle
         title={props.currentQuestion.body}
-        subtitle={props.currentQuestion.author} />
+        subtitle={`${props.currentQuestion.author} · ${props.currentQuestion.location} · 4 minutes ago`} />
       <AnswerCollection deleteAnswer={props.deleteAnswer} />
       <ListItem
         disabled={true}>

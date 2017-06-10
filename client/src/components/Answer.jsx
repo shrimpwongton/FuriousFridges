@@ -11,10 +11,10 @@ const Answer = (props) => (
   <div>
     <MuiThemeProvider>
       <ListItem
-        primaryText={props.body}
-        secondaryText={props.author}
+        primaryText={<span style={{'font-size': '24px'}}>{props.answer.body}<br /></span>}
+        secondaryText={`${props.answer.author} · ${props.answer.location} · 4 minutes ago`}
         disabled={true}
-        leftAvatar={<Avatar src={props.photoUrl} />}
+        leftAvatar={<Avatar src={props.answer.photoUrl} />}
         rightIconButton={
           <IconMenu
             iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
