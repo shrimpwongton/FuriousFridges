@@ -48,7 +48,7 @@ class EventCard extends React.Component {
         <Card
           style={styles.card}>
           <CardHeader
-            title='City Events'
+            title='Get Involved!'
             subtitle={'Eventbrite activities nearby'}
           />
           <Divider/>

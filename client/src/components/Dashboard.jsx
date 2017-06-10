@@ -34,6 +34,7 @@ class Dashboard extends React.Component {
           <div style={styles.growStyle}>
             <MeetUp />
             <div style={styles.emptyStyle}/>
+            
             <div style={styles.emptyStyle}/>
               <Restaurants />
           </div>
