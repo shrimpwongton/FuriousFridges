@@ -4,49 +4,48 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const request = require('request');
 const models = require('../../db/models');
-const meetupConfig = require('config')['Meetups'];
-const googleConfig = require('config')['Google_Coords'];
+const config = require('config')['Google_Places'];
+
 
 module.exports.getAll = (req, res) => {
   models.User.where({ email: req.user.email }).fetch()
     .then((result) => {
       models.Stats.where({ city: result.attributes.destination }).fetch()
       .then((data) => {
-        request.get(`https://maps.googleapis.com/maps/api/geocode/json?key=${googleConfig.clientID}&address=${result.attributes.destination}`,
+        request.get(`https://maps.googleapis.com/maps/api/geocode/json?key=${config.clientID}&address=${result.attributes.destination}`,
               (error, response, body) => {
                 if (error) {
                   console.error(err);
                 } else {
                   var geoCoords = JSON.parse(body).results[0].geometry['location'];
-                  request.get(`https://api.meetup.com/2/concierge?sign=true&photo-host=secure&fields=group_photo&lon=${geoCoords.lng}&lat=${geoCoords.lat}&key=${meetupConfig.clientID}`, 
+                  request.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${geoCoords.lat},${geoCoords.lng}&radius=500&type=restaurant&key=${config.clientID}`, 
                     (error, response, body) => {
                       if (error) {
                         console.error(error);
                       }
                       var body = JSON.parse(body);
-                      var meetups = body.results;
-                      var meetupData = {};
+                      var restaurants = body.results;
+                      var restaurantData = {};
                       var dataLength = 10;
                       var currentIndex = 0;
                       var validData = true;
                       while (dataLength > 0 && validData) {
-                        var meetupObj = {};
-                        meetupObj['name'] = meetups[currentIndex].name;
-                        meetupObj['type'] = meetups[currentIndex].group.who;
-                        meetupObj['url'] = meetups[currentIndex].event_url;
-                        if (meetups[currentIndex].group.group_photo) {
-                          meetupObj['image'] = meetups[currentIndex].group.group_photo.photo_link; 
+                        var restaurantObj = {};
+                        restaurantObj['name'] = restaurants[currentIndex].name;
+                        restaurantObj['rating'] = restaurants[currentIndex].rating;
+                        if (restaurants[currentIndex].icon) {
+                          restaurantObj['image'] = restaurants[currentIndex].icon; 
                         } else {
-                          meetupObj['image'] = 'http://tctechcrunch2011.files.wordpress.com/2011/01/meetuplogo.jpeg';
+                          restaurantObj['image'] = 'http://tctechcrunch2011.files.wordpress.com/2011/01/meetuplogo.jpeg';
                         }
-                        meetupData[currentIndex] = meetupObj;
+                        restaurantData[currentIndex] = restaurantObj;
                         dataLength--;
-                        if (!meetups[currentIndex + 1]) {
+                        if (!restaurants[currentIndex + 1]) {
                           validData = false;
                         }
                         currentIndex++;
                       }
-                      res.send(meetupData);
+                      res.send(restaurantData);
                     });
                  
                 }
