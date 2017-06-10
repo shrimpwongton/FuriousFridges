@@ -4,7 +4,7 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import {GridList, GridTile} from 'material-ui/GridList';
 import Divider from 'material-ui/Divider';
 import {
-  grey500, green500, grey50
+  grey500, green500, grey50, lightGreen500, amber500, orange500, red500,
 } from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {List, ListItem} from 'material-ui/List';
@@ -23,15 +23,38 @@ class COLComparisonCard extends React.Component {
     };
     this.objectKeyByValue = this.objectKeyByValue.bind(this);
     this.calculateChangeInCOL = this.calculateChangeInCOL.bind(this);
+    this.calculateColor = this.calculateColor.bind(this);
   }
 
+  calculateColor() {
+    let originTotal = 0;
+    let destinationTotal = 0;
+    for ( let value of this.state.originArray ) {
+      originTotal += value.currency_dollar_value;
+    }
+    for ( let value of this.state.destinationArray ) {
+      destinationTotal += value.currency_dollar_value;
+    }
+    let ratio = originTotal/destinationTotal;
+    if ( ratio > 1.6 ) {
+      return green500;
+    } else if ( ratio > 1.2 ) {
+      return lightGreen500;
+    } else if ( ratio > 0.8 ) {
+      return amber500;
+    } else if ( ratio > 0.4 ) {
+      return orange500;
+    } else {
+      return red500;
+    }
+  }
   componentWillReceiveProps() {
     this.setState({
       origin: this.objectKeyByValue(CityOptions, this.props.origin)[0],
       destination: this.objectKeyByValue(CityOptions, this.props.destination)[0],
       originArray: this.props.originArray,
       destinationArray: this.props.destinationArray,
-    }, function(){console.log(this.state);});
+    });
   }
 
   objectKeyByValue (obj, val) {
@@ -70,7 +93,7 @@ class COLComparisonCard extends React.Component {
         minWidth: 200,
         height: 150,
         position: 'relative',
-        backgroundColor: green500
+        backgroundColor: this.calculateColor(),
       },
       cutOffText: {
         right: -12,
@@ -79,6 +102,11 @@ class COLComparisonCard extends React.Component {
         fontFamily: "'Roboto Light', sans-serif",
         color: grey50,
         fontSize: '5em'
+      },
+      card: {
+        backgroundColor: this.calculateColor(),
+        margin: 8,
+        overflow: 'hidden',
       }
     };
     return (
@@ -86,7 +114,7 @@ class COLComparisonCard extends React.Component {
         style={styles.growStyle}>
         <MuiThemeProvider>
           <Card
-            style={{backgroundColor: green500, margin: 8, overflow: 'hidden'}}>
+            style={styles.card}>
             <ListItem
               primaryText='Cost of Living Comparison'
               secondaryText={this.state.origin + ' → ' + this.state.destination}

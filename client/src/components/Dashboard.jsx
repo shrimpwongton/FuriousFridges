@@ -17,9 +17,6 @@ class Dashboard extends React.Component {
     this.setState({
       colDestinationArray: this.props.colDestinationArray,
       colOriginArray: this.props.colOriginArray,
-    }, function() {
-      console.log('orig', this.state.colOriginArray);
-      console.log('dest', this.state.colDestinationArray);
     });
   }
 
