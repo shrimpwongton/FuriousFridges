@@ -134,8 +134,8 @@ class CityInfo extends React.Component {
           venture_capital: cityInfo.categories[3].score_out_of_10,
           summary: cityInfo.summary.replace(/<\/?[^>]+(>|$)/g, ''),
           score: cityInfo.teleport_city_score,
-          colArray: cityDetails.categories[3].data.slice(1,cityDetails.categories[3].data.length),
-          climate: cityDetails.categories[2].data.slice(0,cityDetails.categories[2].data.length-2),
+          colArray: cityDetails.categories[3].data.slice(1, cityDetails.categories[3].data.length),
+          climate: cityDetails.categories[2].data.slice(0, cityDetails.categories[2].data.length - 2),
         });
       })
       .catch(err => {
@@ -346,7 +346,7 @@ class CityInfo extends React.Component {
                       style={styles.cardStyle}>
                       <CardHeader
                         title={teleportScore[0]}
-                        subtitle={context.calculateScoreStatus(teleportScore[1]/10)}
+                        subtitle={context.calculateScoreStatus(teleportScore[1] / 10)}
                         avatar={
                           <Avatar
                             icon={teleportScore[2]}
@@ -464,7 +464,7 @@ class CityInfo extends React.Component {
           <div
             style={styles.centerStyle}>
               {
-              context.state.colArray.map((colData,index) =>
+              context.state.colArray.map((colData, index) =>
                 <div
                   style={styles.growStyle}>
                   <MuiThemeProvider>
@@ -500,7 +500,7 @@ class CityInfo extends React.Component {
           <div
             style={styles.centerStyle}>
             {
-              context.state.climate.map((climateData,index) =>
+              context.state.climate.map((climateData, index) =>
                 <div
                   style={styles.growStyle}>
                   <MuiThemeProvider>
