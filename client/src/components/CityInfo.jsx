@@ -26,7 +26,7 @@ import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
 import Chip from 'material-ui/Chip';
 import {
-  blueGrey500, blueGrey300, red500, orange500, amber500, lightGreen500, green500, grey500, pinkA200, grey50
+  blueGrey500, blueGrey700, blueGrey300, red500, orange500, amber500, lightGreen500, green500, grey500, pinkA200, grey50, blue500, cyan500, indigo500,
 } from 'material-ui/styles/colors';
 import Divider from 'material-ui/Divider';
 
@@ -59,6 +59,7 @@ class CityInfo extends React.Component {
     this.calculateColor = this.calculateColor.bind(this);
     this.calculateScoreStatus = this.calculateScoreStatus.bind(this);
     this.objectKeyByValue = this.objectKeyByValue.bind(this);
+    this.convertFormat = this.convertFormat.bind(this);
   }
 
   objectKeyByValue (obj, val) {
@@ -126,8 +127,7 @@ class CityInfo extends React.Component {
           summary: cityInfo.summary.replace(/<\/?[^>]+(>|$)/g, ''),
           score: cityInfo.teleport_city_score,
           colArray: cityDetails.categories[3].data.slice(1,cityDetails.categories[3].data.length),
-          climate: cityDetails.categories[2].data,
-
+          climate: cityDetails.categories[2].data.slice(0,cityDetails.categories[2].data.length-2),
         });
       })
       .catch(err => {
@@ -241,7 +241,7 @@ class CityInfo extends React.Component {
         fontFamily: "'Roboto', sans-serif",
         color: grey50,
         fontSize: '1em',
-      }
+      },
     };
     let teleportScore = ['Teleport Score', this.state.score, <ActionHome/>];
     let cards = [
@@ -263,7 +263,7 @@ class CityInfo extends React.Component {
       ['Venture Capital', this.state.venture_capital, <SocialPerson/>],
       ['Internet Access', this.state.internet_access, <ActionExplore/>]].sort((a, b) => { return b[1] - a[1]; });
 
-    let costOfLiving = [
+    const costOfLiving = [
       ['Apples', '1kg'],
       ['Bread', 'One Loaf'],
       ['Cappuccino', 'One Cup'],
@@ -274,6 +274,24 @@ class CityInfo extends React.Component {
       ['Lunch', 'One Entree'],
       ['Taxi Ride', '5km'],
       ['Dinner at Restaurant', '2 Entrees, Appetizer, Drinks']];
+    const icons = {
+      'Average day length (hours)': '/assets/default.png',
+      'Average number of rainy days per year': '/assets/sleet.png',
+      'Average number of clear days per year': '/assets/clear-night.png',
+      'Average annual percent chance of sunshine': '/assets/clear-day.png',
+      'Average annual percent chance of clear skies': '/assets/clear-night.png',
+      'Average high temperature (Celsius)': <ActionTrendingUp/>,
+      'Average low temperature (Celsius)': <ActionTrendingDown/>,
+    };
+    const climateLabels = {
+      'Average day length (hours)': ['Day Length', 'Hours', amber500],
+      'Average number of rainy days per year': ['# of Rainy Days', 'Yearly', blue500],
+      'Average number of clear days per year': ['# of Clear Days', 'Yearly', cyan500],
+      'Average annual percent chance of sunshine': ['% of Sunshine', 'Yearly', amber500, ],
+      'Average annual percent chance of clear skies': ['% of Clear Skies', 'Yearly', cyan500],
+      'Average high temperature (Celsius)': ['High Temperature', 'Fahrenheit', red500],
+      'Average low temperature (Celsius)': ['Low Temperature', 'Fahrenheit', indigo500],
+    }
     const context = this;
     return (
       <div>
@@ -458,6 +476,42 @@ class CityInfo extends React.Component {
             style={styles.subHeaderStyle}>
             Climate
           </span>
+        </div>
+        <div
+          style={styles.flexStyle}>
+          <div
+            style={styles.centerStyle}>
+            {
+              context.state.climate.map((climateData,index) =>
+                <div
+                  style={styles.growStyle}>
+                  <MuiThemeProvider>
+                    <Card
+                      style={{margin: 8, backgroundColor: climateLabels[climateData.label][2], overflow: 'hidden'}}>
+                      <ListItem
+                        primaryText={climateLabels[climateData.label][0]}
+                        secondaryText={climateLabels[climateData.label][1]}
+                        disabled={true}
+                        style={{backgroundColor: blueGrey500}}
+                        leftAvatar={
+                          <Avatar
+                            backgroundColor={blueGrey500}
+                            src={icons[climateData.label]} />}
+                      />
+                      <CardText
+                        style={{minWidth: 200, height: 200, position: 'relative', backgroundColor: climateLabels[climateData.label][2]}}>
+                        <span
+                          style={{right: -12, bottom: -40, position: 'absolute', fontFamily: "'Roboto Light', sans-serif", color: grey50, fontSize: '5em'}}>
+                          {context.convertFormat(climateData.label,climateData[climateData.type+'_value'])}
+                        </span>
+                      </CardText>
+                    </Card>
+                  </MuiThemeProvider>
+                </div>
+              )
+            }
+            <div style={styles.emptyStyle}/>
+          </div>
         </div>
       </div>
     );
