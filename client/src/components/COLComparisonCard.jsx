@@ -51,12 +51,14 @@ class COLComparisonCard extends React.Component {
       destinationTotal += value.currency_dollar_value;
     }
     let ratio = originTotal/destinationTotal;
+    if ( isNaN(ratio) ) {
+      return 'N/A';
+    }
     if (ratio > 1) {
       return '↓' + Math.floor((ratio - 1) * 100) + '%';
     } else {
       return '↑' + Math.floor((1 - ratio) * 100) + '%';
     }
-    //return 0;
   }
 
   render() {

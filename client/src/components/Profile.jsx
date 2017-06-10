@@ -65,8 +65,9 @@ class Profile extends React.Component {
     setTimeout(() => {
       this.setState({
         spinner: false
+      }, function() {
+        this.forceUpdate();
       });
-      this.forceUpdate();
     }, 2000);
   }
 
@@ -100,7 +101,7 @@ class Profile extends React.Component {
       .then(res => {
         let cityDetails = JSON.parse(res.data.city_details);
         this.setState({
-          colOriginArray: cityDetails.categories[3].data.slice(1, cityDetails.categories[3].data.length),
+          colDestinationArray: cityDetails.categories[3].data.slice(1, cityDetails.categories[3].data.length),
         });
       })
       .catch(err => {
@@ -115,7 +116,7 @@ class Profile extends React.Component {
       .then(res => {
         let cityDetails = JSON.parse(res.data.city_details);
         this.setState({
-          colDestinationArray: cityDetails.categories[3].data.slice(1, cityDetails.categories[3].data.length),
+          colOriginArray: cityDetails.categories[3].data.slice(1, cityDetails.categories[3].data.length),
         });
       })
       .catch(err => {
@@ -169,7 +170,7 @@ class Profile extends React.Component {
           describeUser: this.state.describeUser,
           visibilityValue: this.state.visibilityValue,
           visibilityUser: this.state.visibilityValue,
-        });
+        }, this.getCityInfo );
         if (!this.state.loading) {
           this.async(() => this.setState({
             loading: false,
@@ -347,6 +348,8 @@ class Profile extends React.Component {
                 <Dashboard
                   origin={this.state.originUser}
                   destination={this.state.destinationUser}
+                  colOriginArray={this.state.colOriginArray}
+                  colDestinationArray={this.state.colDestinationArray}
                 />
               </div>
             </Tab>

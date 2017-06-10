@@ -9,24 +9,18 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      colDestinationArray: [],
+      colOriginArray: [],
     };
   }
   componentWillReceiveProps() {
-    axios.get('/origininfo')
-      .then(res => {
-        let cityDetails = JSON.parse(res.data.city_details);
-        this.setState({
-          colOriginArray: cityDetails.categories[3].data.slice(1, cityDetails.categories[3].data.length),
-        });
-      });
-    axios.get('/cityinfo')
-      .then(res => {
-        let cityDetails = JSON.parse(res.data.city_details);
-        this.setState({
-          colDestinationArray: cityDetails.categories[3].data.slice(1, cityDetails.categories[3].data.length),
-        });
-      });
+    this.setState({
+      colDestinationArray: this.props.colDestinationArray,
+      colOriginArray: this.props.colOriginArray,
+    }, function() {
+      console.log('orig', this.state.colOriginArray);
+      console.log('dest', this.state.colDestinationArray);
+    });
   }
 
   render () {
@@ -53,10 +47,9 @@ class Dashboard extends React.Component {
           {/*<Restaurants />
           <MeetUp />*/}
           <COLComparisonCard
-            originArray = {this.state.colOriginArray}
-            destinationArray = {this.state.colDestinationArray}
+            originArray = {this.props.colOriginArray}
+            destinationArray = {this.props.colDestinationArray}
             origin={this.props.origin}
-            getCityInfo = {this.getCityInfo}
             destination={this.props.destination}/>
           <div style={styles.emptyStyle}/>
         </div>
