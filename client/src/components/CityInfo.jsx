@@ -24,8 +24,9 @@ import SocialPerson from 'material-ui/svg-icons/social/person';
 import CityOptions from '../CityOptions.json';
 import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
+import Chip from 'material-ui/Chip';
 import {
-  blueGrey500, red500, orange500, amber500, lightGreen500, green500, grey500, pinkA200
+  blueGrey500, blueGrey300, red500, orange500, amber500, lightGreen500, green500, grey500, pinkA200, grey50
 } from 'material-ui/styles/colors';
 import Divider from 'material-ui/Divider';
 
@@ -52,6 +53,8 @@ class CityInfo extends React.Component {
       startups: 0,
       venture_capital: 0,
       score: 0,
+      colArray: [],
+      climate: [],
     };
     this.calculateColor = this.calculateColor.bind(this);
     this.calculateScoreStatus = this.calculateScoreStatus.bind(this);
@@ -101,6 +104,7 @@ class CityInfo extends React.Component {
       .then(res => {
         let cityInfo = JSON.parse(res.data.city_info);
         let cityDetails = JSON.parse(res.data.city_details);
+        console.log('cityDetails', cityDetails);
         this.setState({
           housing: cityInfo.categories[0].score_out_of_10,
           col: cityInfo.categories[1].score_out_of_10,
@@ -121,6 +125,9 @@ class CityInfo extends React.Component {
           venture_capital: cityInfo.categories[3].score_out_of_10,
           summary: cityInfo.summary.replace(/<\/?[^>]+(>|$)/g, ''),
           score: cityInfo.teleport_city_score,
+          colArray: cityDetails.categories[3].data.slice(1,cityDetails.categories[3].data.length),
+          climate: cityDetails.categories[2].data
+
         });
       })
       .catch(err => {
@@ -198,12 +205,41 @@ class CityInfo extends React.Component {
       },
       city: {
         fontFamily: "'Roboto Medium', sans-serif",
-        color: 'white',
+        color: grey50,
         fontSize: '3em',
       },
       summary: {
         fontFamily: "'Roboto', sans-serif",
-        color: 'white',
+        color: grey50,
+        fontSize: '1em',
+      },
+      subHeaderStyle: {
+        fontFamily: "'Roboto', sans-serif",
+        color: grey50,
+        fontSize: '2em',
+        marginLeft: '5vw',
+        marginRight: '5vw',
+      },
+      chip: {
+        margin: 4,
+      },
+      paper: {
+        height: 80,
+        width: 80,
+        margin: 8,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: blueGrey300,
+      },
+      chipGrow: {
+        width: 'auto',
+        minWidth: 100,
+        flexGrow: 1,
+      },
+      priceStyle: {
+        fontFamily: "'Roboto', sans-serif",
+        color: grey50,
         fontSize: '1em',
       }
     };
@@ -226,6 +262,18 @@ class CityInfo extends React.Component {
       ['Startup Culture', this.state.startups, <HardwareLaptop/>],
       ['Venture Capital', this.state.venture_capital, <SocialPerson/>],
       ['Internet Access', this.state.internet_access, <ActionExplore/>]].sort((a, b) => { return b[1] - a[1]; });
+
+    let costOfLiving = [
+      ['Apples', '1kg'],
+      ['Bread', 'One Loaf'],
+      ['Cappuccino', 'One Cup'],
+      ['Movie Ticket', 'One Admission'],
+      ['Gym Membership', 'One Month'],
+      ['Beer', 'One Bottle'],
+      ['Public Transportation', 'Monthly Pass'],
+      ['Lunch', 'One Entree'],
+      ['Taxi Ride', '5km'],
+      ['Dinner at Restaurant', '2 Entrees, Appetizer, Drinks']];
     const context = this;
     return (
       <div>
@@ -368,6 +416,58 @@ class CityInfo extends React.Component {
               </div>
             </div>
         }
+        <div
+          style={{padding: '20px', backgroundColor: blueGrey500}}>
+          <span
+            style={styles.subHeaderStyle}>
+            Cost of Living
+          </span>
+        </div>
+        <div
+          style={styles.flexStyle}>
+          <div
+            style={styles.centerStyle}>
+            <Paper
+              style={{flexGrow: 1, padding: '8px'}}>
+              {
+              context.state.colArray.map((colData,index) =>
+                <div>
+                  <MuiThemeProvider>
+                    <ListItem
+                      style={{width: '100%'}}
+                      primaryText={costOfLiving[index][0]}
+                      secondaryText={costOfLiving[index][1]}
+                      disabled={true}
+                      rightAvatar={
+                        <Avatar
+                          backgroundColor={pinkA200}
+                        >{'$' + Math.floor(colData.currency_dollar_value)}</Avatar>
+                      }
+                    />
+                  </MuiThemeProvider>
+                  <Divider/>
+                </div>
+                /*<MuiThemeProvider>
+                  <Chip
+                    backgroundColor={grey50}
+                    style={styles.chip}>
+                    {colData.label}
+                  </Chip>
+                </MuiThemeProvider>
+                <MuiThemeProvider>
+                  <Paper style={styles.paper} zDepth={1} circle={true} >
+                    <span
+                      style={styles.priceStyle}>
+                      {'$' + colData.currency_dollar_value.toFixed(2)}
+                    </span>
+                  </Paper>
+                </MuiThemeProvider>*/
+              )
+            }
+            <div style={styles.emptyStyle}/>
+            </Paper>
+          </div>
+        </div>
       </div>
     );
   }

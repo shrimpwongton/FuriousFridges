@@ -38,8 +38,8 @@ class NewUserForm extends React.Component {
       loading: false,
       finished: false,
       stepIndex: 0,
-      originValue: 'aarhus',
-      destinationValue: 'adelaide',
+      originValue: 'adelaide',
+      destinationValue: 'albuquerque',
       describeValue: 'single',
       visibility: true,
     };
