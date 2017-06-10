@@ -29,8 +29,8 @@ class Dashboard extends React.Component {
     return (
       <div style={styles.flexStyle}>
         <div style={styles.centerStyle}>
-          <Restaurants />
-          <MeetUp />
+          {/*<Restaurants />
+          <MeetUp />*/}
           <COLComparisonCard origin={this.props.origin} destination={this.props.destination}/>
           <div style={styles.emptyStyle}/>
         </div>

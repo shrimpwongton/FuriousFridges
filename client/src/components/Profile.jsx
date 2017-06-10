@@ -105,6 +105,15 @@ class Profile extends React.Component {
           }, 1000);
         }
       });
+    axios.get('/origininfo')
+      .catch(err => {
+        if (err.message.includes('404')) {
+          console.log('USER HAS NOT REGISTERED ORIGIN CITY');
+          setTimeout(() => {
+            this.props.history.push('/form');
+          }, 1000);
+        }
+      });
   }
 
 

@@ -8,4 +8,5 @@ module.exports.Events = require('./events');
 module.exports.MeetUp = require('./meetup');
 module.exports.Restaurants = require('./restaurants');
 module.exports.Teleport = require('./teleport');
+module.exports.OriginInfo = require('./origininfo');
 

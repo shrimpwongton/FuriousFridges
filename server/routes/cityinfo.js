@@ -9,6 +9,5 @@ const CityInfoController = require('../controllers').CityInfo;
 router.route('/')
   .get(middleware.auth.verify, CityInfoController.getAll);
 
-
 module.exports = router;
 
