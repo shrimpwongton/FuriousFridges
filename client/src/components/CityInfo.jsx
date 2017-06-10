@@ -114,7 +114,6 @@ class CityInfo extends React.Component {
       .then(res => {
         let cityInfo = JSON.parse(res.data.city_info);
         let cityDetails = JSON.parse(res.data.city_details);
-        console.log('cityDetails', cityDetails);
         this.setState({
           housing: cityInfo.categories[0].score_out_of_10,
           col: cityInfo.categories[1].score_out_of_10,

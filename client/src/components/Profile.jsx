@@ -97,6 +97,12 @@ class Profile extends React.Component {
 
   getCityInfo() {
     axios.get('/cityinfo')
+      .then(res => {
+        let cityDetails = JSON.parse(res.data.city_details);
+        this.setState({
+          colOriginArray: cityDetails.categories[3].data.slice(1, cityDetails.categories[3].data.length),
+        });
+      })
       .catch(err => {
         if (err.message.includes('404')) {
           console.log('USER HAS NOT REGISTERED DESTINATION CITY');
@@ -106,6 +112,12 @@ class Profile extends React.Component {
         }
       });
     axios.get('/origininfo')
+      .then(res => {
+        let cityDetails = JSON.parse(res.data.city_details);
+        this.setState({
+          colDestinationArray: cityDetails.categories[3].data.slice(1, cityDetails.categories[3].data.length),
+        });
+      })
       .catch(err => {
         if (err.message.includes('404')) {
           console.log('USER HAS NOT REGISTERED ORIGIN CITY');

@@ -9,6 +9,8 @@ import {
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {List, ListItem} from 'material-ui/List';
 import CityOptions from '../CityOptions.json';
+import Avatar from 'material-ui/Avatar';
+import EditorAttachMoney from 'material-ui/svg-icons/editor/attach-money';
 
 class COLComparisonCard extends React.Component {
   constructor(props) {
@@ -16,15 +18,20 @@ class COLComparisonCard extends React.Component {
     this.state = {
       origin: 'N/A',
       destination: 'N/A',
+      originArray: [],
+      destinationArray: [],
     };
     this.objectKeyByValue = this.objectKeyByValue.bind(this);
+    this.calculateChangeInCOL = this.calculateChangeInCOL.bind(this);
   }
 
   componentWillReceiveProps() {
     this.setState({
       origin: this.objectKeyByValue(CityOptions, this.props.origin)[0],
       destination: this.objectKeyByValue(CityOptions, this.props.destination)[0],
-    });
+      originArray: this.props.originArray,
+      destinationArray: this.props.destinationArray,
+    }, function(){console.log(this.state);});
   }
 
   objectKeyByValue (obj, val) {
@@ -32,6 +39,24 @@ class COLComparisonCard extends React.Component {
       return [''];
     }
     return Object.entries(obj).find(i => i[1] === val);
+  }
+
+  calculateChangeInCOL () {
+    let originTotal = 0;
+    let destinationTotal = 0;
+    for ( let value of this.state.originArray ) {
+      originTotal += value.currency_dollar_value;
+    }
+    for ( let value of this.state.destinationArray ) {
+      destinationTotal += value.currency_dollar_value;
+    }
+    let ratio = originTotal/destinationTotal;
+    if (ratio > 1) {
+      return '↓' + Math.floor((ratio - 1) * 100) + '%';
+    } else {
+      return '↑' + Math.floor((1 - ratio) * 100) + '%';
+    }
+    //return 0;
   }
 
   render() {
@@ -65,13 +90,18 @@ class COLComparisonCard extends React.Component {
               secondaryText={this.state.origin + ' → ' + this.state.destination}
               disabled={true}
               style={{backgroundColor: grey50}}
+              leftAvatar={
+                <Avatar
+                icon={<EditorAttachMoney/>}
+                />
+              }
             />
             <CardText
               style={styles.cardText}>
-                        <span
-                          style={styles.cutOffText}>
-                          ↑90%
-                        </span>
+              <span
+                style={styles.cutOffText}>
+                {this.calculateChangeInCOL()}
+              </span>
             </CardText>
           </Card>
         </MuiThemeProvider>
