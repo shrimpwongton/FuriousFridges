@@ -4,6 +4,7 @@ import MeetUp from './MeetUp.jsx';
 import Restaurants from './Restaurants.jsx';
 import COLComparisonCard from './COLComparisonCard.jsx';
 import axios from 'axios';
+import Transit from './Transit.jsx';
 
 class Dashboard extends React.Component {
   constructor(props) {
