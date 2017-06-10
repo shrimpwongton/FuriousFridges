@@ -262,6 +262,8 @@ class Profile extends React.Component {
       'Hacking into private email servers',
       'Covfefe',
       'Crushing dissent',
+      'Exploiting security holes',
+      'Eroding public confidence',
     ];
 
     if (this.state.spinner) {
@@ -323,7 +325,10 @@ class Profile extends React.Component {
               style={styles.tabStyle}
             >
               <div>
-                <Dashboard/>
+                <Dashboard
+                  origin={this.state.originUser}
+                  destination={this.state.destinationUser}
+                />
               </div>
             </Tab>
             <Tab

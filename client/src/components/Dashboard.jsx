@@ -2,6 +2,7 @@ import React from 'react';
 import EventCard from './EventCard.jsx';
 import MeetUp from './MeetUp.jsx';
 import Restaurants from './Restaurants.jsx';
+import COLComparisonCard from './COLComparisonCard.jsx';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -15,9 +16,6 @@ class Dashboard extends React.Component {
         flexFlow: 'row wrap',
         justifyContent: 'center',
       },
-      growStyle: {
-        flexGrow: 1,
-      },
       centerStyle: {
         width: '90%',
         display: 'flex',
@@ -26,18 +24,15 @@ class Dashboard extends React.Component {
       },
       emptyStyle: {
         flewGrow: 1000,
-      }
+      },
     };
     return (
       <div style={styles.flexStyle}>
         <div style={styles.centerStyle}>
-          <div style={styles.growStyle}>
-            <MeetUp />
-            <div style={styles.emptyStyle}/>
-              
-            <div style={styles.emptyStyle}/>
-            
-          </div>
+          <Restaurants />
+          <MeetUp />
+          <COLComparisonCard origin={this.props.origin} destination={this.props.destination}/>
+          <div style={styles.emptyStyle}/>
         </div>
       </div>
     );
