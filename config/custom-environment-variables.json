@@ -20,5 +20,8 @@
   },
   "Eventbrite": {
     "clientID": "EVENTBRITE_CLIENT_ID"
+  },
+  "Meetups": {
+    "clientID": "MEETUP_CLIENT_ID"
   }
 }

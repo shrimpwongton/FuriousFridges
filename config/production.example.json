@@ -31,5 +31,8 @@
   },
   "Eventbrite": {
     "clientID": "FILL_ME_IN"
+  },
+  "Meetups": {
+    "clientID": "FILL_ME_IN"
   }
 }

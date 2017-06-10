@@ -21,12 +21,12 @@ class MeetUp extends React.Component {
     super(props);
 
     this.state = {
-      meetups: []
+      meetups: [],
     };
-
   }
 
-  componentWillMount() {
+
+  componentWillReceiveProps() {
     axios.get('/meetup')
       .then(res => {
         var sample = [];
@@ -36,6 +36,7 @@ class MeetUp extends React.Component {
         this.setState({meetups: sample});
       }); 
   }
+
 
   render() {
     let meetups = Object.entries(this.state.meetups);
