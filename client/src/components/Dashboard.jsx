@@ -4,6 +4,7 @@ import MeetUp from './MeetUp.jsx';
 import Restaurants from './Restaurants.jsx';
 import COLComparisonCard from './COLComparisonCard.jsx';
 import axios from 'axios';
+import Transit from './Transit.jsx';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -41,8 +42,6 @@ class Dashboard extends React.Component {
     return (
       <div style={styles.flexStyle}>
         <div style={styles.centerStyle}>
-          {/*<Restaurants />
-          <MeetUp />*/}
           <div
             style={{flexGrow: 1}}>
             <COLComparisonCard
@@ -50,6 +49,13 @@ class Dashboard extends React.Component {
               destinationArray = {this.props.colDestinationArray}
               origin={this.props.origin}
               destination={this.props.destination}/>
+              <Transit />
+            <div> 
+              <MeetUp />
+            </div>
+            <div> 
+              <Restaurants />
+            </div>
           </div>
         </div>
       </div>
