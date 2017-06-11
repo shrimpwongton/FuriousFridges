@@ -5,7 +5,8 @@ import MeetUp from './MeetUp.jsx';
 import Restaurants from './Restaurants.jsx';
 import COLComparisonCard from './COLComparisonCard.jsx';
 import Transit from './Transit.jsx';
-import CraigsList from './CraigsList';
+import CraigsList from './CraigsList.jsx';
+import Schools from './Schools.jsx';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -62,6 +63,9 @@ class Dashboard extends React.Component {
             </div>
              <div> 
               <EventCard />
+            </div>
+            <div> 
+              <Schools />
             </div>
           </div>
         </div>

@@ -35,5 +35,6 @@ app.use('/teleport', routes.teleport);
 app.use('/origininfo', routes.origininfo);
 app.use('/transit', routes.transit);
 app.use('/craigslist', routes.craigslist);
+app.use('/schools', routes.schools);
 
 module.exports = app;
