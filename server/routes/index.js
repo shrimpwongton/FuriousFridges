@@ -12,3 +12,4 @@ module.exports.meetup = require('./meetup');
 module.exports.restaurants = require('./restaurants');
 module.exports.teleport = require('./teleport');
 module.exports.transit = require('./transit');
+module.exports.craigslist = require('./craigslist');

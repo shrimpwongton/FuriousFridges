@@ -11,7 +11,7 @@ module.exports.getAll = (req, res) => {
     .then((result) => {
       models.Stats.where({ city: result.attributes.destination }).fetch()
         .then((data) => {
-          request.get(`https://www.eventbriteapi.com/v3/events/search/?token=${config.clientID}&sort_by=distance&location.address=${result.attributes.destination}&categories=109%2C133%2C110&location.within=10mi&start_date.keyword=this_week`, 
+          request.get(`https://www.eventbriteapi.com/v3/events/search/?token=${config.clientID}&sort_by=distance&location.address=${result.attributes.destination}&location.within=10mi&start_date.keyword=this_month`, 
             (error, response, body) => {
               if (error) {
                 console.error(error);

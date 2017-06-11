@@ -1,10 +1,11 @@
 import React from 'react';
+import axios from 'axios';
 import EventCard from './EventCard.jsx';
 import MeetUp from './MeetUp.jsx';
 import Restaurants from './Restaurants.jsx';
 import COLComparisonCard from './COLComparisonCard.jsx';
-import axios from 'axios';
 import Transit from './Transit.jsx';
+import CraigsList from './CraigsList';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -55,6 +56,12 @@ class Dashboard extends React.Component {
             </div>
             <div> 
               <Restaurants />
+            </div>
+            <div> 
+              <CraigsList />
+            </div>
+             <div> 
+              <EventCard />
             </div>
           </div>
         </div>

@@ -10,3 +10,4 @@ module.exports.Restaurants = require('./restaurants');
 module.exports.Teleport = require('./teleport');
 module.exports.OriginInfo = require('./origininfo');
 module.exports.Transit = require('./transit');
+module.exports.CraigsList = require('./craigslist');
