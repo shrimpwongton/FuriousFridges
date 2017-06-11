@@ -26,7 +26,7 @@ import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
 import Chip from 'material-ui/Chip';
 import {
-  blueGrey500, blueGrey700, blueGrey300, red500, orange500, amber500, lightGreen500, green500, grey500, pinkA200, grey50, blue500, cyan500, indigo500,
+  blueGrey500, blueGrey700, blueGrey300, red500, orange500, amber500, lightGreen500, green500, grey500, pinkA200, grey50, blue500, cyan500, indigo500, lightBlue500
 } from 'material-ui/styles/colors';
 import Divider from 'material-ui/Divider';
 
@@ -114,7 +114,6 @@ class CityInfo extends React.Component {
       .then(res => {
         let cityInfo = JSON.parse(res.data.city_info);
         let cityDetails = JSON.parse(res.data.city_details);
-        console.log('cityDetails', cityDetails);
         this.setState({
           housing: cityInfo.categories[0].score_out_of_10,
           col: cityInfo.categories[1].score_out_of_10,
@@ -150,6 +149,15 @@ class CityInfo extends React.Component {
         this.setState({
           photoURL: res.data.photos[0].image.web,
         });
+      });
+    axios.get('/origininfo')
+      .catch(err => {
+        if (err.message.includes('404')) {
+          console.log('USER HAS NOT REGISTERED ORIGIN CITY');
+          setTimeout(() => {
+            this.props.history.push('/form');
+          }, 1000);
+        }
       });
     this.setState({
       city: this.objectKeyByValue(CityOptions, this.props.destinationCity)[0],
@@ -293,13 +301,13 @@ class CityInfo extends React.Component {
       'Average low temperature (Celsius)': <ActionTrendingDown/>,
     };
     const climateLabels = {
-      'Average day length (hours)': ['Day Length', 'Hours', amber500],
+      'Average day length (hours)': ['Day Length', 'Average Hours', amber500],
       'Average number of rainy days per year': ['# of Rainy Days', 'Yearly', blue500],
       'Average number of clear days per year': ['# of Clear Days', 'Yearly', cyan500],
       'Average annual percent chance of sunshine': ['% of Sunshine', 'Yearly', amber500, ],
       'Average annual percent chance of clear skies': ['% of Clear Skies', 'Yearly', cyan500],
-      'Average high temperature (Celsius)': ['High Temperature', 'Fahrenheit', red500],
-      'Average low temperature (Celsius)': ['Low Temperature', 'Fahrenheit', indigo500],
+      'Average high temperature (Celsius)': ['High Temperature', 'Average Fahrenheit', red500],
+      'Average low temperature (Celsius)': ['Low Temperature', 'Average Fahrenheit', lightBlue500],
     };
     const context = this;
     return (
@@ -330,6 +338,7 @@ class CityInfo extends React.Component {
               style={styles.flexStyle}>
               <div
                 style={styles.centerStyle}>
+                <br/>
                 <div
                   style={styles.growStyle}>
                   <MuiThemeProvider>
@@ -468,7 +477,7 @@ class CityInfo extends React.Component {
                           rightAvatar={
                             <Avatar
                               backgroundColor={pinkA200}
-                            >{'$' + Math.floor(colData.currency_dollar_value)}</Avatar>
+                            >{colData.currency_dollar_value > 1 ? '$' + Math.floor(colData.currency_dollar_value) : '$' + Math.ceil(colData.currency_dollar_value)}</Avatar>
                           }
                         />
                     </Card>

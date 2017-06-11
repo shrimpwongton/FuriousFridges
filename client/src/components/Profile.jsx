@@ -65,9 +65,10 @@ class Profile extends React.Component {
     setTimeout(() => {
       this.setState({
         spinner: false
+      }, function() {
+        this.forceUpdate();
       });
-      this.forceUpdate();
-    }, 1000);   
+    }, 2000);
   }
 
   getCurrentUserInfo() {
@@ -97,6 +98,12 @@ class Profile extends React.Component {
 
   getCityInfo() {
     axios.get('/cityinfo')
+      .then(res => {
+        let cityDetails = JSON.parse(res.data.city_details);
+        this.setState({
+          colDestinationArray: cityDetails.categories[3].data.slice(1, cityDetails.categories[3].data.length),
+        });
+      })
       .catch(err => {
         if (err.message.includes('404')) {
           console.log('USER HAS NOT REGISTERED DESTINATION CITY');
@@ -104,7 +111,22 @@ class Profile extends React.Component {
             this.props.history.push('/form');
           }, 1000);
         }
-      }); 
+      });
+    axios.get('/origininfo')
+      .then(res => {
+        let cityDetails = JSON.parse(res.data.city_details);
+        this.setState({
+          colOriginArray: cityDetails.categories[3].data.slice(1, cityDetails.categories[3].data.length),
+        });
+      })
+      .catch(err => {
+        if (err.message.includes('404')) {
+          console.log('USER HAS NOT REGISTERED ORIGIN CITY');
+          setTimeout(() => {
+            this.props.history.push('/form');
+          }, 1000);
+        }
+      });
   }
 
 
@@ -148,7 +170,7 @@ class Profile extends React.Component {
           describeUser: this.state.describeUser,
           visibilityValue: this.state.visibilityValue,
           visibilityUser: this.state.visibilityValue,
-        });
+        }, this.getCityInfo );
         if (!this.state.loading) {
           this.async(() => this.setState({
             loading: false,
@@ -171,14 +193,12 @@ class Profile extends React.Component {
     // Add question here
   }
   handleOriginChange (event, index, value) {
-    console.log("The origin changed");
     this.setState({
       originValue: value,
     });
   }
 
   handleDestinationChange (event, index, value) {
-    console.log("The destination changed");
     this.setState({
       destinationValue: value,
     });
@@ -242,14 +262,49 @@ class Profile extends React.Component {
       tab: {
         flex: '1',
       },
+      loading: {
+        fontFamily: "'Roboto', sans-serif",
+        color: blueGrey500,
+        fontSize: '1em',
+      },
     };
+
+    const loadingPhrases = [
+      'Rebooting the Internet',
+      'Building SkyNet',
+      'Meddling in elections',
+      'Overthrowing governments',
+      'Taking over the world',
+      'Erasing databases',
+      'Performing XSS attacks',
+      'Imposing martial law',
+      'Reticulating Splines',
+      'Hacking into private email servers',
+      'Covfefe',
+      'Crushing dissent',
+      'Exploiting security holes',
+      'Eroding public confidence',
+      'Figuring out what \'this\' is',
+      'Replacing JavaScript with TypeScript',
+      'Leaking sensitive data',
+      'Replacing humans with robots',
+      'Dropping tables',
+    ];
 
     if (this.state.spinner) {
       return (
-        <div>
-          <MuiThemeProvider>  
-            <CircularProgress size={120} thickness={8} style={{'marginLeft': '50%', 'left': '-65px', 'marginTop': '100px'}} />
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100vh',
+            flexWrap: 'wrap',
+            flexDirection: 'row'}}>
+          <MuiThemeProvider>
+            <CircularProgress style={{margin: 20}}color={pinkA200} size={60} thickness={3.5} />
           </MuiThemeProvider>
+          <span style={styles.loading}>{loadingPhrases[Math.floor(Math.random() * loadingPhrases.length)] + '.  We thank you for your patience.'}</span>
         </div>
       );
     } else {
@@ -295,7 +350,12 @@ class Profile extends React.Component {
               style={styles.tabStyle}
             >
               <div>
-                <Dashboard/>
+                <Dashboard
+                  origin={this.state.originUser}
+                  destination={this.state.destinationUser}
+                  colOriginArray={this.state.colOriginArray}
+                  colDestinationArray={this.state.colDestinationArray}
+                />
               </div>
             </Tab>
             <Tab
