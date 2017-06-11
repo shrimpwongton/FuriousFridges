@@ -10,6 +10,7 @@ module.exports.getAll = (req, res) => {
           id: a.attributes.id,
           author: relationObj.firstName + ' ' + relationObj.lastName,
           body: a.attributes.answer,
+          location: a.attributes.location,
           question_id: a.attributes.question_id,
           createdAt: a.attributes.created_at,
           photoUrl: relationObj.photoUrl
@@ -29,7 +30,8 @@ module.exports.create = (req, res) => {
     .then(user => {
       models.Answer.forge({ 
         user_id: user.attributes.id, 
-        answer: req.body.answer, 
+        answer: req.body.answer,
+        location: user.attributes['current-location'], 
         question_id: req.body.questionId 
       }).save()
         .then(a => {
@@ -37,6 +39,7 @@ module.exports.create = (req, res) => {
             id: a.attributes.id,
             author: user.attributes.firstName + ' ' + user.attributes.lastName,
             body: a.attributes.answer,
+            location: a.attributes.location,
             createdAt: a.attributes.created_at,
             photoUrl: user.attributes.photoUrl
           };
