@@ -33,10 +33,11 @@ module.exports.getAll = (req, res) => {
                         var restaurantObj = {};
                         restaurantObj['name'] = restaurants[currentIndex].name;
                         restaurantObj['rating'] = restaurants[currentIndex].rating;
-                        if (restaurants[currentIndex].icon) {
-                          restaurantObj['image'] = restaurants[currentIndex].icon; 
+                        if (restaurants[currentIndex].photos) {
+                          var reference = restaurants[currentIndex].photos[0].photo_reference;
+                          restaurantObj['image'] = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${reference}&key=${config.clientID}`;
                         } else {
-                          restaurantObj['image'] = 'http://tctechcrunch2011.files.wordpress.com/2011/01/meetuplogo.jpeg';
+                          restaurantObj['image'] = restaurants[currentIndex].icon;
                         }
                         restaurantData[currentIndex] = restaurantObj;
                         dataLength--;
@@ -47,7 +48,6 @@ module.exports.getAll = (req, res) => {
                       }
                       res.send(restaurantData);
                     });
-                 
                 }
               });
       }); 

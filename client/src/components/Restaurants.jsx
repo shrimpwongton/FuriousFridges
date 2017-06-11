@@ -76,7 +76,7 @@ class Restaurants extends React.Component {
             {restaurants.map((restaurant) => (
               <GridTile
                 title={restaurant[1].name}
-                subtitle={restaurant[1].rating}
+                subtitle={"rating: " + restaurant[1].rating}
                 cols = {2}
                 rows = {2} 
               >
