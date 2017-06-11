@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {List, ListItem} from 'material-ui/List';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Avatar from 'material-ui/Avatar';
@@ -41,28 +42,38 @@ const Question = (props) => {
     props.handleQuestionClick(props.question);
   };
 
+  let iconMenuUser = <IconMenu
+    iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+    anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+    targetOrigin={{horizontal: 'right', vertical: 'top'}}
+  >
+    <MenuItem
+      primaryText="Delete"
+      onTouchTap={() => { props.deleteQuestion(props.question.id); }}
+    />
+  </IconMenu>;
+  let iconMenu;
+
+  if (props.question.userId === props.currentUser.id) {
+    iconMenu = iconMenuUser;
+  } else {
+    iconMenu = null;
+  }
   return (
     <MuiThemeProvider>
       <ListItem
         primaryText={<span style={{'fontSize': '20px'}}>{props.question.body}<br /></span>}
         secondaryText={`${props.question.author} · ${props.question.location} · ${postTime}`}
-        leftAvatar={<Avatar src={props.photoUrl} />}
+        leftAvatar={<Avatar src={props.question.photoUrl} />}
         onTouchTap={answerQuestion}
-        rightIconButton={
-          <IconMenu
-            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-            anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-            targetOrigin={{horizontal: 'right', vertical: 'top'}}
-          >
-            <MenuItem
-              primaryText="Delete"
-              onTouchTap={() => { props.deleteQuestion(props.question.id); }}
-            />
-          </IconMenu>
-        }
+        rightIconButton={iconMenu}
       />
     </MuiThemeProvider>
   );
 };
 
-export default Question;
+const mapStateToProps = (state) => ({
+  currentUser: state.questionBoard.currentUser
+});
+
+export default connect(mapStateToProps)(Question);
