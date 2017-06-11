@@ -60,6 +60,9 @@ class Dashboard extends React.Component {
             <div> 
               <CraigsList />
             </div>
+             <div> 
+              <EventCard />
+            </div>
           </div>
         </div>
       </div>

@@ -46,7 +46,7 @@ class CraigsList extends React.Component {
         <Card
           style={styles.card}>
           <CardHeader
-            title='Craiglist for your area'
+            title='Craiglist'
             subtitle={'Find furniture for you new place!'}
           />
           <Divider/>
