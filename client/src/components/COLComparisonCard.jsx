@@ -67,8 +67,6 @@ class COLComparisonCard extends React.Component {
   calculateChangeInCOL () {
     let originTotal = 0;
     let destinationTotal = 0;
-    console.log(originTotal);
-    console.log(destinationTotal);
     for ( let value of this.state.originArray ) {
       originTotal += value.currency_dollar_value;
     }
