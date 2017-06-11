@@ -51,23 +51,26 @@ class Dashboard extends React.Component {
               destinationArray = {this.props.colDestinationArray}
               origin={this.props.origin}
               destination={this.props.destination}/>
-              <Transit />
-            <div> 
+            <Transit />
+            <div>
               <MeetUp />
             </div>
-            <div> 
+            <div>
               <Restaurants />
             </div>
-            <div> 
+            <div>
               <CraigsList />
             </div>
-             <div> 
+             <div>
               <EventCard />
             </div>
-            <div> 
+            <div>
               <Schools />
             </div>
           </div>
+          {/*<Transit />
+          <MeetUp />
+          <Restaurants />*/}
         </div>
       </div>
     );
