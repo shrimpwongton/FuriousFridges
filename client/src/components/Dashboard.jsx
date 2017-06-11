@@ -51,6 +51,11 @@ class Dashboard extends React.Component {
               destinationArray = {this.props.colDestinationArray}
               origin={this.props.origin}
               destination={this.props.destination}/>
+          <div style={styles.growStyle}>
+            <MeetUp />
+            <div style={styles.emptyStyle}/>
+            <div style={styles.emptyStyle}/>
+          
           </div>
         </div>
       </div>
