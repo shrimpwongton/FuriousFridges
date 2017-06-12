@@ -14,7 +14,6 @@ const QuestionCollection = (props) => (
       props.questions.map(question =>
         <Question question={question}
                   handleQuestionClick={props.handleQuestionClick}
-                  photoUrl={question.photoUrl}
                   key={question.id}
                   deleteQuestion={props.deleteQuestion}
         />

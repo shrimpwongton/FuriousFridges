@@ -12,7 +12,8 @@ module.exports.getAll = (req, res) => {
           body: q.attributes.question,
           location: q.attributes.location,
           createdAt: q.attributes.created_at,
-          photoUrl: relationObj.photoUrl
+          photoUrl: relationObj.photoUrl,
+          userId: q.attributes.user_id
         };
         return question;
       });
@@ -38,7 +39,8 @@ module.exports.create = (req, res) => {
             body: q.attributes.question,
             location: q.attributes.location,
             createdAt: q.attributes.created_at,
-            photoUrl: user.attributes.photoUrl
+            photoUrl: user.attributes.photoUrl,
+            userId: q.attributes.user_id
           };
           res.status(201).send(question);
         })    

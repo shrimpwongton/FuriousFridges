@@ -30,3 +30,5 @@ export { setHousing,
          setPhotoURL,
          setCity, 
          setScore } from './cityInfoActions';
+
+export { setCurrentLocation } from './profileActions';
