@@ -11,6 +11,7 @@ import Avatar from 'material-ui/Avatar';
 import Subheader from 'material-ui/Subheader';
 import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
 import FlatButton from 'material-ui/FlatButton';
+import HomeIcon from 'material-ui/svg-icons/action/home';
 
 
 class CraigsList extends React.Component {
@@ -51,6 +52,7 @@ class CraigsList extends React.Component {
           <CardHeader
             title='Craiglist'
             subtitle={'Find furniture for you new place!'}
+            avatar={<HomeIcon />}
           />
           <Divider/>
           <List>
@@ -59,7 +61,6 @@ class CraigsList extends React.Component {
                 target="_blank" href={listing.url}
                 key={listing.title}
                 primaryText={listing.title}
-                leftAvatar={<Avatar src= 'https://cdn4.iconfinder.com/data/icons/repairs-flat-icon-set/256/icon_furniture_flat-256.png'/>} 
                 rightAvatar={<FlatButton label={listing.price || 'FREE!'} />}
               >
               
