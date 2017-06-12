@@ -15,7 +15,7 @@ module.exports.getAll = (req, res) => {
         if (result.attributes.destination === 'san-francisco-bay-area') {
           result.attributes.destination = 'sanfrancisco';
         }
-          request.get(`https://maps.googleapis.com/maps/api/geocode/json?key=${config.clientID}&address=${result.attributes.destination}`,
+        request.get(`https://maps.googleapis.com/maps/api/geocode/json?key=${config.clientID}&address=${result.attributes.destination}`,
               (error, response, body) => {
                 if (error) {
                   console.error(err);
