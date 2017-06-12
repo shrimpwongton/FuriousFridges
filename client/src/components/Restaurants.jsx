@@ -37,7 +37,7 @@ class Restaurants extends React.Component {
       card: {
         margin: 8,
         overflow: 'hidden',
-        maxWidth:300,
+        width: 300,
       },
     };
 

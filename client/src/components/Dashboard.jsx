@@ -7,6 +7,7 @@ import COLComparisonCard from './COLComparisonCard.jsx';
 import Transit from './Transit.jsx';
 import CraigsList from './CraigsList.jsx';
 import Schools from './Schools.jsx';
+import Masonry from 'react-masonry-component';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -25,12 +26,6 @@ class Dashboard extends React.Component {
 
   render () {
     const styles = {
-      flexStyle: {
-        margin: '8px',
-        display: 'flex',
-        flexFlow: 'row wrap',
-        justifyContent: 'center',
-      },
       centerStyle: {
         width: '90%',
         display: 'flex',
@@ -41,9 +36,29 @@ class Dashboard extends React.Component {
         flewGrow: 1000,
       },
     };
+    /*
+     <div style={styles.flexStyle}>
+     <div style={styles.centerStyle}>
+     <COLComparisonCard
+     originArray = {this.props.colOriginArray}
+     destinationArray = {this.props.colDestinationArray}
+     origin={this.props.origin}
+     destination={this.props.destination}/>
+     <Transit />
+     <MeetUp />
+     <Restaurants />
+     <CraigsList />
+     <EventCard />
+     <Schools />
+    </div>
+    </div>
+     */
     return (
-      <div style={styles.flexStyle}>
-        <div style={styles.centerStyle}>
+        <Masonry // default ''\
+          updateOnEachImageLoad = {true}
+          style={{margin: '0 auto'}}
+          options={{isFitWidth: true}}
+        >
           <COLComparisonCard
             originArray = {this.props.colOriginArray}
             destinationArray = {this.props.colDestinationArray}
@@ -52,11 +67,7 @@ class Dashboard extends React.Component {
           <Transit />
           <MeetUp />
           <Restaurants />
-          {/*<CraigsList />
-          <EventCard />
-          <Schools />*/}
-        </div>
-      </div>
+        </Masonry>
     );
   }
 }

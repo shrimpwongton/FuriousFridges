@@ -104,11 +104,11 @@ class COLComparisonCard extends React.Component {
         backgroundColor: color,
         margin: 8,
         overflow: 'hidden',
+        width: 300,
       }
     };
     return (
-      <div
-        style={{flexGrow: 1}}>
+      <div>
         <Card
           style={styles.card}>
           <ListItem

@@ -10,6 +10,7 @@ import MapsDirectionsBus from 'material-ui/svg-icons/maps/directions-bus';
 import MapsTram from 'material-ui/svg-icons/maps/tram';
 import MapsSubway from 'material-ui/svg-icons/maps/subway';
 import MapsDirections from 'material-ui/svg-icons/maps/directions';
+import MapsTrain from 'material-ui/svg-icons/maps/train';
 import Divider from 'material-ui/Divider';
 import Avatar from 'material-ui/Avatar';
 
@@ -27,10 +28,13 @@ class Transit extends React.Component {
     axios.get('/transit')
       .then(res => {
         let stations = new Set();
-        for (var key in res.data) {
-          stations.add(res.data[key]);
+        console.log(res.data);
+        if ( typeof res.data !== 'undefined' ) {
+          for (var key in res.data) {
+            stations.add(res.data[key]);
+          }
+          this.setState({stations: Array.from(stations)});
         }
-        this.setState({stations: Array.from(stations)});
       });
   }
 
@@ -40,10 +44,7 @@ class Transit extends React.Component {
       card: {
         margin: 8,
         overflow: 'hidden',
-      },
-      gridList: {
-        height: 150,
-        overflowY: 'auto',
+        width: 300,
       },
       avatar: {
         backgroundColor: green500,
@@ -55,12 +56,12 @@ class Transit extends React.Component {
       'subway_station': ['Subway Station', <MapsSubway/>],
       'light_rail_station': ['Light Rail Station', <MapsTram/>],
       'transit_station': ['Transit Hub', <MapsDirections/>],
+      'train_station': ['Train Station', <MapsTrain/>]
     };
 
 
     return (
-      <div
-        style={{flexGrow: 1}}>
+      <div>
         <Card
           style={styles.card}>
           <ListItem

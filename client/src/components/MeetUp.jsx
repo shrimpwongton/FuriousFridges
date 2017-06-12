@@ -24,10 +24,12 @@ class MeetUp extends React.Component {
     axios.get('/meetup')
       .then(res => {
         var sample = [];
-        for (var key in res.data) {
-          sample.push(res.data[key]);
+        if ( typeof res.data !== 'undefined' ) {
+          for (var key in res.data) {
+            sample.push(res.data[key]);
+          }
+          this.setState({meetups: sample});
         }
-        this.setState({meetups: sample});
       });
   }
 
@@ -39,7 +41,7 @@ class MeetUp extends React.Component {
       card: {
         margin: 8,
         overflow: 'hidden',
-        maxWidth: 300,
+        width: 300,
       },
     };
     return (
@@ -58,7 +60,7 @@ class MeetUp extends React.Component {
             }
           />
           <Divider/>
-          {meetups.map((meetup) => (
+          {meetups.length !== 0 ? meetups.map((meetup) => (
             <CardMedia
               overlay={
                 <CardTitle
@@ -68,7 +70,10 @@ class MeetUp extends React.Component {
                 src={meetup[1].image}
                 alt="" />
             </CardMedia>
-          ))}
+          )) :
+           <CardText>
+             There aren't any events in the area
+           </CardText>}
         </Card>
       </div>
     );

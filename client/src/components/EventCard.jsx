@@ -13,18 +13,20 @@ class EventCard extends React.Component {
     super(props);
 
     this.state = {
-      events: []
+      events: [],
     };
   }
 
   componentWillReceiveProps() {
     axios.get('/events')
       .then(res => {
-        var sample = [];
-        for (var key in res.data) {
-          sample.push(res.data[key]);
+        if ( typeof res.data !== 'undefined' ) {
+          var sample = [];
+          for (var key in res.data) {
+            sample.push(res.data[key]);
+          }
+          this.setState({events: sample});
         }
-        this.setState({events: sample});
       });
   }
 
@@ -34,7 +36,9 @@ class EventCard extends React.Component {
 
     const styles = {
       card: {
-        height: 400,
+        margin: 8,
+        overflow: 'hidden',
+        width: 300,
       },
       gridList: {
         width: '100%',
@@ -56,18 +60,20 @@ class EventCard extends React.Component {
             cellHeight={100}
             style={styles.gridList}
           >
-            {events.map((event) => (
+            {events.length !== 0 ? events.map((event) => (
               <GridTile
                 key={event[1].img}
                 title={event[1].description}
-                cols = {2}
-                rows = {2}
               >
                 <a target="_blank" href={event[1].url}>
                 <img src = {event[1].img} />
                 </a>
               </GridTile>
-            ))}
+            )) :
+              <GridTile
+                title='No events available'
+              />
+            }
           </GridList>
         </Card>
       </div>
