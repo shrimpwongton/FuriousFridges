@@ -31,6 +31,9 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import ExpandTransition from 'material-ui/internal/ExpandTransition';
 import CircularProgress from 'material-ui/CircularProgress';
+import ActionDashboard from 'material-ui/svg-icons/action/dashboard';
+import SocialLocationCity from 'material-ui/svg-icons/social/location-city';
+import ActionQuestionAnswer from 'material-ui/svg-icons/action/question-answer';
 import { Google } from '../../../config/custom-environment-variables.json';
 
 class Profile extends React.Component {
@@ -45,10 +48,9 @@ class Profile extends React.Component {
       question: false,
       profilePic: '',
       visibilityValue: false,
-      loading: false,
       spinner: true
     };
-    
+
     this.handleToggle = this.handleToggle.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleVisibility = this.handleVisibility.bind(this);
@@ -60,7 +62,6 @@ class Profile extends React.Component {
     this.handleOriginChange = this.handleOriginChange.bind(this);
     this.handleDestinationChange = this.handleDestinationChange.bind(this);
     this.handleDescribeChange = this.handleDescribeChange.bind(this);
-    this.async = this.async.bind(this);
   }
 
   componentDidMount() {
@@ -85,13 +86,13 @@ class Profile extends React.Component {
     var options = {
       enableHighAccuracy: false,
       timeout: 5000,
-      maximumWait: 10000,     // max wait time for desired accuracy 
-      maximumAge: 0,          // disable cache 
-      desiredAccuracy: 30,    // meters 
-      fallbackToIP: true,     // fallback to IP if Geolocation fails or rejected 
-      addressLookup: true,    // requires Google API key if true 
-      timezone: false,         // requires Google API key if true 
-      staticMap: false        // map image URL (boolean or options object) 
+      maximumWait: 10000,     // max wait time for desired accuracy
+      maximumAge: 0,          // disable cache
+      desiredAccuracy: 30,    // meters
+      fallbackToIP: true,     // fallback to IP if Geolocation fails or rejected
+      addressLookup: true,    // requires Google API key if true
+      timezone: false,         // requires Google API key if true
+      staticMap: false        // map image URL (boolean or options object)
     };
     geolocator.locate(options, (err, location) => {
       if (err) { return console.log(err); }
@@ -110,7 +111,7 @@ class Profile extends React.Component {
       } else {
         cityStateCountry = 'No location data';
       }
-      
+
       axios.put('/users', {
         'current-location': cityStateCountry,
         email: this.props.currentUser.email
@@ -126,7 +127,6 @@ class Profile extends React.Component {
       .then(res => {
         this.props.dispatchCurrentUser(res.data);
         this.setState({
-          loading: false,
           originValue: res.data.origin,
           destinationValue: res.data.destination,
           describeValue: res.data.type,
@@ -180,13 +180,6 @@ class Profile extends React.Component {
       });
   }
 
-
-  async (cb) {
-    this.setState({loading: true}, () => {
-      this.asyncTimer = setTimeout(cb, 400);
-    });
-  }
-
   handleToggle () {
     this.setState({
       open: !this.state.open,
@@ -222,13 +215,8 @@ class Profile extends React.Component {
           visibilityValue: this.state.visibilityValue,
           visibilityUser: this.state.visibilityValue,
         }, this.getCityInfo );
-        if (!this.state.loading) {
-          this.async(() => this.setState({
-            loading: false,
-          }));
-        }
       });
-    this.setState({snackBar: true, open: false});
+    this.setState({snackBar: true, open: false}, this.getCityInfo);
   }
   handleClose () {
     this.setState({snackBar: false});
@@ -396,45 +384,86 @@ class Profile extends React.Component {
             inkBarStyle={{background: pinkA200, zIndex: 500}}
             contentContainerStyle={{background: grey300}}
             style={styles.tabs}>
-            <Tab
-              label="DASHBOARD"
-              style={styles.tabStyle}
-            >
-              <div>
-                <Dashboard
-                  origin={this.state.originUser}
-                  destination={this.state.destinationUser}
-                  colOriginArray={this.state.colOriginArray}
-                  colDestinationArray={this.state.colDestinationArray}
-                />
-              </div>
-            </Tab>
-            <Tab
-              label="DESTINATION INFO"
-              style={styles.tabStyle}
-            >
-              <div>
-              <ExpandTransition loading={this.state.loading} open={true}>
-                <CityInfo formToggle={this.props.formToggle}
-                          destinationCity={this.state.destinationUser}
-                          width={this.state.width}
-                          history={this.props.history} />
-              </ExpandTransition>
-              </div>
-            </Tab>
-            <Tab
-              label="QUESTIONS"
-              style={styles.tabStyle}
-            >
-              <div
-                style={styles.tab}
+            { this.state.width > 750 ?
+              <Tab
+                label="DASHBOARD"
+                style={styles.tabStyle}
               >
-                <AskQuestionBoard
-                  width={this.state.width}
-                  destinationCity={this.state.destinationUser}
-                />
-              </div>
-            </Tab>
+                <div>
+                  <Dashboard
+                    origin={this.state.originUser}
+                    destination={this.state.destinationUser}
+                    colOriginArray={this.state.colOriginArray}
+                    colDestinationArray={this.state.colDestinationArray}
+                  />
+                </div>
+              </Tab> :
+              <Tab
+                icon={<ActionDashboard/>}
+                style={styles.tabStyle}
+              >
+                <div>
+                  <Dashboard
+                    origin={this.state.originUser}
+                    destination={this.state.destinationUser}
+                    colOriginArray={this.state.colOriginArray}
+                    colDestinationArray={this.state.colDestinationArray}
+                  />
+                </div>
+              </Tab>
+            }
+            { this.state.width > 750 ?
+              <Tab
+                label="DESTINATION INFO"
+                style={styles.tabStyle}
+              >
+                <div>
+                  <CityInfo formToggle={this.props.formToggle}
+                            destinationCity={this.state.destinationUser}
+                            width={this.state.width}
+                            history={this.props.history}/>
+                </div>
+              </Tab> :
+              <Tab
+                icon={<SocialLocationCity/>}
+                style={styles.tabStyle}
+              >
+                <div>
+                  <CityInfo formToggle={this.props.formToggle}
+                            destinationCity={this.state.destinationUser}
+                            width={this.state.width}
+                            history={this.props.history} />
+                </div>
+              </Tab>
+            }
+            { this.state.width > 750 ?
+              <Tab
+                label="QUESTIONS"
+                style={styles.tabStyle}
+              >
+                <div
+                  style={styles.tab}
+                >
+                  <AskQuestionBoard
+                    width={this.state.width}
+                    destinationCity={this.state.destinationUser}
+                  />
+                </div>
+              </Tab> :
+              <Tab
+                icon={<ActionQuestionAnswer/>}
+                style={styles.tabStyle}
+              >
+                <div
+                  style={styles.tab}
+                >
+                  <AskQuestionBoard
+                    width={this.state.width}
+                    destinationCity={this.state.destinationUser}
+                  />
+                </div>
+              </Tab>
+            }
           </Tabs>
         </MuiThemeProvider>
         <MuiThemeProvider>
