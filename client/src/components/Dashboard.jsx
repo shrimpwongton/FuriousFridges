@@ -51,8 +51,8 @@ class Dashboard extends React.Component {
             destination={this.props.destination}/>
           <Transit />
           <MeetUp />
-          {/*<Restaurants />
-          <CraigsList />
+          <Restaurants />
+          {/*<CraigsList />
           <EventCard />
           <Schools />*/}
         </div>

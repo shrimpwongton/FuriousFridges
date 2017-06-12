@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import {GridList, GridTile} from 'material-ui/GridList';
 import Avatar from 'material-ui/Avatar';
 import SocialGroup from 'material-ui/svg-icons/social/group';
 import {
@@ -40,18 +39,18 @@ class MeetUp extends React.Component {
       card: {
         margin: 8,
         overflow: 'hidden',
-        maxWidth: 400,
+        maxWidth: 300,
       },
     };
     return (
-      <div
-        style={{flexGrow: 1}}>
+      <div>
         <Card
           style={styles.card}>
           <ListItem
             primaryText='Meet Ups'
             secondaryText='Find people with mutual interests'
             disabled={true}
+            secondaryTextLines={2}
             leftAvatar={
               <Avatar
                 icon={<SocialGroup/>}

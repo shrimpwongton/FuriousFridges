@@ -67,6 +67,7 @@ class Transit extends React.Component {
             primaryText='Public Transportation'
             secondaryText='Nearby Stations'
             disabled={true}
+            secondaryTextLines={2}
             leftAvatar={
               <Avatar
                 icon={<MapsDirectionsTransit/>}
