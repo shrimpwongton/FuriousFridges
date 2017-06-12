@@ -95,21 +95,24 @@ class Profile extends React.Component {
       staticMap: false        // map image URL (boolean or options object)
     };
     geolocator.locate(options, (err, location) => {
-      if (err) { return console.log(err); }
-      let city = location.address.city || null;
-      let state = location.address.state || null;
-      let country = location.address.country || null;
-      let cityStateCountry;
-
-      if (country === 'United States') {
-        country = 'US';
-      }
-      if (city !== null && state !== null && country !== null) {
-        cityStateCountry = `${city}, ${state}, ${country}`;
-      } else if (city !== null && state === null && country !== null) {
-        cityStateCountry = `${city}, ${country}`;
+      let cityStateCountry = 'Anonymous location';
+      if (err) { 
+        console.log('ERROR: Unable to resolve location! You may be blocking location services', err); 
       } else {
-        cityStateCountry = 'No location data';
+        let city = location.address.city || null;
+        let state = location.address.state || null;
+        let country = location.address.country || null;
+
+        if (country === 'United States') {
+          country = 'US';
+        }
+        if (city !== null && state !== null && country !== null) {
+          cityStateCountry = `${city}, ${state}, ${country}`;
+        } else if (city !== null && state === null && country !== null) {
+          cityStateCountry = `${city}, ${country}`;
+        } else {
+          cityStateCountry = 'No location data';
+        }
       }
 
       axios.put('/users', {
