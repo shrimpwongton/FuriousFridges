@@ -323,7 +323,7 @@ class CityInfo extends React.Component {
       ['Public Transportation', 'Monthly Pass'],
       ['Lunch', 'One Entree'],
       ['Taxi Ride', '5km'],
-      ['Dinner at Restaurant', '2 Entrees, Appetizer, Drinks']];
+      ['Dinner', '2 Entrees, Appetizer, Drinks']];
     const icons = {
       'Average day length (hours)': '/assets/default.png',
       'Average number of rainy days per year': '/assets/sleet.png',
