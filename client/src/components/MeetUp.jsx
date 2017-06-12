@@ -72,7 +72,7 @@ class MeetUp extends React.Component {
             </CardMedia>
           )) :
            <CardText>
-             There aren't any events in the area
+             There aren't any meet ups in the area
            </CardText>}
         </Card>
       </div>

@@ -6,6 +6,9 @@ import Divider from 'material-ui/Divider';
 import {
   grey500, white, green500,
 } from 'material-ui/styles/colors';
+import ActionDateRange from 'material-ui/svg-icons/action/date-range';
+import {List, ListItem} from 'material-ui/List';
+import Avatar from 'material-ui/Avatar';
 
 
 class EventCard extends React.Component {
@@ -51,18 +54,25 @@ class EventCard extends React.Component {
        <div>
         <Card
           style={styles.card}>
-          <CardHeader
-            title='Get Involved!'
-            subtitle={'Eventbrite activities nearby'}
+          <ListItem
+            primaryText='Events Nearby'
+            secondaryText='Powered by Eventbrite'
+            disabled={true}
+            secondaryTextLines={2}
+            leftAvatar={
+              <Avatar
+                icon={<ActionDateRange/>}
+              />
+            }
           />
           <Divider/>
           <GridList
-            cellHeight={100}
+            cellHeight={200}
             style={styles.gridList}
+            cols={1}
           >
             {events.length !== 0 ? events.map((event) => (
               <GridTile
-                key={event[1].img}
                 title={event[1].description}
               >
                 <a target="_blank" href={event[1].url}>

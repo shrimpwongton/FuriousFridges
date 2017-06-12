@@ -67,6 +67,7 @@ class Dashboard extends React.Component {
           <Transit />
           <MeetUp />
           <Restaurants />
+          <EventCard />
         </Masonry>
     );
   }
