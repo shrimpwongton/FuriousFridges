@@ -51,7 +51,7 @@ class Dashboard extends React.Component {
               destinationArray = {this.props.colDestinationArray}
               origin={this.props.origin}
               destination={this.props.destination}/>
-            {/*<Transit />
+            <Transit />
             <div>
               <MeetUp />
             </div>
@@ -66,7 +66,7 @@ class Dashboard extends React.Component {
             </div>
             <div>
               <Schools />
-            </div>*/}
+            </div>
           </div>
         </div>
       </div>
