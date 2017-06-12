@@ -271,17 +271,6 @@ class CityInfo extends React.Component {
       chip: {
         margin: 4,
       },
-      paper: {
-        height: this.state.width > 750 ? 60 : 40,
-        width: this.state.width > 750 ? 60 : 40,
-        margin: 0,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '50%',
-        margin: '0 auto',
-        backgroundColor: blueGrey300,
-      },
       chipGrow: {
         width: 'auto',
         minWidth: 100,
@@ -372,7 +361,7 @@ class CityInfo extends React.Component {
                         <div
                           style={{
                             textAlign: 'center',
-                            minWidth: this.state.width > 750 ? 120 : 80}}>
+                            minWidth: context.props.width > 750 ? 120 : 80}}>
                           <div
                             style={{marginBottom: 4}}>
                             <span
@@ -380,7 +369,15 @@ class CityInfo extends React.Component {
                               {citySize[city.id][0]}
                             </span>
                           </div>
-                          <Paper style={styles.paper} zDepth={1} circle={true} >
+                          <Paper style={{
+                            height: context.props.width > 750 ? 60 : 40,
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            width: '50%',
+                            margin: '0 auto',
+                            backgroundColor: blueGrey300,
+                          }} zDepth={1} circle={true} >
                             <span
                               style={styles.summary}>
                               {city.id === 'POPULATION-SIZE' ? city.float_value.toFixed(2) : Math.floor(city.float_value)}
