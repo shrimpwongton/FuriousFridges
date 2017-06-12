@@ -8,7 +8,8 @@ import { white, pinkA200 } from 'material-ui/styles/colors';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
-import { withGoogleMap, GoogleMap, Marker} from 'react-google-maps';
+import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
+import { default as MarkerClusterer } from 'react-google-maps/lib/addons/MarkerClusterer';
 
 const GettingStartedGoogleMap = withGoogleMap(props => {
   return (
@@ -18,12 +19,17 @@ const GettingStartedGoogleMap = withGoogleMap(props => {
       defaultCenter={{ lat: 39.4146132, lng: -101.0044277 }}
       onClick={props.onMapClick}
     >
-      {props.markers.map((marker) => (
-        <Marker
-          {...marker}
-          onRightClick={() => props.onMarkerRightClick(marker)}
-        />
-      ))}
+      <MarkerClusterer
+        averageCenter={true}
+        enableRetinaIcons={true}
+        gridSize={60}>
+        {props.markers.map((marker) => (
+          <Marker
+            {...marker}
+            onRightClick={() => props.onMarkerRightClick(marker)}
+          />
+        ))}
+      </MarkerClusterer>
     </GoogleMap>
   );
 });
@@ -37,7 +43,7 @@ class QuestionView extends React.Component {
           lat: 39.4146132,
           lng: -101.0044277,
         },
-        key: `United States`,
+        key: 'United States',
         defaultAnimation: 2,
       }],
     };
@@ -65,24 +71,17 @@ class QuestionView extends React.Component {
    * Go and try click now.
    */
   handleMapClick(event) {
-    const nextMarkers = [
-      ...this.state.markers,
-      {
-        position: event.latLng,
-        defaultAnimation: 2,
-        key: Date.now(), // Add a key property for: http://fb.me/react-warning-keys
-      },
-    ];
-    this.setState({
-      markers: nextMarkers,
-    });
-
-    if (nextMarkers.length === 3) {
-      this.props.toast(
-        `Right click on the marker to remove it`,
-        `Also check the code!`
-      );
-    }
+    // const nextMarkers = [
+    //   ...this.state.markers,
+    //   {
+    //     position: event.latLng,
+    //     defaultAnimation: 2,
+    //     key: Date.now(), // Add a key property for: http://fb.me/react-warning-keys
+    //   },
+    // ];
+    // this.setState({
+    //   markers: nextMarkers,
+    // });
   }
 
   handleMarkerRightClick(targetMarker) {
@@ -91,10 +90,10 @@ class QuestionView extends React.Component {
      * This is so called data-driven-development. (And yes, it's now in
      * web front end and even with google maps API.)
      */
-    const nextMarkers = this.state.markers.filter(marker => marker !== targetMarker);
-    this.setState({
-      markers: nextMarkers,
-    });
+    // const nextMarkers = this.state.markers.filter(marker => marker !== targetMarker);
+    // this.setState({
+    //   markers: nextMarkers,
+    // });
   }
 
 
@@ -104,10 +103,10 @@ class QuestionView extends React.Component {
         <div className='col-xs-7'>
           <GettingStartedGoogleMap
             containerElement={
-              <div style={{ height: `700px` }} />
+              <div style={{ height: '700px' }} />
             }
             mapElement={
-              <div style={{ height: `100%` }} />
+              <div style={{ height: '100%' }} />
             }
             onMapLoad={this.handleMapLoad}
             onMapClick={this.handleMapClick}

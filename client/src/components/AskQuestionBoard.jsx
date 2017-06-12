@@ -54,7 +54,7 @@ class AskQuestionBoard extends React.Component {
     })
       .then(res => {
         let questions = res.data;
-        // this.props.dispatchQuestions(questions);
+        this.props.dispatchQuestions(questions);
         this.setMapMarkers(questions);
       });
   }
@@ -65,7 +65,7 @@ class AskQuestionBoard extends React.Component {
         lat: entry.latitude,
         lng: entry.longitude
       },
-      key: entry.location,
+      key: entry.id,
       defaultAnimation: 2
     }));
     this.props.dispatchMapMarkers(markers);
