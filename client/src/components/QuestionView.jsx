@@ -47,7 +47,12 @@ class QuestionView extends React.Component {
     this.handleMarkerRightClick = this.handleMarkerRightClick.bind(this);
   }
 
-
+  componentWillReceiveProps(nextProps) {
+    //console.log('COMPARE: ', this.props.mapMarkers.length, nextProps.mapMarkers.length);
+    if (this.props.mapMarkers.length !== nextProps.mapMarkers.length) {
+      this.forceUpdate();
+    }
+  }
   handleMapLoad(map) {
     this._mapComponent = map;
     if (map) {
@@ -94,7 +99,7 @@ class QuestionView extends React.Component {
 
 
   render() {
-    return (   
+    return (
       <div className='row'>
         <div className='col-xs-7'>
           <GettingStartedGoogleMap
@@ -106,7 +111,7 @@ class QuestionView extends React.Component {
             }
             onMapLoad={this.handleMapLoad}
             onMapClick={this.handleMapClick}
-            markers={this.state.markers}
+            markers={this.props.mapMarkers}
             onMarkerRightClick={this.handleMarkerRightClick}
           />
         </div>
@@ -145,7 +150,9 @@ const styles = {
 };
 
 const mapStateToProps = (state) => ({
-  questions: state.questionBoard.questions
+  questions: state.questionBoard.questions,
+  currentUser: state.questionBoard.currentUser,
+  mapMarkers: state.questionBoard.mapMarkers
 });
 
 export default connect(mapStateToProps)(QuestionView);

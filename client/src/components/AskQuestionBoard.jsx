@@ -19,7 +19,8 @@ import { setQuestion,
          setErrorText,
          setCurrentQuestion,
          setCurrentView,
-         setCurrentUser } from '../actions';
+         setCurrentUser,
+         setMapMarkers } from '../actions';
 
 
 class AskQuestionBoard extends React.Component {
@@ -53,8 +54,21 @@ class AskQuestionBoard extends React.Component {
     })
       .then(res => {
         let questions = res.data;
-        this.props.dispatchQuestions(questions);
+        // this.props.dispatchQuestions(questions);
+        this.setMapMarkers(questions);
       });
+  }
+
+  setMapMarkers(questions) {
+    let markers = questions.map(entry => ({ 
+      position: {
+        lat: entry.latitude,
+        lng: entry.longitude
+      },
+      key: entry.location,
+      defaultAnimation: 2
+    }));
+    this.props.dispatchMapMarkers(markers);
   }
 
   handleQuestionDialogClose() {
@@ -208,7 +222,7 @@ class AskQuestionBoard extends React.Component {
       handleAnswerSubmit={this.handleAnswerSubmit}
       deleteAnswer={this.deleteAnswer}
     />;
-    const hintText=['What is there to do in ', 'What is the climate like in ', 'How safe is it in '];
+    const hintText = ['What is there to do in ', 'What is the climate like in ', 'How safe is it in '];
     let view;
     if (this.props.currentView === 'questions') {
       view = questionView;
@@ -259,7 +273,8 @@ const mapStateToProps = (state) => ({
   errorText: state.questionBoard.errorText,
   currentQuestion: state.questionBoard.currentQuestion,
   currentView: state.questionBoard.currentView,
-  currentUser: state.questionBoard.currentUser
+  currentUser: state.questionBoard.currentUser,
+  mapMarkers: state.questionBoard.mapMarkers
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -290,6 +305,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     dispatchCurrentUser: (currentUser) => {
       dispatch(setCurrentUser(currentUser));
+    },
+    dispatchMapMarkers: (mapMarkers) => {
+      dispatch(setMapMarkers(mapMarkers));
     }
   };
 };
