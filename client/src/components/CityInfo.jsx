@@ -261,6 +261,11 @@ class CityInfo extends React.Component {
         color: grey50,
         fontSize: '1em',
       },
+      textMobile: {
+        fontFamily: "'Roboto', sans-serif",
+        color: grey50,
+        fontSize: '0.8em',
+      },
       subHeaderStyle: {
         fontFamily: "'Roboto', sans-serif",
         color: grey50,
@@ -361,7 +366,7 @@ class CityInfo extends React.Component {
                         <div
                           style={{
                             textAlign: 'center',
-                            minWidth: context.props.width > 750 ? 120 : 80}}>
+                            minWidth: this.props.width > 750 ? 120 : 80}}>
                           <div
                             style={{marginBottom: 4}}>
                             <span
@@ -370,7 +375,7 @@ class CityInfo extends React.Component {
                             </span>
                           </div>
                           <Paper style={{
-                            height: context.props.width > 750 ? 60 : 40,
+                            height: this.props.width > 750 ? 60 : 40,
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
@@ -379,7 +384,7 @@ class CityInfo extends React.Component {
                             backgroundColor: blueGrey300,
                           }} zDepth={1} circle={true} >
                             <span
-                              style={styles.summary}>
+                              style={this.props.width > 750 ? styles.summary : styles.textMobile}>
                               {city.id === 'POPULATION-SIZE' ? city.float_value.toFixed(2) : Math.floor(city.float_value)}
                             </span>
                           </Paper>
