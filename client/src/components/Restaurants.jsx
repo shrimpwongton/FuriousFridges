@@ -41,36 +41,6 @@ class Restaurants extends React.Component {
       },
     };
 
-    /*
-     <div>
-     <Card
-     style={styles.card}>
-     <CardHeader
-     title='Find Great Eats!'
-     subtitle='Explore the best restaurants'
-     />
-     <Divider/>
-     <GridList
-     cellHeight={100}
-     style={styles.gridList}
-     >
-     {restaurants.map((restaurant) => (
-     <GridTile
-     title={restaurant[1].name}
-     subtitle={"rating: " + restaurant[1].rating}
-     cols = {2}
-     rows = {2}
-     >
-     <a target="_blank">
-     <img src = {restaurant[1].image} />
-     </a>
-     </GridTile>
-     ))}
-     </GridList>
-     </Card>
-     </div>
-     */
-
     return (
       <div>
         <Card
@@ -91,7 +61,9 @@ class Restaurants extends React.Component {
             <CardMedia
               overlay={
                 <CardTitle
-                  subtitle={restaurant[1].name} />}
+                  title={restaurant[1].name}
+                  subtitle={'Rating: ' + restaurant[1].rating}
+                />}
             >
               <img
                 src={restaurant[1].image}
