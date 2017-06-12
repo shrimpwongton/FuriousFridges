@@ -1,8 +1,5 @@
 import React from 'react';
-import axios from 'axios';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import {GridList, GridTile} from 'material-ui/GridList';
-import Divider from 'material-ui/Divider';
 import {
   grey500, green500, grey50, lightGreen500, amber500, orange500, red500,
 } from 'material-ui/styles/colors';
@@ -91,7 +88,6 @@ class COLComparisonCard extends React.Component {
         flexGrow: 1,
       },
       cardText: {
-        minWidth: 200,
         height: 150,
         position: 'relative',
         backgroundColor: color,
@@ -111,31 +107,31 @@ class COLComparisonCard extends React.Component {
       }
     };
     return (
-      <div>
-        <MuiThemeProvider>
-          <Card
-            style={styles.card}>
-            <ListItem
-              primaryText='Cost of Living Comparison'
-              secondaryText={this.state.origin + ' → ' + this.state.destination}
-              disabled={true}
-              style={{backgroundColor: grey50}}
-              leftAvatar={
-                <Avatar
-                icon={<EditorAttachMoney/>}
-                backgroundColor={color}
-                />
-              }
-            />
-            <CardText
-              style={styles.cardText}>
-              <span
-                style={styles.cutOffText}>
-                {this.calculateChangeInCOL()}
-              </span>
-            </CardText>
-          </Card>
-        </MuiThemeProvider>
+      <div
+        style={{flexGrow: 1}}>
+        <Card
+          style={styles.card}>
+          <ListItem
+            primaryText='Cost of Living Comparison'
+            secondaryText={this.state.origin + ' → ' + this.state.destination}
+            secondaryTextLines={2}
+            disabled={true}
+            style={{backgroundColor: grey50}}
+            leftAvatar={
+              <Avatar
+              icon={<EditorAttachMoney/>}
+              backgroundColor={color}
+              />
+            }
+          />
+          <CardText
+            style={styles.cardText}>
+            <span
+              style={styles.cutOffText}>
+              {this.calculateChangeInCOL()}
+            </span>
+          </CardText>
+        </Card>
       </div>
     );
   }
