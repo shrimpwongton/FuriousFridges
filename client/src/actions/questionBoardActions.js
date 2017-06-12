@@ -37,3 +37,7 @@ export const setCurrentUser = (currentUser) => {
 export const setMapMarkers = (mapMarkers) => {
   return { type: 'SET_MAP_MARKERS', payload: mapMarkers };
 };
+
+export const setQuestionsInView = (questionsInView) => {
+  return { type: 'SET_QUESTIONS_IN_VIEW', payload: questionsInView };
+};

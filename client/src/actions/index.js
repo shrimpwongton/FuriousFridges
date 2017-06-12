@@ -7,7 +7,8 @@ export { setQuestion,
          setCurrentQuestion,
          setCurrentView,
          setCurrentUser,
-         setMapMarkers } from './questionBoardActions';
+         setMapMarkers,
+         setQuestionsInView } from './questionBoardActions';
 
 
 export { setHousing,

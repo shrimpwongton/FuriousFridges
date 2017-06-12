@@ -71,6 +71,9 @@ class QuestionView extends React.Component {
    * Go and try click now.
    */
   handleMapClick(event) {
+    console.dir(this._mapComponent);
+    let targetMarker = this.props.mapMarkers[0];
+    console.log('Are the markers in view? ', this._mapComponent.getBounds().contains(targetMarker.position));
     // const nextMarkers = [
     //   ...this.state.markers,
     //   {
@@ -149,7 +152,6 @@ const styles = {
 };
 
 const mapStateToProps = (state) => ({
-  questions: state.questionBoard.questions,
   currentUser: state.questionBoard.currentUser,
   mapMarkers: state.questionBoard.mapMarkers
 });

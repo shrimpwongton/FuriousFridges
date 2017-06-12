@@ -20,7 +20,8 @@ import { setQuestion,
          setCurrentQuestion,
          setCurrentView,
          setCurrentUser,
-         setMapMarkers } from '../actions';
+         setMapMarkers,
+         setQuestionsInView } from '../actions';
 
 
 class AskQuestionBoard extends React.Component {
@@ -55,6 +56,7 @@ class AskQuestionBoard extends React.Component {
       .then(res => {
         let questions = res.data;
         this.props.dispatchQuestions(questions);
+        this.props.dispatchQuestionsInView(questions);
         this.setMapMarkers(questions);
       });
   }
@@ -274,7 +276,8 @@ const mapStateToProps = (state) => ({
   currentQuestion: state.questionBoard.currentQuestion,
   currentView: state.questionBoard.currentView,
   currentUser: state.questionBoard.currentUser,
-  mapMarkers: state.questionBoard.mapMarkers
+  mapMarkers: state.questionBoard.mapMarkers,
+  questionsInView: state.questionBoard.questionsInView
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -308,6 +311,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     dispatchMapMarkers: (mapMarkers) => {
       dispatch(setMapMarkers(mapMarkers));
+    },
+    dispatchQuestionsInView: (questionsInView) => {
+      dispatch(setQuestionsInView(questionsInView));
     }
   };
 };

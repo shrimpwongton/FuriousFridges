@@ -11,7 +11,7 @@ const QuestionCollection = (props) => (
     {/*<CardTitle title={objectKeyByValue(CityOptions, props.destinationCity)[0] + ' Q&A'} />*/}
     <CardTitle title={<span style={{'color': blueGrey700, 'fontWeight': 'bold' }}>Have a question? Ask location verified users!</span>} />
     {
-      props.questions.map(question =>
+      props.questionsInView.map(question =>
         <Question question={question}
                   handleQuestionClick={props.handleQuestionClick}
                   key={question.id}
@@ -30,15 +30,8 @@ const objectKeyByValue = (obj, val) => {
 };
 
 const mapStateToProps = (state) => ({
-  questions: state.questionBoard.questions
+  questions: state.questionBoard.questions,
+  questionsInView: state.questionBoard.questionsInView
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    dispatchQuestions: (questions) => {
-      dispatch(setQuestions(questions));
-    }
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(QuestionCollection);
+export default connect(mapStateToProps)(QuestionCollection);
