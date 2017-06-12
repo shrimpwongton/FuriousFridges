@@ -104,14 +104,12 @@ class Profile extends React.Component {
         let country = location.address.country || null;
 
         if (country === 'United States') {
-          country = 'US';
+          country = 'USA';
         }
         if (city !== null && state !== null && country !== null) {
           cityStateCountry = `${city}, ${state}, ${country}`;
         } else if (city !== null && state === null && country !== null) {
           cityStateCountry = `${city}, ${country}`;
-        } else {
-          cityStateCountry = 'No location data';
         }
       }
 
