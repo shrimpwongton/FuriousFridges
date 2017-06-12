@@ -44,30 +44,17 @@ class Dashboard extends React.Component {
     return (
       <div style={styles.flexStyle}>
         <div style={styles.centerStyle}>
-          <div
-            style={{flexGrow: 1}}>
-            <COLComparisonCard
-              originArray = {this.props.colOriginArray}
-              destinationArray = {this.props.colDestinationArray}
-              origin={this.props.origin}
-              destination={this.props.destination}/>
-            <Transit />
-            <div>
-              <MeetUp />
-            </div>
-            <div>
-              <Restaurants />
-            </div>
-            <div>
-              <CraigsList />
-            </div>
-             <div>
-              <EventCard />
-            </div>
-            <div>
-              <Schools />
-            </div>
-          </div>
+          <COLComparisonCard
+            originArray = {this.props.colOriginArray}
+            destinationArray = {this.props.colDestinationArray}
+            origin={this.props.origin}
+            destination={this.props.destination}/>
+          <Transit />
+          <MeetUp />
+          <Restaurants />
+          {/*<CraigsList />
+          <EventCard />
+          <Schools />*/}
         </div>
       </div>
     );

@@ -1,19 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {GridList, GridTile} from 'material-ui/GridList';
-import IconButton from 'material-ui/IconButton';
-import Subheader from 'material-ui/Subheader';
-import DatePicker from 'material-ui/DatePicker';
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
-import EventSeat from 'material-ui/svg-icons/action/event-seat';
 import Avatar from 'material-ui/Avatar';
-import Arrow from 'material-ui/svg-icons/navigation/arrow-forward';
-import Divider from 'material-ui/Divider';
+import SocialGroup from 'material-ui/svg-icons/social/group';
 import {
   grey500, white, green500,
 } from 'material-ui/styles/colors';
+import {ListItem} from "material-ui/List";
+import Divider from 'material-ui/Divider';
 
 
 class MeetUp extends React.Component {
@@ -34,61 +28,49 @@ class MeetUp extends React.Component {
           sample.push(res.data[key]);
         }
         this.setState({meetups: sample});
-      }); 
+      });
   }
 
 
   render() {
     let meetups = Object.entries(this.state.meetups);
-    
+
     const styles = {
       card: {
-        width: '100%',
-        height: 400,
+        margin: 8,
+        overflow: 'hidden',
+        maxWidth: 300,
       },
-      gridList: {
-        width: '100%',
-        height: '80%',
-        overflowY: 'auto',
-      },
-      avatar: {
-        backgroundColor: green500,
-      },
-      cardHeader: {
-        height: '20%',
-      },
-      chart: {
-        width: '80%'
-      }
-    }; 
-
+    };
     return (
       <div>
         <Card
           style={styles.card}>
-          <CardHeader
-            title='Meet New People!'
-            subtitle={'Find people with mutual interests'}
+          <ListItem
+            primaryText='Meet Ups'
+            secondaryText='Find people with mutual interests'
+            disabled={true}
+            secondaryTextLines={2}
+            leftAvatar={
+              <Avatar
+                icon={<SocialGroup/>}
+              />
+            }
           />
           <Divider/>
-          <GridList
-            cellHeight={100}
-            style={styles.gridList}
-          >
-            {meetups.map((meetup) => (
-              <GridTile
-                title={meetup[1].name}
-                cols = {2}
-                rows = {2} 
-              >
-                <a target="_blank" href={meetup[1].url}>
-                  <img src = {meetup[1].image} />
-                </a>
-              </GridTile>
-            ))}
-          </GridList>
+          {meetups.map((meetup) => (
+            <CardMedia
+              overlay={
+                <CardTitle
+                  subtitle={meetup[1].name} />}
+            >
+              <img
+                src={meetup[1].image}
+                alt="" />
+            </CardMedia>
+          ))}
         </Card>
-      </div>    
+      </div>
     );
   }
 }
