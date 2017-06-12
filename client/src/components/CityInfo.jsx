@@ -254,7 +254,7 @@ class CityInfo extends React.Component {
       city: {
         fontFamily: "'Roboto Medium', sans-serif",
         color: grey50,
-        fontSize: '3em',
+        fontSize: this.props.width > 750 ? '3em' : '2em',
       },
       summary: {
         fontFamily: "'Roboto', sans-serif",
@@ -358,7 +358,6 @@ class CityInfo extends React.Component {
                       :
                       <div/>
                     }
-                    <br/>
                     <div
                       style={this.props.width > 750 ? styles.centerStyle : styles.mobileCenterStyle}>
                       {
