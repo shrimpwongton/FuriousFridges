@@ -365,14 +365,8 @@ class CityInfo extends React.Component {
                         <div
                           style={{
                             textAlign: 'center',
-                            minWidth: this.props.width > 750 ? 120 : 80}}>
-                          <div
-                            style={{marginBottom: 4}}>
-                            <span
-                              style={{color: grey50, fontFamily: "'Roboto', sans-serif", fontSize: '0.8em'}}>
-                              {citySize[city.id][0]}
-                            </span>
-                          </div>
+                            minWidth: this.props.width > 750 ? 120 : 80,
+                            marginTop: 4}}>
                           <Paper style={{
                             height: this.props.width > 750 ? 60 : 40,
                             display: 'flex',
@@ -391,6 +385,12 @@ class CityInfo extends React.Component {
                             style={{marginTop: 4}}>
                             <span
                               style={{color: grey50, fontFamily: "'Roboto', sans-serif", fontSize: '0.8em'}}>
+                              {citySize[city.id][0]}
+                            </span>
+                          </div>
+                          <div>
+                            <span
+                              style={{color: grey50, fontFamily: "'Roboto', sans-serif", fontSize: '0.6em'}}>
                               {citySize[city.id][1]}
                             </span>
                           </div>
@@ -553,7 +553,7 @@ class CityInfo extends React.Component {
           <div
             style={this.props.width > 750 ? styles.centerStyle : styles.mobileCenterStyle}>
               {
-              context.state.colArray.map((colData, index) =>
+                context.state.colArray.length > 0 ? context.state.colArray.map((colData, index) =>
                 <div
                   style={styles.growStyle}>
                   <MuiThemeProvider>
@@ -572,7 +572,10 @@ class CityInfo extends React.Component {
                     </Card>
                   </MuiThemeProvider>
                 </div>
-              )
+              ) :
+                <span>
+                  There is no cost of living information.
+                </span>
             }
             {
               this.props.width > 750 ?
@@ -594,7 +597,7 @@ class CityInfo extends React.Component {
           <div
             style={this.props.width > 750 ? styles.centerStyle : styles.mobileCenterStyle}>
             {
-              context.state.climate.map((climateData, index) =>
+              context.state.climate.length > 0 ? context.state.climate.map((climateData, index) =>
                 <div
                   style={styles.growStyle}>
                   <MuiThemeProvider>
@@ -626,7 +629,10 @@ class CityInfo extends React.Component {
                     </Card>
                   </MuiThemeProvider>
                 </div>
-              )
+              ) :
+              <span>
+                There is no climate information.
+              </span>
             }
             {
               this.props.width > 750 ?
