@@ -242,7 +242,7 @@ class AskQuestionBoard extends React.Component {
             />
           </Dialog>
         </div>
-        <div style={styles.divStyle}>
+        <div className='container-fluid full-height'>
           {view}
         </div>
       </div>

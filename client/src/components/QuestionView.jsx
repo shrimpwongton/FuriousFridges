@@ -7,28 +7,75 @@ import { white, pinkA200 } from 'material-ui/styles/colors';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
-const QuestionView = (props) => (
-  <div>
-    <Card
-      style={styles.cardStyle}>
-      <QuestionCollection handleQuestionClick={props.handleQuestionClick}
-                          deleteQuestion={props.deleteQuestion}
-                          destinationCity={props.destinationCity}
+import { withGoogleMap, GoogleMap, Marker} from 'react-google-maps';
+
+const GettingStartedGoogleMap = withGoogleMap(props => (
+  <GoogleMap
+    ref={props.onMapLoad}
+    defaultZoom={3}
+    defaultCenter={{ lat: -25.363882, lng: 131.044922 }}
+    onClick={props.onMapClick}
+  >
+    {props.markers.map((marker, index) => (
+      <Marker
+        {...marker}
+        onRightClick={() => props.onMarkerRightClick(index)}
       />
-    </Card>
-    <FloatingActionButton
-      mini={props.width <= 750}
-      style={styles.askQuestionButton}
-      onTouchTap={props.openQuestionDialog}
-      backgroundColor={pinkA200}>
-      <ContentAdd />
-    </FloatingActionButton>
-  </div>
-);
+    ))}
+  </GoogleMap>
+));
+
+const QuestionView = (props) => {
+  let markers = [{
+      position: {
+        lat: 25.0112183,
+        lng: 121.52067570000001,
+      },
+      key: `Taiwan`,
+      defaultAnimation: 2,
+    }]; 
+  return (
+   
+      <div className='row full-height'>
+        <div className='col-xs-7'>
+          <GettingStartedGoogleMap
+            containerElement={
+              <div style={{ height: `100%` }} />
+            }
+            mapElement={
+              <div style={{ height: `100%` }} />
+            }
+            onMapLoad={_.noop}
+            onMapClick={_.noop}
+            markers={markers}
+            onMarkerRightClick={_.noop}
+          />
+        </div>
+        <div className='col-xs-5'>
+          <Card
+            style={styles.cardStyle}>
+            <QuestionCollection handleQuestionClick={props.handleQuestionClick}
+                                deleteQuestion={props.deleteQuestion}
+                                destinationCity={props.destinationCity}
+            />
+          </Card>
+
+        <FloatingActionButton
+          mini={props.width <= 750}
+          style={styles.askQuestionButton}
+          onTouchTap={props.openQuestionDialog}
+          backgroundColor={pinkA200}>
+          <ContentAdd />
+        </FloatingActionButton>
+        </div>
+      </div>
+   
+  );
+}
 
 const styles = {
   cardStyle: {
-    width: '75vw',
+    width: '35vw',
   },
   askQuestionButton: {
     margin: 0,
