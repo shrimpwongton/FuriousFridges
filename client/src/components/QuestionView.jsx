@@ -7,6 +7,7 @@ import { Card } from 'material-ui/Card';
 import { white, pinkA200 } from 'material-ui/styles/colors';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import { setQuestionsInView } from '../actions';
 
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import { default as MarkerClusterer } from 'react-google-maps/lib/addons/MarkerClusterer';
@@ -71,9 +72,13 @@ class QuestionView extends React.Component {
    * Go and try click now.
    */
   handleMapClick(event) {
-    console.dir(this._mapComponent);
     let targetMarker = this.props.mapMarkers[0];
-    console.log('Are the markers in view? ', this._mapComponent.getBounds().contains(targetMarker.position));
+    //console.log('Are the markers in view? ', this._mapComponent.getBounds().contains(targetMarker.position));
+    let allQuestions = this.props.questions;
+    let questionsToDisplay =_.filter(allQuestions, question => 
+      this._mapComponent.getBounds().contains({ lat: question.latitude, lng: question.longitude })   
+    );
+    this.props.dispatchQuestionsInView(questionsToDisplay);
     // const nextMarkers = [
     //   ...this.state.markers,
     //   {
@@ -153,7 +158,17 @@ const styles = {
 
 const mapStateToProps = (state) => ({
   currentUser: state.questionBoard.currentUser,
-  mapMarkers: state.questionBoard.mapMarkers
+  mapMarkers: state.questionBoard.mapMarkers,
+  questions: state.questionBoard.questions,
+  questionsInView: state.questionBoard.questionsInView
 });
 
-export default connect(mapStateToProps)(QuestionView);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatchQuestionsInView: (questionsInView) => {
+      dispatch(setQuestionsInView(questionsInView));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(QuestionView);
