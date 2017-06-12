@@ -11,6 +11,7 @@ module.exports.getAll = (req, res) => {
           author: relationObj.firstName + ' ' + relationObj.lastName,
           body: a.attributes.answer,
           location: a.attributes.location,
+          userId: a.attributes.user_id,
           question_id: a.attributes.question_id,
           createdAt: a.attributes.created_at,
           photoUrl: relationObj.photoUrl
@@ -40,6 +41,8 @@ module.exports.create = (req, res) => {
             author: user.attributes.firstName + ' ' + user.attributes.lastName,
             body: a.attributes.answer,
             location: a.attributes.location,
+            userId: a.attributes.user_id,
+            question_id: a.attributes.question_id,
             createdAt: a.attributes.created_at,
             photoUrl: user.attributes.photoUrl
           };

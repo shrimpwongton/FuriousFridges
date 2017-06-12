@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {List, ListItem} from 'material-ui/List';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Avatar from 'material-ui/Avatar';
@@ -36,6 +37,25 @@ const Answer = (props) => {
   } else {
     postTime = 'More than a year ago';
   }
+
+  let iconMenuUser = <IconMenu
+    iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+    anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+    targetOrigin={{horizontal: 'right', vertical: 'top'}}
+  >
+    <MenuItem
+      primaryText="Delete"
+      onTouchTap={() => { props.deleteAnswer(props.answer.id); }}
+    />
+  </IconMenu>;
+  let iconMenu;
+
+  if (props.answer.userId === props.currentUser.id) {
+    iconMenu = iconMenuUser;
+  } else {
+    iconMenu = null;
+  }
+
   return (
     <div>
       <MuiThemeProvider>
@@ -44,22 +64,15 @@ const Answer = (props) => {
           secondaryText={`${props.answer.author} · ${props.answer.location} · ${postTime}`}
           disabled={true}
           leftAvatar={<Avatar src={props.answer.photoUrl} />}
-          rightIconButton={
-            <IconMenu
-              iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-              anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-              targetOrigin={{horizontal: 'right', vertical: 'top'}}
-            >
-              <MenuItem
-                primaryText="Delete"
-                onTouchTap={() => { props.deleteAnswer(props.answer.id); }}
-              />
-            </IconMenu>
-          }
+          rightIconButton={iconMenu}
         />
       </MuiThemeProvider>
     </div>
   );
 };
 
-export default Answer;
+const mapStateToProps = (state) => ({
+  currentUser: state.questionBoard.currentUser
+});
+
+export default connect(mapStateToProps)(Answer);
