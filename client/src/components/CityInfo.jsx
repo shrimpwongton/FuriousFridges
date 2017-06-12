@@ -272,8 +272,8 @@ class CityInfo extends React.Component {
         margin: 4,
       },
       paper: {
-        height: 50,
-        width: 50,
+        height: this.state.width > 750 ? 60 : 40,
+        width: this.state.width > 750 ? 60 : 40,
         margin: 0,
         display: 'flex',
         justifyContent: 'center',
@@ -372,7 +372,7 @@ class CityInfo extends React.Component {
                         <div
                           style={{
                             textAlign: 'center',
-                            minWidth: 100}}>
+                            minWidth: this.state.width > 750 ? 120 : 80}}>
                           <div
                             style={{marginBottom: 4}}>
                             <span
