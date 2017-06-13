@@ -54,7 +54,7 @@ class NewUserForm extends React.Component {
     this.saveData = this.saveData.bind(this);
     this.handleVisibilityToggle = this.handleVisibilityToggle.bind(this);
   }
-  
+
   saveData() {
     axios.put('/users', {
       origin: this.state.originValue,
@@ -77,7 +77,7 @@ class NewUserForm extends React.Component {
 
   async (cb) {
     this.setState({loading: true}, () => {
-      this.asyncTimer = setTimeout(cb, 250);
+      this.asyncTimer = setTimeout(cb, 500);
     });
   }
 

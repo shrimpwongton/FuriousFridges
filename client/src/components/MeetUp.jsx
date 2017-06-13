@@ -9,6 +9,7 @@ import {
 import {ListItem} from "material-ui/List";
 import Divider from 'material-ui/Divider';
 import {GridList, GridTile} from 'material-ui/GridList';
+import $ from 'jquery';
 
 
 class MeetUp extends React.Component {

@@ -48,7 +48,7 @@ class Profile extends React.Component {
       question: false,
       profilePic: '',
       visibilityValue: false,
-      spinner: true
+      spinner: true,
     };
 
     this.handleToggle = this.handleToggle.bind(this);
@@ -98,7 +98,7 @@ class Profile extends React.Component {
       let cityStateCountry = 'Anonymous location';
       let latitude = -37.297947;
       let longitude = -12.677656;
-      
+
       if (err) {
         console.log('ERROR: Unable to resolve location! You may be blocking location services', err);
       } else {
@@ -119,7 +119,7 @@ class Profile extends React.Component {
         }
         if (location.coords.longitude) {
           longitude = location.coords.longitude;
-        } 
+        }
       }
 
       axios.put('/users', {
@@ -343,7 +343,12 @@ class Profile extends React.Component {
       'Replacing humans with robots',
       'Dropping tables',
       'Choosing React over Angular',
-      ''
+      'Gathering nuclear launch codes',
+      'Getting stuck in while loops',
+      'Materializing UI',
+      'Putting up a fake loading screen',
+      'Destroying the human race',
+
     ];
 
     if (this.state.spinner) {

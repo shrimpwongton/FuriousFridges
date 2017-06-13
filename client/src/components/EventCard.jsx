@@ -36,7 +36,6 @@ class EventCard extends React.Component {
 
   render() {
     let events = Object.entries(this.state.events);
-
     const styles = {
       card: {
         margin: 8,

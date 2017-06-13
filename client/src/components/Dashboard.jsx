@@ -35,27 +35,10 @@ class Dashboard extends React.Component {
   }
 
   render () {
-    /*
-     <div style={styles.flexStyle}>
-     <div style={styles.centerStyle}>
-     <COLComparisonCard
-     originArray = {this.props.colOriginArray}
-     destinationArray = {this.props.colDestinationArray}
-     origin={this.props.origin}
-     destination={this.props.destination}/>
-     <Transit />
-     <MeetUp />
-     <Restaurants />
-     <CraigsList />
-     <EventCard />
-     <Schools />
-    </div>
-    </div>
-     */
     return (
 
         <Masonry // default ''\
-          updateOnEachImageLoad = {true}
+          ref={function(c) {this.masonry = this.masonry || c.masonry;}.bind(this)}
           style={{margin: '0 auto'}}
           options={{isFitWidth: true, gutter: 4}}
         >
@@ -70,9 +53,9 @@ class Dashboard extends React.Component {
             origin={this.props.origin}
             destination={this.props.destination}/>
           <Transit />
-          <MeetUp />
+          <MeetUp/>
           <Restaurants />
-          <EventCard />
+          <EventCard/>
           <CraigsList />
           <NightClub />
           <Gyms />
