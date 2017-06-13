@@ -62,9 +62,9 @@ class EventCard extends React.Component {
           />
           <Divider/>
           <GridList
-          cellHeight={200}
-          cols={1}
-        >
+            cellHeight={200}
+            cols={1}
+          >
           {events.length !== 0 ? events.map((event) => (
             <GridTile
               title={event[1].description}

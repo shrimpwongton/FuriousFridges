@@ -60,7 +60,6 @@ class CraigsList extends React.Component {
           {this.state.listings.map((listing) => (
             <ListItem
               target="_blank" href={listing.url}
-              key={listing.title}
               primaryText={listing.title}
               secondaryText={listing.price || 'Free'}
               leftAvatar={
