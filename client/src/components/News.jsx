@@ -71,7 +71,7 @@ class News extends React.Component {
           />
           <Divider/>
           <List>
-            {this.state.stories.map((story) => (
+            {this.state.stories !== 0 ? this.state.stories.map((story) => (
               <ListItem  
                 target="_blank" href={story.url}
                 key={story.headline}
@@ -79,7 +79,12 @@ class News extends React.Component {
               >
               
               </ListItem>
-            ))}
+            )) :
+
+            <ListItem 
+              primaryText = 'No current news stories in the area'
+              />
+            }
           </List>
         </Card>
       </div>

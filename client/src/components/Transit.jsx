@@ -72,7 +72,7 @@ class Transit extends React.Component {
             }
           />
           <Divider/>
-          {stations.map((station) => (
+          {stations.length !== 0 ? stations.map((station) => (
             <ListItem
               primaryText={station[1].name}
               secondaryText={typeMapping[station[1].type][0]}
@@ -83,7 +83,11 @@ class Transit extends React.Component {
                 />
               }
             />
-          ))}
+          )) :
+            <ListItem
+              primaryText = 'No listings available'
+            />
+        }
         </Card>
       </div>
     );

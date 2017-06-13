@@ -73,7 +73,7 @@ class Schools extends React.Component {
             cellHeight={100}
             style={styles.gridList}
           >
-            {schools.map((school) => (
+            {schools.length !== 0 ? schools.map((school) => (
               <GridTile
                 title={school[1].name}
                 subtitle={"type: " + school[1].type}
@@ -84,7 +84,11 @@ class Schools extends React.Component {
                   <img src = {school[1].image} />
                 </a>
               </GridTile>
-            ))}
+            )) :
+            <GridTile 
+              title='No schools nearby' 
+              />
+          }
           </GridList>
         </Card>
       </div>    
