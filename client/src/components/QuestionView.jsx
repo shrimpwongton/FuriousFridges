@@ -38,17 +38,7 @@ const GettingStartedGoogleMap = withGoogleMap(props => {
 class QuestionView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      markers: [{
-        position: {
-          lat: 39.4146132,
-          lng: -101.0044277,
-        },
-        key: 'United States',
-        defaultAnimation: 2,
-      }],
-    };
-
+   
     this.handleMapLoad = this.handleMapLoad.bind(this);
     this.handleMapClick = this.handleMapClick.bind(this);
     this.handleMarkerRightClick = this.handleMarkerRightClick.bind(this);
@@ -75,7 +65,7 @@ class QuestionView extends React.Component {
     let targetMarker = this.props.mapMarkers[0];
     //console.log('Are the markers in view? ', this._mapComponent.getBounds().contains(targetMarker.position));
     let allQuestions = this.props.questions;
-    let questionsToDisplay =_.filter(allQuestions, question => 
+    let questionsToDisplay = _.filter(allQuestions, question => 
       this._mapComponent.getBounds().contains({ lat: question.latitude, lng: question.longitude })   
     );
     this.props.dispatchQuestionsInView(questionsToDisplay);

@@ -117,18 +117,25 @@ class AskQuestionBoard extends React.Component {
     })
       .then(res => {
         let questions = [res.data].concat(this.props.questions);
+        let questionsInView = [res.data].concat(this.props.questionsInView);
         this.props.dispatchQuestions(questions);
+        this.props.dispatchQuestionsInView(questionsInView);
+        this.setMapMarkers(questions);
       });
   }
 
   deleteQuestion(questionId) {
     let questions = this.props.questions;
+    let questionsInView = this.props.questionsInView;
     axios.delete('/questions', {
       params: { questionId }
     })
       .then(res => {
         questions = _.reject(questions, (question) => question.id === questionId);
+        questionsInView = _.reject(questionsInView, (question) => question.id === questionId);
         this.props.dispatchQuestions(questions);
+        this.props.dispatchQuestionsInView(questionsInView);
+        this.setMapMarkers(questions);
       });
   }
 
