@@ -58,41 +58,13 @@ class QuestionView extends React.Component {
     }
   }
 
-  /*
-   * This is called when you click on the map.
-   * Go and try click now.
-   */
   handleMapClick(event) {
     let targetMarker = this.props.mapMarkers[0];
-    //console.log('Are the markers in view? ', this._mapComponent.getBounds().contains(targetMarker.position));
     let allQuestions = this.props.questions;
     let questionsToDisplay = _.filter(allQuestions, question => 
       this._mapComponent.getBounds().contains({ lat: question.latitude, lng: question.longitude })   
     );
     this.props.dispatchQuestionsInView(questionsToDisplay);
-    // const nextMarkers = [
-    //   ...this.state.markers,
-    //   {
-    //     position: event.latLng,
-    //     defaultAnimation: 2,
-    //     key: Date.now(), // Add a key property for: http://fb.me/react-warning-keys
-    //   },
-    // ];
-    // this.setState({
-    //   markers: nextMarkers,
-    // });
-  }
-
-  handleMarkerRightClick(targetMarker) {
-    /*
-     * All you modify is data, and the view is driven by data.
-     * This is so called data-driven-development. (And yes, it's now in
-     * web front end and even with google maps API.)
-     */
-    // const nextMarkers = this.state.markers.filter(marker => marker !== targetMarker);
-    // this.setState({
-    //   markers: nextMarkers,
-    // });
   }
 
   render() {
@@ -130,7 +102,7 @@ class QuestionView extends React.Component {
             onMapLoad={this.handleMapLoad}
             onMapClick={this.handleMapClick}
             markers={this.props.mapMarkers}
-            onMarkerRightClick={this.handleMarkerRightClick}
+            onMarkerRightClick={_.noop}
           />
         </div>
         <div className='col-xs-5'>
