@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import _ from 'lodash';
 import QuestionCollection from './QuestionCollection.jsx';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -9,16 +10,15 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import { setQuestionsInView } from '../actions';
 import AnswerView from './AnswerView.jsx';
-
-import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import { default as MarkerClusterer } from 'react-google-maps/lib/addons/MarkerClusterer';
+
 
 const GettingStartedGoogleMap = withGoogleMap(props => {
   return (
     <GoogleMap
       ref={props.onMapLoad}
       defaultZoom={4}
-      defaultCenter={{ lat: 39.4146132, lng: -101.0044277 }}
+      defaultCenter={{ lat: 39.4146132, lng: -97.0044277 }}
       onClick={props.onMapClick}
     >
       <MarkerClusterer
@@ -42,7 +42,6 @@ class QuestionView extends React.Component {
    
     this.handleMapLoad = this.handleMapLoad.bind(this);
     this.handleMapClick = this.handleMapClick.bind(this);
-    this.handleMarkerRightClick = this.handleMarkerRightClick.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
