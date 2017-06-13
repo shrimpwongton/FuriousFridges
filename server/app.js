@@ -39,5 +39,7 @@ app.use('/schools', routes.schools);
 app.use('/nightclub', routes.nightclub);
 app.use('/gyms', routes.gyms);
 app.use('/news', routes.news);
+app.use('/spiritual', routes.spiritual);
+app.use('/doctors', routes.doctors);
 
 module.exports = app;
