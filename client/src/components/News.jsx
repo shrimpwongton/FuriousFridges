@@ -10,34 +10,35 @@ import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import EventSeat from 'material-ui/svg-icons/action/event-seat';
 import Avatar from 'material-ui/Avatar';
 import Arrow from 'material-ui/svg-icons/navigation/arrow-forward';
+import NewsIcon from 'material-ui/svg-icons/action/announcement';
+import {List, ListItem} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import {
   grey500, white, green500,
 } from 'material-ui/styles/colors';
 
 
-class Schools extends React.Component {
+class News extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      schools: []
+      stories: []
     };
   }
  
   componentWillReceiveProps() {
-    axios.get('/schools')
+    axios.get('/news')
       .then(res => {
         var sample = [];
         for (var key in res.data) {
           sample.push(res.data[key]);
         }
-        this.setState({schools: sample});
+        this.setState({stories: sample});
       });
   }
 
   render() {
-    let schools = Object.entries(this.state.schools);
     
     const styles = {
       card: {
@@ -62,38 +63,36 @@ class Schools extends React.Component {
 
     return (
       <div>
-        <Card
-          style={styles.card}>
+        <Card>
           <CardHeader
-            title="Explore Schools!"
-            subtitle={'locate nearby schools'}
+            title='Stay informed'
+            subtitle={'lastest news stories!'}
+            avatar={<NewsIcon />}
           />
           <Divider/>
-          <GridList
-            cellHeight={100}
-            style={styles.gridList}
-          >
-            {schools.length !== 0 ? schools.map((school) => (
-              <GridTile
-                title={school[1].name}
-                subtitle={"type: " + school[1].type}
-                cols = {2}
-                rows = {2} 
+          <List>
+            {this.state.stories !== 0 ? this.state.stories.map((story) => (
+              <ListItem  
+                target="_blank" href={story.url}
+                key={story.headline}
+                primaryText={story.headline}
               >
-                 <a target="_blank">
-                  <img src = {school[1].image} />
-                </a>
-              </GridTile>
+              
+              </ListItem>
             )) :
-            <GridTile 
-              title='No schools nearby' 
+
+            <ListItem 
+              primaryText = 'No current news stories in the area'
               />
-          }
-          </GridList>
+            }
+          </List>
         </Card>
-      </div>    
+      </div>
     );
   }
 }
 
-export default Schools;
+export default News;
+
+
+

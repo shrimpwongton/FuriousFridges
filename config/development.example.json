@@ -38,5 +38,8 @@
   }, 
    "Google": {
     "APIKey": "FILL_ME_IN"
+  },
+  "News": {
+    "APIKey": "FILL_ME_IN"
   }
 }

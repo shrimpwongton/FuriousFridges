@@ -32,7 +32,7 @@ module.exports.getAll = (req, res) => {
                       var dataLength = 10;
                       var currentIndex = 0;
                       var validData = true;
-                      while (dataLength > 0 && validData) {
+                      while (schools.length > 0 && dataLength > 0 && validData) {
                         var schoolObj = {};
                         schoolObj['name'] = schools[currentIndex].name;
                         schoolObj['type'] = schools[currentIndex].types[0];

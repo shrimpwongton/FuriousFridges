@@ -31,5 +31,6 @@
   "Meetups": {},
   "Google_Places": {},
   "Google_Coords": {},
-  "Google": {}
+  "Google": {}, 
+  "News": {}
 }

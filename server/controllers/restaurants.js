@@ -29,7 +29,7 @@ module.exports.getAll = (req, res) => {
                       var dataLength = 10;
                       var currentIndex = 0;
                       var validData = true;
-                      while (dataLength > 0 && validData) {
+                      while (restaurants.length > 0 && dataLength > 0 && validData) {
                         var restaurantObj = {};
                         restaurantObj['name'] = restaurants[currentIndex].name;
                         restaurantObj['rating'] = restaurants[currentIndex].rating;

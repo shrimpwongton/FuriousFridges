@@ -57,7 +57,7 @@ class Restaurants extends React.Component {
             }
           />
           <Divider/>
-          {restaurants.map((restaurant) => (
+          {restaurants.length !== 0 ? restaurants.map((restaurant) => (
             <CardMedia
               overlay={
                 <CardTitle
@@ -69,7 +69,11 @@ class Restaurants extends React.Component {
                 src={restaurant[1].image}
                 alt="" />
             </CardMedia>
-          ))}
+          )) :
+            <CardTitle 
+              title='No restaurants nearby'
+              />
+        }
         </Card>
       </div>
     );
