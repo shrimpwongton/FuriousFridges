@@ -478,7 +478,8 @@ class Profile extends React.Component {
             open={this.state.open}
             width={this.state.width > 400 ? 400 : '100%'}
             openSecondary={true}
-            onRequestChange={(open) => this.setState({open})} >
+            onRequestChange={(open) => this.setState({open})}
+            style={{overflow: 'hidden'}} >
             <ListItem
               leftAvatar={<Avatar src={this.state.profilePic}/>}
               primaryText={this.state.firstName + ' ' + this.state.lastName}
