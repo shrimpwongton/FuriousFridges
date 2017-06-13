@@ -11,7 +11,7 @@ module.exports.getAll = (req, res) => {
     .then((result) => {
       models.Stats.where({ city: result.attributes.destination }).fetch()
         .then((data) => {
-          request.get(`https://www.eventbriteapi.com/v3/events/search/?token=${config.clientID}&sort_by=distance&location.address=${result.attributes.destination}&location.within=10mi&start_date.keyword=this_month`, 
+          request.get(`https://www.eventbriteapi.com/v3/events/search/?token=${config.clientID}&sort_by=distance&location.address=${result.attributes.destination}&location.within=10mi&start_date.keyword=this_month`,
             (error, response, body) => {
               if (error) {
                 console.error(error);
@@ -19,7 +19,7 @@ module.exports.getAll = (req, res) => {
                 body = JSON.parse(body);
                 var events = body.events;
                 var eventData = {};
-                var dataLength = 10;
+                var dataLength = 5;
                 var currentIndex = 0;
                 var validData = true;
                 while (dataLength > 0 && validData) {
@@ -36,10 +36,10 @@ module.exports.getAll = (req, res) => {
                   }
                   currentIndex++;
                 }
-                res.send(eventData);     
+                res.send(eventData);
               }
             });
-          
+
         });
     });
 

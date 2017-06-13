@@ -4,6 +4,7 @@ import EventCard from './EventCard.jsx';
 import MeetUp from './MeetUp.jsx';
 import Restaurants from './Restaurants.jsx';
 import COLComparisonCard from './COLComparisonCard.jsx';
+import HousingComparisonCard from './HousingComparisonCard.jsx';
 import Transit from './Transit.jsx';
 import CraigsList from './CraigsList.jsx';
 import Schools from './Schools.jsx';
@@ -17,27 +18,20 @@ class Dashboard extends React.Component {
     this.state = {
       colDestinationArray: [],
       colOriginArray: [],
+      housingOriginArray: [],
+      housingDestinationArray: [],
     };
   }
   componentWillReceiveProps() {
     this.setState({
       colDestinationArray: this.props.colDestinationArray,
       colOriginArray: this.props.colOriginArray,
+      housingDestinationArray: this.props.housingDestinationArray,
+      housingOriginArray: this.props.housingOriginArray,
     });
   }
 
   render () {
-    const styles = {
-      centerStyle: {
-        width: '90%',
-        display: 'flex',
-        flexFlow: 'row wrap',
-        justifyContent: 'center',
-      },
-      emptyStyle: {
-        flewGrow: 1000,
-      },
-    };
     /*
      <div style={styles.flexStyle}>
      <div style={styles.centerStyle}>
@@ -60,11 +54,16 @@ class Dashboard extends React.Component {
         <Masonry // default ''\
           updateOnEachImageLoad = {true}
           style={{margin: '0 auto'}}
-          options={{isFitWidth: true}}
+          options={{isFitWidth: true, gutter: 4}}
         >
           <COLComparisonCard
             originArray = {this.props.colOriginArray}
             destinationArray = {this.props.colDestinationArray}
+            origin={this.props.origin}
+            destination={this.props.destination}/>
+          <HousingComparisonCard
+            originArray = {this.props.housingOriginArray}
+            destinationArray = {this.props.housingDestinationArray}
             origin={this.props.origin}
             destination={this.props.destination}/>
           <Transit />

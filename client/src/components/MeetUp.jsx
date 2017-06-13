@@ -4,10 +4,11 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import Avatar from 'material-ui/Avatar';
 import SocialGroup from 'material-ui/svg-icons/social/group';
 import {
-  grey500, white, green500,
+  grey500, white, green500, blueGrey300
 } from 'material-ui/styles/colors';
 import {ListItem} from "material-ui/List";
 import Divider from 'material-ui/Divider';
+import {GridList, GridTile} from 'material-ui/GridList';
 
 
 class MeetUp extends React.Component {
@@ -52,28 +53,30 @@ class MeetUp extends React.Component {
             primaryText='Meet Ups'
             secondaryText='Find people with mutual interests'
             disabled={true}
-            secondaryTextLines={2}
             leftAvatar={
               <Avatar
                 icon={<SocialGroup/>}
+                backgroundColor={blueGrey300}
               />
             }
           />
           <Divider/>
-          {meetups.length !== 0 ? meetups.map((meetup) => (
-            <CardMedia
-              overlay={
-                <CardTitle
-                  subtitle={meetup[1].name} />}
-            >
-              <img
-                src={meetup[1].image}
-                alt="" />
-            </CardMedia>
-          )) :
-           <CardText>
-             There aren't any meet ups in the area
-           </CardText>}
+          <GridList
+            cellHeight={200}
+            cols={1}
+          >
+            {meetups.length !== 0 ? meetups.map((meetup) => (
+              <GridTile
+                title={meetup[1].name}
+              >
+                <img src = {meetup[1].image} />
+              </GridTile>
+            )) :
+              <GridTile
+                title='No meet ups in the area'
+              />
+            }
+          </GridList>
         </Card>
       </div>
     );

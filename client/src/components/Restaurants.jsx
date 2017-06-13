@@ -6,7 +6,7 @@ import Divider from 'material-ui/Divider';
 import MapsLocalDining from 'material-ui/svg-icons/maps/local-dining';
 import {ListItem} from "material-ui/List";
 import {
-  grey500, white, green500,
+  grey500, white, green500, blueGrey300
 } from 'material-ui/styles/colors';
 
 
@@ -49,10 +49,10 @@ class Restaurants extends React.Component {
             primaryText='Restaurants'
             secondaryText='Explore new cuisines'
             disabled={true}
-            secondaryTextLines={2}
             leftAvatar={
               <Avatar
                 icon={<MapsLocalDining/>}
+                backgroundColor={blueGrey300}
               />
             }
           />

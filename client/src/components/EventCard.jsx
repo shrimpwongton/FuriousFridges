@@ -4,7 +4,7 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import {GridList, GridTile} from 'material-ui/GridList';
 import Divider from 'material-ui/Divider';
 import {
-  grey500, white, green500,
+  grey500, white, green500, blueGrey300
 } from 'material-ui/styles/colors';
 import ActionDateRange from 'material-ui/svg-icons/action/date-range';
 import {List, ListItem} from 'material-ui/List';
@@ -24,8 +24,8 @@ class EventCard extends React.Component {
     axios.get('/events')
       .then(res => {
         if ( typeof res.data !== 'undefined' ) {
-          var sample = [];
-          for (var key in res.data) {
+          let sample = [];
+          for (let key in res.data) {
             sample.push(res.data[key]);
           }
           this.setState({events: sample});
@@ -43,11 +43,6 @@ class EventCard extends React.Component {
         overflow: 'hidden',
         width: 300,
       },
-      gridList: {
-        width: '100%',
-        height: '80%',
-        overflowY: 'auto',
-      },
     };
 
     return (
@@ -58,33 +53,32 @@ class EventCard extends React.Component {
             primaryText='Events Nearby'
             secondaryText='Powered by Eventbrite'
             disabled={true}
-            secondaryTextLines={2}
             leftAvatar={
               <Avatar
                 icon={<ActionDateRange/>}
+                backgroundColor={blueGrey300}
               />
             }
           />
           <Divider/>
           <GridList
-            cellHeight={200}
-            style={styles.gridList}
-            cols={1}
-          >
-            {events.length !== 0 ? events.map((event) => (
-              <GridTile
-                title={event[1].description}
-              >
-                <a target="_blank" href={event[1].url}>
+          cellHeight={200}
+          cols={1}
+        >
+          {events.length !== 0 ? events.map((event) => (
+            <GridTile
+              title={event[1].description}
+            >
+              <a target="_blank" href={event[1].url}>
                 <img src = {event[1].img} />
-                </a>
-              </GridTile>
-            )) :
-              <GridTile
-                title='No events available'
-              />
-            }
-          </GridList>
+              </a>
+            </GridTile>
+          )) :
+            <GridTile
+              title='No events available'
+            />
+          }
+        </GridList>
         </Card>
       </div>
     );
