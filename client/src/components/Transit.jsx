@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import {
-  grey500, white, green500,
+  grey500, white, green500, blueGrey300
 } from 'material-ui/styles/colors';
 import {List, ListItem} from 'material-ui/List';
 import MapsDirectionsTransit from 'material-ui/svg-icons/maps/directions-transit';
@@ -28,7 +28,6 @@ class Transit extends React.Component {
     axios.get('/transit')
       .then(res => {
         let stations = new Set();
-        console.log(res.data);
         if ( typeof res.data !== 'undefined' ) {
           for (var key in res.data) {
             stations.add(res.data[key]);
@@ -45,9 +44,6 @@ class Transit extends React.Component {
         margin: 8,
         overflow: 'hidden',
         width: 300,
-      },
-      avatar: {
-        backgroundColor: green500,
       },
     };
 
@@ -68,10 +64,10 @@ class Transit extends React.Component {
             primaryText='Public Transportation'
             secondaryText='Nearby Stations'
             disabled={true}
-            secondaryTextLines={2}
             leftAvatar={
               <Avatar
                 icon={<MapsDirectionsTransit/>}
+                backgroundColor={blueGrey300}
               />
             }
           />

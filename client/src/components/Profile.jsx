@@ -96,8 +96,8 @@ class Profile extends React.Component {
     };
     geolocator.locate(options, (err, location) => {
       let cityStateCountry = 'Anonymous location';
-      if (err) { 
-        console.log('ERROR: Unable to resolve location! You may be blocking location services', err); 
+      if (err) {
+        console.log('ERROR: Unable to resolve location! You may be blocking location services', err);
       } else {
         let city = location.address.city || null;
         let state = location.address.state || null;
@@ -154,6 +154,7 @@ class Profile extends React.Component {
         let cityDetails = JSON.parse(res.data.city_details);
         this.setState({
           colDestinationArray: cityDetails.categories[3].data.slice(1, cityDetails.categories[3].data.length),
+          housingDestinationArray: cityDetails.categories[8].data,
         });
       })
       .catch(err => {
@@ -169,6 +170,7 @@ class Profile extends React.Component {
         let cityDetails = JSON.parse(res.data.city_details);
         this.setState({
           colOriginArray: cityDetails.categories[3].data.slice(1, cityDetails.categories[3].data.length),
+          housingOriginArray: cityDetails.categories[8].data,
         });
       })
       .catch(err => {
@@ -396,6 +398,8 @@ class Profile extends React.Component {
                     destination={this.state.destinationUser}
                     colOriginArray={this.state.colOriginArray}
                     colDestinationArray={this.state.colDestinationArray}
+                    housingOriginArray={this.state.housingOriginArray}
+                    housingDestinationArray={this.state.housingDestinationArray}
                   />
                 </div>
               </Tab> :
@@ -409,6 +413,8 @@ class Profile extends React.Component {
                     destination={this.state.destinationUser}
                     colOriginArray={this.state.colOriginArray}
                     colDestinationArray={this.state.colDestinationArray}
+                    housingOriginArray={this.state.housingOriginArray}
+                    housingDestinationArray={this.state.housingDestinationArray}
                   />
                 </div>
               </Tab>

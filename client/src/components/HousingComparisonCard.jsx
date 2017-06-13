@@ -9,7 +9,7 @@ import CityOptions from '../CityOptions.json';
 import Avatar from 'material-ui/Avatar';
 import EditorAttachMoney from 'material-ui/svg-icons/editor/attach-money';
 
-class COLComparisonCard extends React.Component {
+class HousingComparisonCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,18 +19,23 @@ class COLComparisonCard extends React.Component {
       destinationArray: [],
     };
     this.objectKeyByValue = this.objectKeyByValue.bind(this);
-    this.calculateChangeInCOL = this.calculateChangeInCOL.bind(this);
+    this.calculateChangeInHousing = this.calculateChangeInHousing.bind(this);
     this.calculateColor = this.calculateColor.bind(this);
   }
 
   calculateColor() {
     let originTotal = 0;
     let destinationTotal = 0;
+    console.log(this.state.originArray);
     for ( let value of this.state.originArray ) {
-      originTotal += value.currency_dollar_value;
+      if ( typeof value.currency_dollar_value !== 'undefined' ) {
+        originTotal += value.currency_dollar_value;
+      }
     }
     for ( let value of this.state.destinationArray ) {
-      destinationTotal += value.currency_dollar_value;
+      if ( typeof value.currency_dollar_value !== 'undefined' ) {
+        destinationTotal += value.currency_dollar_value;
+      }
     }
     let ratio = originTotal/destinationTotal;
     if ( ratio > 1.6 ) {
@@ -61,14 +66,18 @@ class COLComparisonCard extends React.Component {
     return Object.entries(obj).find(i => i[1] === val);
   }
 
-  calculateChangeInCOL () {
+  calculateChangeInHousing () {
     let originTotal = 0;
     let destinationTotal = 0;
     for ( let value of this.state.originArray ) {
-      originTotal += value.currency_dollar_value;
+      if ( typeof value.currency_dollar_value !== 'undefined' ) {
+        originTotal += value.currency_dollar_value;
+      }
     }
     for ( let value of this.state.destinationArray ) {
-      destinationTotal += value.currency_dollar_value;
+      if ( typeof value.currency_dollar_value !== 'undefined' ) {
+        destinationTotal += value.currency_dollar_value;
+      }
     }
     let ratio = originTotal/destinationTotal;
     if ( isNaN(ratio) ) {
@@ -112,14 +121,14 @@ class COLComparisonCard extends React.Component {
         <Card
           style={styles.card}>
           <ListItem
-            primaryText='Cost of Living Comparison'
+            primaryText='Housing Pricing Comparison'
             secondaryText={this.state.origin + ' → ' + this.state.destination}
             disabled={true}
             style={{backgroundColor: grey50}}
             leftAvatar={
               <Avatar
-              icon={<EditorAttachMoney/>}
-              backgroundColor={color}
+                icon={<EditorAttachMoney/>}
+                backgroundColor={color}
               />
             }
           />
@@ -127,7 +136,7 @@ class COLComparisonCard extends React.Component {
             style={styles.cardText}>
             <span
               style={styles.cutOffText}>
-              {this.calculateChangeInCOL()}
+              {this.calculateChangeInHousing()}
             </span>
           </CardText>
         </Card>
@@ -136,4 +145,4 @@ class COLComparisonCard extends React.Component {
   }
 }
 
-export default COLComparisonCard;
+export default HousingComparisonCard;
