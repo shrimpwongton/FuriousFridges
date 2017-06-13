@@ -407,6 +407,30 @@ class Profile extends React.Component {
             style={styles.tabs}>
             { this.state.width > 750 ?
               <Tab
+                label="DESTINATION INFO"
+                style={styles.tabStyle}
+              >
+                <div>
+                  <CityInfo formToggle={this.props.formToggle}
+                            destinationCity={this.state.destinationUser}
+                            width={this.state.width}
+                            history={this.props.history}/>
+                </div>
+              </Tab> :
+              <Tab
+                icon={<SocialLocationCity/>}
+                style={styles.tabStyle}
+              >
+                <div>
+                  <CityInfo formToggle={this.props.formToggle}
+                            destinationCity={this.state.destinationUser}
+                            width={this.state.width}
+                            history={this.props.history} />
+                </div>
+              </Tab>
+            }
+            { this.state.width > 750 ?
+              <Tab
                 label="DASHBOARD"
                 style={styles.tabStyle}
               >
@@ -434,30 +458,6 @@ class Profile extends React.Component {
                     housingOriginArray={this.state.housingOriginArray}
                     housingDestinationArray={this.state.housingDestinationArray}
                   />
-                </div>
-              </Tab>
-            }
-            { this.state.width > 750 ?
-              <Tab
-                label="DESTINATION INFO"
-                style={styles.tabStyle}
-              >
-                <div>
-                  <CityInfo formToggle={this.props.formToggle}
-                            destinationCity={this.state.destinationUser}
-                            width={this.state.width}
-                            history={this.props.history}/>
-                </div>
-              </Tab> :
-              <Tab
-                icon={<SocialLocationCity/>}
-                style={styles.tabStyle}
-              >
-                <div>
-                  <CityInfo formToggle={this.props.formToggle}
-                            destinationCity={this.state.destinationUser}
-                            width={this.state.width}
-                            history={this.props.history} />
                 </div>
               </Tab>
             }
