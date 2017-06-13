@@ -69,8 +69,8 @@ class Gyms extends React.Component {
                 <img src = {gym[1].image} />
               </GridTile>
             )) :
-              <GridTile
-                title='No gyms in the area'
+              <ListItem
+                primaryText = 'No gyms in the area'
               />
             }
           </GridList>

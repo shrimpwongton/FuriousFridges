@@ -70,9 +70,9 @@ class Restaurants extends React.Component {
                 alt="" />
             </CardMedia>
           )) :
-            <CardTitle 
-              title='No restaurants nearby'
-              />
+            <ListItem
+              primaryText = 'No restaurants nearby'
+            />
         }
         </Card>
       </div>

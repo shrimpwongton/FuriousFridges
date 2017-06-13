@@ -1,20 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {GridList, GridTile} from 'material-ui/GridList';
-import IconButton from 'material-ui/IconButton';
-import Subheader from 'material-ui/Subheader';
-import DatePicker from 'material-ui/DatePicker';
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
-import EventSeat from 'material-ui/svg-icons/action/event-seat';
+
 import Avatar from 'material-ui/Avatar';
-import Arrow from 'material-ui/svg-icons/navigation/arrow-forward';
 import NewsIcon from 'material-ui/svg-icons/action/announcement';
 import {List, ListItem} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import {
-  grey500, white, green500,
+  blueGrey300,
 } from 'material-ui/styles/colors';
 
 
@@ -26,7 +19,7 @@ class News extends React.Component {
       stories: []
     };
   }
- 
+
   componentWillReceiveProps() {
     axios.get('/news')
       .then(res => {
@@ -39,53 +32,46 @@ class News extends React.Component {
   }
 
   render() {
-    
+
     const styles = {
       card: {
-        width: '100%',
-        height: 400,
+        margin: 8,
+        overflow: 'hidden',
+        width: 300,
       },
-      gridList: {
-        width: '100%',
-        height: '80%',
-        overflowY: 'auto',
-      },
-      avatar: {
-        backgroundColor: green500,
-      },
-      cardHeader: {
-        height: '20%',
-      },
-      chart: {
-        width: '80%'
-      }
-    }; 
+    };
 
     return (
       <div>
-        <Card>
-          <CardHeader
-            title='Stay informed'
-            subtitle={'lastest news stories!'}
-            avatar={<NewsIcon />}
+        <Card
+          style={styles.card}>
+          <ListItem
+            primaryText='New Stories'
+            secondaryText={'Stories about your area'}
+            disabled={true}
+            leftAvatar={
+              <Avatar
+                icon={<NewsIcon />}
+                backgroundColor={blueGrey300}
+              />}
           />
           <Divider/>
-          <List>
-            {this.state.stories !== 0 ? this.state.stories.map((story) => (
-              <ListItem  
-                target="_blank" href={story.url}
-                key={story.headline}
-                primaryText={story.headline}
-              >
-              
-              </ListItem>
-            )) :
-
-            <ListItem 
+          {this.state.stories !== 0 ? this.state.stories.map((story) => (
+            <ListItem
+              target="_blank" href={story.url}
+              key={story.headline}
+              primaryText={story.headline}
+              leftAvatar={
+                <Avatar>
+                  {story.headline[0]}
+                </Avatar>
+              }
+            />
+          )) :
+            <ListItem
               primaryText = 'No current news stories in the area'
-              />
-            }
-          </List>
+            />
+          }
         </Card>
       </div>
     );

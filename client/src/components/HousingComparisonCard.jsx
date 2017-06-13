@@ -27,7 +27,6 @@ class HousingComparisonCard extends React.Component {
   calculateColor() {
     let originTotal = 0;
     let destinationTotal = 0;
-    console.log(this.state.originArray);
     for ( let value of this.state.originArray ) {
       if ( typeof value.currency_dollar_value !== 'undefined' ) {
         originTotal += value.currency_dollar_value;

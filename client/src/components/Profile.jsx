@@ -48,7 +48,7 @@ class Profile extends React.Component {
       question: false,
       profilePic: '',
       visibilityValue: false,
-      spinner: true
+      spinner: true,
     };
 
     this.handleToggle = this.handleToggle.bind(this);
@@ -98,7 +98,7 @@ class Profile extends React.Component {
       let cityStateCountry = 'Anonymous location';
       let latitude = -37.297947;
       let longitude = -12.677656;
-      
+
       if (err) {
         console.log('ERROR: Unable to resolve location! You may be blocking location services', err);
       } else {
@@ -119,7 +119,7 @@ class Profile extends React.Component {
         }
         if (location.coords.longitude) {
           longitude = location.coords.longitude;
-        } 
+        }
       }
 
       axios.put('/users', {
@@ -343,7 +343,12 @@ class Profile extends React.Component {
       'Replacing humans with robots',
       'Dropping tables',
       'Choosing React over Angular',
-      ''
+      'Gathering nuclear launch codes',
+      'Getting stuck in while loops',
+      'Materializing UI',
+      'Putting up a fake loading screen',
+      'Destroying the human race',
+
     ];
 
     if (this.state.spinner) {
@@ -402,6 +407,30 @@ class Profile extends React.Component {
             style={styles.tabs}>
             { this.state.width > 750 ?
               <Tab
+                label="DESTINATION INFO"
+                style={styles.tabStyle}
+              >
+                <div>
+                  <CityInfo formToggle={this.props.formToggle}
+                            destinationCity={this.state.destinationUser}
+                            width={this.state.width}
+                            history={this.props.history}/>
+                </div>
+              </Tab> :
+              <Tab
+                icon={<SocialLocationCity/>}
+                style={styles.tabStyle}
+              >
+                <div>
+                  <CityInfo formToggle={this.props.formToggle}
+                            destinationCity={this.state.destinationUser}
+                            width={this.state.width}
+                            history={this.props.history} />
+                </div>
+              </Tab>
+            }
+            { this.state.width > 750 ?
+              <Tab
                 label="DASHBOARD"
                 style={styles.tabStyle}
               >
@@ -429,30 +458,6 @@ class Profile extends React.Component {
                     housingOriginArray={this.state.housingOriginArray}
                     housingDestinationArray={this.state.housingDestinationArray}
                   />
-                </div>
-              </Tab>
-            }
-            { this.state.width > 750 ?
-              <Tab
-                label="DESTINATION INFO"
-                style={styles.tabStyle}
-              >
-                <div>
-                  <CityInfo formToggle={this.props.formToggle}
-                            destinationCity={this.state.destinationUser}
-                            width={this.state.width}
-                            history={this.props.history}/>
-                </div>
-              </Tab> :
-              <Tab
-                icon={<SocialLocationCity/>}
-                style={styles.tabStyle}
-              >
-                <div>
-                  <CityInfo formToggle={this.props.formToggle}
-                            destinationCity={this.state.destinationUser}
-                            width={this.state.width}
-                            history={this.props.history} />
                 </div>
               </Tab>
             }

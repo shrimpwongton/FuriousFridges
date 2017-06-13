@@ -70,8 +70,8 @@ class NightClub extends React.Component {
                 </a>
               </GridTile>
             )) :
-              <GridTile
-                title='No nightlife in the area'
+              <ListItem
+                primaryText = 'No nightlife nearby'
               />
             }
           </GridList>

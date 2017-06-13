@@ -36,7 +36,6 @@ class EventCard extends React.Component {
 
   render() {
     let events = Object.entries(this.state.events);
-
     const styles = {
       card: {
         margin: 8,
@@ -62,9 +61,9 @@ class EventCard extends React.Component {
           />
           <Divider/>
           <GridList
-          cellHeight={200}
-          cols={1}
-        >
+            cellHeight={200}
+            cols={1}
+          >
           {events.length !== 0 ? events.map((event) => (
             <GridTile
               title={event[1].description}
@@ -74,8 +73,8 @@ class EventCard extends React.Component {
               </a>
             </GridTile>
           )) :
-            <GridTile
-              title='No events available'
+            <ListItem
+              primaryText = 'No events in the area'
             />
           }
         </GridList>

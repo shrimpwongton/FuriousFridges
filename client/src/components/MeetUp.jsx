@@ -9,6 +9,7 @@ import {
 import {ListItem} from "material-ui/List";
 import Divider from 'material-ui/Divider';
 import {GridList, GridTile} from 'material-ui/GridList';
+import $ from 'jquery';
 
 
 class MeetUp extends React.Component {
@@ -72,8 +73,8 @@ class MeetUp extends React.Component {
                 <img src = {meetup[1].image} />
               </GridTile>
             )) :
-              <GridTile
-                title='No meet ups in the area'
+              <ListItem
+                primaryText = 'No meetups in the area'
               />
             }
           </GridList>
