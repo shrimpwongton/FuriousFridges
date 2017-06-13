@@ -96,6 +96,9 @@ class Profile extends React.Component {
     };
     geolocator.locate(options, (err, location) => {
       let cityStateCountry = 'Anonymous location';
+      let latitude = -37.297947;
+      let longitude = -12.677656;
+      
       if (err) {
         console.log('ERROR: Unable to resolve location! You may be blocking location services', err);
       } else {
@@ -106,18 +109,24 @@ class Profile extends React.Component {
         if (country === 'United States') {
           country = 'USA';
         }
-        if (city !== null && state !== null && country !== null) {
+        if (city && state && country) {
           cityStateCountry = `${city}, ${state}, ${country}`;
-        } else if (city !== null && state === null && country !== null) {
+        } else if (city && !state && country) {
           cityStateCountry = `${city}, ${country}`;
         }
+        if (location.coords.latitude) {
+          latitude = location.coords.latitude;
+        }
+        if (location.coords.longitude) {
+          longitude = location.coords.longitude;
+        } 
       }
 
       axios.put('/users', {
+        email: this.props.currentUser.email,
         'current-location': cityStateCountry,
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-        email: this.props.currentUser.email
+        latitude,
+        longitude
       })
         .then(res => {
           console.log('Successfully updated the user current location!');
