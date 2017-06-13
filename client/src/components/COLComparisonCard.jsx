@@ -93,8 +93,8 @@ class COLComparisonCard extends React.Component {
         backgroundColor: color,
       },
       cutOffText: {
-        right: -12,
-        bottom: -40,
+        right: -8,
+        bottom: -36,
         position: 'absolute',
         fontFamily: "'Roboto Light', sans-serif",
         color: grey50,
