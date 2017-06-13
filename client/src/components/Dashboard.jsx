@@ -11,6 +11,7 @@ import Schools from './Schools.jsx';
 import NightClub from './NightClub.jsx';
 import Gyms from './Gyms.jsx';
 import News from './News.jsx';
+import Spiritual from './Spiritual.jsx';
 import Masonry from 'react-masonry-component';
 
 class Dashboard extends React.Component {
@@ -75,6 +76,7 @@ class Dashboard extends React.Component {
           <NightClub />
           <Gyms />
           <News />
+          <Spiritual />
         </Masonry>
     );
   }

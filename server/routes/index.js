@@ -17,3 +17,4 @@ module.exports.schools = require('./schools');
 module.exports.nightclub = require('./nightclub');
 module.exports.gyms = require('./gyms');
 module.exports.news = require('./news');
+module.exports.spiritual = require('./spiritual');
