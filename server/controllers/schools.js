@@ -12,6 +12,9 @@ module.exports.getAll = (req, res) => {
     .then((result) => {
       models.Stats.where({ city: result.attributes.destination }).fetch()
       .then((data) => {
+        if (result.attributes.destination === 'san-francisco-bay-area') {
+          result.attributes.destination = 'sanfrancisco';
+        }
         request.get(`https://maps.googleapis.com/maps/api/geocode/json?key=${config.clientID}&address=${result.attributes.destination}`,
               (error, response, body) => {
                 if (error) {

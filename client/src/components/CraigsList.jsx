@@ -6,7 +6,12 @@ import Divider from 'material-ui/Divider';
 import {
   grey500, white, green500,
 } from 'material-ui/styles/colors';
-
+import {List, ListItem} from 'material-ui/List';
+import Avatar from 'material-ui/Avatar';
+import Subheader from 'material-ui/Subheader';
+import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
+import FlatButton from 'material-ui/FlatButton';
+import HomeIcon from 'material-ui/svg-icons/action/home';
 
 
 class CraigsList extends React.Component {
@@ -43,31 +48,25 @@ class CraigsList extends React.Component {
 
     return (
        <div>
-        <Card
-          style={styles.card}>
+        <Card>
           <CardHeader
             title='Craiglist'
             subtitle={'Find furniture for you new place!'}
+            avatar={<HomeIcon />}
           />
           <Divider/>
-          <GridList
-            cellHeight={100}
-            style={styles.gridList}
-          >
+          <List>
             {this.state.listings.map((listing) => (
-              <GridTile
+              <ListItem  
+                target="_blank" href={listing.url}
                 key={listing.title}
-                title={listing.title}
-                subtitle={listing.price}
-                cols = {2}
-                rows = {2}
+                primaryText={listing.title}
+                rightAvatar={<FlatButton label={listing.price || 'FREE!'} />}
               >
-                <a target="_blank" href={listing.url}>
-                  
-                </a>
-              </GridTile>
+              
+              </ListItem>
             ))}
-          </GridList>
+          </List>
         </Card>
       </div>
     );

@@ -54,6 +54,7 @@ class Dashboard extends React.Component {
     </div>
      */
     return (
+
         <Masonry // default ''\
           updateOnEachImageLoad = {true}
           style={{margin: '0 auto'}}
@@ -68,6 +69,7 @@ class Dashboard extends React.Component {
           <MeetUp />
           <Restaurants />
           <EventCard />
+          <CraigsList />
         </Masonry>
     );
   }
