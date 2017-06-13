@@ -70,8 +70,8 @@ class Spiritual extends React.Component {
                 </a>
               </GridTile>
             )) :
-              <GridTile
-                title='No places of worship nearby'
+              <ListItem
+                primaryText = 'No places of worship nearby'
               />
             }
           </GridList>

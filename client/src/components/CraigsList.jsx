@@ -57,10 +57,11 @@ class CraigsList extends React.Component {
             }
           />
           <Divider/>
-          {this.state.listings.map((listing) => (
+          {this.state.listings.length > 0 ? this.state.listings.map((listing) => (
             <ListItem
               target="_blank" href={listing.url}
               primaryText={listing.title}
+              key={listing.title}
               secondaryText={listing.price || 'Free'}
               leftAvatar={
                 <Avatar>
@@ -69,7 +70,11 @@ class CraigsList extends React.Component {
               }
             >
             </ListItem>
-          ))}
+          )) :
+            <ListItem
+              primaryText = 'No Craigslist listings nearby'
+            />
+          }
         </Card>
       </div>
     );

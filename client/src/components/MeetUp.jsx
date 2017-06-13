@@ -73,8 +73,8 @@ class MeetUp extends React.Component {
                 <img src = {meetup[1].image} />
               </GridTile>
             )) :
-              <GridTile
-                title='No meet ups in the area'
+              <ListItem
+                primaryText = 'No meetups in the area'
               />
             }
           </GridList>

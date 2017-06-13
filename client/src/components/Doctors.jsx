@@ -25,7 +25,7 @@ class Doctors extends React.Component {
       doctors: []
     };
   }
- 
+
   componentWillReceiveProps() {
     axios.get('/doctors')
       .then(res => {
@@ -38,7 +38,7 @@ class Doctors extends React.Component {
   }
 
   render() {
-  
+
     const styles = {
       card: {
         margin: 8,
@@ -48,12 +48,12 @@ class Doctors extends React.Component {
     };
 
     return (
-         <div>
+      <div>
         <Card
           style={styles.card}>
           <ListItem
             primaryText='Doctors'
-            secondaryText={'Locate health professionals'}
+            secondaryText={'Nearby healthy professionals'}
             disabled={true}
             leftAvatar={
               <Avatar
@@ -63,14 +63,23 @@ class Doctors extends React.Component {
             }
           />
           <Divider/>
-          {this.state.doctors.map((doctor) => (
+          {this.state.doctors.length > 0 ? this.state.doctors.map((doctor) => (
             <ListItem
               key={doctor.name}
               primaryText={doctor.name}
               secondaryText={doctor.address}
+              leftAvatar={
+                <Avatar>
+                  {doctor.name[0]}
+                </Avatar>
+              }
             >
             </ListItem>
-          ))}
+          )) :
+            <ListItem
+              primaryText = 'No doctors in the area'
+            />
+          }
         </Card>
       </div>
     );

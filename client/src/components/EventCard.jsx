@@ -73,8 +73,8 @@ class EventCard extends React.Component {
               </a>
             </GridTile>
           )) :
-            <GridTile
-              title='No events available'
+            <ListItem
+              primaryText = 'No events in the area'
             />
           }
         </GridList>

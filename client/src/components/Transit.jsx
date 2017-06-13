@@ -85,7 +85,7 @@ class Transit extends React.Component {
             />
           )) :
             <ListItem
-              primaryText = 'No listings available'
+              primaryText = 'No stations nearby'
             />
         }
         </Card>
