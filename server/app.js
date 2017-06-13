@@ -37,5 +37,6 @@ app.use('/transit', routes.transit);
 app.use('/craigslist', routes.craigslist);
 app.use('/schools', routes.schools);
 app.use('/nightclub', routes.nightclub);
+app.use('/gyms', routes.gyms);
 
 module.exports = app;

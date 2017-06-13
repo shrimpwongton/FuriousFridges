@@ -15,3 +15,4 @@ module.exports.transit = require('./transit');
 module.exports.craigslist = require('./craigslist');
 module.exports.schools = require('./schools');
 module.exports.nightclub = require('./nightclub');
+module.exports.gyms = require('./gyms');
