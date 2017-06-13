@@ -43,7 +43,8 @@ class Gyms extends React.Component {
     };
 
     return (
-      <div>
+      <div
+        style={{marginBottom: 24}}>
         <Card
           style={styles.card}>
           <ListItem
