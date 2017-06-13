@@ -8,6 +8,7 @@ import {List, ListItem} from 'material-ui/List';
 import CityOptions from '../CityOptions.json';
 import Avatar from 'material-ui/Avatar';
 import EditorAttachMoney from 'material-ui/svg-icons/editor/attach-money';
+import ActionHome from 'material-ui/svg-icons/action/home';
 
 class HousingComparisonCard extends React.Component {
   constructor(props) {
@@ -38,11 +39,11 @@ class HousingComparisonCard extends React.Component {
       }
     }
     let ratio = originTotal/destinationTotal;
-    if ( ratio > 1.6 ) {
+    if ( ratio > 1.3 ) {
       return green500;
-    } else if ( ratio > 1.2 ) {
+    } else if ( ratio > 1.0 ) {
       return lightGreen500;
-    } else if ( ratio > 0.8 ) {
+    } else if ( ratio > 0.7 ) {
       return amber500;
     } else if ( ratio > 0.4 ) {
       return orange500;
@@ -127,7 +128,7 @@ class HousingComparisonCard extends React.Component {
             style={{backgroundColor: grey50}}
             leftAvatar={
               <Avatar
-                icon={<EditorAttachMoney/>}
+                icon={<ActionHome/>}
                 backgroundColor={color}
               />
             }

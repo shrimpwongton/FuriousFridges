@@ -33,11 +33,11 @@ class COLComparisonCard extends React.Component {
       destinationTotal += value.currency_dollar_value;
     }
     let ratio = originTotal/destinationTotal;
-    if ( ratio > 1.6 ) {
+    if ( ratio > 1.3 ) {
       return green500;
-    } else if ( ratio > 1.2 ) {
+    } else if ( ratio > 1.0 ) {
       return lightGreen500;
-    } else if ( ratio > 0.8 ) {
+    } else if ( ratio > 0.7 ) {
       return amber500;
     } else if ( ratio > 0.4 ) {
       return orange500;
