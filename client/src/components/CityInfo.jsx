@@ -99,7 +99,7 @@ class CityInfo extends React.Component {
   calculateScoreStatus (score, index) {
     if ( score > 8 ) {
       if ( index ) {
-        return 'Most affordable';
+        return 'Among the most affordable';
       }
       return 'Among the best';
     } else if ( score > 6 ) {
@@ -116,7 +116,7 @@ class CityInfo extends React.Component {
       return 'Below Average';
     } else if ( score > 0 ) {
       if ( index ) {
-        return 'Most unaffordable';
+        return 'Among the most unaffordable';
       }
       return 'Among the worst';
     } else {

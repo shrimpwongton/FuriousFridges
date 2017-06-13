@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import Avatar from 'material-ui/Avatar';
-import SocialGroup from 'material-ui/svg-icons/social/group';
+import SocialGroupAdd from 'material-ui/svg-icons/social/group-add';
 import {
   grey500, white, green500, blueGrey300
 } from 'material-ui/styles/colors';
@@ -55,7 +55,7 @@ class MeetUp extends React.Component {
             disabled={true}
             leftAvatar={
               <Avatar
-                icon={<SocialGroup/>}
+                icon={<SocialGroupAdd/>}
                 backgroundColor={blueGrey300}
               />
             }

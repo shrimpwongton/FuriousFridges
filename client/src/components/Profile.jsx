@@ -102,7 +102,7 @@ class Profile extends React.Component {
         let city = location.address.city || null;
         let state = location.address.state || null;
         let country = location.address.country || null;
-        
+
         if (country === 'United States') {
           country = 'USA';
         }
@@ -333,6 +333,8 @@ class Profile extends React.Component {
       'Leaking sensitive data',
       'Replacing humans with robots',
       'Dropping tables',
+      'Choosing React over Angular',
+      ''
     ];
 
     if (this.state.spinner) {

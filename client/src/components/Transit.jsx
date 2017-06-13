@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import {
-  grey500, white, green500, blueGrey300
+  blueGrey300
 } from 'material-ui/styles/colors';
 import {List, ListItem} from 'material-ui/List';
 import MapsDirectionsTransit from 'material-ui/svg-icons/maps/directions-transit';
