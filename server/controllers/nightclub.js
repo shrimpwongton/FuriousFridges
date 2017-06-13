@@ -39,7 +39,7 @@ module.exports.getAll = (req, res) => {
                           var reference = clubs[currentIndex].photos[0].photo_reference;
                           clubObj['image'] = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${reference}&key=${config.clientID}`;
                         } else {
-                          clubObj['image'] = clubs[currentIndex].icon;
+                          clubObj['image'] = 'http://www.foundation-nightclub.com/wp-content/uploads/2014/11/champagne-parade-350x262.jpg';
                         }
                         clubData[currentIndex] = clubObj;
                         dataLength--;
