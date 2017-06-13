@@ -21,35 +21,34 @@ module.exports.getAll = (req, res) => {
                   console.error(err);
                 } else {
                   var geoCoords = JSON.parse(body).results[0].geometry['location'];
-                  request.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${geoCoords.lat},${geoCoords.lng}&radius=500&type=school&key=${config.clientID}`, 
+                  request.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${geoCoords.lat},${geoCoords.lng}&radius=500&type=gym&key=${config.clientID}`, 
                     (error, response, body) => {
                       if (error) {
                         console.error(error);
                       }
                       var body = JSON.parse(body);
-                      var schools = body.results;
-                      var schoolData = {};
+                      var gyms = body.results;
+                      var gymData = {};
                       var dataLength = 10;
                       var currentIndex = 0;
                       var validData = true;
                       while (dataLength > 0 && validData) {
-                        var schoolObj = {};
-                        schoolObj['name'] = schools[currentIndex].name;
-                        schoolObj['type'] = schools[currentIndex].types[0];
-                        if (schools[currentIndex].photos) {
-                          var reference = schools[currentIndex].photos[0].photo_reference;
-                          schoolObj['image'] = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${reference}&key=${config.clientID}`;
+                        var gymObj = {};
+                        gymObj['name'] = gyms[currentIndex].name;
+                        if (gyms[currentIndex].photos) {
+                          var reference = gyms[currentIndex].photos[0].photo_reference;
+                          gymObj['image'] = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${reference}&key=${config.clientID}`;
                         } else {
-                          schoolObj['image'] = schools[currentIndex].icon;
+                          gymObj['image'] = 'http://www.kaylainthecity.com/wp-content/uploads/gym.jpg';
                         }
-                        schoolData[currentIndex] = schoolObj;
+                        gymData[currentIndex] = gymObj;
                         dataLength--;
-                        if (!schools[currentIndex + 1]) {
+                        if (!gyms[currentIndex + 1]) {
                           validData = false;
                         }
                         currentIndex++;
                       }
-                      res.send(schoolData);
+                      res.send(gymData);
                     });
                 }
               });

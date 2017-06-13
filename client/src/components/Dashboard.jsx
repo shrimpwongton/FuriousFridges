@@ -8,6 +8,8 @@ import HousingComparisonCard from './HousingComparisonCard.jsx';
 import Transit from './Transit.jsx';
 import CraigsList from './CraigsList.jsx';
 import Schools from './Schools.jsx';
+import NightClub from './NightClub.jsx';
+import Gyms from './Gyms.jsx';
 import Masonry from 'react-masonry-component';
 
 class Dashboard extends React.Component {
@@ -48,6 +50,7 @@ class Dashboard extends React.Component {
     </div>
      */
     return (
+
         <Masonry // default ''\
           updateOnEachImageLoad = {true}
           style={{margin: '0 auto'}}
@@ -63,10 +66,13 @@ class Dashboard extends React.Component {
             destinationArray = {this.props.housingDestinationArray}
             origin={this.props.origin}
             destination={this.props.destination}/>
-          <Transit/>
-          <MeetUp/>
-          <Restaurants/>
-          <EventCard/>
+          <Transit />
+          <MeetUp />
+          <Restaurants />
+          <EventCard />
+          <CraigsList />
+          <NightClub />
+          <Gyms />
         </Masonry>
     );
   }
