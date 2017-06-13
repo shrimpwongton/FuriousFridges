@@ -49,11 +49,8 @@ describe('Question board model tests', function () {
       })
       .then(user => {
         return Question.forge({
-          user_id: user.models[0].attributes.id,
           question: 'Can I post a question?',
-          location: 'San Francisco',
-          latitude: 37.77,
-          longitude: 122.42
+          user_id: user.models[0].attributes.id
         }).save(); 
       })
       .then(() => {
@@ -69,5 +66,53 @@ describe('Question board model tests', function () {
         done(err);
       });
   });
+
+  it('Second user should be able to post an answer', (done) => {
+   User.forge({ 
+      firstName: 'John', 
+      lastName: 'Doe',
+      email: '123abc@example.com',
+      photoUrl: 'greatphoto.jpg',
+      visible: true 
+    }).save()
+      .then(() => {
+        return User.forge({ 
+          firstName: 'Jane', 
+          lastName: 'Doe',
+          email: '456abc@example.com',
+          photoUrl: 'lovelyphoto.jpg',
+          visible: true 
+        }).save()
+      })
+      .then(user => {
+        return Question.forge({
+          question: 'Can I post a question?',
+          user_id: 1
+        }).save(); 
+      })
+      .then(() => {
+        return Question.fetchAll();
+      })
+      .then(questions => {
+        return Answer.forge({
+          answer: 'Yes you can!',
+          user_id: 2,
+          question_id: questions.models[0].attributes.id
+        }).save();
+      })
+      .then(() => {
+        return Answer.fetchAll();
+      })
+      .then(results => {
+        expect(results.length).to.equal(1);
+        expect(results.at(0).get('id')).to.equal(1);
+        expect(results.at(0).get('user_id')).to.equal(2);
+        expect(results.at(0).get('question_id')).to.equal(1);
+        done();
+      })
+      .catch(err => {
+        done(err);
+      })  
+  })
 
 });
