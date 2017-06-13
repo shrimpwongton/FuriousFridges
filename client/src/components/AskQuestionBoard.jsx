@@ -218,26 +218,7 @@ class AskQuestionBoard extends React.Component {
         onTouchTap={this.handleQuestionDialogSubmit}
       />,
     ];
-    let questionView = <QuestionView
-      handleQuestionClick={this.handleQuestionClick}
-      openQuestionDialog={this.openQuestionDialog}
-      width={this.props.width}
-      deleteQuestion={this.deleteQuestion}
-      destinationCity={this.props.destinationCity}
-    />;
-    let answerView = <AnswerView
-      backToQuestions={this.backToQuestions}
-      handleAnswerChange={this.handleAnswerChange}
-      handleAnswerSubmit={this.handleAnswerSubmit}
-      deleteAnswer={this.deleteAnswer}
-    />;
     const hintText = ['What is there to do in ', 'What is the climate like in ', 'How safe is it in '];
-    let view;
-    if (this.props.currentView === 'questions') {
-      view = questionView;
-    } else if (this.props.currentView === 'answers') {
-      view = answerView;
-    }
     return (
       <div>
         <div>
@@ -266,7 +247,17 @@ class AskQuestionBoard extends React.Component {
           </Dialog>
         </div>
         <div className='container-fluid'>
-          {view}
+          <QuestionView
+            handleQuestionClick={this.handleQuestionClick}
+            openQuestionDialog={this.openQuestionDialog}
+            width={this.props.width}
+            deleteQuestion={this.deleteQuestion}
+            destinationCity={this.props.destinationCity}
+            backToQuestions={this.backToQuestions}
+            handleAnswerChange={this.handleAnswerChange}
+            handleAnswerSubmit={this.handleAnswerSubmit}
+            deleteAnswer={this.deleteAnswer}
+          />
         </div>
       </div>
     );

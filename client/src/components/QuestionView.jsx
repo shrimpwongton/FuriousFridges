@@ -8,6 +8,7 @@ import { white, pinkA200 } from 'material-ui/styles/colors';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import { setQuestionsInView } from '../actions';
+import AnswerView from './AnswerView.jsx';
 
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import { default as MarkerClusterer } from 'react-google-maps/lib/addons/MarkerClusterer';
@@ -94,10 +95,30 @@ class QuestionView extends React.Component {
     // });
   }
 
-
   render() {
+    let questionView = 
+    <Card style={styles.cardStyle}>  
+      <QuestionCollection 
+        handleQuestionClick={this.props.handleQuestionClick}
+        deleteQuestion={this.props.deleteQuestion}
+        destinationCity={this.props.destinationCity} 
+      /> 
+    </Card>;
+    let answerView = 
+    <AnswerView
+      backToQuestions={this.props.backToQuestions}
+      handleAnswerChange={this.props.handleAnswerChange}
+      handleAnswerSubmit={this.props.handleAnswerSubmit}
+      deleteAnswer={this.props.deleteAnswer}
+    />;
+    let view = questionView;
+    if (this.props.currentView === 'questions') {
+      view = questionView;
+    } else if (this.props.currentView === 'answers') {
+      view = answerView;
+    }
     return (
-      <div className='row'>
+      <div className='row' style={{ 'margin-top': '10px'}}>
         <div className='col-xs-7'>
           <GettingStartedGoogleMap
             containerElement={
@@ -113,20 +134,14 @@ class QuestionView extends React.Component {
           />
         </div>
         <div className='col-xs-5'>
-          <Card
-            style={styles.cardStyle}>
-            <QuestionCollection handleQuestionClick={this.props.handleQuestionClick}
-                                deleteQuestion={this.props.deleteQuestion}
-                                destinationCity={this.props.destinationCity}
-            />
-          </Card>
-        <FloatingActionButton
-          mini={this.props.width <= 750}
-          style={styles.askQuestionButton}
-          onTouchTap={this.props.openQuestionDialog}
-          backgroundColor={pinkA200}>
-          <ContentAdd />
-        </FloatingActionButton>
+          {view}
+          <FloatingActionButton
+            mini={this.props.width <= 750}
+            style={styles.askQuestionButton}
+            onTouchTap={this.props.openQuestionDialog}
+            backgroundColor={pinkA200}>
+            <ContentAdd />
+          </FloatingActionButton>
         </div>
       </div>
     );
@@ -148,6 +163,7 @@ const styles = {
 
 const mapStateToProps = (state) => ({
   currentUser: state.questionBoard.currentUser,
+  currentView: state.questionBoard.currentView,
   mapMarkers: state.questionBoard.mapMarkers,
   questions: state.questionBoard.questions,
   questionsInView: state.questionBoard.questionsInView

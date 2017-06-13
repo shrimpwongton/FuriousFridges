@@ -143,7 +143,7 @@ const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
     withRelated: ['profile']
   })
     .then(oauthAccount => {
-      console.log('oauth', oauthAccount);
+      //console.log('oauth', oauthAccount);
       if (oauthAccount) {
         throw oauthAccount;
       }
@@ -155,7 +155,7 @@ const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
       return models.Profile.where({ email: oauthProfile.emails[0].value }).fetch();
     })
     .then(profile => {
-      console.log('profile', profile);
+      //console.log('profile', profile);
       let profileInfo = {
         first: oauthProfile.name.givenName,
         last: oauthProfile.name.familyName,
@@ -172,7 +172,7 @@ const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
       return models.Profile.forge(profileInfo).save();
     })
     .tap(profile => {
-      console.log('tapProfile', profile);
+      //console.log('tapProfile', profile);
       return models.Auth.forge({
         type,
         profile_id: profile.get('id'),
@@ -183,14 +183,14 @@ const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
       done(err, null);
     })
     .catch(oauthAccount => {
-      console.log('catchoauthAccount', oauthAccount);
+      //console.log('catchoauthAccount', oauthAccount);
       if (!oauthAccount) {
         throw oauthAccount;
       }
       return oauthAccount.related('profile');
     })
     .then(profile => {
-      console.log('afterProfile', profile);
+      //console.log('afterProfile', profile);
       if (profile) {
         done(null, profile.serialize());
       }

@@ -73,7 +73,7 @@ const AnswerView = (props) => {
 
 const styles = {
   cardStyle: {
-    width: '75vw',
+    width: '35vw',
   },
   underlineStyle: {
     borderColor: pinkA200,
