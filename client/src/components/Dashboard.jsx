@@ -7,6 +7,7 @@ import COLComparisonCard from './COLComparisonCard.jsx';
 import Transit from './Transit.jsx';
 import CraigsList from './CraigsList.jsx';
 import Schools from './Schools.jsx';
+import NightClub from './NightClub.jsx';
 import Masonry from 'react-masonry-component';
 
 class Dashboard extends React.Component {
@@ -70,6 +71,7 @@ class Dashboard extends React.Component {
           <Restaurants />
           <EventCard />
           <CraigsList />
+          <NightClub />
         </Masonry>
     );
   }
