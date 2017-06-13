@@ -7,7 +7,9 @@ const DEFAULT_STATE = {
   errorText: '',    
   currentQuestion: {},    
   currentView: 'questions',   
-  currentUser: {}   
+  currentUser: {},
+  mapMarkers: [],
+  questionsInView: []
 };
 
 const questionBoardReducers = (state = DEFAULT_STATE, action) => {
@@ -29,7 +31,11 @@ const questionBoardReducers = (state = DEFAULT_STATE, action) => {
     return Object.assign({}, state, { currentView: action.payload });
   } else if (action.type === 'SET_CURRENT_USER') {
     return Object.assign({}, state, { currentUser: action.payload });
-  }
+  } else if (action.type === 'SET_MAP_MARKERS') {
+    return Object.assign({}, state, { mapMarkers: action.payload });
+  } else if (action.type === 'SET_QUESTIONS_IN_VIEW') {
+    return Object.assign({}, state, { questionsInView: action.payload });
+  } 
   return state;
 };
 

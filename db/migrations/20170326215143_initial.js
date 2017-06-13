@@ -27,8 +27,9 @@ exports.up = function (knex, Promise) {
       table.boolean('visible', 5).notNullable();
       table.string('origin', 100).nullable();
       table.string('current-location', 100).nullable();
+      table.float('latitude').nullable();
+      table.float('longitude').nullable();
       table.string('destination', 100).nullable();
-      
       table.timestamps(true, true);
       table.string('photoUrl', 100).nullable();
     }),
@@ -36,6 +37,8 @@ exports.up = function (knex, Promise) {
       table.increments('id').unsigned().primary();
       table.string('question', 100).nullable();
       table.string('location', 100).nullable();
+      table.float('latitude').nullable();
+      table.float('longitude').nullable();
       table.integer('user_id').references('users.id');
       table.timestamps(true, true);
     }),

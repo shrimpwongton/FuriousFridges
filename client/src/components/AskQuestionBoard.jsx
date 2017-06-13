@@ -19,7 +19,9 @@ import { setQuestion,
          setErrorText,
          setCurrentQuestion,
          setCurrentView,
-         setCurrentUser } from '../actions';
+         setCurrentUser,
+         setMapMarkers,
+         setQuestionsInView } from '../actions';
 
 
 class AskQuestionBoard extends React.Component {
@@ -54,7 +56,21 @@ class AskQuestionBoard extends React.Component {
       .then(res => {
         let questions = res.data;
         this.props.dispatchQuestions(questions);
+        this.props.dispatchQuestionsInView(questions);
+        this.setMapMarkers(questions);
       });
+  }
+
+  setMapMarkers(questions) {
+    let markers = questions.map(entry => ({ 
+      position: {
+        lat: entry.latitude,
+        lng: entry.longitude
+      },
+      key: entry.id,
+      defaultAnimation: 2
+    }));
+    this.props.dispatchMapMarkers(markers);
   }
 
   handleQuestionDialogClose() {
@@ -101,18 +117,25 @@ class AskQuestionBoard extends React.Component {
     })
       .then(res => {
         let questions = [res.data].concat(this.props.questions);
+        let questionsInView = [res.data].concat(this.props.questionsInView);
         this.props.dispatchQuestions(questions);
+        this.props.dispatchQuestionsInView(questionsInView);
+        this.setMapMarkers(questions);
       });
   }
 
   deleteQuestion(questionId) {
     let questions = this.props.questions;
+    let questionsInView = this.props.questionsInView;
     axios.delete('/questions', {
       params: { questionId }
     })
       .then(res => {
         questions = _.reject(questions, (question) => question.id === questionId);
+        questionsInView = _.reject(questionsInView, (question) => question.id === questionId);
         this.props.dispatchQuestions(questions);
+        this.props.dispatchQuestionsInView(questionsInView);
+        this.setMapMarkers(questions);
       });
   }
 
@@ -195,26 +218,7 @@ class AskQuestionBoard extends React.Component {
         onTouchTap={this.handleQuestionDialogSubmit}
       />,
     ];
-    let questionView = <QuestionView
-      handleQuestionClick={this.handleQuestionClick}
-      openQuestionDialog={this.openQuestionDialog}
-      width={this.props.width}
-      deleteQuestion={this.deleteQuestion}
-      destinationCity={this.props.destinationCity}
-    />;
-    let answerView = <AnswerView
-      backToQuestions={this.backToQuestions}
-      handleAnswerChange={this.handleAnswerChange}
-      handleAnswerSubmit={this.handleAnswerSubmit}
-      deleteAnswer={this.deleteAnswer}
-    />;
-    const hintText=['What is there to do in ', 'What is the climate like in ', 'How safe is it in '];
-    let view;
-    if (this.props.currentView === 'questions') {
-      view = questionView;
-    } else if (this.props.currentView === 'answers') {
-      view = answerView;
-    }
+    const hintText = ['What is there to do in ', 'What is the climate like in ', 'How safe is it in '];
     return (
       <div>
         <div>
@@ -242,8 +246,18 @@ class AskQuestionBoard extends React.Component {
             />
           </Dialog>
         </div>
-        <div style={styles.divStyle}>
-          {view}
+        <div className='container-fluid'>
+          <QuestionView
+            handleQuestionClick={this.handleQuestionClick}
+            openQuestionDialog={this.openQuestionDialog}
+            width={this.props.width}
+            deleteQuestion={this.deleteQuestion}
+            destinationCity={this.props.destinationCity}
+            backToQuestions={this.backToQuestions}
+            handleAnswerChange={this.handleAnswerChange}
+            handleAnswerSubmit={this.handleAnswerSubmit}
+            deleteAnswer={this.deleteAnswer}
+          />
         </div>
       </div>
     );
@@ -259,7 +273,9 @@ const mapStateToProps = (state) => ({
   errorText: state.questionBoard.errorText,
   currentQuestion: state.questionBoard.currentQuestion,
   currentView: state.questionBoard.currentView,
-  currentUser: state.questionBoard.currentUser
+  currentUser: state.questionBoard.currentUser,
+  mapMarkers: state.questionBoard.mapMarkers,
+  questionsInView: state.questionBoard.questionsInView
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -290,6 +306,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     dispatchCurrentUser: (currentUser) => {
       dispatch(setCurrentUser(currentUser));
+    },
+    dispatchMapMarkers: (mapMarkers) => {
+      dispatch(setMapMarkers(mapMarkers));
+    },
+    dispatchQuestionsInView: (questionsInView) => {
+      dispatch(setQuestionsInView(questionsInView));
     }
   };
 };

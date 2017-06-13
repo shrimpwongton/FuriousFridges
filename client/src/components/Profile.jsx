@@ -102,7 +102,7 @@ class Profile extends React.Component {
         let city = location.address.city || null;
         let state = location.address.state || null;
         let country = location.address.country || null;
-
+        
         if (country === 'United States') {
           country = 'USA';
         }
@@ -115,6 +115,8 @@ class Profile extends React.Component {
 
       axios.put('/users', {
         'current-location': cityStateCountry,
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
         email: this.props.currentUser.email
       })
         .then(res => {

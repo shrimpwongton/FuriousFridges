@@ -6,7 +6,9 @@ export { setQuestion,
          setErrorText,
          setCurrentQuestion,
          setCurrentView,
-         setCurrentUser } from './questionBoardActions';
+         setCurrentUser,
+         setMapMarkers,
+         setQuestionsInView } from './questionBoardActions';
 
 
 export { setHousing,

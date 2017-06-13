@@ -11,6 +11,8 @@ module.exports.getAll = (req, res) => {
           author: relationObj.firstName + ' ' + relationObj.lastName,
           body: q.attributes.question,
           location: q.attributes.location,
+          latitude: q.attributes.latitude,
+          longitude: q.attributes.longitude,
           createdAt: q.attributes.created_at,
           photoUrl: relationObj.photoUrl,
           userId: q.attributes.user_id
@@ -30,7 +32,9 @@ module.exports.create = (req, res) => {
       models.Question.forge({ 
         user_id: user.attributes.id, 
         question: req.body.question,
-        location: user.attributes['current-location'] 
+        location: user.attributes['current-location'],
+        latitude: user.attributes.latitude,
+        longitude: user.attributes.longitude 
       }).save()
         .then(q => {
           let question = {
@@ -38,6 +42,8 @@ module.exports.create = (req, res) => {
             author: user.attributes.firstName + ' ' + user.attributes.lastName,
             body: q.attributes.question,
             location: q.attributes.location,
+            latitude: q.attributes.latitude,
+            longitude: q.attributes.longitude,
             createdAt: q.attributes.created_at,
             photoUrl: user.attributes.photoUrl,
             userId: q.attributes.user_id
