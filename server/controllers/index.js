@@ -14,3 +14,4 @@ module.exports.CraigsList = require('./craigslist');
 module.exports.Schools = require('./schools');
 module.exports.NightClub = require('./nightclub');
 module.exports.Gyms = require('./gyms');
+module.exports.News = require('./news');

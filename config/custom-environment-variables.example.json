@@ -37,5 +37,8 @@
 
   "Google": {
     "APIKey": "GOOGLE_API_KEY"
+  },
+  "News": {
+    "APIKey": "NEWS_API_KEY"
   }
 }
