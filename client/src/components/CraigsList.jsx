@@ -4,14 +4,12 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import {GridList, GridTile} from 'material-ui/GridList';
 import Divider from 'material-ui/Divider';
 import {
-  grey500, white, green500,
+  grey500, white, green500, blueGrey300
 } from 'material-ui/styles/colors';
 import {List, ListItem} from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
-import Subheader from 'material-ui/Subheader';
-import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
 import FlatButton from 'material-ui/FlatButton';
-import HomeIcon from 'material-ui/svg-icons/action/home';
+import ContentWeekend from 'material-ui/svg-icons/content/weekend';
 
 
 class CraigsList extends React.Component {
@@ -37,36 +35,42 @@ class CraigsList extends React.Component {
   render () {
     const styles = {
       card: {
-        height: 400,
-      },
-      gridList: {
-        width: '100%',
-        height: '80%',
-        overflowY: 'auto',
+        margin: 8,
+        overflow: 'hidden',
+        width: 300,
       },
     };
 
     return (
        <div>
-        <Card>
-          <CardHeader
-            title='Craiglist'
-            subtitle={'Find furniture for you new place!'}
-            avatar={<HomeIcon />}
+        <Card
+          style={styles.card}>
+          <ListItem
+            primaryText='Craigslist'
+            secondaryText={'Furniture in the area'}
+            disabled={true}
+            leftAvatar={
+              <Avatar
+                icon={<ContentWeekend/>}
+                backgroundColor={blueGrey300}
+              />
+            }
           />
           <Divider/>
-          <List>
-            {this.state.listings.map((listing) => (
-              <ListItem  
-                target="_blank" href={listing.url}
-                key={listing.title}
-                primaryText={listing.title}
-                rightAvatar={<FlatButton label={listing.price || 'FREE!'} />}
-              >
-              
-              </ListItem>
-            ))}
-          </List>
+          {this.state.listings.map((listing) => (
+            <ListItem
+              target="_blank" href={listing.url}
+              key={listing.title}
+              primaryText={listing.title}
+              secondaryText={listing.price || 'Free'}
+              leftAvatar={
+                <Avatar>
+                  {listing.title[0]}
+                </Avatar>
+              }
+            >
+            </ListItem>
+          ))}
         </Card>
       </div>
     );
