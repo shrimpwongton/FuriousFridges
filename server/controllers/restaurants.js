@@ -37,7 +37,7 @@ module.exports.getAll = (req, res) => {
                           var reference = restaurants[currentIndex].photos[0].photo_reference;
                           restaurantObj['image'] = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${reference}&key=${config.clientID}`;
                         } else {
-                          restaurantObj['image'] = restaurants[currentIndex].icon;
+                          restaurantObj['image'] = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUsaNJSruzpPvzlnzOBAFgkkbpRPjX42i3jG4CzAPLRUQy1Oe5Mg';
                         }
                         restaurantData[currentIndex] = restaurantObj;
                         dataLength--;
