@@ -45,7 +45,8 @@ class EventCard extends React.Component {
     };
 
     return (
-       <div>
+      <div
+        style={{marginBottom: 24}}>
         <Card
           style={styles.card}>
           <ListItem
@@ -77,7 +78,7 @@ class EventCard extends React.Component {
               primaryText = 'No events in the area'
             />
           }
-        </GridList>
+          </GridList>
         </Card>
       </div>
     );

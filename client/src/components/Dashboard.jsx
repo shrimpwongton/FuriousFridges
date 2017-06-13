@@ -36,33 +36,38 @@ class Dashboard extends React.Component {
 
   render () {
     return (
-
-        <Masonry // default ''\
-          ref={function(c) {this.masonry = this.masonry || c.masonry;}.bind(this)}
-          style={{margin: '0 auto'}}
-          options={{isFitWidth: true, gutter: 4}}
-        >
-          <COLComparisonCard
-            originArray = {this.props.colOriginArray}
-            destinationArray = {this.props.colDestinationArray}
-            origin={this.props.origin}
-            destination={this.props.destination}/>
-          <HousingComparisonCard
-            originArray = {this.props.housingOriginArray}
-            destinationArray = {this.props.housingDestinationArray}
-            origin={this.props.origin}
-            destination={this.props.destination}/>
-          <Transit />
-          <MeetUp/>
-          <Restaurants />
-          <EventCard/>
-          <CraigsList />
-          <NightClub />
-          <Gyms />
-          <News />
-          <Spiritual />
-          <Doctors />
-        </Masonry>
+      <div
+        style={{marginTop: 24, }}>
+        <div
+          style={{maxWidth: 1500, margin: '0 auto'}}>
+          <Masonry // default ''\
+            ref={function(c) {this.masonry = this.masonry || c.masonry;}.bind(this)}
+            style={{margin: '0 auto'}}
+            options={{isFitWidth: true, gutter: 24}}
+          >
+            <COLComparisonCard
+              originArray = {this.props.colOriginArray}
+              destinationArray = {this.props.colDestinationArray}
+              origin={this.props.origin}
+              destination={this.props.destination}/>
+            <HousingComparisonCard
+              originArray = {this.props.housingOriginArray}
+              destinationArray = {this.props.housingDestinationArray}
+              origin={this.props.origin}
+              destination={this.props.destination}/>
+            <Transit />
+            <MeetUp/>
+            <Restaurants />
+            <EventCard/>
+            <CraigsList />
+            <NightClub />
+            <Gyms />
+            <News />
+            <Spiritual />
+            <Doctors />
+          </Masonry>
+        </div>
+      </div>
     );
   }
 }
