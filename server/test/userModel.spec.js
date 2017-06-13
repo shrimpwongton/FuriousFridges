@@ -36,4 +36,38 @@ describe('Question board model tests', function () {
       });
   });
 
+  it('Should be able to post a question', (done) => {
+    User.forge({ 
+      firstName: 'John', 
+      lastName: 'Doe',
+      email: '123abc@example.com',
+      photoUrl: 'greatphoto.jpg',
+      visible: true 
+    }).save()
+      .then(() => {
+        return User.fetchAll();   
+      })
+      .then(user => {
+        return Question.forge({
+          user_id: user.models[0].attributes.id,
+          question: 'Can I post a question?',
+          location: 'San Francisco',
+          latitude: 37.77,
+          longitude: 122.42
+        }).save(); 
+      })
+      .then(() => {
+        return Question.fetchAll();
+      })
+      .then(results => {
+        expect(results.length).to.equal(1);
+        expect(results.at(0).get('id')).to.equal(1);
+        expect(results.at(0).get('user_id')).to.equal(1);
+        done();
+      })
+      .catch(err => {
+        done(err);
+      });
+  });
+
 });
