@@ -246,7 +246,7 @@ class AskQuestionBoard extends React.Component {
             />
           </Dialog>
         </div>
-        <div className='container-fluid'>
+        
           <QuestionView
             handleQuestionClick={this.handleQuestionClick}
             openQuestionDialog={this.openQuestionDialog}
@@ -258,7 +258,7 @@ class AskQuestionBoard extends React.Component {
             handleAnswerSubmit={this.handleAnswerSubmit}
             deleteAnswer={this.deleteAnswer}
           />
-        </div>
+        
       </div>
     );
   }
