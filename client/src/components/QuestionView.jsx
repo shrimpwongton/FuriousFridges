@@ -67,9 +67,9 @@ class QuestionView extends React.Component {
   }
 
   render() {
-    let questionView = 
-    <Card style={this.props.width > 750 ? styles.cardStyle : styles.cardStyleMobile}>  
-      <QuestionCollection 
+    let questionView =
+    <Card style={{flexGrow: 1, marginLeft: 24, marginRight: 24}}>
+      <QuestionCollection
         handleQuestionClick={this.props.handleQuestionClick}
         deleteQuestion={this.props.deleteQuestion}
         destinationCity={this.props.destinationCity}
@@ -89,8 +89,22 @@ class QuestionView extends React.Component {
       view = answerView;
     }
     return (
-      <div style={{ 'margin-top': '24px'}}>
-        <div style={this.props.width > 750 ? styles.mapStyle : styles.mapStyleMobile}>
+      <div style={{
+        width: '80%',
+        display: 'flex',
+        flexFlow: 'row wrap',
+        justifyContent: 'center',}}>
+        {this.props.currentView === 'questions' ?
+          <FloatingActionButton
+            mini={this.props.width <= 750}
+            style={styles.askQuestionButton}
+            onTouchTap={this.props.openQuestionDialog}
+            backgroundColor={pinkA200}>
+            <ContentAdd />
+          </FloatingActionButton> :
+          <div/>
+        }
+        <div style={{flexGrow:1, minWidth: 300, marginBottom: 24}}>
           <GettingStartedGoogleMap
             containerElement={
               <div style={{ height: '700px' }} />
@@ -104,15 +118,8 @@ class QuestionView extends React.Component {
             onMarkerRightClick={_.noop}
           />
         </div>
-        <div style={this.props.width > 750 ? styles.qStyle : styles.qStyleMobile}>
+        <div style={{flexGrow:1, minWidth: 300, width: '40%'}}>
           {view}
-          <FloatingActionButton
-            mini={this.props.width <= 750}
-            style={styles.askQuestionButton}
-            onTouchTap={this.props.openQuestionDialog}
-            backgroundColor={pinkA200}>
-            <ContentAdd />
-          </FloatingActionButton>
         </div>
       </div>
     );
@@ -120,31 +127,6 @@ class QuestionView extends React.Component {
 }
 
 const styles = {
-  cardStyle: {
-    width: '35vw',
-  },
-  cardStyleMobile: {
-    width: '93vw'
-  },
-  mapStyle: { 
-    'margin': '0 15px 0 15px', 
-    'width': '58%', 'display': 
-    'inline-block' 
-  },
-  qStyle: { 
-    'width': '40%', 
-    'display': 'inline-block', 
-    'vertical-align': 'top' 
-  },
-  mapStyleMobile: { 
-    'margin': '0 15px 0 15px', 
-    'width': '96%' 
-  },
-  qStyleMobile: { 
-    'margin': '15px 0 0 15px', 
-    'width': '96%', 
-    'align': 'center' 
-  },
   askQuestionButton: {
     margin: 0,
     right: 24,

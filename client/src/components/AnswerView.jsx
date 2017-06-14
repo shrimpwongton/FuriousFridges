@@ -11,7 +11,7 @@ import AnswerCollection from './AnswerCollection.jsx';
 
 const AnswerView = (props) => {
   let now = new Date();
-  let created = new Date(props.currentQuestion.createdAt); 
+  let created = new Date(props.currentQuestion.createdAt);
   let elapsed = Math.floor((now - created) / 1000);
   let postTime = '';
   let timeIncrement = '';
@@ -34,46 +34,47 @@ const AnswerView = (props) => {
     postTime = `${Math.floor(elapsed / 86400)} ${timeIncrement} ago`;
   } else if (elapsed < 31536000) {
     timeIncrement = Math.floor(elapsed / 2628000) === 1 ? 'month' : 'months';
-    postTime = `${Math.floor(elapsed / 2628000)} ${timeIncrement} ago`; 
+    postTime = `${Math.floor(elapsed / 2628000)} ${timeIncrement} ago`;
   } else {
     postTime = 'More than a year ago';
   }
 
   return (
-    <div>
-      <Card
-        style={styles.cardStyle}>
-        <IconButton
-          onTouchTap={props.backToQuestions}>
-          <NavigationArrowBack />
-        </IconButton>
-        <CardTitle
-          title={props.currentQuestion.body}
-          subtitle={`${props.currentQuestion.author} · ${props.currentQuestion.location} · ${postTime}`} />
-        <AnswerCollection deleteAnswer={props.deleteAnswer} />
-        <ListItem
-          disabled={true}>
-          <TextField
-            floatingLabelText="Reply"
-            floatingLabelFixed={true}
-            fullWidth ={true}
-            value={props.answer}
-            rows={2}
-            multiLine={true}
-            onChange={props.handleAnswerChange}
-            onKeyPress={props.handleAnswerSubmit}
-            underlineFocusStyle={styles.underlineStyle}
-            floatingLabelFocusStyle={styles.floatingLabelStyle}
-          />
-        </ListItem>
-      </Card>
-    </div>  
+    <Card
+      style={styles.cardStyle}>
+      <IconButton
+        onTouchTap={props.backToQuestions}>
+        <NavigationArrowBack />
+      </IconButton>
+      <CardTitle
+        title={props.currentQuestion.body}
+        subtitle={`${props.currentQuestion.author} · ${props.currentQuestion.location} · ${postTime}`} />
+      <AnswerCollection deleteAnswer={props.deleteAnswer} />
+      <ListItem
+        disabled={true}>
+        <TextField
+          floatingLabelText="Reply"
+          floatingLabelFixed={true}
+          fullWidth ={true}
+          value={props.answer}
+          rows={2}
+          multiLine={true}
+          onChange={props.handleAnswerChange}
+          onKeyPress={props.handleAnswerSubmit}
+          underlineFocusStyle={styles.underlineStyle}
+          floatingLabelFocusStyle={styles.floatingLabelStyle}
+        />
+      </ListItem>
+    </Card>
   );
 };
 
 const styles = {
   cardStyle: {
-    width: '35vw',
+    flexGrow: 1,
+    minWidth: 300,
+    marginLeft: 24,
+    marginRight: 24
   },
   underlineStyle: {
     borderColor: pinkA200,
@@ -83,7 +84,7 @@ const styles = {
   }
 };
 
-const mapStateToProps = (state) => ({ 
+const mapStateToProps = (state) => ({
   answer: state.questionBoard.answer,
   currentQuestion: state.questionBoard.currentQuestion,
 });

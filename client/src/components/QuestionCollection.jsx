@@ -9,7 +9,9 @@ import { blueGrey700 } from 'material-ui/styles/colors';
 const QuestionCollection = (props) => (
   <div>
     {/*<CardTitle title={objectKeyByValue(CityOptions, props.destinationCity)[0] + ' Q&A'} />*/}
-    <CardTitle title={<span style={{'color': blueGrey700, 'fontWeight': 'bold' }}>Have a question? Ask location verified users!</span>} />
+    <CardTitle
+      title='Have a question?'
+      subtitle="Ask locals"/>
     {
       props.questionsInView.map(question =>
         <Question question={question}
