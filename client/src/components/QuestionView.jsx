@@ -128,7 +128,7 @@ const styles = {
   },
   mapStyle: { 
     'margin': '0 15px 0 15px', 
-    'width' : '58%', 'display': 
+    'width': '58%', 'display': 
     'inline-block' 
   },
   qStyle: { 
@@ -138,7 +138,7 @@ const styles = {
   },
   mapStyleMobile: { 
     'margin': '0 15px 0 15px', 
-    'width' : '96%' 
+    'width': '96%' 
   },
   qStyleMobile: { 
     'margin': '15px 0 0 15px', 
