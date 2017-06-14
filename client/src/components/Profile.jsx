@@ -324,7 +324,7 @@ class Profile extends React.Component {
 
     const loadingPhrases = [
       'Rebooting the Internet',
-      'Building SkyNet',
+      'Building Skynet',
       'Meddling in elections',
       'Overthrowing governments',
       'Taking over the world',
@@ -348,7 +348,7 @@ class Profile extends React.Component {
       'Materializing UI',
       'Putting up a fake loading screen',
       'Destroying the human race',
-
+      'Determining the fate of the world',
     ];
 
     if (this.state.spinner) {
@@ -438,6 +438,7 @@ class Profile extends React.Component {
               >
                 <div>
                   <Dashboard
+                    width={this.state.width}
                     origin={this.state.originUser}
                     destination={this.state.destinationUser}
                     colOriginArray={this.state.colOriginArray}
@@ -453,6 +454,7 @@ class Profile extends React.Component {
               >
                 <div>
                   <Dashboard
+                    width={this.state.width}
                     origin={this.state.originUser}
                     destination={this.state.destinationUser}
                     colOriginArray={this.state.colOriginArray}
