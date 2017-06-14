@@ -68,7 +68,7 @@ describe('Question board model tests', function () {
   });
 
   it('Second user should be able to post an answer', (done) => {
-   User.forge({ 
+    User.forge({ 
       firstName: 'John', 
       lastName: 'Doe',
       email: '123abc@example.com',
@@ -82,7 +82,7 @@ describe('Question board model tests', function () {
           email: '456abc@example.com',
           photoUrl: 'lovelyphoto.jpg',
           visible: true 
-        }).save()
+        }).save();
       })
       .then(user => {
         return Question.forge({
@@ -112,7 +112,7 @@ describe('Question board model tests', function () {
       })
       .catch(err => {
         done(err);
-      })  
-  })
+      });  
+  });
 
 });
