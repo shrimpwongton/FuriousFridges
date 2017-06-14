@@ -222,7 +222,7 @@ class AskQuestionBoard extends React.Component {
     return (
       <div
         style={{
-          margin: '24',
+          margin: '12',
           display: 'flex',
           flexFlow: 'row wrap',
           justifyContent: 'center',

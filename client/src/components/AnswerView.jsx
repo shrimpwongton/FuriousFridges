@@ -73,8 +73,7 @@ const styles = {
   cardStyle: {
     flexGrow: 1,
     minWidth: 300,
-    marginLeft: 24,
-    marginRight: 24
+    margin: 12
   },
   underlineStyle: {
     borderColor: pinkA200,

@@ -68,7 +68,7 @@ class QuestionView extends React.Component {
 
   render() {
     let questionView =
-    <Card style={{flexGrow: 1, marginLeft: 24, marginRight: 24}}>
+    <Card style={{flexGrow: 1, margin: 12}}>
       <QuestionCollection
         handleQuestionClick={this.props.handleQuestionClick}
         deleteQuestion={this.props.deleteQuestion}
@@ -89,11 +89,17 @@ class QuestionView extends React.Component {
       view = answerView;
     }
     return (
-      <div style={{
-        width: '80%',
-        display: 'flex',
-        flexFlow: 'row wrap',
-        justifyContent: 'center',}}>
+      <div style={this.props.width > 750 ?
+        {
+          width: '80%',
+          display: 'flex',
+          flexFlow: 'row wrap',
+          justifyContent: 'center',} :
+        {
+          width: '100%',
+          display: 'flex',
+          flexFlow: 'row wrap',
+          justifyContent: 'center',}}>
         {this.props.currentView === 'questions' ?
           <FloatingActionButton
             mini={this.props.width <= 750}
@@ -104,10 +110,10 @@ class QuestionView extends React.Component {
           </FloatingActionButton> :
           <div/>
         }
-        <div style={{flexGrow:1, minWidth: 300, marginBottom: 24}}>
+        <div style={{flexGrow:1, width: '50%', minWidth: 300, margin: 12}}>
           <GettingStartedGoogleMap
             containerElement={
-              <div style={{ height: '700px' }} />
+              <div style={{ height: '500px' }} />
             }
             mapElement={
               <div style={{ height: '100%' }} />
