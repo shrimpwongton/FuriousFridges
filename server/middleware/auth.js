@@ -19,8 +19,8 @@ module.exports.profileRedirect = (req, res, next) => {
 module.exports.session = session({
   store: new RedisStore({
     client: redisClient,
-    host: 'redis://h:p2cc69751f934a2fed30a01af41cf3c4395a71899d379e96a31840e8cb883af32@ec2-54-208-76-96.compute-1.amazonaws.com',
-    port: 13289
+    host: 'localhost',
+    port: 6379
   }),
   secret: 'more laughter, more love, more life',
   resave: false,
