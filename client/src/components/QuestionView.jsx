@@ -67,9 +67,9 @@ class QuestionView extends React.Component {
   }
 
   render() {
-    let questionView =
-    <Card style={styles.cardStyle}>
-      <QuestionCollection
+    let questionView = 
+    <Card style={this.props.width > 750 ? styles.cardStyle : styles.cardStyleMobile}>  
+      <QuestionCollection 
         handleQuestionClick={this.props.handleQuestionClick}
         deleteQuestion={this.props.deleteQuestion}
         destinationCity={this.props.destinationCity}
@@ -89,8 +89,8 @@ class QuestionView extends React.Component {
       view = answerView;
     }
     return (
-      <div className='row' style={{ 'margin-top': '24px'}}>
-        <div className='col-xs-7'>
+      <div style={{ 'margin-top': '24px'}}>
+        <div style={this.props.width > 750 ? styles.mapStyle : styles.mapStyleMobile}>
           <GettingStartedGoogleMap
             containerElement={
               <div style={{ height: '700px' }} />
@@ -104,7 +104,7 @@ class QuestionView extends React.Component {
             onMarkerRightClick={_.noop}
           />
         </div>
-        <div className='col-xs-5'>
+        <div style={this.props.width > 750 ? styles.qStyle : styles.qStyleMobile}>
           {view}
           <FloatingActionButton
             mini={this.props.width <= 750}
@@ -122,6 +122,28 @@ class QuestionView extends React.Component {
 const styles = {
   cardStyle: {
     width: '35vw',
+  },
+  cardStyleMobile: {
+    width: '93vw'
+  },
+  mapStyle: { 
+    'margin': '0 15px 0 15px', 
+    'width': '58%', 'display': 
+    'inline-block' 
+  },
+  qStyle: { 
+    'width': '40%', 
+    'display': 'inline-block', 
+    'vertical-align': 'top' 
+  },
+  mapStyleMobile: { 
+    'margin': '0 15px 0 15px', 
+    'width': '96%' 
+  },
+  qStyleMobile: { 
+    'margin': '15px 0 0 15px', 
+    'width': '96%', 
+    'align': 'center' 
   },
   askQuestionButton: {
     margin: 0,
