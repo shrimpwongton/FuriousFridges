@@ -372,6 +372,7 @@ class Profile extends React.Component {
         <div>
         <MuiThemeProvider>
           <Toolbar
+            id='toolbar'
             style = {styles.toolbarStyle}>
             <ToolbarGroup firstChild={true} style={styles.titleStyle}>
               <Link to='/'
@@ -401,6 +402,7 @@ class Profile extends React.Component {
         </MuiThemeProvider>
         <MuiThemeProvider>
           <Tabs
+            id='tabs'
             tabItemContainerStyle={{width: '100vw'}}
             inkBarStyle={{background: pinkA200, zIndex: 500}}
             contentContainerStyle={{background: grey300}}
