@@ -27,9 +27,10 @@ import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Chip from 'material-ui/Chip';
 import {
-  blueGrey500, blueGrey700, blueGrey300, red500, orange500, amber500, lightGreen500, green500, grey500, pinkA200, grey50, blue500, cyan500, indigo500, lightBlue500, grey800, grey600
+  blueGrey500, pinkA700, blueGrey300, red500, orange500, amber500, lightGreen500, green500, grey500, pinkA200, grey50, blue500, cyan500, indigo500, lightBlue500, grey800, grey600
 } from 'material-ui/styles/colors';
 import Divider from 'material-ui/Divider';
+import $ from 'jquery';
 
 class CityInfo extends React.Component {
   constructor(props) {
@@ -73,7 +74,6 @@ class CityInfo extends React.Component {
     }
     return data;
   }
-
   objectKeyByValue (obj, val) {
     if ( typeof val === 'undefined' ) {
       return [''];
@@ -215,6 +215,11 @@ class CityInfo extends React.Component {
         flexFlow: 'row wrap',
         justifyContent: 'center',
       },
+      leftStyle: {
+        width: '80%',
+        display: 'flex',
+        flexFlow: 'row wrap',
+      },
       mobileCenterStyle: {
         width: '100%',
         display: 'flex',
@@ -275,11 +280,6 @@ class CityInfo extends React.Component {
       },
       chip: {
         margin: 4,
-      },
-      chipGrow: {
-        width: 'auto',
-        minWidth: 100,
-        flexGrow: 1,
       },
       priceStyle: {
         fontFamily: "'Roboto', sans-serif",
@@ -411,6 +411,48 @@ class CityInfo extends React.Component {
               </div>
             </Paper>
           </MuiThemeProvider>
+          <div
+            style={styles.flexStyle}>
+            <div
+              style={styles.leftStyle}>
+              <Chip
+                backgroundColor={pinkA200}
+                labelColor={grey50}
+                onTouchTap={function() {
+                  $('html, body').animate({
+                    scrollTop: $('#costofliving').offset().top - $('#toolbar').height()
+                  }, 750);
+                }}
+                style={styles.chip}>
+                <Avatar size={32} icon={<EditorAttachMoney/>} color={grey50} backgroundColor={pinkA700}/>
+                Cost of Living
+              </Chip>
+              <Chip
+                backgroundColor={pinkA200}
+                labelColor={grey50}
+                onTouchTap={function() {
+                  $('html, body').animate({
+                    scrollTop: $('#climate').offset().top - $('#toolbar').height()
+                  }, 750);
+                }}
+                style={styles.chip}>
+                <Avatar size={32} icon={<MapsLocalFlorist/>} color={grey50} backgroundColor={pinkA700}/>
+                Climate
+              </Chip>
+              <Chip
+                backgroundColor={pinkA200}
+                labelColor={grey50}
+                onTouchTap={function() {
+                  $('html, body').animate({
+                    scrollTop: $('#housing').offset().top - $('#toolbar').height()
+                  }, 750);
+                }}
+                style={styles.chip}>
+                <Avatar size={32} icon={<ActionHome/>} color={grey50} backgroundColor={pinkA700}/>
+                Housing
+              </Chip>
+            </div>
+          </div>
         </div>
         {
           this.props.width > 750 ?
