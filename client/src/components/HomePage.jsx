@@ -182,7 +182,7 @@ class HomePage extends React.Component {
         fontSize: '1em',
         position: 'absolute',
         left: '20px',
-        bottom: '0px',
+        bottom: '20px',
       },
       fab: {
         right: '20px',
