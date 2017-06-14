@@ -2,10 +2,10 @@
   "knex": {
     "client": "postgresql",
     "connection": {
-      "database": "thesis",
-      "user": "postgres",
-      "password": "postgres",
-      "host": "localhost",
+      "database": "del6u7aahblch4",
+      "user": "urndagmddjboiy",
+      "password": "00a9049d33f188be8388f945a8e973f1ca1114c309c8b1eba5df0b5ce869af12",
+      "host": "ec2-107-20-186-238.compute-1.amazonaws.com",
       "port": 5432
     },
     "pool": {
