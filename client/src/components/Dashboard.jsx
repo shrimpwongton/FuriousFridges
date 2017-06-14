@@ -14,6 +14,11 @@ import News from './News.jsx';
 import Spiritual from './Spiritual.jsx';
 import Doctors from './Doctors.jsx';
 import Masonry from 'react-masonry-component';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentFilterList from 'material-ui/svg-icons/content/filter-list';
+import {
+  pinkA200
+} from 'material-ui/styles/colors';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -37,7 +42,13 @@ class Dashboard extends React.Component {
   render () {
     return (
       <div
-        style={{marginTop: 24, }}>
+        style={{marginTop: 24, position: 'relative'}}>
+        <FloatingActionButton
+          backgroundColor={pinkA200}
+          mini={this.props.width <= 750}
+          style={{position: 'absolute', right: 24, top: 0}}>
+          <ContentFilterList/>
+        </FloatingActionButton>
         <div
           style={{maxWidth: 1500, margin: '0 auto'}}>
           <Masonry // default ''\
@@ -61,7 +72,7 @@ class Dashboard extends React.Component {
             <EventCard/>
             <CraigsList />
             <NightClub />
-            <News />
+            {/*<News />*/}
             <Spiritual />
             <Transit />
             <Doctors />

@@ -438,6 +438,7 @@ class Profile extends React.Component {
               >
                 <div>
                   <Dashboard
+                    width={this.state.width}
                     origin={this.state.originUser}
                     destination={this.state.destinationUser}
                     colOriginArray={this.state.colOriginArray}
@@ -453,6 +454,7 @@ class Profile extends React.Component {
               >
                 <div>
                   <Dashboard
+                    width={this.state.width}
                     origin={this.state.originUser}
                     destination={this.state.destinationUser}
                     colOriginArray={this.state.colOriginArray}

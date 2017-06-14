@@ -39,7 +39,7 @@ const GettingStartedGoogleMap = withGoogleMap(props => {
 class QuestionView extends React.Component {
   constructor(props) {
     super(props);
-   
+
     this.handleMapLoad = this.handleMapLoad.bind(this);
     this.handleMapClick = this.handleMapClick.bind(this);
   }
@@ -60,22 +60,22 @@ class QuestionView extends React.Component {
   handleMapClick(event) {
     let targetMarker = this.props.mapMarkers[0];
     let allQuestions = this.props.questions;
-    let questionsToDisplay = _.filter(allQuestions, question => 
-      this._mapComponent.getBounds().contains({ lat: question.latitude, lng: question.longitude })   
+    let questionsToDisplay = _.filter(allQuestions, question =>
+      this._mapComponent.getBounds().contains({ lat: question.latitude, lng: question.longitude })
     );
     this.props.dispatchQuestionsInView(questionsToDisplay);
   }
 
   render() {
-    let questionView = 
-    <Card style={styles.cardStyle}>  
-      <QuestionCollection 
+    let questionView =
+    <Card style={styles.cardStyle}>
+      <QuestionCollection
         handleQuestionClick={this.props.handleQuestionClick}
         deleteQuestion={this.props.deleteQuestion}
-        destinationCity={this.props.destinationCity} 
-      /> 
+        destinationCity={this.props.destinationCity}
+      />
     </Card>;
-    let answerView = 
+    let answerView =
     <AnswerView
       backToQuestions={this.props.backToQuestions}
       handleAnswerChange={this.props.handleAnswerChange}
@@ -89,7 +89,7 @@ class QuestionView extends React.Component {
       view = answerView;
     }
     return (
-      <div className='row' style={{ 'margin-top': '10px'}}>
+      <div className='row' style={{ 'margin-top': '24px'}}>
         <div className='col-xs-7'>
           <GettingStartedGoogleMap
             containerElement={
@@ -125,7 +125,7 @@ const styles = {
   },
   askQuestionButton: {
     margin: 0,
-    right: 20,
+    right: 24,
     left: 'auto',
     top: 0,
     position: 'absolute',

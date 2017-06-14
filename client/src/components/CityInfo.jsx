@@ -420,7 +420,7 @@ class CityInfo extends React.Component {
                 labelColor={grey50}
                 onTouchTap={function() {
                   $('html, body').animate({
-                    scrollTop: $('#costofliving').offset().top - $('#toolbar').height()
+                    scrollTop: $('#costofliving').offset().top
                   }, 750);
                 }}
                 style={styles.chip}>
@@ -432,7 +432,7 @@ class CityInfo extends React.Component {
                 labelColor={grey50}
                 onTouchTap={function() {
                   $('html, body').animate({
-                    scrollTop: $('#climate').offset().top - $('#toolbar').height()
+                    scrollTop: $('#climate').offset().top
                   }, 750);
                 }}
                 style={styles.chip}>
@@ -444,7 +444,7 @@ class CityInfo extends React.Component {
                 labelColor={grey50}
                 onTouchTap={function() {
                   $('html, body').animate({
-                    scrollTop: $('#housing').offset().top - $('#toolbar').height()
+                    scrollTop: $('#housing').offset().top
                   }, 750);
                 }}
                 style={styles.chip}>
