@@ -27,7 +27,7 @@ import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Chip from 'material-ui/Chip';
 import {
-  blueGrey500, pinkA700, blueGrey300, red500, orange500, amber500, lightGreen500, green500, grey500, pinkA200, grey50, blue500, cyan500, indigo500, lightBlue500, grey800, grey600
+  blueGrey500, pinkA100, blueGrey300, red500, orange500, amber500, lightGreen500, green500, grey500, pinkA200, grey50, blue500, cyan500, indigo500, lightBlue500, grey800, grey600
 } from 'material-ui/styles/colors';
 import Divider from 'material-ui/Divider';
 import $ from 'jquery';
@@ -416,39 +416,36 @@ class CityInfo extends React.Component {
             <div
               style={styles.leftStyle}>
               <Chip
-                backgroundColor={pinkA200}
-                labelColor={grey50}
+                backgroundColor={grey50}
                 onTouchTap={function() {
                   $('html, body').animate({
                     scrollTop: $('#costofliving').offset().top-20
                   }, 750);
                 }}
                 style={styles.chip}>
-                <Avatar size={32} icon={<EditorAttachMoney/>} color={grey50} backgroundColor={pinkA700}/>
+                <Avatar size={32} icon={<EditorAttachMoney/>} color={grey50} backgroundColor={pinkA200}/>
                 Cost of Living
               </Chip>
               <Chip
-                backgroundColor={pinkA200}
-                labelColor={grey50}
+                backgroundColor={grey50}
                 onTouchTap={function() {
                   $('html, body').animate({
                     scrollTop: $('#climate').offset().top-20
                   }, 750);
                 }}
                 style={styles.chip}>
-                <Avatar size={32} icon={<MapsLocalFlorist/>} color={grey50} backgroundColor={pinkA700}/>
+                <Avatar size={32} icon={<MapsLocalFlorist/>} color={grey50} backgroundColor={pinkA200}/>
                 Climate
               </Chip>
               <Chip
-                backgroundColor={pinkA200}
-                labelColor={grey50}
+                backgroundColor={grey50}
                 onTouchTap={function() {
                   $('html, body').animate({
                     scrollTop: $('#housing').offset().top-20
                   }, 750);
                 }}
                 style={styles.chip}>
-                <Avatar size={32} icon={<ActionHome/>} color={grey50} backgroundColor={pinkA700}/>
+                <Avatar size={32} icon={<ActionHome/>} color={grey50} backgroundColor={pinkA200}/>
                 Housing
               </Chip>
             </div>

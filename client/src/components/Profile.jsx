@@ -7,7 +7,7 @@ import axios from 'axios';
 import geolocator from 'geolocator';
 import { setCurrentUser } from '../actions';
 import {
-  blueGrey500, white, pinkA200, pinkA100, grey300
+  blueGrey500, white, pinkA200, pinkA100, grey300, grey50
 } from 'material-ui/styles/colors';
 import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -274,7 +274,7 @@ class Profile extends React.Component {
         backgroundColor: blueGrey500,
       },
       whiteTextStyle: {
-        color: 'white',
+        color: grey50,
         left: 15,
       },
       signInStyle: {
