@@ -43,7 +43,7 @@ class Dashboard extends React.Component {
     let context = this;
     setTimeout(function() {
       context.forceUpdate();
-    }, 1000);
+    }, 1500);
   }
 
   render () {
