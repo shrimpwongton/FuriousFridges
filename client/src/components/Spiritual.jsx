@@ -8,7 +8,7 @@ import PlacePin from 'material-ui/svg-icons/maps/place';
 import {
   blueGrey300,
 } from 'material-ui/styles/colors';
-import {ListItem} from "material-ui/List";
+import {ListItem} from 'material-ui/List';
 
 class Spiritual extends React.Component {
   constructor(props) {
@@ -31,14 +31,16 @@ class Spiritual extends React.Component {
   }
 
   render() {
-    //let places = Object.entries(this.state.place);
-
     const styles = {
       card: {
         margin: 8,
         overflow: 'hidden',
-        width: 300,
+        width: 300
       },
+      image: {
+        height: 250,
+        width: 300
+      }
     };
 
     return (
@@ -67,7 +69,7 @@ class Spiritual extends React.Component {
                 title={place.name}
               >
                  <a target="_blank">
-                  <img src = {place.image} />
+                  <img style={styles.image} src={place.image} />
                 </a>
               </GridTile>
             )) :

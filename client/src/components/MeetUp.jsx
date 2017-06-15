@@ -45,6 +45,10 @@ class MeetUp extends React.Component {
         overflow: 'hidden',
         width: 300,
       },
+      image: {
+        height: 200,
+        width: 300
+      }
     };
     return (
       <div
@@ -71,7 +75,9 @@ class MeetUp extends React.Component {
               <GridTile
                 title={meetup[1].name}
               >
-                <img src = {meetup[1].image} />
+              <a target="_blank" href={meetup[1].url}>
+                <img style={styles.image} src={meetup[1].image} />
+              </a>
               </GridTile>
             )) :
               <ListItem

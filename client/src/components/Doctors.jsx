@@ -69,6 +69,7 @@ class Doctors extends React.Component {
               key={doctor.name}
               primaryText={doctor.name}
               secondaryText={doctor.address}
+              disabled={true}
               leftAvatar={
                 <Avatar>
                   {doctor.name[0]}

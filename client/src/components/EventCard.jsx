@@ -42,6 +42,10 @@ class EventCard extends React.Component {
         overflow: 'hidden',
         width: 300,
       },
+      image: {
+        height: 200,
+        width: 300
+      }
     };
 
     return (
@@ -70,7 +74,7 @@ class EventCard extends React.Component {
               title={event[1].description}
             >
               <a target="_blank" href={event[1].url}>
-                <img src = {event[1].img} />
+                <img style={styles.image} src={event[1].img} />
               </a>
             </GridTile>
           )) :
