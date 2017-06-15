@@ -34,25 +34,26 @@ module.exports.getAll = (req, res) => {
                       var validData = true;
                       if ( typeof schools === 'undefined' ) {
                         res.send({});
-                      }
-                      while (schools.length > 0 && dataLength > 0 && validData) {
-                        var schoolObj = {};
-                        schoolObj['name'] = schools[currentIndex].name;
-                        schoolObj['type'] = schools[currentIndex].types[0];
-                        if (schools[currentIndex].photos) {
-                          var reference = schools[currentIndex].photos[0].photo_reference;
-                          schoolObj['image'] = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${reference}&key=${config.clientID}`;
-                        } else {
-                          schoolObj['image'] = schools[currentIndex].icon;
+                      } else {
+                        while (schools.length > 0 && dataLength > 0 && validData) {
+                          var schoolObj = {};
+                          schoolObj['name'] = schools[currentIndex].name;
+                          schoolObj['type'] = schools[currentIndex].types[0];
+                          if (schools[currentIndex].photos) {
+                            var reference = schools[currentIndex].photos[0].photo_reference;
+                            schoolObj['image'] = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${reference}&key=${config.clientID}`;
+                          } else {
+                            schoolObj['image'] = schools[currentIndex].icon;
+                          }
+                          schoolData[currentIndex] = schoolObj;
+                          dataLength--;
+                          if (!schools[currentIndex + 1]) {
+                            validData = false;
+                          }
+                          currentIndex++;
                         }
-                        schoolData[currentIndex] = schoolObj;
-                        dataLength--;
-                        if (!schools[currentIndex + 1]) {
-                          validData = false;
-                        }
-                        currentIndex++;
+                        res.send(schoolData);
                       }
-                      res.send(schoolData);
                     });
                 }
               });

@@ -31,19 +31,20 @@ module.exports.getAll = (req, res) => {
                       var validData = true;
                       if ( typeof doctors === 'undefined' ) {
                         res.send({});
-                      }
-                      while (doctors.length > 0 && dataLength > 0 && validData) {
-                        var doctorObj = {};
-                        doctorObj['name'] = doctors[currentIndex].name;
-                        doctors['address'] = doctors[currentIndex].vicinity;
-                        doctorData[currentIndex] = doctorObj;
-                        dataLength--;
-                        if (!doctors[currentIndex + 1]) {
-                          validData = false;
+                      } else {
+                        while (doctors.length > 0 && dataLength > 0 && validData) {
+                          var doctorObj = {};
+                          doctorObj['name'] = doctors[currentIndex].name;
+                          doctors['address'] = doctors[currentIndex].vicinity;
+                          doctorData[currentIndex] = doctorObj;
+                          dataLength--;
+                          if (!doctors[currentIndex + 1]) {
+                            validData = false;
+                          }
+                          currentIndex++;
                         }
-                        currentIndex++;
+                        res.send(doctorData);
                       }
-                      res.send(doctorData);
                     });
                 }
               });

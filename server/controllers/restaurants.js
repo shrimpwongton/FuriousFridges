@@ -31,25 +31,26 @@ module.exports.getAll = (req, res) => {
                       var validData = true;
                       if ( typeof restaurants === 'undefined' ) {
                         res.send({});
-                      }
-                      while (restaurants.length > 0 && dataLength > 0 && validData) {
-                        var restaurantObj = {};
-                        restaurantObj['name'] = restaurants[currentIndex].name;
-                        restaurantObj['rating'] = restaurants[currentIndex].rating;
-                        if (restaurants[currentIndex].photos) {
-                          var reference = restaurants[currentIndex].photos[0].photo_reference;
-                          restaurantObj['image'] = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${reference}&key=${config.clientID}`;
-                        } else {
-                          restaurantObj['image'] = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUsaNJSruzpPvzlnzOBAFgkkbpRPjX42i3jG4CzAPLRUQy1Oe5Mg';
+                      } else {
+                        while (restaurants.length > 0 && dataLength > 0 && validData) {
+                          var restaurantObj = {};
+                          restaurantObj['name'] = restaurants[currentIndex].name;
+                          restaurantObj['rating'] = restaurants[currentIndex].rating;
+                          if (restaurants[currentIndex].photos) {
+                            var reference = restaurants[currentIndex].photos[0].photo_reference;
+                            restaurantObj['image'] = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${reference}&key=${config.clientID}`;
+                          } else {
+                            restaurantObj['image'] = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUsaNJSruzpPvzlnzOBAFgkkbpRPjX42i3jG4CzAPLRUQy1Oe5Mg';
+                          }
+                          restaurantData[currentIndex] = restaurantObj;
+                          dataLength--;
+                          if (!restaurants[currentIndex + 1]) {
+                            validData = false;
+                          }
+                          currentIndex++;
                         }
-                        restaurantData[currentIndex] = restaurantObj;
-                        dataLength--;
-                        if (!restaurants[currentIndex + 1]) {
-                          validData = false;
-                        }
-                        currentIndex++;
+                        res.send(restaurantData);
                       }
-                      res.send(restaurantData);
                     });
                 }
               });

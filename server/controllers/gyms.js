@@ -32,26 +32,27 @@ module.exports.getAll = (req, res) => {
                       var dataLength = 10;
                       var currentIndex = 0;
                       var validData = true;
-                      if ( typeof gym === 'undefined' ) {
+                      if ( typeof gyms === 'undefined' ) {
                         res.send({});
-                      }
-                      while (gyms.length > 0 && dataLength > 0 && validData) {
-                        var gymObj = {};
-                        gymObj['name'] = gyms[currentIndex].name;
-                        if (gyms[currentIndex].photos) {
-                          var reference = gyms[currentIndex].photos[0].photo_reference;
-                          gymObj['image'] = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${reference}&key=${config.clientID}`;
-                        } else {
-                          gymObj['image'] = 'http://www.kaylainthecity.com/wp-content/uploads/gym.jpg';
+                      } else {
+                        while (gyms.length > 0 && dataLength > 0 && validData) {
+                          var gymObj = {};
+                          gymObj['name'] = gyms[currentIndex].name;
+                          if (gyms[currentIndex].photos) {
+                            var reference = gyms[currentIndex].photos[0].photo_reference;
+                            gymObj['image'] = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${reference}&key=${config.clientID}`;
+                          } else {
+                            gymObj['image'] = 'http://www.kaylainthecity.com/wp-content/uploads/gym.jpg';
+                          }
+                          gymData[currentIndex] = gymObj;
+                          dataLength--;
+                          if (!gyms[currentIndex + 1]) {
+                            validData = false;
+                          }
+                          currentIndex++;
                         }
-                        gymData[currentIndex] = gymObj;
-                        dataLength--;
-                        if (!gyms[currentIndex + 1]) {
-                          validData = false;
-                        }
-                        currentIndex++;
+                        res.send(gymData);
                       }
-                      res.send(gymData);
                     });
                 }
               });

@@ -31,19 +31,20 @@ module.exports.getAll = (req, res) => {
           var validData = true;
           if ( typeof news === 'undefined' ) {
             res.send({});
-          }
-          while (news.length > 0 && dataLength > 0 && validData) {
-            var newsObj = {};
-            newsObj['headline'] = news[currentIndex].headline.main;
-            newsObj['url'] = news[currentIndex].web_url;
-            newsData[currentIndex] = newsObj;
-            dataLength--;
-            if (!news[currentIndex + 1]) {
-              validData = false;
+          } else {
+            while (news.length > 0 && dataLength > 0 && validData) {
+              var newsObj = {};
+              newsObj['headline'] = news[currentIndex].headline.main;
+              newsObj['url'] = news[currentIndex].web_url;
+              newsData[currentIndex] = newsObj;
+              dataLength--;
+              if (!news[currentIndex + 1]) {
+                validData = false;
+              }
+              currentIndex++;
             }
-            currentIndex++;
+            res.send(newsData);
           }
-          res.send(newsData);
         });
       });
     });

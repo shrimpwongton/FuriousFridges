@@ -31,25 +31,26 @@ module.exports.getAll = (req, res) => {
                       var validData = true;
                       if ( typeof meetups === 'undefined' ) {
                         res.send({});
-                      }
-                      while (meetups.length > 0 && dataLength > 0 && validData) {
-                        var meetupObj = {};
-                        meetupObj['name'] = meetups[currentIndex].name;
-                        meetupObj['type'] = meetups[currentIndex].group.who;
-                        meetupObj['url'] = meetups[currentIndex].event_url;
-                        if (meetups[currentIndex].group.group_photo) {
-                          meetupObj['image'] = meetups[currentIndex].group.group_photo.photo_link;
-                        } else {
-                          meetupObj['image'] = 'http://tctechcrunch2011.files.wordpress.com/2011/01/meetuplogo.jpeg';
+                      } else {
+                        while (meetups.length > 0 && dataLength > 0 && validData) {
+                          var meetupObj = {};
+                          meetupObj['name'] = meetups[currentIndex].name;
+                          meetupObj['type'] = meetups[currentIndex].group.who;
+                          meetupObj['url'] = meetups[currentIndex].event_url;
+                          if (meetups[currentIndex].group.group_photo) {
+                            meetupObj['image'] = meetups[currentIndex].group.group_photo.photo_link;
+                          } else {
+                            meetupObj['image'] = 'http://tctechcrunch2011.files.wordpress.com/2011/01/meetuplogo.jpeg';
+                          }
+                          meetupData[currentIndex] = meetupObj;
+                          dataLength--;
+                          if (!meetups[currentIndex + 1]) {
+                            validData = false;
+                          }
+                          currentIndex++;
                         }
-                        meetupData[currentIndex] = meetupObj;
-                        dataLength--;
-                        if (!meetups[currentIndex + 1]) {
-                          validData = false;
-                        }
-                        currentIndex++;
+                        res.send(meetupData);
                       }
-                      res.send(meetupData);
                     });
 
                 }

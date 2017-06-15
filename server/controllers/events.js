@@ -24,22 +24,23 @@ module.exports.getAll = (req, res) => {
                 var validData = true;
                 if ( typeof events === 'undefined' ) {
                   res.send({});
-                }
-                while (events.length > 0 && dataLength > 0 && validData) {
-                  var eventObj = {};
-                  eventObj['description'] = events[currentIndex].name.text;
-                  eventObj['url'] = events[currentIndex].url;
-                  if (events[currentIndex].logo) {
-                    eventObj['img'] = events[currentIndex].logo.url;
-                    eventData[currentIndex] = eventObj;
-                    dataLength--;
+                } else {
+                  while (events.length > 0 && dataLength > 0 && validData) {
+                    var eventObj = {};
+                    eventObj['description'] = events[currentIndex].name.text;
+                    eventObj['url'] = events[currentIndex].url;
+                    if (events[currentIndex].logo) {
+                      eventObj['img'] = events[currentIndex].logo.url;
+                      eventData[currentIndex] = eventObj;
+                      dataLength--;
+                    }
+                    if (!events[currentIndex + 1]) {
+                      validData = false;
+                    }
+                    currentIndex++;
                   }
-                  if (!events[currentIndex + 1]) {
-                    validData = false;
-                  }
-                  currentIndex++;
+                  res.send(eventData);
                 }
-                res.send(eventData);
               }
             });
 

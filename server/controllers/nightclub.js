@@ -34,24 +34,25 @@ module.exports.getAll = (req, res) => {
                       var validData = true;
                       if ( typeof clubs === 'undefined' ) {
                         res.send({});
-                      }
-                      while (clubs.length > 0 && dataLength > 0 && validData) {
-                        var clubObj = {};
-                        clubObj['name'] = clubs[currentIndex].name;
-                        if (clubs[currentIndex].photos) {
-                          var reference = clubs[currentIndex].photos[0].photo_reference;
-                          clubObj['image'] = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${reference}&key=${config.clientID}`;
-                        } else {
-                          clubObj['image'] = 'http://www.foundation-nightclub.com/wp-content/uploads/2014/11/champagne-parade-350x262.jpg';
+                      } else {
+                        while (clubs.length > 0 && dataLength > 0 && validData) {
+                          var clubObj = {};
+                          clubObj['name'] = clubs[currentIndex].name;
+                          if (clubs[currentIndex].photos) {
+                            var reference = clubs[currentIndex].photos[0].photo_reference;
+                            clubObj['image'] = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${reference}&key=${config.clientID}`;
+                          } else {
+                            clubObj['image'] = 'http://www.foundation-nightclub.com/wp-content/uploads/2014/11/champagne-parade-350x262.jpg';
+                          }
+                          clubData[currentIndex] = clubObj;
+                          dataLength--;
+                          if (!clubs[currentIndex + 1]) {
+                            validData = false;
+                          }
+                          currentIndex++;
                         }
-                        clubData[currentIndex] = clubObj;
-                        dataLength--;
-                        if (!clubs[currentIndex + 1]) {
-                          validData = false;
-                        }
-                        currentIndex++;
+                        res.send(clubData);
                       }
-                      res.send(clubData);
                     });
                 }
               });

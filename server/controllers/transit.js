@@ -31,25 +31,26 @@ module.exports.getAll = (req, res) => {
                       var validData = true;
                       if ( typeof stations === 'undefined' ) {
                         res.send({});
-                      }
-                      while (stations.length > 0 && dataLength > 0 && validData) {
-                        var stationObj = {};
-                        stationObj['name'] = stations[currentIndex].name;
-                        stationObj['type'] = stations[currentIndex].types[0];
-                        if (stations[currentIndex].photos) {
-                          var reference = stations[currentIndex].photos[0].photo_reference;
-                          stationObj['image'] = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${reference}&key=${config.clientID}`;
-                        } else {
-                          stationObj['image'] = stations[currentIndex].icon;
+                      } else {
+                        while (stations.length > 0 && dataLength > 0 && validData) {
+                          var stationObj = {};
+                          stationObj['name'] = stations[currentIndex].name;
+                          stationObj['type'] = stations[currentIndex].types[0];
+                          if (stations[currentIndex].photos) {
+                            var reference = stations[currentIndex].photos[0].photo_reference;
+                            stationObj['image'] = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${reference}&key=${config.clientID}`;
+                          } else {
+                            stationObj['image'] = stations[currentIndex].icon;
+                          }
+                          stationData[currentIndex] = stationObj;
+                          dataLength--;
+                          if (!stations[currentIndex + 1]) {
+                            validData = false;
+                          }
+                          currentIndex++;
                         }
-                        stationData[currentIndex] = stationObj;
-                        dataLength--;
-                        if (!stations[currentIndex + 1]) {
-                          validData = false;
-                        }
-                        currentIndex++;
+                        res.send(stationData);
                       }
-                      res.send(stationData);
                     });
                 }
               });
