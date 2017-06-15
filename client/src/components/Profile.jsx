@@ -76,11 +76,12 @@ class Profile extends React.Component {
   }
 
   setUserCurrentLocation() {
+    let key = process.env.GOOGLE_API_KEY || Google.APIKey; 
     geolocator.config({
       language: 'en',
       google: {
         version: '3',
-        key: process.env.GOOGLE_API_KEY || Google.APIKey
+        key 
       }
     });
     var options = {
@@ -98,7 +99,7 @@ class Profile extends React.Component {
       let cityStateCountry = 'Anonymous location';
       let latitude = -37.297947;
       let longitude = -12.677656;
-      
+    
       if (err) {
         console.log('ERROR: Unable to resolve location! You may be blocking location services', err);
       } else {
