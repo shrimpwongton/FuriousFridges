@@ -5,7 +5,8 @@
     "postinstall": "webpack",
     "start": "nodemon server",
     "test": "NODE_ENV=test grunt test",
-    "build": "webpack --watch"
+    "build": "webpack --watch",
+    "jest": "jest"
   },
   "author": "Hack Reactor",
   "license": "MIT",
@@ -35,6 +36,7 @@
     "morgan": "^1.8.1",
     "node-craigslist": "^1.1.2",
     "nodemon": "^1.11.0",
+    "npm": "^5.0.3",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
     "passport-google-oauth": "^1.0.0",
@@ -71,7 +73,7 @@
     "jest": "^20.0.4",
     "mocha": "^3.2.0",
     "node-mocks-http": "^1.6.1",
-    "react-test-renderer": "^15.5.4",
+    "react-test-renderer": "^15.6.1",
     "supertest": "^3.0.0",
     "webpack": "^2.3.2",
     "webpack-dev-server": "^2.4.2"

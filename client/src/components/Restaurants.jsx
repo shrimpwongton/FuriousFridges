@@ -39,6 +39,10 @@ class Restaurants extends React.Component {
         overflow: 'hidden',
         width: 300,
       },
+      image: {
+        height: 200,
+        width: 300
+      }
     };
 
     return (
@@ -66,7 +70,8 @@ class Restaurants extends React.Component {
                   subtitle={'Rating: ' + restaurant[1].rating}
                 />}
             >
-              <img
+              <img 
+                style={styles.image}
                 src={restaurant[1].image}
                 alt="" />
             </CardMedia>
