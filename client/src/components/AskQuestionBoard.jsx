@@ -50,6 +50,13 @@ class AskQuestionBoard extends React.Component {
   }
 
   componentDidMount() {
+    this.getQuestions();
+    setInterval(() => {
+      this.getQuestions();
+    }, 5000);
+  }
+
+  getQuestions() {
     axios.get('/questions', {
       params: { orderBy: '-created_at' }
     })
