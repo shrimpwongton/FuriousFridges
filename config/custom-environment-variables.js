@@ -1,4 +1,4 @@
-{
+module.exports = {
   "passport": {
     "Google": {
       "clientID": "GOOGLE_CLIENT_ID",

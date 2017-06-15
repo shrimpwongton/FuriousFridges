@@ -34,7 +34,7 @@ import CircularProgress from 'material-ui/CircularProgress';
 import ActionDashboard from 'material-ui/svg-icons/action/dashboard';
 import SocialLocationCity from 'material-ui/svg-icons/social/location-city';
 import ActionQuestionAnswer from 'material-ui/svg-icons/action/question-answer';
-import { Google } from '../../../config/custom-environment-variables.json';
+import { Google } from '../../../config/custom-environment-variables.js';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -98,7 +98,7 @@ class Profile extends React.Component {
       let cityStateCountry = 'Anonymous location';
       let latitude = -37.297947;
       let longitude = -12.677656;
-
+      console.log('>>>>>>>>>>>>>>>>', Google.APIKey);
       if (err) {
         console.log('ERROR: Unable to resolve location! You may be blocking location services', err);
       } else {
