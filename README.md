@@ -1,6 +1,6 @@
 # Relocate.me
 
-The project description
+Time for a change? Relocate.me is an interactive and dynamic app to help navigate through the process of moving to a new city.
 
 ## Team
 
@@ -10,7 +10,7 @@ The project description
 
 ## Roadmap
 
-View the project roadmap [here](LINK_TO_DOC)
+View the project roadmap [here](https://docs.google.com/spreadsheets/d/1A5aMDpD3LbgFSgufGwLQm-RLTkQWy6dcKlVitrCV7Jk/edit?usp=sharing)
 
 ## Contributing
 
