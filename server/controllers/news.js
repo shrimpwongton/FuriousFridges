@@ -23,6 +23,9 @@ module.exports.getAll = (req, res) => {
             'sort': 'newest'
           }
         }, function(err, response, body) {
+          if ( typeof body === 'undefined' ) {
+            res.send({});
+          }
           var body = JSON.parse(body);
           var news = body.response.docs;
           var newsData = {};

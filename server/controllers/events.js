@@ -16,6 +16,9 @@ module.exports.getAll = (req, res) => {
               if (error) {
                 console.error(error);
               } else {
+                if ( typeof body === 'undefined' ) {
+                  res.send({});
+                }
                 body = JSON.parse(body);
                 var events = body.events;
                 var eventData = {};

@@ -26,6 +26,9 @@ module.exports.getAll = (req, res) => {
                       if (error) {
                         console.error(error);
                       }
+                      if ( typeof body === 'undefined' ) {
+                        res.send({});
+                      }
                       var body = JSON.parse(body);
                       var schools = body.results;
                       var schoolData = {};
