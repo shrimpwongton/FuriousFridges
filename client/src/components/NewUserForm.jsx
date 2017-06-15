@@ -4,7 +4,7 @@ import {
   Link,
 } from 'react-router-dom';
 import {
-  blueGrey500, white, pinkA200, pinkA100, grey300, grey400, darkBlack, blueGrey700, grey100, grey500, fullBlack
+  blueGrey500, white, pinkA200, pinkA100, grey300, grey400, darkBlack, blueGrey700, grey50, grey100, grey500, fullBlack
 } from 'material-ui/styles/colors';
 import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -260,7 +260,7 @@ class NewUserForm extends React.Component {
         backgroundColor: blueGrey500,
       },
       whiteTextStyle: {
-        color: 'white',
+        color: grey50,
         left: 15,
       },
       signInStyle: {

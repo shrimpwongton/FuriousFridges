@@ -18,10 +18,13 @@ module.exports.getAll = (req, res) => {
                   console.error(err);
                 } else {
                   var geoCoords = JSON.parse(body).results[0].geometry['location'];
-                  request.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${geoCoords.lat},${geoCoords.lng}&radius=500&type=restaurant&key=${config.clientID}`, 
+                  request.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${geoCoords.lat},${geoCoords.lng}&radius=500&type=restaurant&key=${config.clientID}`,
                     (error, response, body) => {
                       if (error) {
                         console.error(error);
+                      }
+                      if ( typeof body === 'undefined' ) {
+                        res.send({});
                       }
                       var body = JSON.parse(body);
                       var restaurants = body.results;
@@ -29,27 +32,31 @@ module.exports.getAll = (req, res) => {
                       var dataLength = 10;
                       var currentIndex = 0;
                       var validData = true;
-                      while (restaurants.length > 0 && dataLength > 0 && validData) {
-                        var restaurantObj = {};
-                        restaurantObj['name'] = restaurants[currentIndex].name;
-                        restaurantObj['rating'] = restaurants[currentIndex].rating;
-                        if (restaurants[currentIndex].photos) {
-                          var reference = restaurants[currentIndex].photos[0].photo_reference;
-                          restaurantObj['image'] = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${reference}&key=${config.clientID}`;
-                        } else {
-                          restaurantObj['image'] = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUsaNJSruzpPvzlnzOBAFgkkbpRPjX42i3jG4CzAPLRUQy1Oe5Mg';
+                      if ( typeof restaurants === 'undefined' ) {
+                        res.send({});
+                      } else {
+                        while (restaurants.length > 0 && dataLength > 0 && validData) {
+                          var restaurantObj = {};
+                          restaurantObj['name'] = restaurants[currentIndex].name;
+                          restaurantObj['rating'] = restaurants[currentIndex].rating;
+                          if (restaurants[currentIndex].photos) {
+                            var reference = restaurants[currentIndex].photos[0].photo_reference;
+                            restaurantObj['image'] = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${reference}&key=${config.clientID}`;
+                          } else {
+                            restaurantObj['image'] = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUsaNJSruzpPvzlnzOBAFgkkbpRPjX42i3jG4CzAPLRUQy1Oe5Mg';
+                          }
+                          restaurantData[currentIndex] = restaurantObj;
+                          dataLength--;
+                          if (!restaurants[currentIndex + 1]) {
+                            validData = false;
+                          }
+                          currentIndex++;
                         }
-                        restaurantData[currentIndex] = restaurantObj;
-                        dataLength--;
-                        if (!restaurants[currentIndex + 1]) {
-                          validData = false;
-                        }
-                        currentIndex++;
+                        res.send(restaurantData);
                       }
-                      res.send(restaurantData);
                     });
                 }
               });
-      }); 
+      });
     });
 };

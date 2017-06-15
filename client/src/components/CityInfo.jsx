@@ -27,7 +27,7 @@ import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Chip from 'material-ui/Chip';
 import {
-  blueGrey500, pinkA700, blueGrey300, red500, orange500, amber500, lightGreen500, green500, grey500, pinkA200, grey50, blue500, cyan500, indigo500, lightBlue500, grey800, grey600
+  blueGrey500, pinkA100, blueGrey300, red500, orange500, amber500, lightGreen500, green500, grey500, pinkA200, grey50, blue500, cyan500, indigo500, lightBlue500, grey800, grey600
 } from 'material-ui/styles/colors';
 import Divider from 'material-ui/Divider';
 import $ from 'jquery';
@@ -254,6 +254,7 @@ class CityInfo extends React.Component {
         marginLeft: '10vw',
         marginRight: '10vw',
         marginBottom: '20px',
+        marginTop: '20px',
         float: 'left',
       },
       city: {
@@ -264,12 +265,12 @@ class CityInfo extends React.Component {
       summary: {
         fontFamily: "'Roboto', sans-serif",
         color: grey50,
-        fontSize: '1.2em',
+        fontSize: '1em',
       },
       textMobile: {
         fontFamily: "'Roboto', sans-serif",
         color: grey50,
-        fontSize: '1em',
+        fontSize: '0.8em',
       },
       subHeaderStyle: {
         fontFamily: "'Roboto', sans-serif",
@@ -384,13 +385,13 @@ class CityInfo extends React.Component {
                           <div
                             style={{marginTop: 4}}>
                             <span
-                              style={{color: grey50, fontFamily: "'Roboto', sans-serif", fontSize: '1em'}}>
+                              style={{color: grey50, fontFamily: "'Roboto', sans-serif", fontSize: '0.8em'}}>
                               {citySize[city.id][0]}
                             </span>
                           </div>
                           <div>
                             <span
-                              style={{color: grey50, fontFamily: "'Roboto', sans-serif", fontSize: '0.8em'}}>
+                              style={{color: grey50, fontFamily: "'Roboto', sans-serif", fontSize: '0.6em'}}>
                               {citySize[city.id][1]}
                             </span>
                           </div>
@@ -416,39 +417,36 @@ class CityInfo extends React.Component {
             <div
               style={styles.leftStyle}>
               <Chip
-                backgroundColor={pinkA200}
-                labelColor={grey50}
+                backgroundColor={grey50}
                 onTouchTap={function() {
                   $('html, body').animate({
                     scrollTop: $('#costofliving').offset().top-20
                   }, 750);
                 }}
                 style={styles.chip}>
-                <Avatar size={32} icon={<EditorAttachMoney/>} color={grey50} backgroundColor={pinkA700}/>
+                <Avatar size={32} icon={<EditorAttachMoney/>} color={grey50} backgroundColor={pinkA200}/>
                 Cost of Living
               </Chip>
               <Chip
-                backgroundColor={pinkA200}
-                labelColor={grey50}
+                backgroundColor={grey50}
                 onTouchTap={function() {
                   $('html, body').animate({
                     scrollTop: $('#climate').offset().top-20
                   }, 750);
                 }}
                 style={styles.chip}>
-                <Avatar size={32} icon={<MapsLocalFlorist/>} color={grey50} backgroundColor={pinkA700}/>
+                <Avatar size={32} icon={<MapsLocalFlorist/>} color={grey50} backgroundColor={pinkA200}/>
                 Climate
               </Chip>
               <Chip
-                backgroundColor={pinkA200}
-                labelColor={grey50}
+                backgroundColor={grey50}
                 onTouchTap={function() {
                   $('html, body').animate({
                     scrollTop: $('#housing').offset().top-20
                   }, 750);
                 }}
                 style={styles.chip}>
-                <Avatar size={32} icon={<ActionHome/>} color={grey50} backgroundColor={pinkA700}/>
+                <Avatar size={32} icon={<ActionHome/>} color={grey50} backgroundColor={pinkA200}/>
                 Housing
               </Chip>
             </div>
@@ -664,7 +662,7 @@ class CityInfo extends React.Component {
                       <CardText
                         style={{minWidth: 200, height: this.props.width > 750 ? 125 : 75, position: 'relative', backgroundColor: climateLabels[climateData.label][2]}}>
                         <span
-                          style={{right: -8, bottom: -36, position: 'absolute', fontFamily: "'Roboto Light', sans-serif", color: grey50, fontSize: '5em'}}>
+                          style={{right: -8, bottom: -28, position: 'absolute', fontFamily: "'Roboto Light', sans-serif", color: grey50, fontSize: '5em'}}>
                           {context.convertFormat(climateData.label, climateData[climateData.type+'_value'])}
                         </span>
                       </CardText>
@@ -711,7 +709,7 @@ class CityInfo extends React.Component {
                       <CardText
                         style={{minWidth: 200, height: this.props.width > 750 ? 125 : 75, position: 'relative', backgroundColor: house.type !== 'float' ? blueGrey300 : this.calculateColor(house.float_value*10)}}>
                         <span
-                          style={{right: -8, bottom: -36, position: 'absolute', fontFamily: "'Roboto Light', sans-serif", color: grey50, fontSize: '5em'}}>
+                          style={{right: -8, bottom: -28, position: 'absolute', fontFamily: "'Roboto Light', sans-serif", color: grey50, fontSize: '5em'}}>
                           {house.float_value || '$' + house.currency_dollar_value}
                         </span>
                       </CardText>

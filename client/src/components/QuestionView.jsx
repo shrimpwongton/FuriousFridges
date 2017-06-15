@@ -11,6 +11,8 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import { setQuestionsInView } from '../actions';
 import AnswerView from './AnswerView.jsx';
 import { default as MarkerClusterer } from 'react-google-maps/lib/addons/MarkerClusterer';
+import IconButton from 'material-ui/IconButton';
+import ActionInfo from 'material-ui/svg-icons/action/info';
 
 
 const GettingStartedGoogleMap = withGoogleMap(props => {
@@ -67,9 +69,9 @@ class QuestionView extends React.Component {
   }
 
   render() {
-    let questionView = 
-    <Card style={this.props.width > 750 ? styles.cardStyle : styles.cardStyleMobile}>  
-      <QuestionCollection 
+    let questionView =
+    <Card style={{flexGrow: 1, margin: 12}}>
+      <QuestionCollection
         handleQuestionClick={this.props.handleQuestionClick}
         deleteQuestion={this.props.deleteQuestion}
         destinationCity={this.props.destinationCity}
@@ -89,11 +91,37 @@ class QuestionView extends React.Component {
       view = answerView;
     }
     return (
-      <div style={{ 'margin-top': '24px'}}>
-        <div style={this.props.width > 750 ? styles.mapStyle : styles.mapStyleMobile}>
+      <div style={
+        this.props.width > 750 ? {
+          width: '80%',
+          display: 'flex',
+          flexFlow: 'row wrap',
+          justifyContent: 'center',} :
+        {
+          width: '100%',
+          display: 'flex',
+          flexFlow: 'row wrap',
+          justifyContent: 'center',}}>
+        {this.props.currentView === 'questions' ?
+          <FloatingActionButton
+            mini={this.props.width <= 750}
+            style={styles.askQuestionButton}
+            onTouchTap={this.props.openQuestionDialog}
+            backgroundColor={pinkA200}>
+            <ContentAdd />
+          </FloatingActionButton> :
+          <div/>
+        }
+        <div style={{flexGrow:1, width: '50%', minWidth: 300, margin: 12, position: 'relative'}}>
+          <IconButton
+            tooltip="Click the map to get questions within the map bounds"
+            tooltipPosition="bottom-left"
+            style={{right: 24, top: 24, position: 'absolute', }}>
+            <ActionInfo />
+          </IconButton>
           <GettingStartedGoogleMap
             containerElement={
-              <div style={{ height: '700px' }} />
+              <div style={{ height: '500px' }} />
             }
             mapElement={
               <div style={{ height: '100%' }} />
@@ -104,15 +132,8 @@ class QuestionView extends React.Component {
             onMarkerRightClick={_.noop}
           />
         </div>
-        <div style={this.props.width > 750 ? styles.qStyle : styles.qStyleMobile}>
+        <div style={{flexGrow:1, minWidth: 300, width: '40%'}}>
           {view}
-          <FloatingActionButton
-            mini={this.props.width <= 750}
-            style={styles.askQuestionButton}
-            onTouchTap={this.props.openQuestionDialog}
-            backgroundColor={pinkA200}>
-            <ContentAdd />
-          </FloatingActionButton>
         </div>
       </div>
     );
@@ -120,31 +141,6 @@ class QuestionView extends React.Component {
 }
 
 const styles = {
-  cardStyle: {
-    width: '35vw',
-  },
-  cardStyleMobile: {
-    width: '93vw'
-  },
-  mapStyle: { 
-    'margin': '0 15px 0 15px', 
-    'width': '58%', 'display': 
-    'inline-block' 
-  },
-  qStyle: { 
-    'width': '40%', 
-    'display': 'inline-block', 
-    'vertical-align': 'top' 
-  },
-  mapStyleMobile: { 
-    'margin': '0 15px 0 15px', 
-    'width': '96%' 
-  },
-  qStyleMobile: { 
-    'margin': '15px 0 0 15px', 
-    'width': '96%', 
-    'align': 'center' 
-  },
   askQuestionButton: {
     margin: 0,
     right: 24,

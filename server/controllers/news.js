@@ -23,25 +23,37 @@ module.exports.getAll = (req, res) => {
             'sort': 'newest'
           }
         }, function(err, response, body) {
+          if ( typeof body === 'undefined' ) {
+            res.send({});
+          }
           var body = JSON.parse(body);
-          var news = body.response.docs;
+          let news;
+          try {
+            news = body.response.docs;
+          } catch (exception) {
+            console.log(exception);
+          }
           var newsData = {};
           var dataLength = 10;
           var currentIndex = 0;
           var validData = true;
-          while (news.length > 0 && dataLength > 0 && validData) {
-            var newsObj = {};
-            newsObj['headline'] = news[currentIndex].headline.main;
-            newsObj['url'] = news[currentIndex].web_url;
-            newsData[currentIndex] = newsObj;
-            dataLength--;
-            if (!news[currentIndex + 1]) {
-              validData = false;
+          if ( typeof news === 'undefined' ) {
+            res.send({});
+          } else {
+            while (news.length > 0 && dataLength > 0 && validData) {
+              var newsObj = {};
+              newsObj['headline'] = news[currentIndex].headline.main;
+              newsObj['url'] = news[currentIndex].web_url;
+              newsData[currentIndex] = newsObj;
+              dataLength--;
+              if (!news[currentIndex + 1]) {
+                validData = false;
+              }
+              currentIndex++;
             }
-            currentIndex++;
+            res.send(newsData);
           }
-          res.send(newsData);
         });
-      }); 
+      });
     });
 };

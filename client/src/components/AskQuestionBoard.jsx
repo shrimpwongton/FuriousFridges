@@ -62,7 +62,7 @@ class AskQuestionBoard extends React.Component {
   }
 
   setMapMarkers(questions) {
-    let markers = questions.map(entry => ({ 
+    let markers = questions.map(entry => ({
       position: {
         lat: entry.latitude,
         lng: entry.longitude
@@ -220,7 +220,13 @@ class AskQuestionBoard extends React.Component {
     ];
     const hintText = ['What is there to do in ', 'What is the climate like in ', 'How safe is it in '];
     return (
-      <div>
+      <div
+        style={{
+          margin: '24 12 12 12',
+          display: 'flex',
+          flexFlow: 'row wrap',
+          justifyContent: 'center',
+        }}>
         <div>
           <Dialog
             ref="questionField"
@@ -246,19 +252,17 @@ class AskQuestionBoard extends React.Component {
             />
           </Dialog>
         </div>
-        
-          <QuestionView
-            handleQuestionClick={this.handleQuestionClick}
-            openQuestionDialog={this.openQuestionDialog}
-            width={this.props.width}
-            deleteQuestion={this.deleteQuestion}
-            destinationCity={this.props.destinationCity}
-            backToQuestions={this.backToQuestions}
-            handleAnswerChange={this.handleAnswerChange}
-            handleAnswerSubmit={this.handleAnswerSubmit}
-            deleteAnswer={this.deleteAnswer}
-          />
-        
+        <QuestionView
+          handleQuestionClick={this.handleQuestionClick}
+          openQuestionDialog={this.openQuestionDialog}
+          width={this.props.width}
+          deleteQuestion={this.deleteQuestion}
+          destinationCity={this.props.destinationCity}
+          backToQuestions={this.backToQuestions}
+          handleAnswerChange={this.handleAnswerChange}
+          handleAnswerSubmit={this.handleAnswerSubmit}
+          deleteAnswer={this.deleteAnswer}
+        />
       </div>
     );
   }
