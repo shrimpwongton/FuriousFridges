@@ -1,0 +1,61 @@
+{
+  "name": "FuriousFridges",
+  "scripts": {
+  },
+  "env": {
+    "DATABASE_HOST": {
+      "required": true
+    },
+    "DATABASE_NAME": {
+      "required": true
+    },
+    "DATABASE_PASSWORD": {
+      "required": true
+    },
+    "DATABASE_USER": {
+      "required": true
+    },
+    "EVENTBRITE_CLIENT_ID": {
+      "required": true
+    },
+    "GOOGLE_API_KEY": {
+      "required": true
+    },
+    "GOOGLE_CALLBACK_URL": {
+      "required": true
+    },
+    "GOOGLE_CLIENT_ID": {
+      "required": true
+    },
+    "GOOGLE_CLIENT_SECRET": {
+      "required": true
+    },
+    "GOOGLE_COORDS_ID": {
+      "required": true
+    },
+    "GOOGLE_PLACES_ID": {
+      "required": true
+    },
+    "MEETUP_CLIENT_ID": {
+      "required": true
+    },
+    "NEWS_API_KEY": {
+      "required": true
+    },
+    "NPM_CONFIG_PRODUCTION": "false",
+    "REDIS_URL": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "addons": [
+    "heroku-postgresql",
+    "heroku-redis"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
