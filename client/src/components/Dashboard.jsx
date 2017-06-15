@@ -84,6 +84,9 @@ class Dashboard extends React.Component {
       filterOpen: false,
     }, function() {
       this.forceUpdate();
+      setTimeout(function() {
+        this.forceUpdate();
+      }, 5000);
     });
   }
 
@@ -108,7 +111,7 @@ class Dashboard extends React.Component {
     let context = this;
     setTimeout(function() {
       context.forceUpdate();
-    }, 1500);
+    }, 5000);
   }
 
   render () {

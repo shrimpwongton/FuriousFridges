@@ -248,6 +248,11 @@ class CityInfo extends React.Component {
         display: 'flex',
         flexFlow: 'row wrap',
       },
+      leftMobileStyle: {
+        width: '95%',
+        display: 'flex',
+        flexFlow: 'row wrap'
+      },
       mobileCenterStyle: {
         width: '100%',
         display: 'flex',
@@ -461,7 +466,7 @@ class CityInfo extends React.Component {
           <div
             style={styles.flexStyle}>
             <div
-              style={styles.leftStyle}>
+              style={this.props.width > 750 ? styles.leftStyle : styles.leftMobileStyle}>
               <Chip
                 backgroundColor={grey50}
                 onTouchTap={function() {
