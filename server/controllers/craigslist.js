@@ -22,6 +22,9 @@ module.exports.getAll = (req, res) => {
             .search('furniture')
             .then((listings) => {
               res.send(listings);
+            })
+            .catch((err) => {
+              res.send({});
             });
       });
   });
