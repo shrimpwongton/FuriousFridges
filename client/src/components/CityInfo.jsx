@@ -20,6 +20,7 @@ import ActionTrendingDown from 'material-ui/svg-icons/action/trending-down';
 import MapsLocalAtm from 'material-ui/svg-icons/maps/local-atm';
 import SocialDomain from 'material-ui/svg-icons/social/domain';
 import HardwareLaptop from 'material-ui/svg-icons/hardware/laptop';
+import FileCloud from 'material-ui/svg-icons/file/cloud';
 import SocialPerson from 'material-ui/svg-icons/social/person';
 import CityOptions from '../CityOptions.json';
 import Paper from 'material-ui/Paper';
@@ -59,6 +60,9 @@ class CityInfo extends React.Component {
       climate: [],
       housingArray: [],
       citySize: [],
+      networkArray: [],
+      pollutionArray: [],
+      healthArray: [],
     };
     this.calculateColor = this.calculateColor.bind(this);
     this.calculateScoreStatus = this.calculateScoreStatus.bind(this);
@@ -168,11 +172,35 @@ class CityInfo extends React.Component {
         });
       });
     axios.get('/teleport', {
+      params: { category: 'NETWORK' }
+    })
+      .then(res => {
+        this.setState({
+          networkArray: res.data[0].data,
+        });
+      });
+    axios.get('/teleport', {
       params: { category: 'CITY-SIZE' }
     })
       .then(res => {
         this.setState({
           citySize: res.data[0].data,
+        });
+      });
+    axios.get('/teleport', {
+      params: { category: 'POLLUTION' }
+    })
+      .then(res => {
+        this.setState({
+          pollutionArray: res.data[0].data,
+        });
+      });
+    axios.get('/teleport', {
+      params: { category: 'HEALTHCARE' }
+    })
+      .then(res => {
+        this.setState({
+          healthArray: res.data[0].data,
         });
       });
     axios.get('/cityphoto')
@@ -342,6 +370,24 @@ class CityInfo extends React.Component {
       'POPULATION-UA-CENTER-DENSITY' : ['City Density', 'People/km²'],
       'POPULATION-UA-DENSITY' : ['Metro Density', 'People/km²'],
     };
+    const networkLabels = {
+      'Download speed (Mbps)': ['Download Speeds', 'Mbps'],
+      'Internet access (download) [Teleport score]': ['Internet Access (Download)'],
+      'Upload speed (Mbps)': ['Upload speed', 'Mbps'],
+      'Internet access (upload) [Teleport score]': ['Internet Access (Upload)'],
+    };
+    const pollutionLabels = {
+      'AIR-POLLUTION-TELESCORE' : 'Air Quality',
+      'CLEANLINESS-TELESCORE' : 'Cleanliness',
+      'DRINKING-WATER-QUALITY-TELESCORE' : 'Water Quality',
+      'URBAN-GREENERY-TELESCORE' : 'Urban Greenery',
+    };
+    const healthLabels = {
+      'HEALTHCARE-COST-TELESCORE' : ['Healthcare Expenditure'],
+      'HEALTHCARE-LIFE-EXPECTANCY' : ['Life Expectancy', 'Years'],
+      'HEALTHCARE-LIFE-EXPECTANCY-TELESCORE' : ['Life Expectancy Score'],
+      'HEALTHCARE-QUALITY-TELESCORE' : ['Healthcare Quality'],
+    };
     const context = this;
     return (
       <div>
@@ -420,7 +466,7 @@ class CityInfo extends React.Component {
                 backgroundColor={grey50}
                 onTouchTap={function() {
                   $('html, body').animate({
-                    scrollTop: $('#costofliving').offset().top-20
+                    scrollTop: $('Chip#costofliving').offset().top-20
                   }, 750);
                 }}
                 style={styles.chip}>
@@ -435,7 +481,7 @@ class CityInfo extends React.Component {
                   }, 750);
                 }}
                 style={styles.chip}>
-                <Avatar size={32} icon={<MapsLocalFlorist/>} color={grey50} backgroundColor={pinkA200}/>
+                <Avatar size={32} icon={<FileCloud/>} color={grey50} backgroundColor={pinkA200}/>
                 Climate
               </Chip>
               <Chip
@@ -448,6 +494,39 @@ class CityInfo extends React.Component {
                 style={styles.chip}>
                 <Avatar size={32} icon={<ActionHome/>} color={grey50} backgroundColor={pinkA200}/>
                 Housing
+              </Chip>
+              <Chip
+                backgroundColor={grey50}
+                onTouchTap={function() {
+                  $('html, body').animate({
+                    scrollTop: $('#internetspeeds').offset().top-20
+                  }, 750);
+                }}
+                style={styles.chip}>
+                <Avatar size={32} icon={<ActionExplore/>} color={grey50} backgroundColor={pinkA200}/>
+                Internet Speeds
+              </Chip>
+              <Chip
+                backgroundColor={grey50}
+                onTouchTap={function() {
+                  $('html, body').animate({
+                    scrollTop: $('#environmentalquality').offset().top-20
+                  }, 750);
+                }}
+                style={styles.chip}>
+                <Avatar size={32} icon={<MapsLocalFlorist/>} color={grey50} backgroundColor={pinkA200}/>
+                Environmental Quality
+              </Chip>
+              <Chip
+                backgroundColor={grey50}
+                onTouchTap={function() {
+                  $('html, body').animate({
+                    scrollTop: $('#healthcare').offset().top-20
+                  }, 750);
+                }}
+                style={styles.chip}>
+                <Avatar size={32} icon={<ImageHealing/>} color={grey50} backgroundColor={pinkA200}/>
+                Health Care
               </Chip>
             </div>
           </div>
@@ -719,6 +798,147 @@ class CityInfo extends React.Component {
               ) :
               <span>
                 There is no housing information.
+              </span>
+            }
+            {
+              this.props.width > 750 ?
+                <div style={styles.emptyStyle}/> :
+                <div/>
+            }
+          </div>
+        </div>
+        <div
+          style={{padding: '20px', backgroundColor: blueGrey500}}>
+          <span
+            id="internetspeeds"
+            style={styles.subHeaderStyle}>
+            Internet Speeds
+          </span>
+        </div>
+        <div
+          style={styles.flexStyle}>
+          <div
+            style={this.props.width > 750 ? styles.centerStyle : styles.mobileCenterStyle}>
+            {
+              context.state.networkArray.length > 0 ? context.state.networkArray.map((network, index) =>
+                <div
+                  style={styles.growStyle}>
+                  <MuiThemeProvider>
+                    <Card
+                      style={{margin: 8, backgroundColor: network.id.includes('TELESCORE') ? this.calculateColor(network.float_value*10) : blueGrey300, overflow: 'hidden'}}>
+                      <ListItem
+                        primaryText={networkLabels[network.label][0]}
+                        secondaryText={networkLabels[network.label][1] || this.calculateScoreStatus(network.float_value*10)}
+                        disabled={true}
+                        style={{backgroundColor: grey50}}
+                      />
+                      <CardText
+                        style={{minWidth: 200, height: this.props.width > 750 ? 125 : 75, position: 'relative', backgroundColor: network.id.includes('TELESCORE') ? this.calculateColor(network.float_value*10) : blueGrey300 }}>
+                        <span
+                          style={{right: -8, bottom: -28, position: 'absolute', fontFamily: "'Roboto Light', sans-serif", color: grey50, fontSize: '5em'}}>
+                          {network.float_value.toFixed(2)}
+                        </span>
+                      </CardText>
+                    </Card>
+                  </MuiThemeProvider>
+                </div>
+              ) :
+                <span>
+                There is no information on internet speeds
+              </span>
+            }
+            {
+              this.props.width > 750 ?
+                <div style={styles.emptyStyle}/> :
+                <div/>
+            }
+          </div>
+        </div>
+        <div
+          style={{padding: '20px', backgroundColor: blueGrey500}}>
+          <span
+            id="environmentalquality"
+            style={styles.subHeaderStyle}>
+            Environmental Quality
+          </span>
+        </div>
+        <div
+          style={styles.flexStyle}>
+          <div
+            style={this.props.width > 750 ? styles.centerStyle : styles.mobileCenterStyle}>
+            {
+              context.state.pollutionArray.length > 0 ? context.state.pollutionArray.map((pollution, index) =>
+                <div
+                  style={styles.growStyle}>
+                  <MuiThemeProvider>
+                    <Card
+                      style={{margin: 8, backgroundColor: this.calculateColor(pollution.float_value*10), overflow: 'hidden'}}>
+                      <ListItem
+                        primaryText={pollutionLabels[pollution.id]}
+                        secondaryText={this.calculateScoreStatus(pollution.float_value*10)}
+                        disabled={true}
+                        style={{backgroundColor: grey50}}
+                      />
+                      <CardText
+                        style={{minWidth: 200, height: this.props.width > 750 ? 125 : 75, position: 'relative', backgroundColor: this.calculateColor(pollution.float_value*10) }}>
+                        <span
+                          style={{right: -8, bottom: -28, position: 'absolute', fontFamily: "'Roboto Light', sans-serif", color: grey50, fontSize: '5em'}}>
+                          {pollution.float_value.toFixed(2)}
+                        </span>
+                      </CardText>
+                    </Card>
+                  </MuiThemeProvider>
+                </div>
+              ) :
+                <span>
+                There is no information on environmental quality.
+              </span>
+            }
+            {
+              this.props.width > 750 ?
+                <div style={styles.emptyStyle}/> :
+                <div/>
+            }
+          </div>
+        </div>
+        <div
+          style={{padding: '20px', backgroundColor: blueGrey500}}>
+          <span
+            id="healthcare"
+            style={styles.subHeaderStyle}>
+            Health Care
+          </span>
+        </div>
+        <div
+          style={styles.flexStyle}>
+          <div
+            style={this.props.width > 750 ? styles.centerStyle : styles.mobileCenterStyle}>
+            {
+              context.state.healthArray.length > 0 ? context.state.healthArray.map((health, index) =>
+                <div
+                  style={styles.growStyle}>
+                  <MuiThemeProvider>
+                    <Card
+                      style={{margin: 8, backgroundColor: healthLabels[health.id][1] ? blueGrey300 : this.calculateColor(health.float_value*10), overflow: 'hidden'}}>
+                      <ListItem
+                        primaryText={healthLabels[health.id][0]}
+                        secondaryText={healthLabels[health.id][1] || this.calculateScoreStatus(health.float_value*10)}
+                        disabled={true}
+                        style={{backgroundColor: grey50}}
+                      />
+                      <CardText
+                        style={{minWidth: 200, height: this.props.width > 750 ? 125 : 75, position: 'relative', backgroundColor: healthLabels[health.id][1] ? blueGrey300 : this.calculateColor(health.float_value*10) }}>
+                        <span
+                          style={{right: -8, bottom: -28, position: 'absolute', fontFamily: "'Roboto Light', sans-serif", color: grey50, fontSize: '5em'}}>
+                          {health.float_value.toFixed(2)}
+                        </span>
+                      </CardText>
+                    </Card>
+                  </MuiThemeProvider>
+                </div>
+              ) :
+                <span>
+                There is no information on environmental quality.
               </span>
             }
             {
