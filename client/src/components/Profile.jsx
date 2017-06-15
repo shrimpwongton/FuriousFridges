@@ -76,15 +76,11 @@ class Profile extends React.Component {
   }
 
   setUserCurrentLocation() {
-<<<<<<< HEAD
-    let key = process.env.GOOGLE_API_KEY || Google.APIKey;
-=======
     let key = process.env.GOOGLE_API_KEY || Google.APIKey; 
     let cityStateCountry = 'Anonymous location';
     let latitude = -37.297947;
     let longitude = -12.677656;
     
->>>>>>> Add default values to table entries related to location
     geolocator.config({
       language: 'en',
       google: {
@@ -102,10 +98,6 @@ class Profile extends React.Component {
       staticMap: false        // map image URL (boolean or options object)
     };
     geolocator.locate(options, (err, location) => {
-      let cityStateCountry = 'Anonymous location';
-      let latitude = -37.297947;
-      let longitude = -12.677656;
-
       if (err) {
         console.log('ERROR: Unable to resolve location! You may be blocking location services', err);
       } else {
