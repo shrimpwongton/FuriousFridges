@@ -1,11 +1,11 @@
-{
+module.exports = {
   "knex": {
     "client": "postgresql",
     "connection": {
-      "database": "del6u7aahblch4",
-      "user": "urndagmddjboiy",
-      "password": "00a9049d33f188be8388f945a8e973f1ca1114c309c8b1eba5df0b5ce869af12",
-      "host": "ec2-107-20-186-238.compute-1.amazonaws.com",
+      "database": process.env.DATABASE_NAME || "thesis",
+      "user": process.env.DATABASE_USER || "postgres",
+      "password": process.env.DATABASE_PASSWORD || "postgres",
+      "host": process.env.DATABASE_HOST || "localhost",
       "port": 5432
     },
     "pool": {
