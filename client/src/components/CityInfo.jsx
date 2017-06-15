@@ -938,7 +938,7 @@ class CityInfo extends React.Component {
                 </div>
               ) :
                 <span>
-                There is no information on environmental quality.
+                There is no health care information.
               </span>
             }
             {
