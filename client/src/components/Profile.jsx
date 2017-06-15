@@ -99,7 +99,7 @@ class Profile extends React.Component {
       let cityStateCountry = 'Anonymous location';
       let latitude = -37.297947;
       let longitude = -12.677656;
-      console.log('>>>>>>>>>>>', 'key');
+    
       if (err) {
         console.log('ERROR: Unable to resolve location! You may be blocking location services', err);
       } else {
