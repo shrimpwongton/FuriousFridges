@@ -409,41 +409,41 @@ class CityInfo extends React.Component {
                       style={this.props.width > 750 ? styles.centerStyle : styles.mobileCenterStyle}>
                       {
                         context.state.citySize.length > 0 ? context.state.citySize.map((city, index) =>
-                        <div
-                          style={{
-                            textAlign: 'center',
-                            minWidth: this.props.width > 750 ? 120 : 80,
-                            marginTop: 4}}>
-                          <Paper style={{
-                            height: this.props.width > 750 ? 60 : 40,
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            width: '50%',
-                            margin: '0 auto',
-                            backgroundColor: blueGrey300,
-                          }} zDepth={1} circle={true} >
+                          <div
+                            style={{
+                              textAlign: 'center',
+                              minWidth: this.props.width > 750 ? 120 : 80,
+                              marginTop: 4}}>
+                            <Paper style={{
+                              height: this.props.width > 750 ? 60 : 40,
+                              display: 'flex',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              width: '50%',
+                              margin: '0 auto',
+                              backgroundColor: blueGrey300,
+                            }} zDepth={1} circle={true} >
                             <span
                               style={this.props.width > 750 ? styles.summary : styles.textMobile}>
                               {city.id === 'POPULATION-SIZE' ? city.float_value.toFixed(2) : Math.floor(city.float_value)}
                             </span>
-                          </Paper>
-                          <div
-                            style={{marginTop: 4}}>
+                            </Paper>
+                            <div
+                              style={{marginTop: 4}}>
                             <span
                               style={{color: grey50, fontFamily: "'Roboto', sans-serif", fontSize: '0.8em'}}>
                               {citySize[city.id][0]}
                             </span>
-                          </div>
-                          <div>
+                            </div>
+                            <div>
                             <span
                               style={{color: grey50, fontFamily: "'Roboto', sans-serif", fontSize: '0.6em'}}>
                               {citySize[city.id][1]}
                             </span>
+                            </div>
                           </div>
-                        </div>
                         ) :
-                        <span>
+                          <span>
                           There is no city size information.
                         </span>
                       }
@@ -565,33 +565,33 @@ class CityInfo extends React.Component {
                   </MuiThemeProvider>
                 </div>
                 { cards.map(card =>
-                <div
-                  style={styles.growStyle}>
-                  <MuiThemeProvider>
-                    <Card
-                      style={styles.cardStyle}>
-                      <CardHeader
-                        title={card[0]}
-                        subtitle={context.calculateScoreStatus(card[1])}
-                        avatar={
-                          <Avatar
-                            icon={card[2]}
-                            backgroundColor={context.calculateColor(card[1])}
-                          />
-                        }
-                      >
-                        <div
-                          style={{marginTop: '8px', width: card[1] * 10 + '%', height: '2px', background: context.calculateColor(card[1])}}>
-                        </div>
-                      </CardHeader>
-                      {/*<CardText>
-                        <div
-                          style={{width: card[1] * 10 + '%', height: '2px', background: context.calculateColor(card[1])}}>
-                        </div>
-                      </CardText>>*/}
-                    </Card>
-                  </MuiThemeProvider>
-                </div>)}
+                  <div
+                    style={styles.growStyle}>
+                    <MuiThemeProvider>
+                      <Card
+                        style={styles.cardStyle}>
+                        <CardHeader
+                          title={card[0]}
+                          subtitle={context.calculateScoreStatus(card[1])}
+                          avatar={
+                            <Avatar
+                              icon={card[2]}
+                              backgroundColor={context.calculateColor(card[1])}
+                            />
+                          }
+                        >
+                          <div
+                            style={{marginTop: '8px', width: card[1] * 10 + '%', height: '2px', background: context.calculateColor(card[1])}}>
+                          </div>
+                        </CardHeader>
+                        {/*<CardText>
+                         <div
+                         style={{width: card[1] * 10 + '%', height: '2px', background: context.calculateColor(card[1])}}>
+                         </div>
+                         </CardText>>*/}
+                      </Card>
+                    </MuiThemeProvider>
+                  </div>)}
                 {
                   this.props.width > 750 ?
                     <div style={styles.emptyStyle}/> :
@@ -599,7 +599,7 @@ class CityInfo extends React.Component {
                 }
               </div>
             </div>
-          :
+            :
             <div
               style={styles.flexStyle}>
               <div
@@ -628,32 +628,32 @@ class CityInfo extends React.Component {
                     <Divider />
                   </div>
                   { cards.map(card =>
-                  <div
-                    style={styles.growStyle}>
-                    <MuiThemeProvider>
-                      <ListItem
-                        style={{width: '100%'}}
-                        primaryText={card[0]}
-                        secondaryText={context.calculateScoreStatus(card[1])}
-                        disabled={true}
-                        leftAvatar={
-                          <Avatar
-                            icon={card[2]}
-                            backgroundColor={context.calculateColor(card[1])}
-                          />
-                        }
-                      />
-                    </MuiThemeProvider>
                     <div
-                      style={{width: card[1] * 10 + '%', height: '2px', background: context.calculateColor(card[1])}}>
-                    </div>
-                    <Divider />
-                    {
-                      this.props.width > 750 ?
-                        <div style={styles.emptyStyle}/> :
-                        <div/>
-                    }
-                  </div>)
+                      style={styles.growStyle}>
+                      <MuiThemeProvider>
+                        <ListItem
+                          style={{width: '100%'}}
+                          primaryText={card[0]}
+                          secondaryText={context.calculateScoreStatus(card[1])}
+                          disabled={true}
+                          leftAvatar={
+                            <Avatar
+                              icon={card[2]}
+                              backgroundColor={context.calculateColor(card[1])}
+                            />
+                          }
+                        />
+                      </MuiThemeProvider>
+                      <div
+                        style={{width: card[1] * 10 + '%', height: '2px', background: context.calculateColor(card[1])}}>
+                      </div>
+                      <Divider />
+                      {
+                        this.props.width > 750 ?
+                          <div style={styles.emptyStyle}/> :
+                          <div/>
+                      }
+                    </div>)
                   }
                 </Paper>
               </div>
@@ -671,23 +671,23 @@ class CityInfo extends React.Component {
           style={styles.flexStyle}>
           <div
             style={this.props.width > 750 ? styles.centerStyle : styles.mobileCenterStyle}>
-              {
-                context.state.colArray.length > 0 ? context.state.colArray.map((colData, index) =>
+            {
+              context.state.colArray.length > 0 ? context.state.colArray.map((colData, index) =>
                 <div
                   style={styles.growStyle}>
                   <MuiThemeProvider>
                     <Card
                       style={styles.cardStyle}>
-                        <ListItem
-                          primaryText={costOfLiving[index][0]}
-                          secondaryText={costOfLiving[index][1]}
-                          disabled={true}
-                          rightAvatar={
-                            <Avatar
-                              backgroundColor={blueGrey300}
-                            >{colData.currency_dollar_value > 1 ? '$' + Math.floor(colData.currency_dollar_value) : '$' + Math.ceil(colData.currency_dollar_value)}</Avatar>
-                          }
-                        />
+                      <ListItem
+                        primaryText={costOfLiving[index][0]}
+                        secondaryText={costOfLiving[index][1]}
+                        disabled={true}
+                        rightAvatar={
+                          <Avatar
+                            backgroundColor={blueGrey300}
+                          >{colData.currency_dollar_value > 1 ? '$' + Math.floor(colData.currency_dollar_value) : '$' + Math.ceil(colData.currency_dollar_value)}</Avatar>
+                        }
+                      />
                     </Card>
                   </MuiThemeProvider>
                 </div>
@@ -729,14 +729,14 @@ class CityInfo extends React.Component {
                         style={{backgroundColor: grey50}}
                         leftAvatar={
                           !climateData.label.includes('temperature') ?
-                          <Avatar
-                            backgroundColor={grey50}
-                            src={icons[climateData.label]}
-                          /> :
-                          <Avatar
-                            backgroundColor={climateLabels[climateData.label][2]}
-                            icon={icons[climateData.label]}
-                          />}
+                            <Avatar
+                              backgroundColor={grey50}
+                              src={icons[climateData.label]}
+                            /> :
+                            <Avatar
+                              backgroundColor={climateLabels[climateData.label][2]}
+                              icon={icons[climateData.label]}
+                            />}
                       />
                       <CardText
                         style={{minWidth: 200, height: this.props.width > 750 ? 125 : 75, position: 'relative', backgroundColor: climateLabels[climateData.label][2]}}>
@@ -749,7 +749,7 @@ class CityInfo extends React.Component {
                   </MuiThemeProvider>
                 </div>
               ) :
-              <span>
+                <span>
                 There is no climate information.
               </span>
             }
@@ -796,7 +796,7 @@ class CityInfo extends React.Component {
                   </MuiThemeProvider>
                 </div>
               ) :
-              <span>
+                <span>
                 There is no housing information.
               </span>
             }
@@ -938,7 +938,7 @@ class CityInfo extends React.Component {
                 </div>
               ) :
                 <span>
-                There is no information on environmental quality.
+                There is no health care information.
               </span>
             }
             {
