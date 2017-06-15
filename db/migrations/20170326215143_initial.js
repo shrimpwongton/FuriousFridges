@@ -26,9 +26,9 @@ exports.up = function (knex, Promise) {
       table.string('type', 20).nullable();
       table.boolean('visible', 5).notNullable();
       table.string('origin', 100).nullable();
-      table.string('current-location', 100).nullable();
-      table.float('latitude').nullable();
-      table.float('longitude').nullable();
+      table.string('current-location', 100).defaultTo('Anonymous location');
+      table.float('latitude').defaultTo(-37.2979);
+      table.float('longitude').defaultTo(-12.6777);
       table.string('destination', 100).nullable();
       table.timestamps(true, true);
       table.string('photoUrl', 100).nullable();

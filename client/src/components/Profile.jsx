@@ -76,7 +76,15 @@ class Profile extends React.Component {
   }
 
   setUserCurrentLocation() {
+<<<<<<< HEAD
     let key = process.env.GOOGLE_API_KEY || Google.APIKey;
+=======
+    let key = process.env.GOOGLE_API_KEY || Google.APIKey; 
+    let cityStateCountry = 'Anonymous location';
+    let latitude = -37.297947;
+    let longitude = -12.677656;
+    
+>>>>>>> Add default values to table entries related to location
     geolocator.config({
       language: 'en',
       google: {
@@ -87,9 +95,7 @@ class Profile extends React.Component {
     var options = {
       enableHighAccuracy: false,
       timeout: 5000,
-      maximumWait: 10000,     // max wait time for desired accuracy
       maximumAge: 0,          // disable cache
-      desiredAccuracy: 30,    // meters
       fallbackToIP: true,     // fallback to IP if Geolocation fails or rejected
       addressLookup: true,    // requires Google API key if true
       timezone: false,         // requires Google API key if true
@@ -99,6 +105,7 @@ class Profile extends React.Component {
       let cityStateCountry = 'Anonymous location';
       let latitude = -37.297947;
       let longitude = -12.677656;
+
       if (err) {
         console.log('ERROR: Unable to resolve location! You may be blocking location services', err);
       } else {
@@ -109,11 +116,13 @@ class Profile extends React.Component {
         if (country === 'United States') {
           country = 'USA';
         }
+
         if (city && state && country) {
           cityStateCountry = `${city}, ${state}, ${country}`;
         } else if (city && !state && country) {
           cityStateCountry = `${city}, ${country}`;
         }
+
         if (location.coords.latitude) {
           latitude = location.coords.latitude;
         }
