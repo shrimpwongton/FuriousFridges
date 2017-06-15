@@ -22,6 +22,9 @@ module.exports.getAll = (req, res) => {
                 var dataLength = 5;
                 var currentIndex = 0;
                 var validData = true;
+                if ( typeof events === 'undefined' ) {
+                  res.send({});
+                }
                 while (events.length > 0 && dataLength > 0 && validData) {
                   var eventObj = {};
                   eventObj['description'] = events[currentIndex].name.text;

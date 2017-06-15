@@ -32,6 +32,9 @@ module.exports.getAll = (req, res) => {
                       var dataLength = 10;
                       var currentIndex = 0;
                       var validData = true;
+                      if ( typeof places === 'undefined' ) {
+                        res.send({});
+                      }
                       while (places.length > 0 && dataLength > 0 && validData) {
                         var placesObj = {};
                         placesObj['name'] = places[currentIndex].name;

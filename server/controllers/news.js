@@ -29,6 +29,9 @@ module.exports.getAll = (req, res) => {
           var dataLength = 10;
           var currentIndex = 0;
           var validData = true;
+          if ( typeof news === 'undefined' ) {
+            res.send({});
+          }
           while (news.length > 0 && dataLength > 0 && validData) {
             var newsObj = {};
             newsObj['headline'] = news[currentIndex].headline.main;
@@ -42,6 +45,6 @@ module.exports.getAll = (req, res) => {
           }
           res.send(newsData);
         });
-      }); 
+      });
     });
 };

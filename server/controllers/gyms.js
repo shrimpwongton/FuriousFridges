@@ -21,7 +21,7 @@ module.exports.getAll = (req, res) => {
                   console.error(err);
                 } else {
                   var geoCoords = JSON.parse(body).results[0].geometry['location'];
-                  request.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${geoCoords.lat},${geoCoords.lng}&radius=500&type=gym&key=${config.clientID}`, 
+                  request.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${geoCoords.lat},${geoCoords.lng}&radius=500&type=gym&key=${config.clientID}`,
                     (error, response, body) => {
                       if (error) {
                         console.error(error);
@@ -32,6 +32,9 @@ module.exports.getAll = (req, res) => {
                       var dataLength = 10;
                       var currentIndex = 0;
                       var validData = true;
+                      if ( typeof gym === 'undefined' ) {
+                        res.send({});
+                      }
                       while (gyms.length > 0 && dataLength > 0 && validData) {
                         var gymObj = {};
                         gymObj['name'] = gyms[currentIndex].name;
@@ -52,6 +55,6 @@ module.exports.getAll = (req, res) => {
                     });
                 }
               });
-      }); 
+      });
     });
 };

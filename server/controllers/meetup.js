@@ -18,7 +18,7 @@ module.exports.getAll = (req, res) => {
                   console.error(err);
                 } else {
                   var geoCoords = JSON.parse(body).results[0].geometry['location'];
-                  request.get(`https://api.meetup.com/2/concierge?sign=true&photo-host=secure&fields=group_photo&lon=${geoCoords.lng}&lat=${geoCoords.lat}&key=${meetupConfig.clientID}`, 
+                  request.get(`https://api.meetup.com/2/concierge?sign=true&photo-host=secure&fields=group_photo&lon=${geoCoords.lng}&lat=${geoCoords.lat}&key=${meetupConfig.clientID}`,
                     (error, response, body) => {
                       if (error) {
                         console.error(error);
@@ -29,13 +29,16 @@ module.exports.getAll = (req, res) => {
                       var dataLength = 10;
                       var currentIndex = 0;
                       var validData = true;
+                      if ( typeof meetups === 'undefined' ) {
+                        res.send({});
+                      }
                       while (meetups.length > 0 && dataLength > 0 && validData) {
                         var meetupObj = {};
                         meetupObj['name'] = meetups[currentIndex].name;
                         meetupObj['type'] = meetups[currentIndex].group.who;
                         meetupObj['url'] = meetups[currentIndex].event_url;
                         if (meetups[currentIndex].group.group_photo) {
-                          meetupObj['image'] = meetups[currentIndex].group.group_photo.photo_link; 
+                          meetupObj['image'] = meetups[currentIndex].group.group_photo.photo_link;
                         } else {
                           meetupObj['image'] = 'http://tctechcrunch2011.files.wordpress.com/2011/01/meetuplogo.jpeg';
                         }
@@ -48,9 +51,9 @@ module.exports.getAll = (req, res) => {
                       }
                       res.send(meetupData);
                     });
-                 
+
                 }
               });
-      }); 
+      });
     });
 };

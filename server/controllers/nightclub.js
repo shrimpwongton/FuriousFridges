@@ -32,6 +32,9 @@ module.exports.getAll = (req, res) => {
                       var dataLength = 10;
                       var currentIndex = 0;
                       var validData = true;
+                      if ( typeof clubs === 'undefined' ) {
+                        res.send({});
+                      }
                       while (clubs.length > 0 && dataLength > 0 && validData) {
                         var clubObj = {};
                         clubObj['name'] = clubs[currentIndex].name;
