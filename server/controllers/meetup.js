@@ -26,7 +26,11 @@ module.exports.getAll = (req, res) => {
                       if ( typeof body === 'undefined' ) {
                         res.send({});
                       }
-                      var body = JSON.parse(body);
+                      try {
+                        body = JSON.parse(body);
+                      } catch (exception) {
+                        console.log(exception);
+                      }
                       var meetups = body.results;
                       var meetupData = {};
                       var dataLength = 10;

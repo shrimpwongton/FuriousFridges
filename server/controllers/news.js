@@ -27,7 +27,12 @@ module.exports.getAll = (req, res) => {
             res.send({});
           }
           var body = JSON.parse(body);
-          var news = body.response.docs;
+          let news;
+          try {
+            news = body.response.docs;
+          } catch (exception) {
+            console.log(exception);
+          }
           var newsData = {};
           var dataLength = 10;
           var currentIndex = 0;
