@@ -11,6 +11,8 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import { setQuestionsInView } from '../actions';
 import AnswerView from './AnswerView.jsx';
 import { default as MarkerClusterer } from 'react-google-maps/lib/addons/MarkerClusterer';
+import IconButton from 'material-ui/IconButton';
+import ActionInfo from 'material-ui/svg-icons/action/info';
 
 
 const GettingStartedGoogleMap = withGoogleMap(props => {
@@ -89,8 +91,8 @@ class QuestionView extends React.Component {
       view = answerView;
     }
     return (
-      <div style={this.props.width > 750 ?
-        {
+      <div style={
+        this.props.width > 750 ? {
           width: '80%',
           display: 'flex',
           flexFlow: 'row wrap',
@@ -110,7 +112,13 @@ class QuestionView extends React.Component {
           </FloatingActionButton> :
           <div/>
         }
-        <div style={{flexGrow:1, width: '50%', minWidth: 300, margin: 12}}>
+        <div style={{flexGrow:1, width: '50%', minWidth: 300, margin: 12, position: 'relative'}}>
+          <IconButton
+            tooltip="Click the map to get questions within the map bounds"
+            tooltipPosition="bottom-left"
+            style={{right: 24, top: 24, position: 'absolute', }}>
+            <ActionInfo />
+          </IconButton>
           <GettingStartedGoogleMap
             containerElement={
               <div style={{ height: '500px' }} />
