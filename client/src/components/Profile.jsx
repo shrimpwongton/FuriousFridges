@@ -34,6 +34,7 @@ import CircularProgress from 'material-ui/CircularProgress';
 import ActionDashboard from 'material-ui/svg-icons/action/dashboard';
 import SocialLocationCity from 'material-ui/svg-icons/social/location-city';
 import ActionQuestionAnswer from 'material-ui/svg-icons/action/question-answer';
+import { Google } from '../../../config/custom-environment-variables.js';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -79,7 +80,7 @@ class Profile extends React.Component {
       language: 'en',
       google: {
         version: '3',
-        key: process.env.GOOGLE_API_KEY
+        key: process.env.GOOGLE_API_KEY || Google.APIKey
       }
     });
     var options = {
