@@ -471,7 +471,7 @@ class CityInfo extends React.Component {
                 backgroundColor={grey50}
                 onTouchTap={function() {
                   $('html, body').animate({
-                    scrollTop: $('Chip#costofliving').offset().top-20
+                    scrollTop: $('#costofliving').offset().top-20
                   }, 750);
                 }}
                 style={styles.chip}>
