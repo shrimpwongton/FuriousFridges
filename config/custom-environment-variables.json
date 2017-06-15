@@ -1,0 +1,42 @@
+{
+  "knex": {
+    "connection": {
+      "database": "thesis_test"
+    }
+  },
+  "passport": {
+    "Google": {
+      "clientID": "474641457531-42r66228pu7pe4o7qr1t3hq0gs94ig9b.apps.googleusercontent.com",
+      "clientSecret": "2AQVQHSCmn9LlkhjZzoGAaem",
+      "callbackURL": "http://localhost:3000/auth/google/callback"
+    },
+    "Facebook": {
+      "clientID": "FILL_ME_IN",
+      "clientSecret": "FILL_ME_IN",
+      "callbackURL": "http://FILL_ME_IN/auth/facebook/callback"
+    },
+    "Twitter": {
+      "consumerKey": "FILL_ME_IN",
+      "consumerSecret": "FILL_ME_IN",
+      "callbackURL": "http://FILL_ME_IN/auth/twitter/callback"
+    }
+  },
+  "Eventbrite": {
+    "clientID": "UHLKIOWHWZNIOUNFTLKN"
+  },
+  "Meetups": {
+    "clientID": "75433a1e4842422166435c725d1a145b"
+  },
+  "Google_Places": {
+    "clientID": "AIzaSyCNXCi32K64d4xFbWvx5jfTQSFnxmbaQCs"
+  },
+  "Google_Coords": {
+    "clientID": "AIzaSyCNXCi32K64d4xFbWvx5jfTQSFnxmbaQCs"
+  },
+  "Google": {
+    "APIKey": "AIzaSyBKFaJPcOfAzv5LksI7c3F7OW6OXd-J4H0"
+  },
+  "News": {
+    "APIKey": "3e152e46b8854f99ab2b846810eb9880"
+  }
+}
