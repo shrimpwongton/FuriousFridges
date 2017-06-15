@@ -61,6 +61,7 @@ class CityInfo extends React.Component {
       housingArray: [],
       citySize: [],
       networkArray: [],
+      pollutionArray: [],
     };
     this.calculateColor = this.calculateColor.bind(this);
     this.calculateScoreStatus = this.calculateScoreStatus.bind(this);
@@ -183,6 +184,14 @@ class CityInfo extends React.Component {
       .then(res => {
         this.setState({
           citySize: res.data[0].data,
+        });
+      });
+    axios.get('/teleport', {
+      params: { category: 'POLLUTION' }
+    })
+      .then(res => {
+        this.setState({
+          pollutionArray: res.data[0].data,
         });
       });
     axios.get('/cityphoto')
@@ -358,6 +367,12 @@ class CityInfo extends React.Component {
       'Upload speed (Mbps)': ['Upload speed', 'Mbps'],
       'Internet access (upload) [Teleport score]': ['Internet Access (Upload)'],
     };
+    const pollutionLabels = {
+      'AIR-POLLUTION-TELESCORE' : 'Air Quality',
+      'CLEANLINESS-TELESCORE' : 'Cleanliness',
+      'DRINKING-WATER-QUALITY-TELESCORE' : 'Water Quality',
+      'URBAN-GREENERY-TELESCORE' : 'Urban Greenery',
+    };
     const context = this;
     return (
       <div>
@@ -475,6 +490,17 @@ class CityInfo extends React.Component {
                 style={styles.chip}>
                 <Avatar size={32} icon={<ActionExplore/>} color={grey50} backgroundColor={pinkA200}/>
                 Internet Speeds
+              </Chip>
+              <Chip
+                backgroundColor={grey50}
+                onTouchTap={function() {
+                  $('html, body').animate({
+                    scrollTop: $('#environmentalquality').offset().top-20
+                  }, 750);
+                }}
+                style={styles.chip}>
+                <Avatar size={32} icon={<MapsLocalFlorist/>} color={grey50} backgroundColor={pinkA200}/>
+                Environmental Quality
               </Chip>
             </div>
           </div>
@@ -793,6 +819,53 @@ class CityInfo extends React.Component {
               ) :
                 <span>
                 There is no information on internet speeds
+              </span>
+            }
+            {
+              this.props.width > 750 ?
+                <div style={styles.emptyStyle}/> :
+                <div/>
+            }
+          </div>
+        </div>
+        <div
+          style={{padding: '20px', backgroundColor: blueGrey500}}>
+          <span
+            id="environmentalquality"
+            style={styles.subHeaderStyle}>
+            Environmental Quality
+          </span>
+        </div>
+        <div
+          style={styles.flexStyle}>
+          <div
+            style={this.props.width > 750 ? styles.centerStyle : styles.mobileCenterStyle}>
+            {
+              context.state.pollutionArray.length > 0 ? context.state.pollutionArray.map((pollution, index) =>
+                <div
+                  style={styles.growStyle}>
+                  <MuiThemeProvider>
+                    <Card
+                      style={{margin: 8, backgroundColor: this.calculateColor(pollution.float_value*10), overflow: 'hidden'}}>
+                      <ListItem
+                        primaryText={pollutionLabels[pollution.id]}
+                        secondaryText={this.calculateScoreStatus(pollution.float_value*10)}
+                        disabled={true}
+                        style={{backgroundColor: grey50}}
+                      />
+                      <CardText
+                        style={{minWidth: 200, height: this.props.width > 750 ? 125 : 75, position: 'relative', backgroundColor: this.calculateColor(pollution.float_value*10) }}>
+                        <span
+                          style={{right: -8, bottom: -28, position: 'absolute', fontFamily: "'Roboto Light', sans-serif", color: grey50, fontSize: '5em'}}>
+                          {pollution.float_value.toFixed(2)}
+                        </span>
+                      </CardText>
+                    </Card>
+                  </MuiThemeProvider>
+                </div>
+              ) :
+                <span>
+                There is no information on environmental quality.
               </span>
             }
             {
