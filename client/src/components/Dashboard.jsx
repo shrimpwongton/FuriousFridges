@@ -39,6 +39,13 @@ class Dashboard extends React.Component {
     });
   }
 
+  componentDidMount() {
+    let context = this;
+    setTimeout(function() {
+      context.forceUpdate();
+    }, 1000);
+  }
+
   render () {
     return (
       <div
