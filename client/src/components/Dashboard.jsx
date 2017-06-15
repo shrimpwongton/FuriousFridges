@@ -79,7 +79,7 @@ class Dashboard extends React.Component {
             <EventCard/>
             <CraigsList />
             <NightClub />
-            <News />
+            {/*<News />*/}
             <Spiritual />
             <Transit />
             <Doctors />
