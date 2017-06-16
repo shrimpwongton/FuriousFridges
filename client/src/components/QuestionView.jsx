@@ -52,6 +52,7 @@ class QuestionView extends React.Component {
       this.forceUpdate();
     }
   }
+
   handleMapLoad(map) {
     this._mapComponent = map;
     if (map) {
@@ -96,12 +97,12 @@ class QuestionView extends React.Component {
           width: '84%',
           display: 'flex',
           flexFlow: 'row wrap',
-          justifyContent: 'center',} :
+          justifyContent: 'center', } :
         {
           width: '100%',
           display: 'flex',
           flexFlow: 'row wrap',
-          justifyContent: 'center',}}>
+          justifyContent: 'center', }}>
         {this.props.currentView === 'questions' ?
           <FloatingActionButton
             mini={this.props.width <= 750}
@@ -112,7 +113,7 @@ class QuestionView extends React.Component {
           </FloatingActionButton> :
           <div/>
         }
-        <div style={{flexGrow:1, width: '50%', minWidth: 300, margin: 12, position: 'relative'}}>
+        <div style={{flexGrow: 1, width: '50%', minWidth: 300, margin: 12, position: 'relative'}}>
           <IconButton
             tooltip="Click the map to get questions within the map bounds"
             tooltipPosition="bottom-left"
@@ -132,7 +133,7 @@ class QuestionView extends React.Component {
             onMarkerRightClick={_.noop}
           />
         </div>
-        <div style={{flexGrow:1, minWidth: 300, width: '40%'}}>
+        <div style={{flexGrow: 1, minWidth: 300, width: '40%'}}>
           {view}
         </div>
       </div>
