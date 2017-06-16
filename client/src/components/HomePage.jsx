@@ -2,7 +2,7 @@ import React from 'react';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {
-  blueGrey500, blueGrey400, blueGrey300, blueGrey200, grey300, white, pinkA200, grey50, grey500, red500, orange500, amber500, green500, lightGreen500
+  blueGrey500, blueGrey400, blueGrey200, grey800, grey300, white, pinkA200, grey50, grey500, red500, orange500, amber500, green500, lightGreen500
 } from 'material-ui/styles/colors';
 import {
   Link,
@@ -190,6 +190,7 @@ class HomePage extends React.Component {
         fontFamily: "'Roboto', sans-serif",
         color: grey300,
         fontSize: '2em',
+        marginBottom: 24,
       },
       headerStyle: {
         fontFamily: "'Roboto', sans-serif",
@@ -252,6 +253,7 @@ class HomePage extends React.Component {
       },
       chip: {
         margin: 4,
+        backgroundColor: grey50,
       },
       flexStyle: {
         height: '100%',
@@ -322,13 +324,16 @@ class HomePage extends React.Component {
         </div>
         <div
           id='firstSection'
-          style={{padding: '20px', backgroundColor: blueGrey400}}>
+          style={{padding: '20px', backgroundColor: blueGrey400, textAlign: 'center'}}>
           <span
             style={styles.subHeaderStyle}>
             Determine the best qualities of cities, and how they compare to others
           </span>
+        </div>
+        <div
+          style={{backgroundColor: blueGrey200}}>
           <div
-            style={{justifyContent: 'center', alignItems: 'center', display: 'flex',}}>
+            style={{justifyContent: 'center', alignItems: 'center', display: 'flex', marginTop: 24, marginBottom: 24}}>
             <div
               style={{width: '90%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
               {
@@ -352,6 +357,7 @@ class HomePage extends React.Component {
                   );
                 })
               }
+              <div style={{flexGrow: 10000}}/>
             </div>
           </div>
         </div>
@@ -366,14 +372,17 @@ class HomePage extends React.Component {
           </div>
         </div>*/}
         <div
-          style={{padding: '20px', backgroundColor: blueGrey400}}>
+          style={{padding: '20px', backgroundColor: blueGrey400, textAlign: 'center'}}>
           <span
             id='secondSection'
             style={styles.subHeaderStyle}>
             Hundreds of cities all over the world to lookup
           </span>
+        </div>
+        <div
+          style={{backgroundColor: blueGrey200}}>
           <div
-            style={{justifyContent: 'center', alignItems: 'center', display: 'flex',}}>
+            style={{justifyContent: 'center', alignItems: 'center', display: 'flex', marginTop: 24, marginBottom: 24}}>
             <div
               style={{width: '90%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
             {
@@ -406,13 +415,16 @@ class HomePage extends React.Component {
           </div>
         </div>*/}
         <div
-          style={{padding: '20px', backgroundColor: blueGrey400}}>
+          style={{padding: '20px', backgroundColor: blueGrey400, textAlign: 'center'}}>
           <span
             style={styles.subHeaderStyle}>
             Have questions?  Ask the locals for the best pint, or nearby park.
           </span>
+        </div>
+        <div
+          style={{backgroundColor: blueGrey200}}>
           <div
-            style={{justifyContent: 'center', alignItems: 'center', display: 'flex',}}>
+            style={{justifyContent: 'center', alignItems: 'center', display: 'flex', marginTop: 24, marginBottom: 24}}>
             <div
               style={{width: '90%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
               <MuiThemeProvider>
@@ -469,13 +481,16 @@ class HomePage extends React.Component {
          </div>
         </div>
         <div
-          style={{padding: '20px', backgroundColor: blueGrey400}}>
+          style={{padding: '20px', backgroundColor: blueGrey400, textAlign: 'center'}}>
           <span
             style={styles.subHeaderStyle}>
             About Us
           </span>
+        </div>
+        <div
+          style={{backgroundColor: blueGrey200}}>
           <div
-            style={{justifyContent: 'center', alignItems: 'center', display: 'flex',}}>
+            style={{justifyContent: 'center', alignItems: 'center', display: 'flex', marginTop: 24, marginBottom: 24}}>
             <div
               style={{width: '90%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
               <div
