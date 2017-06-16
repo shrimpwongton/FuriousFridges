@@ -47,9 +47,10 @@ class QuestionView extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    //console.log('COMPARE: ', this.props.mapMarkers.length, nextProps.mapMarkers.length);
     if (this.props.mapMarkers.length !== nextProps.mapMarkers.length) {
       this.forceUpdate();
+    } else if (this.props.questions.length !== nextProps.questions.length) {
+      this.handleMapClick(null, nextProps.questions);
     }
   }
 
@@ -60,9 +61,16 @@ class QuestionView extends React.Component {
     }
   }
 
-  handleMapClick(event) {
-    let targetMarker = this.props.mapMarkers[0];
-    let allQuestions = this.props.questions;
+  handleMapClick(event, questions) {
+    let args = [...arguments];
+    let allQuestions;
+    
+    if (args[1]) {
+      allQuestions = questions;
+    } else {
+      allQuestions = this.props.questions;
+    }
+    
     let questionsToDisplay = _.filter(allQuestions, question =>
       this._mapComponent.getBounds().contains({ lat: question.latitude, lng: question.longitude })
     );
