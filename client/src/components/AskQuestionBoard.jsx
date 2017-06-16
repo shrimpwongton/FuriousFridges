@@ -50,13 +50,6 @@ class AskQuestionBoard extends React.Component {
   }
 
   componentDidMount() {
-    this.getQuestions();
-    setInterval(() => {
-      this.getQuestions();
-    }, 5000);
-  }
-
-  getQuestions() {
     axios.get('/questions', {
       params: { orderBy: '-created_at' }
     })
@@ -64,6 +57,21 @@ class AskQuestionBoard extends React.Component {
         let questions = res.data;
         this.props.dispatchQuestions(questions);
         this.props.dispatchQuestionsInView(questions);
+        this.setMapMarkers(questions);
+      });
+    setInterval(() => {
+      this.updateQuestions();
+    }, 5000);
+  }
+
+  updateQuestions() {
+    axios.get('/questions', {
+      params: { orderBy: '-created_at' }
+    })
+      .then(res => {
+        let questions = res.data;
+        this.props.dispatchQuestions(questions);
+        this.props.dispatchQuestionsInView(this.props.questionsInView);
         this.setMapMarkers(questions);
       });
   }
