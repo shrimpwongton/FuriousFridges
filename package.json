@@ -29,6 +29,7 @@
     "grunt-cli": "^1.2.0",
     "grunt-pg": "https://github.com/watsoncj/grunt-pg.git",
     "highcharts": "^5.0.12",
+    "jest-cli": "^20.0.4",
     "jquery": "^3.2.1",
     "knex": "^0.12.9",
     "material-ui": "^0.18.1",

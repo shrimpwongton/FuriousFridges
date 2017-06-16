@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {GridList, GridTile} from 'material-ui/GridList';
 import Avatar from 'material-ui/Avatar';
 import Divider from 'material-ui/Divider';
 import MapsLocalDining from 'material-ui/svg-icons/maps/local-dining';
@@ -62,27 +63,29 @@ class Restaurants extends React.Component {
             }
           />
           <Divider/>
+          <GridList
+            cellHeight={200}
+            cols={1}
+          >
           {restaurants.length !== 0 ? restaurants.map((restaurant) => (
-            <CardMedia
-              overlay={
-                <CardTitle
-                  title={restaurant[1].name}
-                  subtitle={'Rating: ' + restaurant[1].rating}
-                />}
+            <GridTile
+              title={restaurant[1].name}
+              subtitle={'Rating: ' + restaurant[1].rating}
             >
-              <img 
-                style={styles.image}
-                src={restaurant[1].image}
-                alt="" />
-            </CardMedia>
+              <a target="_blank">
+                <img style={styles.image} src={restaurant[1].image} />
+              </a>
+            </GridTile>
           )) :
             <ListItem
-              primaryText = 'No restaurants nearby'
+              primaryText = 'No restaurants in the area'
             />
-        }
+          }
+          </GridList>
         </Card>
       </div>
     );
+
   }
 }
 
