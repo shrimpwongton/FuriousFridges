@@ -35,7 +35,7 @@ exports.up = function (knex, Promise) {
     }),
     knex.schema.createTableIfNotExists('questions', function(table) {
       table.increments('id').unsigned().primary();
-      table.string('question', 100).nullable();
+      table.string('question', 1000).nullable();
       table.string('location', 100).nullable();
       table.float('latitude').nullable();
       table.float('longitude').nullable();
@@ -44,7 +44,7 @@ exports.up = function (knex, Promise) {
     }),
     knex.schema.createTableIfNotExists('answers', function(table) {
       table.increments('id').unsigned().primary();
-      table.string('answer', 100).nullable();
+      table.string('answer', 1000).nullable();
       table.string('location', 100).nullable();
       table.integer('user_id').references('users.id');
       table.integer('question_id').references('questions.id').onDelete('CASCADE');
