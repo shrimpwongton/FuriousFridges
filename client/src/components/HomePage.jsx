@@ -99,6 +99,12 @@ class HomePage extends React.Component {
       '/assets/GuangHuaMen.jpg',
       '/assets/BrandenburgGate.jpg',
       '/assets/StBasilsCathedral.jpg',
+      '/assets/Coliseum.jpg',
+      '/assets/McWayFalls.jpg',
+      '/assets/Miaokou.jpg',
+      '/assets/Seattle.jpg',
+      '/assets/TheShard.jpg',
+      '/assets/TheVatican.jpg',
     ];
     const captions = [
       'Liberty Square, Taipei · 自由廣場，臺北市',
@@ -117,7 +123,13 @@ class HomePage extends React.Component {
       'Uluru, Australia',
       'Gwanghwamun, South Korea · 광화문，대한민국',
       'Brandenburg Gate, Berlin · Brandenburger Tor, Berlin',
-      'St. Basil\'s Cathedral, Moscow · Собор Василия Блаженного, Москва́'
+      'St. Basil\'s Cathedral, Moscow · Собор Василия Блаженного, Москва',
+      'Coliseum, Rome · Colosseo, Roma',
+      'McWay Falls, Big Sur, California',
+      'MiaoKou Night Market, Keelung · 廟口夜市，基隆市',
+      'Space Needle, Seattle',
+      'The Shard, London',
+      'Vatican City · Status Civitatis Vaticanae'
     ];
     let pictureSet = new Set();
     while ( pictureSet.size < 4) {
