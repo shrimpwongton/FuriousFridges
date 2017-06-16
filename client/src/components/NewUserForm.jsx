@@ -311,7 +311,7 @@ class NewUserForm extends React.Component {
             </ToolbarGroup>
           </Toolbar>
         </MuiThemeProvider>
-        <div style={{width: '100%', maxWidth: '800px', marginTop: '20px', marginLeft: 'auto', marginRight: 'auto'}}>
+        <div style={this.state.width > 750 ? {width: '100%', maxWidth: '800px', marginTop: '20px', marginLeft: 'auto', marginRight: 'auto'} :  {width: '90%', maxWidth: '800px', marginTop: '20px', marginLeft: 'auto', marginRight: 'auto'}}>
           <MuiThemeProvider muiTheme={muiTheme}>
             <Card>
               <CardHeader
@@ -325,7 +325,7 @@ class NewUserForm extends React.Component {
               <CardText>
                 <Stepper
                   activeStep={stepIndex}
-                  orientation='horizontal'
+                  orientation='vertical'
                 >
                   <Step>
                     <StepLabel>
