@@ -28,6 +28,7 @@ class AskQuestionBoard extends React.Component {
   constructor(props) {
     super(props);
     this.objectKeyByValue = this.objectKeyByValue.bind(this);
+    this.updateQuestions = this.updateQuestions.bind(this);
     this.addQuestion = this.addQuestion.bind(this);
     this.deleteQuestion = this.deleteQuestion.bind(this);
     this.deleteAnswer = this.deleteAnswer.bind(this);
@@ -59,9 +60,7 @@ class AskQuestionBoard extends React.Component {
         this.props.dispatchQuestionsInView(questions);
         this.setMapMarkers(questions);
       });
-    setInterval(() => {
-      this.updateQuestions();
-    }, 5000);
+    setInterval(this.updateQuestions, 5000);
   }
 
   updateQuestions() {
@@ -71,7 +70,6 @@ class AskQuestionBoard extends React.Component {
       .then(res => {
         let questions = res.data;
         this.props.dispatchQuestions(questions);
-        this.props.dispatchQuestionsInView(this.props.questionsInView);
         this.setMapMarkers(questions);
       });
   }
