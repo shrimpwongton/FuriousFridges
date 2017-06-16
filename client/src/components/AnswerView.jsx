@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import IconButton from 'material-ui/IconButton';
 import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import TextField from 'material-ui/TextField';
-import { Card, CardTitle } from 'material-ui/Card';
+import { Card, CardTitle, CardHeader } from 'material-ui/Card';
 import { ListItem } from 'material-ui/List';
 import { pinkA200 } from 'material-ui/styles/colors';
 import AnswerCollection from './AnswerCollection.jsx';
+import Divider from 'material-ui/Divider';
 
 
 const AnswerView = (props) => {
@@ -46,9 +47,12 @@ const AnswerView = (props) => {
         onTouchTap={props.backToQuestions}>
         <NavigationArrowBack />
       </IconButton>
-      <CardTitle
-        title={props.currentQuestion.body}
-        subtitle={`${props.currentQuestion.author} · ${props.currentQuestion.location} · ${postTime}`} />
+      <CardHeader
+        title={<span style={{'fontSize': '20px'}}>{props.currentQuestion.body}<br /></span>}
+        subtitle={`${props.currentQuestion.author} · ${props.currentQuestion.location} · ${postTime}`}
+        avatar={props.currentQuestion.photoUrl}
+      />
+      <Divider/>
       <AnswerCollection deleteAnswer={props.deleteAnswer} />
       <ListItem
         disabled={true}>
