@@ -501,7 +501,7 @@ class HomePage extends React.Component {
                       subtitle="Software Engineer"
                     />
                     <CardMedia>
-                      <img src="https://lh4.googleusercontent.com/SF8SL_Ay3ihGtIHuFGRLmxn-AHoX9BPXKsIc7_Ld2iARMKm15e5zZfaBZ_Pxjla0S4pH4es1Rfsw4zI=w3360-h1906-rw" />
+                      <img src="/assets/AnthonyWong.webp" />
                     </CardMedia>
                     <CardActions>
                       <FlatButton href='https://linkedin.com/in/anthonywg' style={{color: '#0077B5'}} label="LinkedIn" />
@@ -519,7 +519,7 @@ class HomePage extends React.Component {
                       subtitle="Software Engineer"
                     />
                     <CardMedia>
-                      <img src="https://lh6.googleusercontent.com/R7ufTSKGYwpccRlcf-0-ASdejrkBZ36a_hkwqEHzetj6-S7kTYpIOGCzfnBJ-jNgCCwEoWq13kzGByQ=w3360-h1906-rw" />
+                      <img src="/assets/KaraMarnell.webp" />
                     </CardMedia>
                     <CardActions>
                       <FlatButton href='https://www.linkedin.com/in/karamarnell/' style={{color: '#0077B5'}} label="LinkedIn" />
@@ -537,7 +537,7 @@ class HomePage extends React.Component {
                       subtitle="Software Engineer"
                     />
                     <CardMedia>
-                      <img src="https://lh3.googleusercontent.com/_r2_tajEfRtSv4HZjBaM0AkMilSK86fUAEqEN3s73aFONz0ERCRvUnik06VR1wdLBVKsQ15Pw_oyvKY=w3360-h1906-rw" />
+                      <img src='/assets/SalihAbuelyaman.webp' />
                     </CardMedia>
                     <CardActions>
                       <FlatButton href='https://www.linkedin.com/in/salih7/' style={{color: '#0077B5'}} label="LinkedIn" />
