@@ -23,7 +23,6 @@ import SocialPublic from 'material-ui/svg-icons/social/public';
 import MapsLocalLibrary from 'material-ui/svg-icons/maps/local-library';
 import ActionExplore from 'material-ui/svg-icons/action/explore';
 import SocialGroup from 'material-ui/svg-icons/social/group';
-import Divider from 'material-ui/divider';
 import ActionTrendingUp from 'material-ui/svg-icons/action/trending-up';
 import ActionTrendingDown from 'material-ui/svg-icons/action/trending-down';
 import MapsLocalAtm from 'material-ui/svg-icons/maps/local-atm';
