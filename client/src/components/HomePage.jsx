@@ -2,7 +2,7 @@ import React from 'react';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {
-  blueGrey500, blueGrey400, blueGrey300, blueGrey200, grey300, white, pinkA200, grey50
+  blueGrey500, blueGrey400, blueGrey300, blueGrey200, grey300, white, pinkA200, grey50, grey500, red500, orange500, amber500, green500, lightGreen500
 } from 'material-ui/styles/colors';
 import {
   Link,
@@ -23,6 +23,7 @@ import SocialPublic from 'material-ui/svg-icons/social/public';
 import MapsLocalLibrary from 'material-ui/svg-icons/maps/local-library';
 import ActionExplore from 'material-ui/svg-icons/action/explore';
 import SocialGroup from 'material-ui/svg-icons/social/group';
+import Divider from 'material-ui/divider';
 import ActionTrendingUp from 'material-ui/svg-icons/action/trending-up';
 import ActionTrendingDown from 'material-ui/svg-icons/action/trending-down';
 import MapsLocalAtm from 'material-ui/svg-icons/maps/local-atm';
@@ -41,6 +42,7 @@ class HomePage extends React.Component {
     this.state = {
     };
     this.calculateScoreStatus = this.calculateScoreStatus.bind(this);
+    this.calculateColor = this.calculateColor.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
   }
 
@@ -55,6 +57,21 @@ class HomePage extends React.Component {
       return 'Below Average';
     } else {
       return 'Among the worst';
+    }
+  }
+  calculateColor (score) {
+    if ( score > 8 ) {
+      return green500;
+    } else if ( score > 6 ) {
+      return lightGreen500;
+    } else if ( score > 4.5 ) {
+      return amber500;
+    } else if ( score > 3 ) {
+      return orange500;
+    } else if ( score > 0 ) {
+      return red500;
+    } else {
+      return grey500;
     }
   }
 
@@ -135,7 +152,10 @@ class HomePage extends React.Component {
       ['Business Freedom', <SocialDomain/>],
       ['Startup Culture', <HardwareLaptop/>],
       ['Venture Capital', <SocialPerson/>]];
-
+    let score = [];
+    for ( let i = 0; i < cards.length; i++ ) {
+      score[i] = Math.random()*10;
+    }
     let cardSet = new Set();
     while ( cardSet.size < 10 ) {
       cardSet.add(cards[Math.floor(Math.random() * cards.length)]);
@@ -308,28 +328,31 @@ class HomePage extends React.Component {
             Determine the best qualities of cities, and how they compare to others
           </span>
           <div
-            style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
-            {
-              cardSet.map((card) => {
-                return (
-                  <MuiThemeProvider>
-                    <Card
-                      style={{flexGrow: 1, margin: '4px'}}>
-                      <CardHeader
-                        title={card[0]}
-                        subtitle={this.calculateScoreStatus(Math.random() * 10)}
-                        avatar={
-                          <Avatar
-                            icon={card[1]}
-                            backgroundColor={pinkA200}
-                          />
-                        }
-                      />
-                    </Card>
-                  </MuiThemeProvider>
-                );
-              })
-            }
+            style={{justifyContent: 'center', alignItems: 'center', display: 'flex',}}>
+            <div
+              style={{width: '90%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+              {
+                cardSet.map((card, index) => {
+                  return (
+                    <MuiThemeProvider>
+                      <Card
+                        style={{flexGrow: 1, margin: '4px'}}>
+                        <CardHeader
+                          title={card[0]}
+                          subtitle={this.calculateScoreStatus(score[index])}
+                          avatar={
+                            <Avatar
+                              icon={card[1]}
+                              backgroundColor={this.calculateColor(score[index])}
+                            />
+                          }
+                        />
+                      </Card>
+                    </MuiThemeProvider>
+                  );
+                })
+              }
+            </div>
           </div>
         </div>
         {/*<div
@@ -350,7 +373,9 @@ class HomePage extends React.Component {
             Hundreds of cities all over the world to lookup
           </span>
           <div
-            style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+            style={{justifyContent: 'center', alignItems: 'center', display: 'flex',}}>
+            <div
+              style={{width: '90%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
             {
               set.map((city) => {
                 return (
@@ -367,6 +392,7 @@ class HomePage extends React.Component {
                   </MuiThemeProvider>);
               })
             }
+            </div>
           </div>
         </div>
         {/*<div
@@ -385,36 +411,130 @@ class HomePage extends React.Component {
             style={styles.subHeaderStyle}>
             Have questions?  Ask the locals for the best pint, or nearby park.
           </span>
-          {/*<MuiThemeProvider>
-            <Card>
-              <CardTitle
-                title='What is the weather like in San Francisco?'
-                subtitle='Kevin Smith' />
-              <ListItem
-                primaryText='The weather is pretty mild year round.'
-                secondaryText='Jane Phillips'
-                leftAvatar={<Avatar src={this.props.photoUrl} />}
-                disabled={true}
-              />
-              <ListItem
-                primaryText='Foggy in the morning, but it clears up by mid-day'
-                secondaryText='Frank Stevens'
-                leftAvatar={<Avatar src={this.props.photoUrl} />}
-                disabled={true}
-              />
-            </Card>
-          </MuiThemeProvider>*/}
-        </div>
-        {/*<div
-          style={styles.partialFlexStyle}>
           <div
-            style={styles.parallaxFourth}>
-            <p
-              style={styles.captionStyle}>
-              {captions[pictureSet[3]]}
-            </p>
+            style={{justifyContent: 'center', alignItems: 'center', display: 'flex',}}>
+            <div
+              style={{width: '90%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+              <MuiThemeProvider>
+                <Card
+                  style={{margin: 12, maxWidth: 600, flexGrow: 1}}>
+                  <CardTitle
+                    title='What is the weather like in San Francisco?'
+                    subtitle='Kevin Smith' />
+                  <ListItem
+                    primaryText='The weather is pretty mild year round.'
+                    secondaryText='Jane Wong'
+                    leftAvatar={<Avatar><SocialPerson style={{color: white}}/></Avatar>}
+                    disabled={true}
+                  />
+                  <ListItem
+                    primaryText='Foggy in the morning, but it clears up by mid-day'
+                    secondaryText='Frank Ervin'
+                    leftAvatar={<Avatar><SocialPerson style={{color: white}}/></Avatar>}
+                    disabled={true}
+                  />
+                </Card>
+              </MuiThemeProvider>
+              <MuiThemeProvider>
+                <Card
+                  style={{margin: 12, maxWidth: 600, flexGrow: 1}}>
+                  <CardTitle
+                    title='How safe is it in New York City?'
+                    subtitle='May Kim' />
+                  <ListItem
+                    primaryText='Pretty safe.'
+                    secondaryText='Tony Garvin'
+                    leftAvatar={<Avatar><SocialPerson style={{color: white}}/></Avatar>}
+                    disabled={true}
+                  />
+                  <ListItem
+                    primaryText='Nothing to worry about, especially in Manhattan'
+                    secondaryText='Allison Franklin'
+                    leftAvatar={<Avatar><SocialPerson style={{color: white}}/></Avatar>}
+                    disabled={true}
+                  />
+                </Card>
+              </MuiThemeProvider>
+            </div>
           </div>
-        </div>*/}
+        </div>
+        <div
+         style={styles.partialFlexStyle}>
+         <div
+         style={styles.parallaxFourth}>
+         <p
+         style={styles.captionStyle}>
+         {captions[pictureSet[3]]}
+         </p>
+         </div>
+        </div>
+        <div
+          style={{padding: '20px', backgroundColor: blueGrey400}}>
+          <span
+            style={styles.subHeaderStyle}>
+            About Us
+          </span>
+          <div
+            style={{justifyContent: 'center', alignItems: 'center', display: 'flex',}}>
+            <div
+              style={{width: '90%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+              <div
+                style={{minWidth: 300, flexGrow: 1, maxWidth: 400, margin: 12}}>
+                <MuiThemeProvider>
+                  <Card>
+                    <CardHeader
+                      title="Anthony Wong"
+                      subtitle="Software Engineer"
+                    />
+                    <CardMedia>
+                      <img src="https://lh4.googleusercontent.com/SF8SL_Ay3ihGtIHuFGRLmxn-AHoX9BPXKsIc7_Ld2iARMKm15e5zZfaBZ_Pxjla0S4pH4es1Rfsw4zI=w3360-h1906-rw" />
+                    </CardMedia>
+                    <CardActions>
+                      <FlatButton href='https://linkedin.com/in/anthonywg' style={{color: '#0077B5'}} label="LinkedIn" />
+                      <FlatButton href='https://git.io/anthonywong' label="GitHub" />
+                    </CardActions>
+                  </Card>
+                </MuiThemeProvider>
+              </div>
+              <div
+                style={{minWidth: 300, flexGrow: 1, maxWidth: 400, margin: 12}}>
+                <MuiThemeProvider>
+                  <Card>
+                    <CardHeader
+                      title="Kara Marnell"
+                      subtitle="Software Engineer"
+                    />
+                    <CardMedia>
+                      <img src="https://lh6.googleusercontent.com/R7ufTSKGYwpccRlcf-0-ASdejrkBZ36a_hkwqEHzetj6-S7kTYpIOGCzfnBJ-jNgCCwEoWq13kzGByQ=w3360-h1906-rw" />
+                    </CardMedia>
+                    <CardActions>
+                      <FlatButton href='https://www.linkedin.com/in/karamarnell/' style={{color: '#0077B5'}} label="LinkedIn" />
+                      <FlatButton href='https://github.com/kmarnell' label="GitHub" />
+                    </CardActions>
+                  </Card>
+                </MuiThemeProvider>
+              </div>
+              <div
+                style={{minWidth: 300, flexGrow: 1, maxWidth: 400, margin: 12}}>
+                <MuiThemeProvider>
+                  <Card>
+                    <CardHeader
+                      title="Salih Abuelyaman"
+                      subtitle="Software Engineer"
+                    />
+                    <CardMedia>
+                      <img src="https://lh3.googleusercontent.com/_r2_tajEfRtSv4HZjBaM0AkMilSK86fUAEqEN3s73aFONz0ERCRvUnik06VR1wdLBVKsQ15Pw_oyvKY=w3360-h1906-rw" />
+                    </CardMedia>
+                    <CardActions>
+                      <FlatButton href='https://www.linkedin.com/in/salih7/' style={{color: '#0077B5'}} label="LinkedIn" />
+                      <FlatButton href='https://github.com/salih7' label="GitHub" />
+                    </CardActions>
+                  </Card>
+                </MuiThemeProvider>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>);
   }
 }
