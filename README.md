@@ -1,17 +1,16 @@
-# Project Name
+# Relocate.me
 
-The project description
+Time for a change? Relocate.me is an interactive and dynamic app to help navigate through the process of moving to a new city.
 
 ## Team
 
-- teamMember
-- teamMember
-- teamMember
-- teamMember
+- Anthony Wong
+- Kara Marnell
+- Salih Abuelyaman
 
 ## Roadmap
 
-View the project roadmap [here](LINK_TO_DOC)
+View the project roadmap [here](https://docs.google.com/spreadsheets/d/1A5aMDpD3LbgFSgufGwLQm-RLTkQWy6dcKlVitrCV7Jk/edit?usp=sharing)
 
 ## Contributing
 
@@ -53,6 +52,15 @@ Yarn is a replacement for npm. It's faster and *guarantees* consistency -- as yo
 ```
 yarn global add grunt-cli knex eslint
 ```
+
+## App Configuration
+
+Override settings `config/default.json` in any environment by making a copy of `config/ENV.example.json` and naming it `config/ENV.json` and setting the appropriate variable. 
+
+For environments that require use of environment variables, you can supply variables as defined in `config/custom-environment-variables.json`.
+
+See https://www.npmjs.com/package/config
+And https://github.com/lorenwest/node-config/wiki/Environment-Variables#custom-environment-variables
 
 ## Database Initialization
 
